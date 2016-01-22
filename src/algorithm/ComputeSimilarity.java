@@ -4,16 +4,17 @@
  * wangcong15@mails.tsinghua.edu.cn
  * 2016.01.21
  */
-package main;
+package algorithm;
 
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
-import algorithm.Definition;
-
-public class MyASTVisitor extends ASTVisitor{
+public class ComputeSimilarity extends ASTVisitor{
+	
 	public Definition DEFI = new Definition();
+	
+	// Method visit : calculate the similarity and combine the similar methods
 	@Override
 	public boolean visit(TypeDeclaration node){
 		MethodDeclaration[] mdList = node.getMethods();
