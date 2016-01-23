@@ -21,7 +21,8 @@ public class Definition {
 	
 	private String srcName = "";
 	private int number = 1;
-	private double threshold = 0.5;
+	private double threshold = 0.7;
+	private static CountNodes mVisit = new CountNodes();
 	
 	// Method setSrcName : set the name of the source file
 	public void setSrcName(String str){
@@ -80,14 +81,32 @@ public class Definition {
 	 */
 	@SuppressWarnings("unchecked")
 	public Boolean Similarity(MethodDeclaration md1, MethodDeclaration md2){
+		mVisit = new CountNodes();
 		if(md1.getBody() == null || md2.getBody() == null)
 			return false;
 		List<Statement> list1 = md1.getBody().statements();
 		List<Statement> list2 = md2.getBody().statements();
-		int total = list1.size() + list2.size();
-		double same = 0;
+		if(list1.size() == 1 || list2.size() == 1)
+			return false;
+		int total = 0;
+		double same = 0.0;
 		int len1 = list1.size();
 		int len2 = list2.size();
+		//calculate the number of node
+		int countNodes1[] = new int[len1];
+		for(int i = 0; i < len1; i++){
+			list1.get(i).accept(mVisit);
+			countNodes1[i] = mVisit.mCount;
+			total += mVisit.mCount;
+		}
+		int countNodes2[] = new int[len2];
+		for(int i = 0; i < len2; i++){
+			list2.get(i).accept(mVisit);
+			countNodes2[i] = mVisit.mCount;
+			total += mVisit.mCount;
+		}
+		BestChoice bc = new BestChoice();
+		bc.addCount(countNodes1, countNodes2);
 		int temp = -1;
 		Boolean mFlag = true;
 		for(int i = 0; i < len1; i++)
@@ -96,17 +115,15 @@ public class Definition {
 					if(j < temp)
 						mFlag = false;
 					temp = j;
-					same += 2.0;
-					break;
+					bc.addMatch(new Matches(i, j));
 				}
+		if(bc.list.size() != 0)
+			same = bc.bestChoice(0);
 		if(!mFlag){
 			System.out.println("[" + number + ":" + srcName + "]" + md1.getName().toString() + "-" + md2.getName().toString() + ":" + same / total);
 			number += 1;
 		}
-		if(same / total > threshold)
-			return true;
-		else
-			return false;
+		return same / total > threshold;
 	}
 	
 	/* Method Similarity £º judge the sameness of two Blocks
@@ -114,20 +131,38 @@ public class Definition {
 	 */
 	@SuppressWarnings("unchecked")
 	public Boolean Similarity(Block bk1, Block bk2){
+		mVisit = new CountNodes();
 		if(bk1 == null || bk2 == null)
 			return false;
 		List<Statement> list1 = bk1.statements();
 		List<Statement> list2 = bk2.statements();
-		int total = list1.size() + list2.size();
-		double same = 0;
+		if(list1.size() == 1 || list2.size() == 1)
+			return false;
+		int total = 0;
+		double same = 0.0;
 		int len1 = list1.size();
 		int len2 = list2.size();
+		//calculate the number of node
+		int countNodes1[] = new int[len1];
+		for(int i = 0; i < len1; i++){
+			list1.get(i).accept(mVisit);
+			countNodes1[i] = mVisit.mCount;
+			total += mVisit.mCount;
+		}
+		int countNodes2[] = new int[len2];
+		for(int i = 0; i < len2; i++){
+			list2.get(i).accept(mVisit);
+			countNodes2[i] = mVisit.mCount;
+			total += mVisit.mCount;
+		}
+		BestChoice bc = new BestChoice();
+		bc.addCount(countNodes1, countNodes2);
 		for(int i = 0; i < len1; i++)
 			for(int j = 0; j < len2; j++)
-				if(isSame(list1.get(i), list2.get(j))){
-					same += 2.0;
-					break;
-				}
+				if(isSame(list1.get(i), list2.get(j)))
+					bc.addMatch(new Matches(i, j));
+		if(bc.list.size() != 0)
+			same = bc.bestChoice(0);
 		return same / total > threshold;
 	}
 }

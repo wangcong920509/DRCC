@@ -25,8 +25,7 @@ import algorithm.ComputeSimilarity;
 public class Main {
 	
 	private final static String BASIC_ADDR = "jdk_src";
-	@SuppressWarnings("unused")
-	private final static String SAMPLE_FILE = "jdk_src\\java\\math\\BigInteger.java";
+//	private final static String SAMPLE_FILE = "jdk_src\\java\\math\\BigInteger.java";
 	private static ComputeSimilarity mVisit = new ComputeSimilarity();
 	
 	/* Method main : entrance of the tool

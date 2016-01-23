@@ -13,6 +13,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 public class RefactorClone  extends ASTVisitor{
 	
 	// Method visit : extract clone statements when visiting the TypeDeclaration node
+	@SuppressWarnings("unused")
 	@Override
 	public boolean visit(TypeDeclaration node){
 		MethodDeclaration[] mdList = node.getMethods();
