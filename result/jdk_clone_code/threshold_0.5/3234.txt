@@ -1,0 +1,32 @@
+/** 
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
+ */
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}
+/** 
+ * Sets the extension for the given key. If the value is null or the empty string, the extension is removed.  Otherwise, the extension must be <a href="./Locale.html#def_extensions">well-formed</a> or an exception is thrown. <p><b>Note:</b> The key  {@link Locale#UNICODE_LOCALE_EXTENSION UNICODE_LOCALE_EXTENSION} ('u') is used for the Unicode locale extension.Setting a value for this key replaces any existing Unicode locale key/type pairs with those defined in the extension. <p><b>Note:</b> The key  {@link Locale#PRIVATE_USE_EXTENSION PRIVATE_USE_EXTENSION} ('x') is used for the private use code. To bewell-formed, the value for this key needs only to have subtags of one to eight alphanumeric characters, not two to eight as in the general case.
+ * @param key the extension key
+ * @param value the extension value
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> is illegalor <code>value</code> is ill-formed
+ * @see #setUnicodeLocaleKeyword(String,String)
+ */
+public Builder setExtension(char key,String value){
+  try {
+    localeBuilder.setExtension(key,value);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}

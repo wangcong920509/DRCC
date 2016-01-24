@@ -1,0 +1,24 @@
+jdk_src\javax\swing\JTextPane.java
+/** 
+ * Inserts a component into the document as a replacement for the currently selected content.  If there is no selection the component is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content. <p> The component given is the actual component used by the JTextPane.  Since components cannot be a child of more than one container, this method should not be used in situations where the model is shared by text components. <p> The component is placed relative to the text baseline according to the value returned by <code>Component.getAlignmentY</code>.  For Swing components this value can be conveniently set using the method <code>JComponent.setAlignmentY</code>.  For example, setting a value of <code>0.75</code> will cause 75 percent of the component to be above the baseline, and 25 percent of the component to be below the baseline.
+ * @param c    the component to insert
+ */
+public void insertComponent(Component c){
+  MutableAttributeSet inputAttributes=getInputAttributes();
+  inputAttributes.removeAttributes(inputAttributes);
+  StyleConstants.setComponent(inputAttributes,c);
+  replaceSelection(" ",false);
+  inputAttributes.removeAttributes(inputAttributes);
+}
+/** 
+ * Inserts an icon into the document as a replacement for the currently selected content.  If there is no selection the icon is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content.
+ * @param g    the icon to insert
+ * @see Icon
+ */
+public void insertIcon(Icon g){
+  MutableAttributeSet inputAttributes=getInputAttributes();
+  inputAttributes.removeAttributes(inputAttributes);
+  StyleConstants.setIcon(inputAttributes,g);
+  replaceSelection(" ",false);
+  inputAttributes.removeAttributes(inputAttributes);
+}

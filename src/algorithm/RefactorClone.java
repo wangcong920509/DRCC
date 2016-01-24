@@ -6,17 +6,27 @@
  */
 package algorithm;
 
-import org.eclipse.jdt.core.dom.ASTVisitor;
-import org.eclipse.jdt.core.dom.MethodDeclaration;
-import org.eclipse.jdt.core.dom.TypeDeclaration;
+import java.util.ArrayList;
+import java.util.List;
 
-public class RefactorClone  extends ASTVisitor{
+public class RefactorClone{
 	
-	// Method visit : extract clone statements when visiting the TypeDeclaration node
 	@SuppressWarnings("unused")
-	@Override
-	public boolean visit(TypeDeclaration node){
-		MethodDeclaration[] mdList = node.getMethods();
-		return false;
+	private int lenMin = 3;
+	private List<MethodMatches> list = new ArrayList<MethodMatches>();
+	
+	// Method setLenMin : set the value of lenMin
+	public void setLenMin(int lm){
+		lenMin = lm;
+	}
+	
+	// Method addMM : add a new MethodMatches to list
+	public void addMM(MethodMatches mms){
+		list.add(mms);
+	}
+
+	// Method refactor : calculate the refactored code snippets
+	public void refactor() {
+		
 	}
 }

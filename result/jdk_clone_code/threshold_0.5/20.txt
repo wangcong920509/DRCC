@@ -1,0 +1,8 @@
+public void write_long(int x){
+  super.write_long(x);
+  checkPrimitiveAcrossFragmentedChunk();
+}
+public void write_longlong(long x){
+  super.write_longlong(x);
+  checkPrimitiveAcrossFragmentedChunk();
+}

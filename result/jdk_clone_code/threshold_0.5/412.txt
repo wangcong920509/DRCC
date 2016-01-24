@@ -1,0 +1,16 @@
+/** 
+ * Method add
+ * @param mgmtdata
+ */
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param spkidata
+ */
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

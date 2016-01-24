@@ -1,0 +1,121 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\compiler\Stylesheet.java
+/** 
+ * Compile the translet's constructor
+ */
+private void compileConstructor(ClassGenerator classGen,Output output){
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final InstructionList il=new InstructionList();
+  final MethodGenerator constructor=new MethodGenerator(ACC_PUBLIC,com.sun.org.apache.bcel.internal.generic.Type.VOID,null,null,"<init>",_className,il,cpg);
+  il.append(classGen.loadTranslet());
+  il.append(new INVOKESPECIAL(cpg.addMethodref(TRANSLET_CLASS,"<init>","()V")));
+  constructor.markChunkStart();
+  il.append(classGen.loadTranslet());
+  il.append(new GETSTATIC(cpg.addFieldref(_className,STATIC_NAMES_ARRAY_FIELD,NAMES_INDEX_SIG)));
+  il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,NAMES_INDEX,NAMES_INDEX_SIG)));
+  il.append(classGen.loadTranslet());
+  il.append(new GETSTATIC(cpg.addFieldref(_className,STATIC_URIS_ARRAY_FIELD,URIS_INDEX_SIG)));
+  il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,URIS_INDEX,URIS_INDEX_SIG)));
+  constructor.markChunkEnd();
+  constructor.markChunkStart();
+  il.append(classGen.loadTranslet());
+  il.append(new GETSTATIC(cpg.addFieldref(_className,STATIC_TYPES_ARRAY_FIELD,TYPES_INDEX_SIG)));
+  il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,TYPES_INDEX,TYPES_INDEX_SIG)));
+  constructor.markChunkEnd();
+  constructor.markChunkStart();
+  il.append(classGen.loadTranslet());
+  il.append(new GETSTATIC(cpg.addFieldref(_className,STATIC_NAMESPACE_ARRAY_FIELD,NAMESPACE_INDEX_SIG)));
+  il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,NAMESPACE_INDEX,NAMESPACE_INDEX_SIG)));
+  constructor.markChunkEnd();
+  constructor.markChunkStart();
+  il.append(classGen.loadTranslet());
+  il.append(new PUSH(cpg,AbstractTranslet.CURRENT_TRANSLET_VERSION));
+  il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,TRANSLET_VERSION_INDEX,TRANSLET_VERSION_INDEX_SIG)));
+  constructor.markChunkEnd();
+  if (_hasIdCall) {
+    constructor.markChunkStart();
+    il.append(classGen.loadTranslet());
+    il.append(new PUSH(cpg,Boolean.TRUE));
+    il.append(new PUTFIELD(cpg.addFieldref(TRANSLET_CLASS,HASIDCALL_INDEX,HASIDCALL_INDEX_SIG)));
+    constructor.markChunkEnd();
+  }
+  if (output != null) {
+    constructor.markChunkStart();
+    output.translate(classGen,constructor);
+    constructor.markChunkEnd();
+  }
+  if (_numberFormattingUsed) {
+    constructor.markChunkStart();
+    DecimalFormatting.translateDefaultDFS(classGen,constructor);
+    constructor.markChunkEnd();
+  }
+  il.append(RETURN);
+  classGen.addMethod(constructor);
+}
+/** 
+ * Compile transform() into the output class. This method is used to initialize global variables and global parameters. The current node is set to be the document's root node.
+ */
+private void compileTransform(ClassGenerator classGen){
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final com.sun.org.apache.bcel.internal.generic.Type[] argTypes=new com.sun.org.apache.bcel.internal.generic.Type[3];
+  argTypes[0]=Util.getJCRefType(DOM_INTF_SIG);
+  argTypes[1]=Util.getJCRefType(NODE_ITERATOR_SIG);
+  argTypes[2]=Util.getJCRefType(TRANSLET_OUTPUT_SIG);
+  final String[] argNames=new String[3];
+  argNames[0]=DOCUMENT_PNAME;
+  argNames[1]=ITERATOR_PNAME;
+  argNames[2]=TRANSLET_OUTPUT_PNAME;
+  final InstructionList il=new InstructionList();
+  final MethodGenerator transf=new MethodGenerator(ACC_PUBLIC,com.sun.org.apache.bcel.internal.generic.Type.VOID,argTypes,argNames,"transform",_className,il,classGen.getConstantPool());
+  transf.addException("com.sun.org.apache.xalan.internal.xsltc.TransletException");
+  final LocalVariableGen current=transf.addLocalVariable("current",com.sun.org.apache.bcel.internal.generic.Type.INT,null,null);
+  final String applyTemplatesSig=classGen.getApplyTemplatesSig();
+  final int applyTemplates=cpg.addMethodref(getClassName(),"applyTemplates",applyTemplatesSig);
+  final int domField=cpg.addFieldref(getClassName(),DOM_FIELD,DOM_INTF_SIG);
+  il.append(classGen.loadTranslet());
+  if (isMultiDocument()) {
+    il.append(new NEW(cpg.addClass(MULTI_DOM_CLASS)));
+    il.append(DUP);
+  }
+  il.append(classGen.loadTranslet());
+  il.append(transf.loadDOM());
+  il.append(new INVOKEVIRTUAL(cpg.addMethodref(TRANSLET_CLASS,"makeDOMAdapter","(" + DOM_INTF_SIG + ")"+ DOM_ADAPTER_SIG)));
+  if (isMultiDocument()) {
+    final int init=cpg.addMethodref(MULTI_DOM_CLASS,"<init>","(" + DOM_INTF_SIG + ")V");
+    il.append(new INVOKESPECIAL(init));
+  }
+  il.append(new PUTFIELD(domField));
+  final int gitr=cpg.addInterfaceMethodref(DOM_INTF,"getIterator","()" + NODE_ITERATOR_SIG);
+  il.append(transf.loadDOM());
+  il.append(new INVOKEINTERFACE(gitr,1));
+  il.append(transf.nextNode());
+  current.setStart(il.append(new ISTORE(current.getIndex())));
+  il.append(classGen.loadTranslet());
+  il.append(transf.loadHandler());
+  final int index=cpg.addMethodref(TRANSLET_CLASS,"transferOutputSettings","(" + OUTPUT_HANDLER_SIG + ")V");
+  il.append(new INVOKEVIRTUAL(index));
+  final String keySig=compileBuildKeys(classGen);
+  final int keyIdx=cpg.addMethodref(getClassName(),"buildKeys",keySig);
+  final Enumeration toplevel=elements();
+  if (_globals.size() > 0 || toplevel.hasMoreElements()) {
+    final String topLevelSig=compileTopLevel(classGen);
+    final int topLevelIdx=cpg.addMethodref(getClassName(),"topLevel",topLevelSig);
+    il.append(classGen.loadTranslet());
+    il.append(classGen.loadTranslet());
+    il.append(new GETFIELD(domField));
+    il.append(transf.loadIterator());
+    il.append(transf.loadHandler());
+    il.append(new INVOKEVIRTUAL(topLevelIdx));
+  }
+  il.append(transf.loadHandler());
+  il.append(transf.startDocument());
+  il.append(classGen.loadTranslet());
+  il.append(classGen.loadTranslet());
+  il.append(new GETFIELD(domField));
+  il.append(transf.loadIterator());
+  il.append(transf.loadHandler());
+  il.append(new INVOKEVIRTUAL(applyTemplates));
+  il.append(transf.loadHandler());
+  il.append(transf.endDocument());
+  il.append(RETURN);
+  classGen.addMethod(transf);
+}

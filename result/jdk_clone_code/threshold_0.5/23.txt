@@ -1,0 +1,8 @@
+public static ActivationSystemException get(ORB orb,String logDomain){
+  ActivationSystemException wrapper=(ActivationSystemException)orb.getLogWrapper(logDomain,"ACTIVATION",factory);
+  return wrapper;
+}
+public static ActivationSystemException get(String logDomain){
+  ActivationSystemException wrapper=(ActivationSystemException)ORB.staticGetLogWrapper(logDomain,"ACTIVATION",factory);
+  return wrapper;
+}

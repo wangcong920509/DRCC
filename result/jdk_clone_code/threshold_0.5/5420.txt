@@ -1,0 +1,52 @@
+/** 
+ * Returns the first <code>Window </code> ancestor of <code>c</code>, or {@code null} if <code>c</code> is not contained inside a <code>Window</code>.
+ * @param c <code>Component</code> to get <code>Window</code> ancestorof.
+ * @return the first <code>Window </code> ancestor of <code>c</code>, or{@code null} if <code>c</code> is not contained inside a<code>Window</code>.
+ * @since 1.3
+ */
+public static Window getWindowAncestor(Component c){
+  for (Container p=c.getParent(); p != null; p=p.getParent()) {
+    if (p instanceof Window) {
+      return (Window)p;
+    }
+  }
+  return null;
+}
+/** 
+ * Returns the <code>Accessible</code> child contained at the local coordinate <code>Point</code>, if one exists. Otherwise returns <code>null</code>.
+ * @return the <code>Accessible</code> at the specified location,if it exists; otherwise <code>null</code>
+ */
+public static Accessible getAccessibleAt(Component c,Point p){
+  if (c instanceof Container) {
+    return c.getAccessibleContext().getAccessibleComponent().getAccessibleAt(p);
+  }
+ else   if (c instanceof Accessible) {
+    Accessible a=(Accessible)c;
+    if (a != null) {
+      AccessibleContext ac=a.getAccessibleContext();
+      if (ac != null) {
+        AccessibleComponent acmp;
+        Point location;
+        int nchildren=ac.getAccessibleChildrenCount();
+        for (int i=0; i < nchildren; i++) {
+          a=ac.getAccessibleChild(i);
+          if ((a != null)) {
+            ac=a.getAccessibleContext();
+            if (ac != null) {
+              acmp=ac.getAccessibleComponent();
+              if ((acmp != null) && (acmp.isShowing())) {
+                location=acmp.getLocation();
+                Point np=new Point(p.x - location.x,p.y - location.y);
+                if (acmp.contains(np)) {
+                  return a;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return (Accessible)c;
+  }
+  return null;
+}

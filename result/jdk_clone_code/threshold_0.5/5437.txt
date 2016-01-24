@@ -1,0 +1,22 @@
+/** 
+ * Get an attribute by name.
+ */
+public AttributeList getAttribute(String name){
+  for (AttributeList a=atts; a != null; a=a.next) {
+    if (a.name.equals(name)) {
+      return a;
+    }
+  }
+  return null;
+}
+/** 
+ * Get an attribute by value.
+ */
+public AttributeList getAttributeByValue(String name){
+  for (AttributeList a=atts; a != null; a=a.next) {
+    if ((a.values != null) && a.values.contains(name)) {
+      return a;
+    }
+  }
+  return null;
+}

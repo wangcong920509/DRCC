@@ -1,0 +1,14 @@
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder append(char[] str,int offset,int len){
+  super.append(str,offset,len);
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder delete(int start,int end){
+  super.delete(start,end);
+  return this;
+}

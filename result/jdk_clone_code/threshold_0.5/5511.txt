@@ -1,0 +1,8 @@
+public InvalidPolicy(short _index){
+  super(InvalidPolicyHelper.id());
+  index=_index;
+}
+public InvalidPolicy(String $reason,short _index){
+  super(InvalidPolicyHelper.id() + "  " + $reason);
+  index=_index;
+}

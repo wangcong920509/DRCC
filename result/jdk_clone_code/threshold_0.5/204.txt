@@ -1,0 +1,24 @@
+/** 
+ * built-in derived types by restriction
+ */
+void applyFacets1(XSFacets facets,short presentFacet,short fixedFacet){
+  try {
+    applyFacets(facets,presentFacet,fixedFacet,SPECIAL_PATTERN_NONE,fDummyContext);
+  }
+ catch (  InvalidDatatypeFacetException e) {
+    throw new RuntimeException("internal error");
+  }
+  fIsImmutable=true;
+}
+/** 
+ * built-in derived types by restriction
+ */
+void applyFacets1(XSFacets facets,short presentFacet,short fixedFacet,short patternType){
+  try {
+    applyFacets(facets,presentFacet,fixedFacet,patternType,fDummyContext);
+  }
+ catch (  InvalidDatatypeFacetException e) {
+    throw new RuntimeException("internal error");
+  }
+  fIsImmutable=true;
+}

@@ -1,0 +1,47 @@
+public ShortBuffer put(ShortBuffer src){
+  if (src instanceof DirectShortBufferU) {
+    if (src == this)     throw new IllegalArgumentException();
+    DirectShortBufferU sb=(DirectShortBufferU)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 1);
+    sb.position(spos + srem);
+    position(pos + srem);
+  }
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
+  }
+ else {
+    super.put(src);
+  }
+  return this;
+}
+public ShortBuffer put(short[] src,int offset,int length){
+  if ((length << 1) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,src.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferOverflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyFromShortArray(src,offset << 1,ix(pos),length << 1);
+ else     Bits.copyFromArray(src,arrayBaseOffset,offset << 1,ix(pos),length << 1);
+    position(pos + length);
+  }
+ else {
+    super.put(src,offset,length);
+  }
+  return this;
+}

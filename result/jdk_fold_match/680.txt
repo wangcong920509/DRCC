@@ -1,0 +1,17 @@
+jdk_src\javax\swing\plaf\nimbus\PopupMenuPainter.java
+private void paintBackgroundDisabled(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(decodeGradient1(rect));
+  g.fill(rect);
+}
+private void paintBackgroundEnabled(Graphics2D g){
+  rect=decodeRect3();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(decodeGradient1(rect));
+  g.fill(rect);
+}

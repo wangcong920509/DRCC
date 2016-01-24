@@ -1,0 +1,52 @@
+jdk_src\com\sun\java\swing\plaf\motif\MotifFileChooserUI.java
+protected JScrollPane createFilesList(){
+  fileList=new JList();
+  if (getFileChooser().isMultiSelectionEnabled()) {
+    fileList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  }
+ else {
+    fileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  }
+  fileList.setModel(new MotifFileListModel());
+  fileList.getSelectionModel().removeSelectionInterval(0,0);
+  fileList.setCellRenderer(new FileCellRenderer());
+  fileList.addListSelectionListener(createListSelectionListener(getFileChooser()));
+  fileList.addMouseListener(createDoubleClickListener(getFileChooser(),fileList));
+  fileList.addMouseListener(new MouseAdapter(){
+    public void mouseClicked(    MouseEvent e){
+      JFileChooser chooser=getFileChooser();
+      if (SwingUtilities.isLeftMouseButton(e) && !chooser.isMultiSelectionEnabled()) {
+        int index=SwingUtilities2.loc2IndexFileList(fileList,e.getPoint());
+        if (index >= 0) {
+          File file=(File)fileList.getModel().getElementAt(index);
+          setFileName(chooser.getName(file));
+        }
+      }
+    }
+  }
+);
+  align(fileList);
+  JScrollPane scrollpane=new JScrollPane(fileList);
+  scrollpane.setPreferredSize(prefListSize);
+  scrollpane.setMaximumSize(MAX_SIZE);
+  align(scrollpane);
+  fileList.setInheritsPopupMenu(true);
+  scrollpane.setInheritsPopupMenu(true);
+  return scrollpane;
+}
+protected JScrollPane createDirectoryList(){
+  directoryList=new JList();
+  align(directoryList);
+  directoryList.setCellRenderer(new DirectoryCellRenderer());
+  directoryList.setModel(new MotifDirectoryListModel());
+  directoryList.getSelectionModel().removeSelectionInterval(0,0);
+  directoryList.addMouseListener(createDoubleClickListener(getFileChooser(),directoryList));
+  directoryList.addListSelectionListener(createListSelectionListener(getFileChooser()));
+  directoryList.setInheritsPopupMenu(true);
+  JScrollPane scrollpane=new JScrollPane(directoryList);
+  scrollpane.setMaximumSize(MAX_SIZE);
+  scrollpane.setPreferredSize(prefListSize);
+  scrollpane.setInheritsPopupMenu(true);
+  align(scrollpane);
+  return scrollpane;
+}

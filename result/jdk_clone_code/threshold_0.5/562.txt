@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypeSystem()
+ */
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getEncoding()
+ */
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
+}

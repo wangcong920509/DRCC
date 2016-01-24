@@ -1,0 +1,15 @@
+/** 
+ * Create a new <code>TransformerFactoryConfigurationError</code> with no detail mesage.
+ */
+public TransformerFactoryConfigurationError(){
+  super();
+  this.exception=null;
+}
+/** 
+ * Create a new <code>TransformerFactoryConfigurationError</code> with the <code>String</code> specified as an error message.
+ * @param msg The error message for the exception.
+ */
+public TransformerFactoryConfigurationError(String msg){
+  super(msg);
+  this.exception=null;
+}

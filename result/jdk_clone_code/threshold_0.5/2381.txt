@@ -1,0 +1,11 @@
+public StringBuilder append(long lng){
+  super.append(lng);
+  return this;
+}
+/** 
+ * @since 1.5
+ */
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
+  return this;
+}

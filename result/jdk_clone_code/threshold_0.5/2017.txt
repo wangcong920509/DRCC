@@ -1,0 +1,8 @@
+public synchronized StringBuffer append(String str){
+  super.append(str);
+  return this;
+}
+public synchronized StringBuffer append(float f){
+  super.append(f);
+  return this;
+}

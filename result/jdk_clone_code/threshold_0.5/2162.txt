@@ -1,0 +1,8 @@
+public synchronized StringBuffer append(long lng){
+  super.append(lng);
+  return this;
+}
+public synchronized StringBuffer append(double d){
+  super.append(d);
+  return this;
+}

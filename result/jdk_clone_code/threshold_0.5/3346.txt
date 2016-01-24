@@ -1,0 +1,8 @@
+public NamingEnumeration list(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.list(name);
+}
+public NamingEnumeration list(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.list(name);
+}

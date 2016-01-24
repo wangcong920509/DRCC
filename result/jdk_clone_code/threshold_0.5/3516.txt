@@ -1,0 +1,27 @@
+/** 
+ * Returns the first tab index with a given <code>icon</code>, or -1 if no tab has this icon.
+ * @param icon the icon for the tab
+ * @return the first tab index which matches <code>icon</code>,or -1 if no tab has this icon
+ */
+public int indexOfTab(Icon icon){
+  for (int i=0; i < getTabCount(); i++) {
+    Icon tabIcon=getIconAt(i);
+    if ((tabIcon != null && tabIcon.equals(icon)) || (tabIcon == null && tabIcon == icon)) {
+      return i;
+    }
+  }
+  return -1;
+}
+/** 
+ * Returns the tab index corresponding to the tab whose bounds intersect the specified location.  Returns -1 if no tab intersects the location.
+ * @param x the x location relative to this tabbedpane
+ * @param y the y location relative to this tabbedpane
+ * @return the tab index which intersects the location, or-1 if no tab intersects the location
+ * @since 1.4
+ */
+public int indexAtLocation(int x,int y){
+  if (ui != null) {
+    return ((TabbedPaneUI)ui).tabForCoordinate(this,x,y);
+  }
+  return -1;
+}

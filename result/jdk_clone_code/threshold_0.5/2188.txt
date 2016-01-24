@@ -1,0 +1,11 @@
+public synchronized StringBuffer append(double d){
+  super.append(d);
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public synchronized StringBuffer insert(int offset,Object obj){
+  super.insert(offset,String.valueOf(obj));
+  return this;
+}

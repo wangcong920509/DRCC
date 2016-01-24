@@ -1,0 +1,26 @@
+jdk_src\javax\swing\plaf\nimbus\SpinnerNextButtonPainter.java
+private void paintBackgroundDisabled(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(decodeGradient1(path));
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient2(path));
+  g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(color5);
+  g.fill(rect);
+}
+private void paintBackgroundFocused(Graphics2D g){
+  path=decodePath5();
+  g.setPaint(color12);
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient3(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient5(path));
+  g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(color11);
+  g.fill(rect);
+}

@@ -1,0 +1,12 @@
+public String getPublicId(){
+  if (fLocation != null) {
+    return fLocation.getPublicId();
+  }
+  return null;
+}
+public String getLiteralSystemId(){
+  if (fLocation != null) {
+    return fLocation.getSystemId();
+  }
+  return null;
+}

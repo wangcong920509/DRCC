@@ -1,0 +1,8 @@
+protected DynAnyBasicImpl(ORB orb,Any any,boolean copyValue){
+  super(orb,any,copyValue);
+  index=NO_INDEX;
+}
+protected DynAnyBasicImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  index=NO_INDEX;
+}

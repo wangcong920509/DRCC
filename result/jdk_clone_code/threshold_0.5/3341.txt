@@ -1,0 +1,8 @@
+public Object lookup(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.lookup(name);
+}
+public Object lookup(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.lookup(name);
+}

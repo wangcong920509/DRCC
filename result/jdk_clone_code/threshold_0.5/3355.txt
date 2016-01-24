@@ -1,0 +1,21 @@
+/** 
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
+ */
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
+}
+/** 
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
+ */
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
+}

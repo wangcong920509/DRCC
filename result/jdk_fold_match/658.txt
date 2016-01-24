@@ -1,0 +1,26 @@
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMenuButtonPainter.java
+private void painticonDisabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color11);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient4(roundRect));
+  g.fill(roundRect);
+  path=decodePath2();
+  g.setPaint(color15);
+  g.fill(path);
+}
+private void painticonEnabledAndWindowNotFocused(Graphics2D g){
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient11(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient12(roundRect));
+  g.fill(roundRect);
+  path=decodePath3();
+  g.setPaint(decodeGradient13(path));
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(color40);
+  g.fill(path);
+}

@@ -1,0 +1,8 @@
+public LongBuffer put(long x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
+}
+public LongBuffer put(int i,long x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}

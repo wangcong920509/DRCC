@@ -1,0 +1,18 @@
+/** 
+ * Creates a  {@code PriorityQueue} containing the elements in thespecified sorted set.   This priority queue will be ordered according to the same ordering as the given sorted set.
+ * @param c the sorted set whose elements are to be placedinto this priority queue
+ * @throws ClassCastException if elements of the specified sortedset cannot be compared to one another according to the sorted set's ordering
+ * @throws NullPointerException if the specified sorted set or anyof its elements are null
+ */
+@SuppressWarnings("unchecked") public PriorityQueue(SortedSet<? extends E> c){
+  this.comparator=(Comparator<? super E>)c.comparator();
+  initElementsFromCollection(c);
+}
+/** 
+ * Initializes queue array with elements from the given Collection.
+ * @param c the collection
+ */
+private void initFromCollection(Collection<? extends E> c){
+  initElementsFromCollection(c);
+  heapify();
+}

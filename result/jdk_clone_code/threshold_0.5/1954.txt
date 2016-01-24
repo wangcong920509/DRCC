@@ -1,0 +1,34 @@
+/** 
+ * Looks up a serializable field of the represented class by name and type. A specified type of null matches all types, Object.class matches all non-primitive types, and any other non-null type matches assignable types only.  Returns matching field, or null if no match found.
+ */
+ObjectStreamField getField(String name,Class<?> type){
+  for (int i=0; i < fields.length; i++) {
+    ObjectStreamField f=fields[i];
+    if (f.getName().equals(name)) {
+      if (type == null || (type == Object.class && !f.isPrimitive())) {
+        return f;
+      }
+      Class<?> ftype=f.getType();
+      if (ftype != null && type.isAssignableFrom(ftype)) {
+        return f;
+      }
+    }
+  }
+  return null;
+}
+/** 
+ * Returns explicit serial version UID value declared by given class, or null if none.
+ */
+private static Long getDeclaredSUID(Class<?> cl){
+  try {
+    Field f=cl.getDeclaredField("serialVersionUID");
+    int mask=Modifier.STATIC | Modifier.FINAL;
+    if ((f.getModifiers() & mask) == mask) {
+      f.setAccessible(true);
+      return Long.valueOf(f.getLong(null));
+    }
+  }
+ catch (  Exception ex) {
+  }
+  return null;
+}

@@ -1,0 +1,8 @@
+public DOMInputSource(Node node){
+  super(null,getSystemIdFromNode(node),null);
+  fNode=node;
+}
+public DOMInputSource(Node node,String systemId){
+  super(null,systemId,null);
+  fNode=node;
+}

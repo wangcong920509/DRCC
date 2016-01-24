@@ -1,0 +1,21 @@
+/** 
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
+ */
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
+}
+/** 
+ * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
+ * @param orig the exception to wrap.
+ * @return the wrapped exception.
+ */
+public static RemoteException wrapException(Throwable orig){
+  if (utilDelegate != null) {
+    return utilDelegate.wrapException(orig);
+  }
+  return null;
+}

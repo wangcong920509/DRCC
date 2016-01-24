@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ */
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see Serializer#asDOMSerializer()
+ */
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
+}

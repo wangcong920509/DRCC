@@ -1,0 +1,20 @@
+jdk_src\javax\swing\plaf\nimbus\RadioButtonPainter.java
+private void painticonDisabled(Graphics2D g){
+  ellipse=decodeEllipse1();
+  g.setPaint(decodeGradient1(ellipse));
+  g.fill(ellipse);
+  ellipse=decodeEllipse2();
+  g.setPaint(decodeGradient2(ellipse));
+  g.fill(ellipse);
+}
+private void painticonPressedAndFocused(Graphics2D g){
+  ellipse=decodeEllipse4();
+  g.setPaint(color12);
+  g.fill(ellipse);
+  ellipse=decodeEllipse1();
+  g.setPaint(decodeGradient7(ellipse));
+  g.fill(ellipse);
+  ellipse=decodeEllipse2();
+  g.setPaint(decodeGradient8(ellipse));
+  g.fill(ellipse);
+}

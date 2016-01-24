@@ -1,0 +1,15 @@
+/** 
+ * Constructs a new, empty map, sorted according to the {@linkplain Comparable natural ordering} of the keys.
+ */
+public ConcurrentSkipListMap(){
+  this.comparator=null;
+  initialize();
+}
+/** 
+ * Constructs a new, empty map, sorted according to the specified comparator.
+ * @param comparator the comparator that will be used to order this map.If <tt>null</tt>, the  {@linkplain Comparable naturalordering} of the keys will be used.
+ */
+public ConcurrentSkipListMap(Comparator<? super K> comparator){
+  this.comparator=comparator;
+  initialize();
+}

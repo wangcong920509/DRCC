@@ -1,0 +1,8 @@
+public DocumentHandler asDocumentHandler() throws IOException {
+  prepare();
+  return this;
+}
+public DOMSerializer asDOMSerializer() throws IOException {
+  prepare();
+  return this;
+}

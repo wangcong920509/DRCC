@@ -1,0 +1,8 @@
+public CharBuffer put(char x){
+  Bits.putCharB(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public CharBuffer put(int i,char x){
+  Bits.putCharB(bb,ix(checkIndex(i)),x);
+  return this;
+}

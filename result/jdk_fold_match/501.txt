@@ -1,0 +1,27 @@
+jdk_src\javax\swing\plaf\nimbus\FileChooserPainter.java
+private Path2D decodePath18(){
+  path.reset();
+  path.moveTo(decodeX(1.2717391f),decodeY(0.9956522f));
+  path.lineTo(decodeX(1.8333333f),decodeY(1.0f));
+  path.lineTo(decodeX(1.8333333f),decodeY(1.6666667f));
+  path.lineTo(decodeX(2.2f),decodeY(1.6666667f));
+  path.lineTo(decodeX(2.2f),decodeY(1.0f));
+  path.lineTo(decodeX(2.8652174f),decodeY(1.0f));
+  path.lineTo(decodeX(2.0f),decodeY(0.13043478f));
+  path.lineTo(decodeX(1.2717391f),decodeY(0.9956522f));
+  path.closePath();
+  return path;
+}
+private Path2D decodePath19(){
+  path.reset();
+  path.moveTo(decodeX(1.8333333f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.8333333f),decodeY(1.0f));
+  path.lineTo(decodeX(1.3913044f),decodeY(1.0f));
+  path.lineTo(decodeX(1.9963768f),decodeY(0.25652176f));
+  path.lineTo(decodeX(2.6608696f),decodeY(1.0f));
+  path.lineTo(decodeX(2.2f),decodeY(1.0f));
+  path.lineTo(decodeX(2.2f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.8333333f),decodeY(1.6666667f));
+  path.closePath();
+  return path;
+}

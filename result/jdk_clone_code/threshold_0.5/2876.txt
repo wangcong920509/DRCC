@@ -1,0 +1,8 @@
+public ShortBuffer put(short x){
+  unsafe.putShort(ix(nextPutIndex()),((x)));
+  return this;
+}
+public ShortBuffer put(int i,short x){
+  unsafe.putShort(ix(checkIndex(i)),((x)));
+  return this;
+}

@@ -1,0 +1,18 @@
+/** 
+ * Creates a new output stream with a default compressor, a default buffer size and the specified flush mode.
+ * @param out the output stream
+ * @param syncFlush if  {@code true} the {@link #flush()} method of thisinstance flushes the compressor with flush mode {@link Deflater#SYNC_FLUSH} before flushing the outputstream, otherwise only flushes the output stream
+ * @since 1.7
+ */
+public DeflaterOutputStream(OutputStream out,boolean syncFlush){
+  this(out,new Deflater(),512,syncFlush);
+  usesDefaultDeflater=true;
+}
+/** 
+ * Creates a new output stream with a default compressor and buffer size. <p>The new output stream instance is created as if by invoking the 2-argument constructor DeflaterOutputStream(out, false).
+ * @param out the output stream
+ */
+public DeflaterOutputStream(OutputStream out){
+  this(out,false);
+  usesDefaultDeflater=true;
+}

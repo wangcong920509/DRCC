@@ -1,0 +1,32 @@
+/** 
+ * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.math.BigDecimal</code>. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
+ * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ */
+public java.math.BigDecimal readBigDecimal() throws SQLException {
+  java.math.BigDecimal attrib=(java.math.BigDecimal)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}
+/** 
+ * Retrieves the next attribute in this <code>SQLInputImpl</code> as a <code>java.sql.Date</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
+ * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ */
+public java.sql.Date readDate() throws SQLException {
+  java.sql.Date attrib=(java.sql.Date)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}

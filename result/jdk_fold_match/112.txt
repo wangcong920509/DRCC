@@ -1,0 +1,161 @@
+jdk_src\com\sun\org\apache\xml\internal\resolver\Catalog.java
+/** 
+ * Return the applicable SYSTEM system identifier in this catalog. <p>If a SYSTEM entry exists in the catalog file for the system ID specified, return the mapped value.</p>
+ * @param systemId The system ID to locate in the catalog
+ * @return The mapped system identifier or null
+ */
+protected String resolveLocalSystem(String systemId) throws MalformedURLException, IOException {
+  String osname=SecuritySupport.getSystemProperty("os.name");
+  boolean windows=(osname.indexOf("Windows") >= 0);
+  Enumeration en=catalogEntries.elements();
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == SYSTEM && (e.getEntryArg(0).equals(systemId) || (windows && e.getEntryArg(0).equalsIgnoreCase(systemId)))) {
+      return e.getEntryArg(1);
+    }
+  }
+  en=catalogEntries.elements();
+  String startString=null;
+  String prefix=null;
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == REWRITE_SYSTEM) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= systemId.length() && p.equals(systemId.substring(0,p.length()))) {
+        if (startString == null || p.length() > startString.length()) {
+          startString=p;
+          prefix=e.getEntryArg(1);
+        }
+      }
+    }
+  }
+  if (prefix != null) {
+    return prefix + systemId.substring(startString.length());
+  }
+  en=catalogEntries.elements();
+  String suffixString=null;
+  String suffixURI=null;
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == SYSTEM_SUFFIX) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= systemId.length() && systemId.endsWith(p)) {
+        if (suffixString == null || p.length() > suffixString.length()) {
+          suffixString=p;
+          suffixURI=e.getEntryArg(1);
+        }
+      }
+    }
+  }
+  if (suffixURI != null) {
+    return suffixURI;
+  }
+  en=catalogEntries.elements();
+  Vector delCats=new Vector();
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == DELEGATE_SYSTEM) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= systemId.length() && p.equals(systemId.substring(0,p.length()))) {
+        delCats.addElement(e.getEntryArg(1));
+      }
+    }
+  }
+  if (delCats.size() > 0) {
+    Enumeration enCats=delCats.elements();
+    if (catalogManager.debug.getDebug() > 1) {
+      catalogManager.debug.message(2,"Switching to delegated catalog(s):");
+      while (enCats.hasMoreElements()) {
+        String delegatedCatalog=(String)enCats.nextElement();
+        catalogManager.debug.message(2,"\t" + delegatedCatalog);
+      }
+    }
+    Catalog dcat=newCatalog();
+    enCats=delCats.elements();
+    while (enCats.hasMoreElements()) {
+      String delegatedCatalog=(String)enCats.nextElement();
+      dcat.parseCatalog(delegatedCatalog);
+    }
+    return dcat.resolveSystem(systemId);
+  }
+  return null;
+}
+/** 
+ * Return the applicable URI in this catalog. <p>If a URI entry exists in the catalog file for the URI specified, return the mapped value.</p>
+ * @param uri The URI to locate in the catalog
+ * @return The mapped URI or null
+ */
+protected String resolveLocalURI(String uri) throws MalformedURLException, IOException {
+  Enumeration en=catalogEntries.elements();
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == URI && (e.getEntryArg(0).equals(uri))) {
+      return e.getEntryArg(1);
+    }
+  }
+  en=catalogEntries.elements();
+  String startString=null;
+  String prefix=null;
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == REWRITE_URI) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= uri.length() && p.equals(uri.substring(0,p.length()))) {
+        if (startString == null || p.length() > startString.length()) {
+          startString=p;
+          prefix=e.getEntryArg(1);
+        }
+      }
+    }
+  }
+  if (prefix != null) {
+    return prefix + uri.substring(startString.length());
+  }
+  en=catalogEntries.elements();
+  String suffixString=null;
+  String suffixURI=null;
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == URI_SUFFIX) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= uri.length() && uri.endsWith(p)) {
+        if (suffixString == null || p.length() > suffixString.length()) {
+          suffixString=p;
+          suffixURI=e.getEntryArg(1);
+        }
+      }
+    }
+  }
+  if (suffixURI != null) {
+    return suffixURI;
+  }
+  en=catalogEntries.elements();
+  Vector delCats=new Vector();
+  while (en.hasMoreElements()) {
+    CatalogEntry e=(CatalogEntry)en.nextElement();
+    if (e.getEntryType() == DELEGATE_URI) {
+      String p=(String)e.getEntryArg(0);
+      if (p.length() <= uri.length() && p.equals(uri.substring(0,p.length()))) {
+        delCats.addElement(e.getEntryArg(1));
+      }
+    }
+  }
+  if (delCats.size() > 0) {
+    Enumeration enCats=delCats.elements();
+    if (catalogManager.debug.getDebug() > 1) {
+      catalogManager.debug.message(2,"Switching to delegated catalog(s):");
+      while (enCats.hasMoreElements()) {
+        String delegatedCatalog=(String)enCats.nextElement();
+        catalogManager.debug.message(2,"\t" + delegatedCatalog);
+      }
+    }
+    Catalog dcat=newCatalog();
+    enCats=delCats.elements();
+    while (enCats.hasMoreElements()) {
+      String delegatedCatalog=(String)enCats.nextElement();
+      dcat.parseCatalog(delegatedCatalog);
+    }
+    return dcat.resolveURI(uri);
+  }
+  return null;
+}

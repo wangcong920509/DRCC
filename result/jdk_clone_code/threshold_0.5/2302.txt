@@ -1,0 +1,8 @@
+public StringBuilder append(char[] str){
+  super.append(str);
+  return this;
+}
+public StringBuilder append(int i){
+  super.append(i);
+  return this;
+}

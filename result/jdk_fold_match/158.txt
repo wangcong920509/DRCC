@@ -1,0 +1,37 @@
+jdk_src\java\io\ObjectOutputStream.java
+/** 
+ * Write the buffered fields to the stream.
+ * @throws IOException if I/O errors occur while writing to the underlyingstream
+ * @throws NotActiveException Called when a classes writeObject method wasnot called to write the state of the object.
+ * @since 1.2
+ */
+public void writeFields() throws IOException {
+  if (curPut == null) {
+    throw new NotActiveException("no current PutField object");
+  }
+  bout.setBlockDataMode(false);
+  curPut.writeFields();
+  bout.setBlockDataMode(true);
+}
+/** 
+ * Writes class descriptor representing a standard (i.e., not a dynamic proxy) class to stream.
+ */
+private void writeNonProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
+  bout.writeByte(TC_CLASSDESC);
+  handles.assign(unshared ? null : desc);
+  if (protocol == PROTOCOL_VERSION_1) {
+    desc.writeNonProxy(this);
+  }
+ else {
+    writeClassDescriptor(desc);
+  }
+  Class cl=desc.forClass();
+  bout.setBlockDataMode(true);
+  if (isCustomSubclass()) {
+    ReflectUtil.checkPackageAccess(cl);
+  }
+  annotateClass(cl);
+  bout.setBlockDataMode(false);
+  bout.writeByte(TC_ENDBLOCKDATA);
+  writeClassDesc(desc.getSuperDesc(),false);
+}

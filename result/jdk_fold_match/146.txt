@@ -1,0 +1,91 @@
+jdk_src\java\awt\image\IndexColorModel.java
+/** 
+ * Constructs an <code>IndexColorModel</code> from a single array of interleaved red, green, blue and optional alpha components.  The specified transparent index represents a pixel that is made entirely transparent regardless of any alpha value specified for it.  The array must have enough values in it to fill all of the needed component arrays of the specified size. The <code>ColorSpace</code> is the default sRGB space. The transparency value may be any of <code>Transparency.OPAQUE</code>, <code>Transparency.BITMASK</code>, or <code>Transparency.TRANSLUCENT</code> depending on the arguments, as specified in the <a href="#transparency">class description</a> above. The transfer type is the smallest of <code>DataBuffer.TYPE_BYTE</code> or <code>DataBuffer.TYPE_USHORT</code> that can hold a single pixel.
+ * @param bits      the number of bits each pixel occupies
+ * @param size      the size of the color component arrays
+ * @param cmap      the array of color components
+ * @param start     the starting offset of the first color component
+ * @param hasalpha  indicates whether alpha values are contained inthe <code>cmap</code> array
+ * @param trans     the index of the fully transparent pixel
+ * @throws IllegalArgumentException if <code>bits</code> is less than1 or greater than 16
+ * @throws IllegalArgumentException if <code>size</code> is less than1
+ */
+public IndexColorModel(int bits,int size,byte cmap[],int start,boolean hasalpha,int trans){
+  super(bits,opaqueBits,ColorSpace.getInstance(ColorSpace.CS_sRGB),false,false,OPAQUE,ColorModel.getDefaultTransferType(bits));
+  if (bits < 1 || bits > 16) {
+    throw new IllegalArgumentException("Number of bits must be between" + " 1 and 16.");
+  }
+  if (size < 1) {
+    throw new IllegalArgumentException("Map size (" + size + ") must be >= 1");
+  }
+  map_size=size;
+  rgb=new int[calcRealMapSize(bits,size)];
+  int j=start;
+  int alpha=0xff;
+  boolean allgray=true;
+  int transparency=OPAQUE;
+  for (int i=0; i < size; i++) {
+    int r=cmap[j++] & 0xff;
+    int g=cmap[j++] & 0xff;
+    int b=cmap[j++] & 0xff;
+    allgray=allgray && (r == g) && (g == b);
+    if (hasalpha) {
+      alpha=cmap[j++] & 0xff;
+      if (alpha != 0xff) {
+        if (alpha == 0x00) {
+          if (transparency == OPAQUE) {
+            transparency=BITMASK;
+          }
+          if (transparent_index < 0) {
+            transparent_index=i;
+          }
+        }
+ else {
+          transparency=TRANSLUCENT;
+        }
+        allgray=false;
+      }
+    }
+    rgb[i]=(alpha << 24) | (r << 16) | (g << 8)| b;
+  }
+  this.allgrayopaque=allgray;
+  setTransparency(transparency);
+  setTransparentPixel(trans);
+  calculatePixelMask();
+}
+private void setRGBs(int size,byte r[],byte g[],byte b[],byte a[]){
+  if (size < 1) {
+    throw new IllegalArgumentException("Map size (" + size + ") must be >= 1");
+  }
+  map_size=size;
+  rgb=new int[calcRealMapSize(pixel_bits,size)];
+  int alpha=0xff;
+  int transparency=OPAQUE;
+  boolean allgray=true;
+  for (int i=0; i < size; i++) {
+    int rc=r[i] & 0xff;
+    int gc=g[i] & 0xff;
+    int bc=b[i] & 0xff;
+    allgray=allgray && (rc == gc) && (gc == bc);
+    if (a != null) {
+      alpha=a[i] & 0xff;
+      if (alpha != 0xff) {
+        if (alpha == 0x00) {
+          if (transparency == OPAQUE) {
+            transparency=BITMASK;
+          }
+          if (transparent_index < 0) {
+            transparent_index=i;
+          }
+        }
+ else {
+          transparency=TRANSLUCENT;
+        }
+        allgray=false;
+      }
+    }
+    rgb[i]=(alpha << 24) | (rc << 16) | (gc << 8)| bc;
+  }
+  this.allgrayopaque=allgray;
+  setTransparency(transparency);
+}

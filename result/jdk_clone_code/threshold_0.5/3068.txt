@@ -1,0 +1,20 @@
+/** 
+ * Constructs a MessageFormat for the default locale and the specified pattern. The constructor first sets the locale, then parses the pattern and creates a list of subformats for the format elements contained in it. Patterns and their interpretation are specified in the <a href="#patterns">class description</a>.
+ * @param pattern the pattern for this message format
+ * @exception IllegalArgumentException if the pattern is invalid
+ */
+public MessageFormat(String pattern){
+  this.locale=Locale.getDefault(Locale.Category.FORMAT);
+  applyPattern(pattern);
+}
+/** 
+ * Constructs a MessageFormat for the specified locale and pattern. The constructor first sets the locale, then parses the pattern and creates a list of subformats for the format elements contained in it. Patterns and their interpretation are specified in the <a href="#patterns">class description</a>.
+ * @param pattern the pattern for this message format
+ * @param locale the locale for this message format
+ * @exception IllegalArgumentException if the pattern is invalid
+ * @since 1.4
+ */
+public MessageFormat(String pattern,Locale locale){
+  this.locale=locale;
+  applyPattern(pattern);
+}

@@ -1,0 +1,22 @@
+/** 
+ * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
+ * @param elem object to look for
+ * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
+ */
+public final int indexOf(Object elem){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == elem)     return i;
+  }
+  return java.lang.Integer.MIN_VALUE;
+}
+/** 
+ * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
+ * @param elem Object to look for
+ * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
+ */
+public final int lastIndexOf(Object elem){
+  for (int i=(m_firstFree - 1); i >= 0; i--) {
+    if (m_map[i] == elem)     return i;
+  }
+  return java.lang.Integer.MIN_VALUE;
+}

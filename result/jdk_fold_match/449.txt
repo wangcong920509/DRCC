@@ -1,0 +1,50 @@
+jdk_src\javax\swing\plaf\nimbus\FileChooserPainter.java
+private void paintfileIconEnabled(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color2);
+  g.fill(path);
+  rect=decodeRect2();
+  g.setPaint(color3);
+  g.fill(rect);
+  path=decodePath2();
+  g.setPaint(decodeGradient1(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient2(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(color8);
+  g.fill(path);
+  path=decodePath5();
+  g.setPaint(color9);
+  g.fill(path);
+}
+private void paintdirectoryIconEnabled(Graphics2D g){
+  path=decodePath6();
+  g.setPaint(color10);
+  g.fill(path);
+  path=decodePath7();
+  g.setPaint(decodeGradient3(path));
+  g.fill(path);
+  path=decodePath8();
+  g.setPaint(decodeGradient4(path));
+  g.fill(path);
+  rect=decodeRect3();
+  g.setPaint(color16);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color17);
+  g.fill(rect);
+  rect=decodeRect5();
+  g.setPaint(color18);
+  g.fill(rect);
+  path=decodePath9();
+  g.setPaint(decodeGradient5(path));
+  g.fill(path);
+  path=decodePath10();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath11();
+  g.setPaint(color24);
+  g.fill(path);
+}

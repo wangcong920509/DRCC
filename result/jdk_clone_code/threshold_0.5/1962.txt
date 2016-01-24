@@ -1,0 +1,37 @@
+/** 
+ * Writes a formatted string to this writer using the specified format string and arguments.  If automatic flushing is enabled, calls to this method will flush the output buffer. <p> The locale always used is the one returned by  {@link java.util.Locale#getDefault() Locale.getDefault()}, regardless of any previous invocations of other formatting methods on this object.
+ * @param format A format string as described in <a href="../util/Formatter.html#syntax">Format string syntax</a>.
+ * @param args Arguments referenced by the format specifiers in the format string.  If there are more arguments than format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.  The maximum number of arguments is limited by the maximum dimension of a Java array as defined by <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a <tt>null</tt> argument depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
+ * @throws IllegalFormatException If a format string contains an illegal syntax, a format specifier that is incompatible with the given arguments, insufficient arguments given the format string, or other illegal conditions.  For specification of all possible formatting errors, see the <a href="../util/Formatter.html#detail">Details</a> section of the Formatter class specification.
+ * @throws NullPointerException If the <tt>format</tt> is <tt>null</tt>
+ * @return  This writer
+ * @since  1.5
+ */
+public PrintWriter format(String format,Object... args){
+  try {
+synchronized (lock) {
+      ensureOpen();
+      if ((formatter == null) || (formatter.locale() != Locale.getDefault()))       formatter=new Formatter(this);
+      formatter.format(Locale.getDefault(),format,args);
+      if (autoFlush)       out.flush();
+    }
+  }
+ catch (  InterruptedIOException x) {
+    Thread.currentThread().interrupt();
+  }
+catch (  IOException x) {
+    trouble=true;
+  }
+  return this;
+}
+/** 
+ * Appends the specified character sequence to this writer. <p> An invocation of this method of the form <tt>out.append(csq)</tt> behaves in exactly the same way as the invocation <pre> out.write(csq.toString()) </pre> <p> Depending on the specification of <tt>toString</tt> for the character sequence <tt>csq</tt>, the entire sequence may not be appended. For instance, invoking the <tt>toString</tt> method of a character buffer will return a subsequence whose content depends upon the buffer's position and limit.
+ * @param csq The character sequence to append.  If <tt>csq</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this writer.
+ * @return  This writer
+ * @since  1.5
+ */
+public PrintWriter append(CharSequence csq){
+  if (csq == null)   write("null");
+ else   write(csq.toString());
+  return this;
+}

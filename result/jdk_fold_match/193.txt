@@ -1,0 +1,46 @@
+jdk_src\java\util\concurrent\LinkedBlockingQueue.java
+/** 
+ * Inserts the specified element at the tail of this queue, waiting if necessary for space to become available.
+ * @throws InterruptedException {@inheritDoc}
+ * @throws NullPointerException {@inheritDoc}
+ */
+public void put(E e) throws InterruptedException {
+  if (e == null)   throw new NullPointerException();
+  int c=-1;
+  Node<E> node=new Node(e);
+  final ReentrantLock putLock=this.putLock;
+  final AtomicInteger count=this.count;
+  putLock.lockInterruptibly();
+  try {
+    while (count.get() == capacity) {
+      notFull.await();
+    }
+    enqueue(node);
+    c=count.getAndIncrement();
+    if (c + 1 < capacity)     notFull.signal();
+  }
+  finally {
+    putLock.unlock();
+  }
+  if (c == 0)   signalNotEmpty();
+}
+public E poll(){
+  final AtomicInteger count=this.count;
+  if (count.get() == 0)   return null;
+  E x=null;
+  int c=-1;
+  final ReentrantLock takeLock=this.takeLock;
+  takeLock.lock();
+  try {
+    if (count.get() > 0) {
+      x=dequeue();
+      c=count.getAndDecrement();
+      if (c > 1)       notEmpty.signal();
+    }
+  }
+  finally {
+    takeLock.unlock();
+  }
+  if (c == capacity)   signalNotFull();
+  return x;
+}

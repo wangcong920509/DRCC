@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypePublic()
+ */
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getVersion()
+ */
+public String getVersion(){
+  aMethodIsCalled();
+  return null;
+}

@@ -1,0 +1,16 @@
+public DTMAxisIterator forceNaturalOrder(){
+  _docOrder=true;
+  return this;
+}
+public DTMAxisIterator setStartNode(int node){
+  if (_isRestartable) {
+    _source.setStartNode(_startNode=node);
+    _nodes.clear();
+    while ((node=_source.next()) != END) {
+      _nodes.add(node);
+    }
+    _currentIndex=0;
+    resetPosition();
+  }
+  return this;
+}

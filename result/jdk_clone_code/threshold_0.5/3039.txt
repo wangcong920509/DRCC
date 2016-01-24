@@ -1,0 +1,25 @@
+/** 
+ * Loads this KeyStore from the given input stream. <p>A password may be given to unlock the keystore (e.g. the keystore resides on a hardware token device), or to check the integrity of the keystore data. If a password is not given for integrity checking, then integrity checking is not performed. <p>In order to create an empty keystore, or if the keystore cannot be initialized from a stream, pass <code>null</code> as the <code>stream</code> argument. <p> Note that if this keystore has already been loaded, it is reinitialized and loaded again from the given input stream.
+ * @param stream the input stream from which the keystore is loaded,or <code>null</code>
+ * @param password the password used to check the integrity ofthe keystore, the password used to unlock the keystore, or <code>null</code>
+ * @exception IOException if there is an I/O or format problem with thekeystore data, if a password is required but not given, or if the given password was incorrect. If the error is due to a wrong password, the  {@link Throwable#getCause cause} of the<code>IOException</code> should be an <code>UnrecoverableKeyException</code>
+ * @exception NoSuchAlgorithmException if the algorithm used to checkthe integrity of the keystore cannot be found
+ * @exception CertificateException if any of the certificates in thekeystore could not be loaded
+ */
+public final void load(InputStream stream,char[] password) throws IOException, NoSuchAlgorithmException, CertificateException {
+  keyStoreSpi.engineLoad(stream,password);
+  initialized=true;
+}
+/** 
+ * Loads this keystore using the given <code>LoadStoreParameter</code>. <p> Note that if this KeyStore has already been loaded, it is reinitialized and loaded again from the given parameter.
+ * @param param the <code>LoadStoreParameter</code>that specifies how to load the keystore, which may be <code>null</code>
+ * @exception IllegalArgumentException if the given<code>LoadStoreParameter</code> input is not recognized
+ * @exception IOException if there is an I/O or format problem with thekeystore data. If the error is due to an incorrect <code>ProtectionParameter</code> (e.g. wrong password) the  {@link Throwable#getCause cause} of the<code>IOException</code> should be an <code>UnrecoverableKeyException</code>
+ * @exception NoSuchAlgorithmException if the algorithm used to checkthe integrity of the keystore cannot be found
+ * @exception CertificateException if any of the certificates in thekeystore could not be loaded
+ * @since 1.5
+ */
+public final void load(LoadStoreParameter param) throws IOException, NoSuchAlgorithmException, CertificateException {
+  keyStoreSpi.engineLoad(param);
+  initialized=true;
+}

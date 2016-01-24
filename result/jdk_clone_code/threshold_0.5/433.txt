@@ -1,0 +1,27 @@
+/** 
+ * Method isXPointerSlash
+ * @param uri
+ * @return true if begins with xpointer
+ */
+private static boolean isXPointerSlash(String uri){
+  if (uri.equals("#xpointer(/)")) {
+    return true;
+  }
+  return false;
+}
+/** 
+ * Method isXPointerId
+ * @param uri
+ * @return it it has an xpointer id
+ */
+private static boolean isXPointerId(String uri){
+  if (uri.startsWith(XP) && uri.endsWith("))")) {
+    String idPlusDelim=uri.substring(XP_LENGTH,uri.length() - 2);
+    int idLen=idPlusDelim.length() - 1;
+    if (((idPlusDelim.charAt(0) == '"') && (idPlusDelim.charAt(idLen) == '"')) || ((idPlusDelim.charAt(0) == '\'') && (idPlusDelim.charAt(idLen) == '\''))) {
+      if (log.isLoggable(java.util.logging.Level.FINE))       log.log(java.util.logging.Level.FINE,"Id=" + idPlusDelim.substring(1,idLen));
+      return true;
+    }
+  }
+  return false;
+}

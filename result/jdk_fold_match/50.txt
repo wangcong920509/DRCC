@@ -1,0 +1,71 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\compiler\StepPattern.java
+private void translateNoContext(ClassGenerator classGen,MethodGenerator methodGen){
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final InstructionList il=methodGen.getInstructionList();
+  il.append(methodGen.loadCurrentNode());
+  il.append(SWAP);
+  il.append(methodGen.storeCurrentNode());
+  if (!_isEpsilon) {
+    il.append(methodGen.loadCurrentNode());
+    translateKernel(classGen,methodGen);
+  }
+  final int n=_predicates.size();
+  for (int i=0; i < n; i++) {
+    Predicate pred=(Predicate)_predicates.elementAt(i);
+    Expression exp=pred.getExpr();
+    exp.translateDesynthesized(classGen,methodGen);
+    _trueList.append(exp._trueList);
+    _falseList.append(exp._falseList);
+  }
+  InstructionHandle restore;
+  restore=il.append(methodGen.storeCurrentNode());
+  backPatchTrueList(restore);
+  BranchHandle skipFalse=il.append(new GOTO(null));
+  restore=il.append(methodGen.storeCurrentNode());
+  backPatchFalseList(restore);
+  _falseList.add(il.append(new GOTO(null)));
+  skipFalse.setTarget(il.append(NOP));
+}
+private void translateSimpleContext(ClassGenerator classGen,MethodGenerator methodGen){
+  int index;
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final InstructionList il=methodGen.getInstructionList();
+  LocalVariableGen match;
+  match=methodGen.addLocalVariable("step_pattern_tmp1",Util.getJCRefType(NODE_SIG),null,null);
+  match.setStart(il.append(new ISTORE(match.getIndex())));
+  if (!_isEpsilon) {
+    il.append(new ILOAD(match.getIndex()));
+    translateKernel(classGen,methodGen);
+  }
+  il.append(methodGen.loadCurrentNode());
+  il.append(methodGen.loadIterator());
+  index=cpg.addMethodref(MATCHING_ITERATOR,"<init>","(I" + NODE_ITERATOR_SIG + ")V");
+  _step.translate(classGen,methodGen);
+  LocalVariableGen stepIteratorTemp=methodGen.addLocalVariable("step_pattern_tmp2",Util.getJCRefType(NODE_ITERATOR_SIG),null,null);
+  stepIteratorTemp.setStart(il.append(new ASTORE(stepIteratorTemp.getIndex())));
+  il.append(new NEW(cpg.addClass(MATCHING_ITERATOR)));
+  il.append(DUP);
+  il.append(new ILOAD(match.getIndex()));
+  stepIteratorTemp.setEnd(il.append(new ALOAD(stepIteratorTemp.getIndex())));
+  il.append(new INVOKESPECIAL(index));
+  il.append(methodGen.loadDOM());
+  il.append(new ILOAD(match.getIndex()));
+  index=cpg.addInterfaceMethodref(DOM_INTF,GET_PARENT,GET_PARENT_SIG);
+  il.append(new INVOKEINTERFACE(index,2));
+  il.append(methodGen.setStartNode());
+  il.append(methodGen.storeIterator());
+  match.setEnd(il.append(new ILOAD(match.getIndex())));
+  il.append(methodGen.storeCurrentNode());
+  Predicate pred=(Predicate)_predicates.elementAt(0);
+  Expression exp=pred.getExpr();
+  exp.translateDesynthesized(classGen,methodGen);
+  InstructionHandle restore=il.append(methodGen.storeIterator());
+  il.append(methodGen.storeCurrentNode());
+  exp.backPatchTrueList(restore);
+  BranchHandle skipFalse=il.append(new GOTO(null));
+  restore=il.append(methodGen.storeIterator());
+  il.append(methodGen.storeCurrentNode());
+  exp.backPatchFalseList(restore);
+  _falseList.add(il.append(new GOTO(null)));
+  skipFalse.setTarget(il.append(NOP));
+}

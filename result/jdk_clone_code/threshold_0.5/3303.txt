@@ -1,0 +1,8 @@
+static int simplifyMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask&=~NEW_MASK;
+  return mask;
+}
+static int impliedMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask|=NEW_MASK;
+  return mask;
+}

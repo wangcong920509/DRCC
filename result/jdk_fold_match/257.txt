@@ -1,0 +1,23 @@
+jdk_src\javax\swing\plaf\nimbus\ButtonPainter.java
+private void paintBackgroundMouseOverAndDefault(Graphics2D g){
+  roundRect=decodeRoundRect5();
+  g.setPaint(color1);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient3(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient2(roundRect));
+  g.fill(roundRect);
+}
+private void paintBackgroundDisabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color25);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient5(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient6(roundRect));
+  g.fill(roundRect);
+}

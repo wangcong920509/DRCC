@@ -1,0 +1,15 @@
+/** 
+ * Creates a new SyntaxTreeNode with a 'null' QName and no source file line number reference.
+ */
+public SyntaxTreeNode(){
+  _line=0;
+  _qname=null;
+}
+/** 
+ * Creates a new SyntaxTreeNode with a 'null' QName.
+ * @param line Source file line number reference
+ */
+public SyntaxTreeNode(int line){
+  _line=line;
+  _qname=null;
+}

@@ -1,0 +1,25 @@
+/** 
+ * Translates a character array representation of a {@code BigDecimal} into a {@code BigDecimal}, accepting the same sequence of characters as the  {@link #BigDecimal(String)}constructor, while allowing a sub-array to be specified and with rounding according to the context settings. <p>Note that if the sequence of characters is already available within a character array, using this constructor is faster than converting the  {@code char} array to string and using the{@code BigDecimal(String)} constructor .
+ * @param in {@code char} array that is the source of characters.
+ * @param offset first character in the array to inspect.
+ * @param len number of characters to consider..
+ * @param mc the context to use.
+ * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
+ * @throws NumberFormatException if {@code in} is not a validrepresentation of a  {@code BigDecimal} or the defined subarrayis not wholly within  {@code in}.
+ * @since  1.5
+ */
+public BigDecimal(char[] in,int offset,int len,MathContext mc){
+  this(in,offset,len);
+  if (mc.precision > 0)   roundThis(mc);
+}
+/** 
+ * Translates an  {@code int} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal}, before any rounding, is zero.
+ * @param val {@code int} value to be converted to {@code BigDecimal}.
+ * @param mc the context to use.
+ * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
+ * @since  1.5
+ */
+public BigDecimal(int val,MathContext mc){
+  intCompact=val;
+  if (mc.precision > 0)   roundThis(mc);
+}

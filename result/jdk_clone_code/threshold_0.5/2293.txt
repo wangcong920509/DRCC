@@ -1,0 +1,14 @@
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder append(CharSequence s,int start,int end){
+  super.append(s,start,end);
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int offset,String str){
+  super.insert(offset,str);
+  return this;
+}

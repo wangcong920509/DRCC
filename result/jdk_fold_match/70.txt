@@ -1,0 +1,15 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\xpath\regex\RegexParser.java
+Token processLookahead() throws ParseException {
+  this.next();
+  Token tok=Token.createLook(Token.LOOKAHEAD,this.parseRegex());
+  if (this.read() != T_RPAREN)   throw ex("parser.factor.1",this.offset - 1);
+  this.next();
+  return tok;
+}
+Token processNegativelookahead() throws ParseException {
+  this.next();
+  Token tok=Token.createLook(Token.NEGATIVELOOKAHEAD,this.parseRegex());
+  if (this.read() != T_RPAREN)   throw ex("parser.factor.1",this.offset - 1);
+  this.next();
+  return tok;
+}

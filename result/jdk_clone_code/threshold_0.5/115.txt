@@ -1,0 +1,14 @@
+/** 
+ * @return LineNumberTable of Code, if it has one
+ */
+public LineNumberTable getLineNumberTable(){
+  for (int i=0; i < attributes_count; i++)   if (attributes[i] instanceof LineNumberTable)   return (LineNumberTable)attributes[i];
+  return null;
+}
+/** 
+ * @return LocalVariableTable of Code, if it has one
+ */
+public LocalVariableTable getLocalVariableTable(){
+  for (int i=0; i < attributes_count; i++)   if (attributes[i] instanceof LocalVariableTable)   return (LocalVariableTable)attributes[i];
+  return null;
+}

@@ -1,0 +1,19 @@
+/** 
+ * Retrieve a node by name.
+ * @param name Name of a node to look up.
+ * @return the Node (of unspecified sub-class) stored with that name, ornull if no value has been assigned to that name.
+ */
+public Node getNamedItem(String name){
+  int i=findNamePoint(name,0);
+  return (i < 0) ? null : (Node)(nodes.get(i));
+}
+/** 
+ * Introduced in DOM Level 2. <p> Retrieves a node specified by local name and namespace URI.
+ * @param namespaceURI  The namespace URI of the node to retrieve.When it is null or an empty string, this method behaves like getNamedItem.
+ * @param localName     The local name of the node to retrieve.
+ * @return Node         A Node (of any type) with the specified name, or null if the specifiedname did not identify any node in the map.
+ */
+public Node getNamedItemNS(String namespaceURI,String localName){
+  int i=findNamePoint(namespaceURI,localName);
+  return (i < 0) ? null : (Node)(nodes.get(i));
+}

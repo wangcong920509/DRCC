@@ -1,0 +1,33 @@
+jdk_src\javax\swing\text\html\HTMLWriter.java
+/** 
+ * Writes out the content of the Option form element.
+ * @param option  an Option
+ * @exception IOException on any I/O error
+ */
+protected void writeOption(Option option) throws IOException {
+  indentSmart();
+  write('<');
+  write("option");
+  Object value=option.getAttributes().getAttribute(HTML.Attribute.VALUE);
+  if (value != null) {
+    write(" value=" + value);
+  }
+  if (option.isSelected()) {
+    write(" selected");
+  }
+  write('>');
+  if (option.getLabel() != null) {
+    write(option.getLabel());
+  }
+  writeLineSeparator();
+}
+void writeStyleStartTag() throws IOException {
+  indentSmart();
+  write("<style type=\"text/css\">");
+  incrIndent();
+  writeLineSeparator();
+  indentSmart();
+  write("<!--");
+  incrIndent();
+  writeLineSeparator();
+}

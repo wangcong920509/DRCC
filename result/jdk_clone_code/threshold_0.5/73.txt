@@ -1,0 +1,8 @@
+protected void setDefaultValues(){
+  Map map=new FieldMap(entries,true);
+  setFields(map);
+}
+public void setTestValues(){
+  Map map=new FieldMap(entries,false);
+  setFields(map);
+}

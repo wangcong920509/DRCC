@@ -1,0 +1,14 @@
+/** 
+ * If the user specified a value attribute, use this instead of counting nodes.
+ */
+public NodeCounter setValue(double value){
+  _value=value;
+  return this;
+}
+/** 
+ * Sets formatting fields to their default values.
+ */
+public NodeCounter setDefaultFormatting(){
+  setFormatting("1","en","alphabetic",null,null);
+  return this;
+}

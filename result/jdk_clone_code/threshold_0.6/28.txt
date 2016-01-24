@@ -1,0 +1,12 @@
+public int getExpandedTypeID(final int nodeHandle){
+  int nodeID=getNodeIdent(nodeHandle);
+  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
+ else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
+ else   return DTM.NULL;
+}
+public short getNodeType(int nodeHandle){
+  int nodeID=getNodeIdent(nodeHandle);
+  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
+ else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
+ else   return DTM.NULL;
+}

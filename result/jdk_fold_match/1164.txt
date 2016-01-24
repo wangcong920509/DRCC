@@ -1,0 +1,49 @@
+jdk_src\javax\swing\plaf\synth\SynthTabbedPaneUI.java
+/** 
+ * @inheritDoc
+ */
+@Override protected int getBaseline(int tab){
+  if (tabPane.getTabComponentAt(tab) != null || getTextViewForTab(tab) != null) {
+    return super.getBaseline(tab);
+  }
+  String title=tabPane.getTitleAt(tab);
+  Font font=tabContext.getStyle().getFont(tabContext);
+  FontMetrics metrics=getFontMetrics(font);
+  Icon icon=getIconForTab(tab);
+  textRect.setBounds(0,0,0,0);
+  iconRect.setBounds(0,0,0,0);
+  calcRect.setBounds(0,0,Short.MAX_VALUE,maxTabHeight);
+  tabContext.getStyle().getGraphicsUtils(tabContext).layoutText(tabContext,metrics,title,icon,SwingUtilities.CENTER,SwingUtilities.CENTER,SwingUtilities.LEADING,SwingUtilities.CENTER,calcRect,iconRect,textRect,textIconGap);
+  return textRect.y + metrics.getAscent() + getBaselineOffset();
+}
+private void paintTabArea(SynthContext ss,Graphics g,int tabPlacement,int selectedIndex,Rectangle tabAreaBounds){
+  Rectangle clipRect=g.getClipBounds();
+  if (tabAreaStatesMatchSelectedTab && selectedIndex >= 0) {
+    updateTabContext(selectedIndex,true,selectedTabIsPressed,(getRolloverTab() == selectedIndex),(getFocusIndex() == selectedIndex));
+    ss.setComponentState(tabContext.getComponentState());
+  }
+ else {
+    ss.setComponentState(SynthConstants.ENABLED);
+  }
+  SynthLookAndFeel.updateSubregion(ss,g,tabAreaBounds);
+  ss.getPainter().paintTabbedPaneTabAreaBackground(ss,g,tabAreaBounds.x,tabAreaBounds.y,tabAreaBounds.width,tabAreaBounds.height,tabPlacement);
+  ss.getPainter().paintTabbedPaneTabAreaBorder(ss,g,tabAreaBounds.x,tabAreaBounds.y,tabAreaBounds.width,tabAreaBounds.height,tabPlacement);
+  int tabCount=tabPane.getTabCount();
+  iconRect.setBounds(0,0,0,0);
+  textRect.setBounds(0,0,0,0);
+  for (int i=runCount - 1; i >= 0; i--) {
+    int start=tabRuns[i];
+    int next=tabRuns[(i == runCount - 1) ? 0 : i + 1];
+    int end=(next != 0 ? next - 1 : tabCount - 1);
+    for (int j=start; j <= end; j++) {
+      if (rects[j].intersects(clipRect) && selectedIndex != j) {
+        paintTab(tabContext,g,tabPlacement,rects,j,iconRect,textRect);
+      }
+    }
+  }
+  if (selectedIndex >= 0) {
+    if (rects[selectedIndex].intersects(clipRect)) {
+      paintTab(tabContext,g,tabPlacement,rects,selectedIndex,iconRect,textRect);
+    }
+  }
+}

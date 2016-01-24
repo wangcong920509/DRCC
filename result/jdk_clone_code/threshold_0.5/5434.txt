@@ -1,0 +1,27 @@
+/** 
+ * Creates a new object representing a hypertext link event.
+ * @param source the object responsible for the event
+ * @param type the event type
+ * @param targetURL the affected URL
+ * @param sourceElement the element that corresponds to the sourceof the event
+ * @param targetFrame the Frame to display the document in
+ */
+public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,Element sourceElement,String targetFrame){
+  super(source,type,targetURL,null,sourceElement);
+  this.targetFrame=targetFrame;
+}
+/** 
+ * Creates a new object representing a hypertext link event.
+ * @param source the object responsible for the event
+ * @param type the event type
+ * @param targetURL the affected URL
+ * @param desc a desription
+ * @param sourceElement the element that corresponds to the sourceof the event
+ * @param inputEvent  InputEvent that triggered the hyperlink event
+ * @param targetFrame the Frame to display the document in
+ * @since 1.7
+ */
+public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,String desc,Element sourceElement,InputEvent inputEvent,String targetFrame){
+  super(source,type,targetURL,desc,sourceElement,inputEvent);
+  this.targetFrame=targetFrame;
+}

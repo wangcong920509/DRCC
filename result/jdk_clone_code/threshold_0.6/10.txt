@@ -1,0 +1,15 @@
+/** 
+ * Get the default Context object
+ * @result          the default Context object
+ */
+public synchronized org.omg.CORBA.Context get_default_context(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
+}
+/** 
+ * This method always returns false because the ORB never needs the main thread to do work.
+ */
+public synchronized boolean work_pending(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
+}

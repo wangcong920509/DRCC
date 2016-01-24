@@ -1,0 +1,20 @@
+/** 
+ * Create an XPathException object that holds an error message, the stylesheet node that the error originated from, and another exception that caused this exception.
+ * @param message The error message.
+ * @param styleNode The stylesheet node that the error originated from.
+ * @param e The exception that caused this exception.
+ */
+public XPathException(String message,Node styleNode,Exception e){
+  super(message);
+  m_styleNode=styleNode;
+  this.m_exception=e;
+}
+/** 
+ * Create an XPathException object that holds an error message, and another exception that caused this exception.
+ * @param message The error message.
+ * @param e The exception that caused this exception.
+ */
+public XPathException(String message,Exception e){
+  super(message);
+  this.m_exception=e;
+}

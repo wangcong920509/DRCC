@@ -1,0 +1,18 @@
+public OutputBuffer append(String s){
+  try {
+    _writer.write(s);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
+}
+public OutputBuffer append(char[] s,int from,int to){
+  try {
+    _writer.write(s,from,to);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
+}

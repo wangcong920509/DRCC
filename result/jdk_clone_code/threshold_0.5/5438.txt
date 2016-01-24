@@ -1,0 +1,22 @@
+/** 
+ * If <code>getSupportsIncrement</code> returns true, this returns two Actions suitable for incrementing/decrementing the value.
+ */
+protected Action[] getActions(){
+  if (getSupportsIncrement()) {
+    return new Action[]{new IncrementAction("increment",1),new IncrementAction("decrement",-1)};
+  }
+  return null;
+}
+/** 
+ * Returns a Set of the attribute identifiers at <code>index</code>.
+ */
+Map<Attribute,Object> getAttributes(int index){
+  if (isValidMask()) {
+    AttributedCharacterIterator iterator=getIterator();
+    if (index >= 0 && index <= iterator.getEndIndex()) {
+      iterator.setIndex(index);
+      return iterator.getAttributes();
+    }
+  }
+  return null;
+}

@@ -1,0 +1,8 @@
+public ShortBuffer put(short x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
+}
+public ShortBuffer put(int i,short x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}

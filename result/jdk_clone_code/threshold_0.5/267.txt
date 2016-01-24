@@ -1,0 +1,14 @@
+/** 
+ * register one global group
+ */
+public void addGlobalGroupDecl(XSGroupDecl decl){
+  fGlobalGroupDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}
+/** 
+ * register one global notation
+ */
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}

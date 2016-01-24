@@ -1,0 +1,54 @@
+jdk_src\com\sun\org\apache\xml\internal\security\signature\XMLSignature.java
+/** 
+ * Constructor XMLSignature
+ * @param doc
+ * @param BaseURI
+ * @param SignatureMethodURI
+ * @param HMACOutputLength
+ * @param CanonicalizationMethodURI
+ * @throws XMLSecurityException
+ */
+public XMLSignature(Document doc,String BaseURI,String SignatureMethodURI,int HMACOutputLength,String CanonicalizationMethodURI) throws XMLSecurityException {
+  super(doc);
+  String xmlnsDsPrefix=getDefaultPrefix(Constants.SignatureSpecNS);
+  if (xmlnsDsPrefix == null) {
+    this._constructionElement.setAttributeNS(Constants.NamespaceSpecNS,"xmlns",Constants.SignatureSpecNS);
+  }
+ else {
+    this._constructionElement.setAttributeNS(Constants.NamespaceSpecNS,"xmlns:" + xmlnsDsPrefix,Constants.SignatureSpecNS);
+  }
+  XMLUtils.addReturnToElement(this._constructionElement);
+  this._baseURI=BaseURI;
+  this._signedInfo=new SignedInfo(this._doc,SignatureMethodURI,HMACOutputLength,CanonicalizationMethodURI);
+  this._constructionElement.appendChild(this._signedInfo.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+  signatureValueElement=XMLUtils.createElementInSignatureSpace(this._doc,Constants._TAG_SIGNATUREVALUE);
+  this._constructionElement.appendChild(signatureValueElement);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Creates a XMLSignature in a Document
+ * @param doc
+ * @param BaseURI
+ * @param SignatureMethodElem
+ * @param CanonicalizationMethodElem
+ * @throws XMLSecurityException
+ */
+public XMLSignature(Document doc,String BaseURI,Element SignatureMethodElem,Element CanonicalizationMethodElem) throws XMLSecurityException {
+  super(doc);
+  String xmlnsDsPrefix=getDefaultPrefix(Constants.SignatureSpecNS);
+  if (xmlnsDsPrefix == null) {
+    this._constructionElement.setAttributeNS(Constants.NamespaceSpecNS,"xmlns",Constants.SignatureSpecNS);
+  }
+ else {
+    this._constructionElement.setAttributeNS(Constants.NamespaceSpecNS,"xmlns:" + xmlnsDsPrefix,Constants.SignatureSpecNS);
+  }
+  XMLUtils.addReturnToElement(this._constructionElement);
+  this._baseURI=BaseURI;
+  this._signedInfo=new SignedInfo(this._doc,SignatureMethodElem,CanonicalizationMethodElem);
+  this._constructionElement.appendChild(this._signedInfo.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+  signatureValueElement=XMLUtils.createElementInSignatureSpace(this._doc,Constants._TAG_SIGNATUREVALUE);
+  this._constructionElement.appendChild(signatureValueElement);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

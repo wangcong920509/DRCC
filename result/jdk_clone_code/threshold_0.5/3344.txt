@@ -1,0 +1,8 @@
+public void unbind(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.unbind(name);
+}
+public void unbind(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.unbind(name);
+}

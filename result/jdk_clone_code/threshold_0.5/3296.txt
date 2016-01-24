@@ -1,0 +1,26 @@
+/** 
+ * Returns <code>true</code> if the writer supports the writing of a complete image stream consisting of a single image with undefined pixel values and associated metadata and thumbnails to the output.  The pixel values may be defined by future calls to the <code>replacePixels</code> methods.  If the output is an <code>ImageOutputStream</code>, its existing contents prior to the current seek position are not affected, and need not be readable or writable. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if the writing of complete imagestream with contents to be defined later is supported.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IOException if an I/O error occurs during thequery.
+ */
+public boolean canWriteEmpty() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}
+/** 
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
+ */
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}

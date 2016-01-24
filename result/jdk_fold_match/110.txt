@@ -1,0 +1,48 @@
+jdk_src\com\sun\org\apache\xerces\internal\util\SymbolTable.java
+/** 
+ * Adds the specified symbol to the symbol table and returns a reference to the unique symbol. If the symbol already exists, the previous symbol reference is returned instead, in order guarantee that symbol references remain unique.
+ * @param symbol The new symbol.
+ */
+public String addSymbol(String symbol){
+  final int hash=hash(symbol);
+  final int bucket=hash % fTableSize;
+  final int length=symbol.length();
+  OUTER:   for (Entry entry=fBuckets[bucket]; entry != null; entry=entry.next) {
+    if (length == entry.characters.length && hash == entry.hashCode) {
+      if (symbol.regionMatches(0,entry.symbol,0,length)) {
+        return entry.symbol;
+      }
+ else {
+        continue OUTER;
+      }
+    }
+  }
+  Entry entry=new Entry(symbol,fBuckets[bucket]);
+  entry.hashCode=hash;
+  fBuckets[bucket]=entry;
+  return entry.symbol;
+}
+/** 
+ * Adds the specified symbol to the symbol table and returns a reference to the unique symbol. If the symbol already exists, the previous symbol reference is returned instead, in order guarantee that symbol references remain unique.
+ * @param buffer The buffer containing the new symbol.
+ * @param offset The offset into the buffer of the new symbol.
+ * @param length The length of the new symbol in the buffer.
+ */
+public String addSymbol(char[] buffer,int offset,int length){
+  int hash=hash(buffer,offset,length);
+  int bucket=hash % fTableSize;
+  OUTER:   for (Entry entry=fBuckets[bucket]; entry != null; entry=entry.next) {
+    if (length == entry.characters.length && hash == entry.hashCode) {
+      for (int i=0; i < length; i++) {
+        if (buffer[offset + i] != entry.characters[i]) {
+          continue OUTER;
+        }
+      }
+      return entry.symbol;
+    }
+  }
+  Entry entry=new Entry(buffer,offset,length,fBuckets[bucket]);
+  fBuckets[bucket]=entry;
+  entry.hashCode=hash;
+  return entry.symbol;
+}

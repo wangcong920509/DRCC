@@ -1,0 +1,26 @@
+jdk_src\javax\swing\plaf\nimbus\SpinnerNextButtonPainter.java
+private void paintBackgroundMouseOverAndFocused(Graphics2D g){
+  path=decodePath5();
+  g.setPaint(color12);
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient7(path));
+  g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(color18);
+  g.fill(rect);
+}
+private void paintBackgroundMouseOver(Graphics2D g){
+  path=decodePath3();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient10(path));
+  g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(color18);
+  g.fill(rect);
+}

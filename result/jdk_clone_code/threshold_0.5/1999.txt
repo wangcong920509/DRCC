@@ -1,0 +1,12 @@
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
+ */
+public synchronized StringBuffer deleteCharAt(int index){
+  super.deleteCharAt(index);
+  return this;
+}

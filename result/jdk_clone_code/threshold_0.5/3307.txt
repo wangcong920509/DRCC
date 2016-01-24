@@ -1,0 +1,22 @@
+/** 
+ * Return the key used to identify the element type in arrays - e.g. "Z" for boolean, "C" for char etc...
+ * @param elementClassName the wrapper class name of the arrayelement ("Boolean",  "Character", etc...)
+ * @return the key corresponding to the given type ("Z", "C", etc...)return null if the given elementClassName is not a primitive wrapper class name.
+ */
+static String getPrimitiveTypeKey(String elementClassName){
+  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
+    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_KEY_INDEX];
+  }
+  return null;
+}
+/** 
+ * Return the primitive open type corresponding to the given primitive type. e.g. SimpleType.BOOLEAN for "boolean", SimpleType.CHARACTER for "char", etc...
+ * @param primitiveTypeName the primitive type of the array element ("boolean","char", etc...)
+ * @return the OpenType corresponding to the given primitive type name(SimpleType.BOOLEAN, SimpleType.CHARACTER, etc...) return null if the given elementClassName is not a primitive type name.
+ */
+static SimpleType<?> getPrimitiveOpenType(String primitiveTypeName){
+  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
+    if (primitiveTypeName.equals(typeDescr[PRIMITIVE_TYPE_NAME_INDEX]))     return (SimpleType<?>)typeDescr[PRIMITIVE_OPEN_TYPE_INDEX];
+  }
+  return null;
+}

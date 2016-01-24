@@ -1,0 +1,14 @@
+/** 
+ * Create a field or type name from the given components:  Declaring class, name, type, reference kind. The declaring class may be supplied as null if this is to be a bare name and type. The resulting name will in an unresolved state.
+ */
+public MemberName(Class<?> defClass,String name,Class<?> type,byte refKind){
+  init(defClass,name,type,flagsMods(IS_FIELD,0,refKind));
+  initResolved(false);
+}
+/** 
+ * Create a field or type name from the given components:  Declaring class, name, type. The declaring class may be supplied as null if this is to be a bare name and type. The modifier flags default to zero. The resulting name will in an unresolved state.
+ */
+public MemberName(Class<?> defClass,String name,Class<?> type,Void unused){
+  this(defClass,name,type,REF_NONE);
+  initResolved(false);
+}

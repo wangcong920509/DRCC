@@ -1,0 +1,28 @@
+/** 
+ * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
+ */
+public String getPrefix(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    String prefix=fScanner.getElementQName().prefix;
+    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+  }
+  return null;
+}
+protected List getNotationDecls(){
+  if (fEventType == XMLStreamConstants.DTD) {
+    if (fScanner.fDTDScanner == null)     return null;
+    DTDGrammar grammar=((XMLDTDScannerImpl)(fScanner.fDTDScanner)).getGrammar();
+    if (grammar == null)     return null;
+    List notations=grammar.getNotationDecls();
+    Iterator it=notations.iterator();
+    ArrayList list=new ArrayList();
+    while (it.hasNext()) {
+      XMLNotationDecl ni=(XMLNotationDecl)it.next();
+      if (ni != null) {
+        list.add(new NotationDeclarationImpl(ni));
+      }
+    }
+    return list;
+  }
+  return null;
+}

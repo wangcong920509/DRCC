@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#reset()
+ */
+public boolean reset(){
+  aMethodIsCalled();
+  return false;
+}
+/** 
+ * @see SerializationHandler#setEscaping(boolean)
+ */
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
+}

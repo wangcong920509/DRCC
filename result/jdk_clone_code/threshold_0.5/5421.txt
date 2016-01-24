@@ -1,0 +1,22 @@
+/** 
+ * Gives notification that something was inserted into the document in a location that this view is responsible for.
+ * @param changes the change information from the associated document
+ * @param a the current allocation of the view
+ * @param f the factory to use to rebuild if the view has children
+ * @see View#insertUpdate
+ */
+public void insertUpdate(DocumentEvent changes,Shape a,ViewFactory f){
+  super.insertUpdate(changes,adjustAllocation(a),f);
+  updateVisibilityModel();
+}
+/** 
+ * Gives notification that something was removed from the document in a location that this view is responsible for.
+ * @param changes the change information from the associated document
+ * @param a the current allocation of the view
+ * @param f the factory to use to rebuild if the view has children
+ * @see View#removeUpdate
+ */
+public void removeUpdate(DocumentEvent changes,Shape a,ViewFactory f){
+  super.removeUpdate(changes,adjustAllocation(a),f);
+  updateVisibilityModel();
+}

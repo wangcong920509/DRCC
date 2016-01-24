@@ -1,0 +1,16 @@
+/** 
+ * Constructor X509Data
+ * @param doc
+ */
+public X509Data(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param xmlX509SKI
+ */
+public void add(XMLX509SKI xmlX509SKI){
+  this._constructionElement.appendChild(xmlX509SKI.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

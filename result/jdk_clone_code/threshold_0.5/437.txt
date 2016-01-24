@@ -1,0 +1,8 @@
+public DocumentHandler asDocumentHandler() throws IOException {
+  prepare();
+  return this;
+}
+public ContentHandler asContentHandler() throws IOException {
+  prepare();
+  return this;
+}

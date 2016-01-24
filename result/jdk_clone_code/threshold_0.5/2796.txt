@@ -1,0 +1,8 @@
+public DoubleBuffer put(double x){
+  unsafe.putDouble(ix(nextPutIndex()),((x)));
+  return this;
+}
+public DoubleBuffer put(int i,double x){
+  unsafe.putDouble(ix(checkIndex(i)),((x)));
+  return this;
+}

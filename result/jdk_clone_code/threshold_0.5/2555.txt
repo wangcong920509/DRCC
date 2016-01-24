@@ -1,0 +1,8 @@
+public ByteBuffer put(int i,byte x){
+  unsafe.putByte(ix(checkIndex(i)),((x)));
+  return this;
+}
+public ByteBuffer putChar(char x){
+  putChar(ix(nextPutIndex((1 << 1))),x);
+  return this;
+}

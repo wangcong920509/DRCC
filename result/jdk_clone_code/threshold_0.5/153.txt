@@ -1,0 +1,14 @@
+/** 
+ * See above.
+ */
+public static String monthAbbreviation(){
+  String format="MMM";
+  return getNameOrAbbrev(format);
+}
+/** 
+ * See above.
+ */
+public static String dayAbbreviation(){
+  String format="EEE";
+  return getNameOrAbbrev(format);
+}

@@ -1,0 +1,39 @@
+jdk_src\java\util\WeakHashMap.java
+/** 
+ * Returns the entry associated with the specified key in this map. Returns null if the map contains no mapping for this key.
+ */
+Entry<K,V> getEntry(Object key){
+  Object k=maskNull(key);
+  int h=hash(k);
+  Entry<K,V>[] tab=getTable();
+  int index=indexFor(h,tab.length);
+  Entry<K,V> e=tab[index];
+  while (e != null && !(e.hash == h && eq(k,e.get())))   e=e.next;
+  return e;
+}
+/** 
+ * Special version of remove needed by Entry set 
+ */
+boolean removeMapping(Object o){
+  if (!(o instanceof Map.Entry))   return false;
+  Entry<K,V>[] tab=getTable();
+  Map.Entry<?,?> entry=(Map.Entry<?,?>)o;
+  Object k=maskNull(entry.getKey());
+  int h=hash(k);
+  int i=indexFor(h,tab.length);
+  Entry<K,V> prev=tab[i];
+  Entry<K,V> e=prev;
+  while (e != null) {
+    Entry<K,V> next=e.next;
+    if (h == e.hash && e.equals(entry)) {
+      modCount++;
+      size--;
+      if (prev == e)       tab[i]=next;
+ else       prev.next=next;
+      return true;
+    }
+    prev=e;
+    e=next;
+  }
+  return false;
+}

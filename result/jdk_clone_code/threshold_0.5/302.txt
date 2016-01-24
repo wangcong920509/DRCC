@@ -1,0 +1,12 @@
+public String getLiteralSystemId(){
+  if (fLocator != null) {
+    return fLocator.getSystemId();
+  }
+  return null;
+}
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
+  }
+  return null;
+}

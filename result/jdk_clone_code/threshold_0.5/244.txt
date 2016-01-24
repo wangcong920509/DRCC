@@ -1,0 +1,11 @@
+/** 
+ * register one global attribute
+ */
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}
+public void addGlobalElementDecl(XSElementDecl decl){
+  fGlobalElemDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}

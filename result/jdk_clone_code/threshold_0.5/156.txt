@@ -1,0 +1,78 @@
+/** 
+ * Parses a stylesheet and builds the internal abstract syntax tree
+ * @param reader A SAX2 SAXReader (parser)
+ * @param input A SAX2 InputSource can be passed to a SAX reader
+ * @return The root of the abstract syntax tree
+ */
+public SyntaxTreeNode parse(XMLReader reader,InputSource input){
+  try {
+    reader.setContentHandler(this);
+    reader.parse(input);
+    return (SyntaxTreeNode)getStylesheet(_root);
+  }
+ catch (  IOException e) {
+    if (_xsltc.debug())     e.printStackTrace();
+    reportError(ERROR,new ErrorMsg(ErrorMsg.JAXP_COMPILE_ERR,e));
+  }
+catch (  SAXException e) {
+    Throwable ex=e.getException();
+    if (_xsltc.debug()) {
+      e.printStackTrace();
+      if (ex != null)       ex.printStackTrace();
+    }
+    reportError(ERROR,new ErrorMsg(ErrorMsg.JAXP_COMPILE_ERR,e));
+  }
+catch (  CompilerException e) {
+    if (_xsltc.debug())     e.printStackTrace();
+    reportError(ERROR,new ErrorMsg(ErrorMsg.JAXP_COMPILE_ERR,e));
+  }
+catch (  Exception e) {
+    if (_xsltc.debug())     e.printStackTrace();
+    reportError(ERROR,new ErrorMsg(ErrorMsg.JAXP_COMPILE_ERR,e));
+  }
+  return null;
+}
+/** 
+ * Parses a stylesheet and builds the internal abstract syntax tree
+ * @param input A SAX2 InputSource can be passed to a SAX reader
+ * @return The root of the abstract syntax tree
+ */
+public SyntaxTreeNode parse(InputSource input){
+  try {
+    final SAXParserFactory factory=FactoryImpl.getSAXFactory(_useServicesMechanism);
+    if (_xsltc.isSecureProcessing()) {
+      try {
+        factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING,true);
+      }
+ catch (      SAXException e) {
+      }
+    }
+    try {
+      factory.setFeature(Constants.NAMESPACE_FEATURE,true);
+    }
+ catch (    Exception e) {
+      factory.setNamespaceAware(true);
+    }
+    final SAXParser parser=factory.newSAXParser();
+    try {
+      parser.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD,_xsltc.getProperty(XMLConstants.ACCESS_EXTERNAL_DTD));
+    }
+ catch (    SAXNotRecognizedException e) {
+      ErrorMsg err=new ErrorMsg(ErrorMsg.WARNING_MSG,parser.getClass().getName() + ": " + e.getMessage());
+      reportError(WARNING,err);
+    }
+    final XMLReader reader=parser.getXMLReader();
+    return (parse(reader,input));
+  }
+ catch (  ParserConfigurationException e) {
+    ErrorMsg err=new ErrorMsg(ErrorMsg.SAX_PARSER_CONFIG_ERR);
+    reportError(ERROR,err);
+  }
+catch (  SAXParseException e) {
+    reportError(ERROR,new ErrorMsg(e.getMessage(),e.getLineNumber()));
+  }
+catch (  SAXException e) {
+    reportError(ERROR,new ErrorMsg(e.getMessage()));
+  }
+  return null;
+}

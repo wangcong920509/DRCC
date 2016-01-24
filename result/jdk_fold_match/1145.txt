@@ -1,0 +1,50 @@
+jdk_src\javax\swing\plaf\nimbus\TreePainter.java
+private void paintleafIconEnabled(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color1);
+  g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(color2);
+  g.fill(rect);
+  path=decodePath2();
+  g.setPaint(decodeGradient1(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient2(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(color7);
+  g.fill(path);
+  path=decodePath5();
+  g.setPaint(color8);
+  g.fill(path);
+}
+private void paintopenIconEnabled(Graphics2D g){
+  path=decodePath6();
+  g.setPaint(color9);
+  g.fill(path);
+  path=decodePath12();
+  g.setPaint(decodeGradient3(path));
+  g.fill(path);
+  path=decodePath13();
+  g.setPaint(decodeGradient4(path));
+  g.fill(path);
+  rect=decodeRect2();
+  g.setPaint(color15);
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(color16);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color17);
+  g.fill(rect);
+  path=decodePath14();
+  g.setPaint(decodeGradient5(path));
+  g.fill(path);
+  path=decodePath15();
+  g.setPaint(decodeGradient7(path));
+  g.fill(path);
+  path=decodePath11();
+  g.setPaint(color23);
+  g.fill(path);
+}

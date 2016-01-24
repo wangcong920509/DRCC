@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}

@@ -1,0 +1,18 @@
+/** 
+ * This method has been defined to allow the sub-classes of SnmpInt to perform their own control at intialization time.
+ */
+boolean isInitValueValid(int v){
+  if ((v < Integer.MIN_VALUE) || (v > Integer.MAX_VALUE)) {
+    return false;
+  }
+  return true;
+}
+/** 
+ * This method has been defined to allow the sub-classes of SnmpInt to perform their own control at intialization time.
+ */
+boolean isInitValueValid(long v){
+  if ((v < Integer.MIN_VALUE) || (v > Integer.MAX_VALUE)) {
+    return false;
+  }
+  return true;
+}

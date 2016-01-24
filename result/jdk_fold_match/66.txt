@@ -1,0 +1,145 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\xpath\regex\ParserForXMLSchema.java
+Token processParen() throws ParseException {
+  this.next();
+  Token tok=Token.createParen(this.parseRegex(),0);
+  if (this.read() != T_RPAREN)   throw ex("parser.factor.1",this.offset - 1);
+  this.next();
+  return tok;
+}
+/** 
+ * Parses a character-class-expression, not a character-class-escape. c-c-expression   ::= '[' c-group ']' c-group          ::= positive-c-group | negative-c-group | c-c-subtraction positive-c-group ::= (c-range | c-c-escape)+ negative-c-group ::= '^' positive-c-group c-c-subtraction  ::= (positive-c-group | negative-c-group) subtraction subtraction      ::= '-' c-c-expression c-range          ::= single-range | from-to-range single-range     ::= multi-c-escape | category-c-escape | block-c-escape | &lt;any XML char&gt; cc-normal-c      ::= &lt;any character except [, ], \&gt; from-to-range    ::= cc-normal-c '-' cc-normal-c
+ * @param useNrage Ignored.
+ * @return This returns no NrageToken.
+ */
+protected RangeToken parseCharacterClass(boolean useNrange) throws ParseException {
+  this.setContext(S_INBRACKETS);
+  this.next();
+  boolean nrange=false;
+  boolean wasDecoded=false;
+  RangeToken base=null;
+  RangeToken tok;
+  if (this.read() == T_CHAR && this.chardata == '^') {
+    nrange=true;
+    this.next();
+    base=Token.createRange();
+    base.addRange(0,Token.UTF16_MAX);
+    tok=Token.createRange();
+  }
+ else {
+    tok=Token.createRange();
+  }
+  int type;
+  boolean firstloop=true;
+  while ((type=this.read()) != T_EOF) {
+    wasDecoded=false;
+    if (type == T_CHAR && this.chardata == ']' && !firstloop) {
+      if (nrange) {
+        base.subtractRanges(tok);
+        tok=base;
+      }
+      break;
+    }
+    int c=this.chardata;
+    boolean end=false;
+    if (type == T_BACKSOLIDUS) {
+switch (c) {
+case 'd':
+case 'D':
+case 'w':
+case 'W':
+case 's':
+case 'S':
+        tok.mergeRanges(this.getTokenForShorthand(c));
+      end=true;
+    break;
+case 'i':
+case 'I':
+case 'c':
+case 'C':
+  c=this.processCIinCharacterClass(tok,c);
+if (c < 0) end=true;
+break;
+case 'p':
+case 'P':
+int pstart=this.offset;
+RangeToken tok2=this.processBacksolidus_pP(c);
+if (tok2 == null) throw this.ex("parser.atom.5",pstart);
+tok.mergeRanges(tok2);
+end=true;
+break;
+case '-':
+c=this.decodeEscaped();
+wasDecoded=true;
+break;
+default :
+c=this.decodeEscaped();
+}
+}
+ else if (type == T_XMLSCHEMA_CC_SUBTRACTION && !firstloop) {
+if (nrange) {
+base.subtractRanges(tok);
+tok=base;
+}
+RangeToken range2=this.parseCharacterClass(false);
+tok.subtractRanges(range2);
+if (this.read() != T_CHAR || this.chardata != ']') throw this.ex("parser.cc.5",this.offset);
+break;
+}
+this.next();
+if (!end) {
+if (type == T_CHAR) {
+if (c == '[') throw this.ex("parser.cc.6",this.offset - 2);
+if (c == ']') throw this.ex("parser.cc.7",this.offset - 2);
+if (c == '-' && this.chardata != ']' && !firstloop) throw this.ex("parser.cc.8",this.offset - 2);
+}
+if (this.read() != T_CHAR || this.chardata != '-' || c == '-' && firstloop) {
+if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
+tok.addRange(c,c);
+}
+ else {
+addCaseInsensitiveChar(tok,c);
+}
+}
+ else {
+this.next();
+if ((type=this.read()) == T_EOF) throw this.ex("parser.cc.2",this.offset);
+if (type == T_CHAR && this.chardata == ']') {
+if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
+tok.addRange(c,c);
+}
+ else {
+addCaseInsensitiveChar(tok,c);
+}
+tok.addRange('-','-');
+}
+ else if (type == T_XMLSCHEMA_CC_SUBTRACTION) {
+throw this.ex("parser.cc.8",this.offset - 1);
+}
+ else {
+int rangeend=this.chardata;
+if (type == T_CHAR) {
+if (rangeend == '[') throw this.ex("parser.cc.6",this.offset - 1);
+if (rangeend == ']') throw this.ex("parser.cc.7",this.offset - 1);
+if (rangeend == '-') throw this.ex("parser.cc.8",this.offset - 2);
+}
+ else if (type == T_BACKSOLIDUS) rangeend=this.decodeEscaped();
+this.next();
+if (c > rangeend) throw this.ex("parser.ope.3",this.offset - 1);
+if (!this.isSet(RegularExpression.IGNORE_CASE) || (c > 0xffff && rangeend > 0xffff)) {
+tok.addRange(c,rangeend);
+}
+ else {
+addCaseInsensitiveCharRange(tok,c,rangeend);
+}
+}
+}
+}
+firstloop=false;
+}
+if (this.read() == T_EOF) throw this.ex("parser.cc.2",this.offset);
+tok.sortRanges();
+tok.compactRanges();
+this.setContext(S_NORMAL);
+this.next();
+return tok;
+}

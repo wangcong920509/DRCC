@@ -1,0 +1,22 @@
+/** 
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
+ */
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
+}
+/** 
+ * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
+ * @param orig the exception to wrap.
+ * @return the wrapped exception.
+ */
+public static RemoteException wrapException(Throwable orig){
+  if (utilDelegate != null) {
+    return utilDelegate.wrapException(orig);
+  }
+  return null;
+}

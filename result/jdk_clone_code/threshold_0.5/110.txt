@@ -1,0 +1,17 @@
+/** 
+ * Adds an instance part to the OID in the <CODE>SnmpOid</CODE> object. Note that there is no <CODE>getInstance</CODE> method. This method will directly add the instance to the <CODE>SnmpOid</CODE> object.
+ * @param inst The sub-identifier to be appended to the OID.
+ */
+final public void addInstance(long inst){
+  oid.append(inst);
+  return;
+}
+/** 
+ * Adds an instance part to the OID in the <CODE>SnmpOid</CODE> object. Note that there is no <CODE>getInstance</CODE> method. This method will directly add the instance to the <CODE>SnmpOid</CODE> object.
+ * @param inst The sub-identifier array to be appended to the OID.
+ * @exception SnmpStatusException An error occurred while accessing a MIB node.
+ */
+final public void addInstance(long[] inst) throws SnmpStatusException {
+  oid.addToOid(inst);
+  return;
+}

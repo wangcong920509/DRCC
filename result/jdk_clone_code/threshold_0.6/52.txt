@@ -1,0 +1,16 @@
+/** 
+ * Constructor KeyInfo
+ * @param doc
+ */
+public KeyInfo(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param spkidata
+ */
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

@@ -1,0 +1,16 @@
+private boolean containsObject(Object value){
+  for (int i=fLength - 1; i >= 0; --i) {
+    if (value.equals(fArray[i])) {
+      return true;
+    }
+  }
+  return false;
+}
+private boolean containsNull(){
+  for (int i=fLength - 1; i >= 0; --i) {
+    if (fArray[i] == null) {
+      return true;
+    }
+  }
+  return false;
+}

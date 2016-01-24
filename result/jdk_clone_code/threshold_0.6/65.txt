@@ -1,0 +1,15 @@
+/** 
+ * Constructor ObjectPool
+ * @param type Type of objects for this pool
+ */
+public ObjectPool(Class type){
+  objectType=type;
+  freeStack=new ArrayList();
+}
+/** 
+ * Constructor ObjectPool
+ */
+public ObjectPool(){
+  objectType=null;
+  freeStack=new ArrayList();
+}

@@ -1,0 +1,25 @@
+/** 
+ * Constructs a <code>BatchUpdateException</code> object initialized with a given <code>reason</code>, <code>SQLState</code>, <code>vendorCode</code> and <code>updateCounts</code>. The <code>cause</code> is not initialized, and may subsequently be initialized by a call to the {@link Throwable#initCause(java.lang.Throwable)} method.<p>
+ * @param reason a description of the error
+ * @param SQLState an XOPEN or SQL:2003 code identifying the exception
+ * @param vendorCode an exception code used by a particulardatabase vendor
+ * @param updateCounts an array of <code>int</code>, with each elementindicating the update count, <code>Statement.SUCCESS_NO_INFO</code> or <code>Statement.EXECUTE_FAILED</code> for each SQL command in the batch for JDBC drivers that continue processing after a command failure; an update count or <code>Statement.SUCCESS_NO_INFO</code> for each SQL command in the batch prior to the failure for JDBC drivers that stop processing after a command failure
+ * @since 1.2
+ */
+public BatchUpdateException(String reason,String SQLState,int vendorCode,int[] updateCounts){
+  super(reason,SQLState,vendorCode);
+  this.updateCounts=(updateCounts == null) ? null : Arrays.copyOf(updateCounts,updateCounts.length);
+}
+/** 
+ * Constructs a <code>BatchUpdateException</code> object initialized with a given <code>reason</code>, <code>SQLState</code>, <code>vendorCode</code> <code>cause</code> and <code>updateCounts</code>.
+ * @param reason a description of the error
+ * @param SQLState an XOPEN or SQL:2003 code identifying the exception
+ * @param vendorCode an exception code used by a particulardatabase vendor
+ * @param updateCounts an array of <code>int</code>, with each elementindicating the update count, <code>Statement.SUCCESS_NO_INFO</code> or <code>Statement.EXECUTE_FAILED</code> for each SQL command in the batch for JDBC drivers that continue processing after a command failure; an update count or <code>Statement.SUCCESS_NO_INFO</code> for each SQL command in the batch prior to the failure for JDBC drivers that stop processing after a command failure
+ * @param cause the underlying reason for this <code>SQLException</code> (which is saved for later retrieval by the <code>getCause()</code> method);may be null indicating the cause is non-existent or unknown.
+ * @since 1.6
+ */
+public BatchUpdateException(String reason,String SQLState,int vendorCode,int[] updateCounts,Throwable cause){
+  super(reason,SQLState,vendorCode,cause);
+  this.updateCounts=(updateCounts == null) ? null : Arrays.copyOf(updateCounts,updateCounts.length);
+}

@@ -1,0 +1,8 @@
+public ORBAlreadyRegistered(String _orbId){
+  super(ORBAlreadyRegisteredHelper.id());
+  orbId=_orbId;
+}
+public ORBAlreadyRegistered(String $reason,String _orbId){
+  super(ORBAlreadyRegisteredHelper.id() + "  " + $reason);
+  orbId=_orbId;
+}

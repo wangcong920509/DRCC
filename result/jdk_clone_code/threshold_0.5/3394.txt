@@ -1,0 +1,33 @@
+/** 
+ * Return a MidiDevice with a given name from a list of MidiDeviceProviders.
+ * @param deviceName The name of the MidiDevice to be returned.
+ * @param providers The List of MidiDeviceProviders to check forMidiDevices.
+ * @param deviceClass The requested device type, one of Synthesizer.class,Sequencer.class, Receiver.class or Transmitter.class.
+ * @return A Mixer matching the requirements, or null if none is found.
+ */
+private static MidiDevice getNamedDevice(String deviceName,List providers,Class deviceClass,boolean allowSynthesizer,boolean allowSequencer){
+  for (int i=0; i < providers.size(); i++) {
+    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
+    MidiDevice device=getNamedDevice(deviceName,provider,deviceClass,allowSynthesizer,allowSequencer);
+    if (device != null) {
+      return device;
+    }
+  }
+  return null;
+}
+/** 
+ * From a List of MidiDeviceProviders, return the first appropriate MidiDevice.
+ * @param providers The List of MidiDeviceProviders to search.
+ * @param deviceClass The requested device type, one of Synthesizer.class,Sequencer.class, Receiver.class or Transmitter.class.
+ * @return A MidiDevice that is considered appropriate, or nullif none is found.
+ */
+private static MidiDevice getFirstDevice(List providers,Class deviceClass,boolean allowSynthesizer,boolean allowSequencer){
+  for (int i=0; i < providers.size(); i++) {
+    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
+    MidiDevice device=getFirstDevice(provider,deviceClass,allowSynthesizer,allowSequencer);
+    if (device != null) {
+      return device;
+    }
+  }
+  return null;
+}

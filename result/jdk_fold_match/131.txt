@@ -1,0 +1,54 @@
+jdk_src\com\sun\org\apache\xml\internal\utils\FastStringBuffer.java
+/** 
+ * Sends the specified range of characters as one or more SAX characters() events. Note that the buffer reference passed to the ContentHandler may be invalidated if the FastStringBuffer is edited; it's the user's responsibility to manage access to the FastStringBuffer to prevent this problem from arising. <p> Note too that there is no promise that the output will be sent as a single call. As is always true in SAX, one logical string may be split across multiple blocks of memory and hence delivered as several successive events.
+ * @param ch SAX ContentHandler object to receive the event.
+ * @param start Offset of first character in the range.
+ * @param length Number of characters to send.
+ * @exception org.xml.sax.SAXException may be thrown by handler'scharacters() method.
+ */
+public void sendSAXcharacters(org.xml.sax.ContentHandler ch,int start,int length) throws org.xml.sax.SAXException {
+  int startChunk=start >>> m_chunkBits;
+  int startColumn=start & m_chunkMask;
+  if (startColumn + length < m_chunkMask && m_innerFSB == null) {
+    ch.characters(m_array[startChunk],startColumn,length);
+    return;
+  }
+  int stop=start + length;
+  int stopChunk=stop >>> m_chunkBits;
+  int stopColumn=stop & m_chunkMask;
+  for (int i=startChunk; i < stopChunk; ++i) {
+    if (i == 0 && m_innerFSB != null)     m_innerFSB.sendSAXcharacters(ch,startColumn,m_chunkSize - startColumn);
+ else     ch.characters(m_array[i],startColumn,m_chunkSize - startColumn);
+    startColumn=0;
+  }
+  if (stopChunk == 0 && m_innerFSB != null)   m_innerFSB.sendSAXcharacters(ch,startColumn,stopColumn - startColumn);
+ else   if (stopColumn > startColumn) {
+    ch.characters(m_array[stopChunk],startColumn,stopColumn - startColumn);
+  }
+}
+/** 
+ * Sends the specified range of characters as one or more SAX characters() events, normalizing the characters according to XSLT rules.
+ * @param ch SAX ContentHandler object to receive the event.
+ * @param start Offset of first character in the range.
+ * @param length Number of characters to send.
+ * @return normalization status to apply to next chunk (because we mayhave been called recursively to process an inner FSB): <dl> <dt>0</dt> <dd>if this output did not end in retained whitespace, and thus whitespace at the start of the following chunk (if any) should be converted to a single space. <dt>SUPPRESS_LEADING_WS</dt> <dd>if this output ended in retained whitespace, and thus whitespace at the start of the following chunk (if any) should be completely suppressed.</dd> </dd> </dl>
+ * @exception org.xml.sax.SAXException may be thrown by handler'scharacters() method.
+ */
+public int sendNormalizedSAXcharacters(org.xml.sax.ContentHandler ch,int start,int length) throws org.xml.sax.SAXException {
+  int stateForNextChunk=SUPPRESS_LEADING_WS;
+  int stop=start + length;
+  int startChunk=start >>> m_chunkBits;
+  int startColumn=start & m_chunkMask;
+  int stopChunk=stop >>> m_chunkBits;
+  int stopColumn=stop & m_chunkMask;
+  for (int i=startChunk; i < stopChunk; ++i) {
+    if (i == 0 && m_innerFSB != null)     stateForNextChunk=m_innerFSB.sendNormalizedSAXcharacters(ch,startColumn,m_chunkSize - startColumn);
+ else     stateForNextChunk=sendNormalizedSAXcharacters(m_array[i],startColumn,m_chunkSize - startColumn,ch,stateForNextChunk);
+    startColumn=0;
+  }
+  if (stopChunk == 0 && m_innerFSB != null)   stateForNextChunk=m_innerFSB.sendNormalizedSAXcharacters(ch,startColumn,stopColumn - startColumn);
+ else   if (stopColumn > startColumn) {
+    stateForNextChunk=sendNormalizedSAXcharacters(m_array[stopChunk],startColumn,stopColumn - startColumn,ch,stateForNextChunk | SUPPRESS_TRAILING_WS);
+  }
+  return stateForNextChunk;
+}

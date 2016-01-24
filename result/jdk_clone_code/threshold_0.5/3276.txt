@@ -1,0 +1,19 @@
+/** 
+ * Creates a new AccessibleRelation using the given locale independent key. The key String should be a locale independent key for the relation. It is not intended to be used as the actual String to display to the user.  To get the localized string, use toDisplayString.
+ * @param key the locale independent name of the relation.
+ * @param target the target object for this relation
+ * @see AccessibleBundle#toDisplayString
+ */
+public AccessibleRelation(String key,Object target){
+  this.key=key;
+  this.target=new Object[1];
+  this.target[0]=target;
+}
+/** 
+ * Sets the target object for this relation
+ * @param target the target object for this relation
+ */
+public void setTarget(Object target){
+  this.target=new Object[1];
+  this.target[0]=target;
+}

@@ -1,0 +1,19 @@
+/** 
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
+ */
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
+}
+/** 
+ * If in xmode peek past whitespace and comments.
+ */
+private int peekPastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[++cursor];
+    if (ch == '#') {
+      ch=peekPastLine();
+    }
+  }
+  return ch;
+}

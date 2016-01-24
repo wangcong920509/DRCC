@@ -1,0 +1,19 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Attribute node name
+ * @return null
+ */
+public Attr getAttributeNode(String name){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Entity Reference name
+ * @return null
+ * @throws DOMException
+ */
+public EntityReference createEntityReference(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

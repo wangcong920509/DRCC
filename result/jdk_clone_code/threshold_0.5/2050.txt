@@ -1,0 +1,15 @@
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @since      1.5
+ */
+public synchronized StringBuffer append(CharSequence s,int start,int end){
+  super.append(s,start,end);
+  return this;
+}
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public synchronized StringBuffer append(char[] str,int offset,int len){
+  super.append(str,offset,len);
+  return this;
+}

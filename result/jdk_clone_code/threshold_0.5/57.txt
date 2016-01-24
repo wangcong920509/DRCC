@@ -1,0 +1,8 @@
+public ServerAlreadyInstalled(String _serverId){
+  super(ServerAlreadyInstalledHelper.id());
+  serverId=_serverId;
+}
+public ServerAlreadyInstalled(String $reason,String _serverId){
+  super(ServerAlreadyInstalledHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

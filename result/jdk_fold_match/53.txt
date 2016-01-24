@@ -1,0 +1,39 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\runtime\BasisLibrary.java
+/** 
+ * XSLT Standard function substring(). Must take a double because of conversions resulting into NaNs and rounding.
+ */
+public static String substringF(String value,double start){
+  if (Double.isNaN(start))   return (EMPTYSTRING);
+  final int strlen=value.length();
+  int istart=(int)Math.round(start) - 1;
+  if (istart > strlen)   return (EMPTYSTRING);
+  if (istart < 1)   istart=0;
+  try {
+    return value.substring(istart);
+  }
+ catch (  IndexOutOfBoundsException e) {
+    runTimeError(RUN_TIME_INTERNAL_ERR,"substring()");
+    return null;
+  }
+}
+/** 
+ * XSLT Standard function substring(). Must take a double because of conversions resulting into NaNs and rounding.
+ */
+public static String substringF(String value,double start,double length){
+  if (Double.isInfinite(start) || Double.isNaN(start) || Double.isNaN(length))   return (EMPTYSTRING);
+  int istart=(int)Math.round(start) - 1;
+  final int isum;
+  if (Double.isInfinite(length))   isum=Integer.MAX_VALUE;
+ else   isum=istart + (int)Math.round(length);
+  final int strlen=value.length();
+  if (isum < 0 || istart > strlen)   return (EMPTYSTRING);
+  if (istart < 0)   istart=0;
+  try {
+    if (isum > strlen)     return value.substring(istart);
+ else     return value.substring(istart,isum);
+  }
+ catch (  IndexOutOfBoundsException e) {
+    runTimeError(RUN_TIME_INTERNAL_ERR,"substring()");
+    return null;
+  }
+}

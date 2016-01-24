@@ -1,0 +1,90 @@
+jdk_src\java\awt\image\ComponentSampleModel.java
+/** 
+ * Constructs a ComponentSampleModel with the specified parameters. The number of bands will be given by the length of the bandOffsets array. All bands will be stored in the first bank of the DataBuffer.
+ * @param dataType  the data type for storing samples
+ * @param w         the width (in pixels) of the region ofimage data described
+ * @param h         the height (in pixels) of the region ofimage data described
+ * @param pixelStride the pixel stride of the region of imagedata described
+ * @param scanlineStride the line stride of the region of imagedata described
+ * @param bandOffsets the offsets of all bands
+ * @throws IllegalArgumentException if <code>w</code> or<code>h</code> is not greater than 0
+ * @throws IllegalArgumentException if <code>pixelStride</code>is less than 0
+ * @throws IllegalArgumentException if <code>scanlineStride</code>is less than 0
+ * @throws IllegalArgumentException if <code>numBands</code>is less than 1
+ * @throws IllegalArgumentException if the product of <code>w</code>and <code>h</code> is greater than <code>Integer.MAX_VALUE</code>
+ * @throws IllegalArgumentException if <code>dataType</code> is notone of the supported data types
+ */
+public ComponentSampleModel(int dataType,int w,int h,int pixelStride,int scanlineStride,int bandOffsets[]){
+  super(dataType,w,h,bandOffsets.length);
+  this.dataType=dataType;
+  this.pixelStride=pixelStride;
+  this.scanlineStride=scanlineStride;
+  this.bandOffsets=(int[])bandOffsets.clone();
+  numBands=this.bandOffsets.length;
+  if (pixelStride < 0) {
+    throw new IllegalArgumentException("Pixel stride must be >= 0");
+  }
+  if (scanlineStride < 0) {
+    throw new IllegalArgumentException("Scanline stride must be >= 0");
+  }
+  if (numBands < 1) {
+    throw new IllegalArgumentException("Must have at least one band.");
+  }
+  if ((dataType < DataBuffer.TYPE_BYTE) || (dataType > DataBuffer.TYPE_DOUBLE)) {
+    throw new IllegalArgumentException("Unsupported dataType.");
+  }
+  bankIndices=new int[numBands];
+  for (int i=0; i < numBands; i++) {
+    bankIndices[i]=0;
+  }
+}
+/** 
+ * Constructs a ComponentSampleModel with the specified parameters. The number of bands will be given by the length of the bandOffsets array. Different bands may be stored in different banks of the DataBuffer.
+ * @param dataType  the data type for storing samples
+ * @param w         the width (in pixels) of the region ofimage data described
+ * @param h         the height (in pixels) of the region ofimage data described
+ * @param pixelStride the pixel stride of the region of imagedata described
+ * @param scanlineStride The line stride of the region of imagedata described
+ * @param bankIndices the bank indices of all bands
+ * @param bandOffsets the band offsets of all bands
+ * @throws IllegalArgumentException if <code>w</code> or<code>h</code> is not greater than 0
+ * @throws IllegalArgumentException if <code>pixelStride</code>is less than 0
+ * @throws IllegalArgumentException if <code>scanlineStride</code>is less than 0
+ * @throws IllegalArgumentException if the length of<code>bankIndices</code> does not equal the length of <code>bankOffsets</code>
+ * @throws IllegalArgumentException if any of the bank indicesof <code>bandIndices</code> is less than 0
+ * @throws IllegalArgumentException if <code>dataType</code> is notone of the supported data types
+ */
+public ComponentSampleModel(int dataType,int w,int h,int pixelStride,int scanlineStride,int bankIndices[],int bandOffsets[]){
+  super(dataType,w,h,bandOffsets.length);
+  this.dataType=dataType;
+  this.pixelStride=pixelStride;
+  this.scanlineStride=scanlineStride;
+  this.bandOffsets=(int[])bandOffsets.clone();
+  this.bankIndices=(int[])bankIndices.clone();
+  if (pixelStride < 0) {
+    throw new IllegalArgumentException("Pixel stride must be >= 0");
+  }
+  if (scanlineStride < 0) {
+    throw new IllegalArgumentException("Scanline stride must be >= 0");
+  }
+  if ((dataType < DataBuffer.TYPE_BYTE) || (dataType > DataBuffer.TYPE_DOUBLE)) {
+    throw new IllegalArgumentException("Unsupported dataType.");
+  }
+  int maxBank=this.bankIndices[0];
+  if (maxBank < 0) {
+    throw new IllegalArgumentException("Index of bank 0 is less than " + "0 (" + maxBank + ")");
+  }
+  for (int i=1; i < this.bankIndices.length; i++) {
+    if (this.bankIndices[i] > maxBank) {
+      maxBank=this.bankIndices[i];
+    }
+ else     if (this.bankIndices[i] < 0) {
+      throw new IllegalArgumentException("Index of bank " + i + " is less than 0 ("+ maxBank+ ")");
+    }
+  }
+  numBanks=maxBank + 1;
+  numBands=this.bandOffsets.length;
+  if (this.bandOffsets.length != this.bankIndices.length) {
+    throw new IllegalArgumentException("Length of bandOffsets must " + "equal length of bankIndices.");
+  }
+}

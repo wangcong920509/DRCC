@@ -1,0 +1,20 @@
+/** 
+ * @param inputStream
+ * @param encoding
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(InputStream inputStream,String encoding,PropertyManager props) throws XMLStreamException {
+  init(props);
+  XMLInputSource inputSource=new XMLInputSource(null,null,null,new BufferedInputStream(inputStream),encoding);
+  setInputSource(inputSource);
+}
+/** 
+ * @param inputSource
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
+  init(props);
+  setInputSource(inputSource);
+}

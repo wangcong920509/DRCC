@@ -1,0 +1,21 @@
+/** 
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
+ */
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
+}
+/** 
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
+ */
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
+  }
+  return null;
+}

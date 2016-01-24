@@ -1,0 +1,44 @@
+jdk_src\com\sun\org\apache\xerces\internal\parsers\AbstractDOMParser.java
+/** 
+ * Drops all references to the last DOM which was built by this parser.
+ */
+public final void dropDocumentReferences(){
+  fDocument=null;
+  fDocumentImpl=null;
+  fDeferredDocumentImpl=null;
+  fDocumentType=null;
+  fCurrentNode=null;
+  fCurrentCDATASection=null;
+  fCurrentEntityDecl=null;
+  fRoot=null;
+}
+/** 
+ * Resets the parser state.
+ * @throws SAXException Thrown on initialization error.
+ */
+public void reset() throws XNIException {
+  super.reset();
+  fCreateEntityRefNodes=fConfiguration.getFeature(CREATE_ENTITY_REF_NODES);
+  fIncludeIgnorableWhitespace=fConfiguration.getFeature(INCLUDE_IGNORABLE_WHITESPACE);
+  fDeferNodeExpansion=fConfiguration.getFeature(DEFER_NODE_EXPANSION);
+  fNamespaceAware=fConfiguration.getFeature(NAMESPACES);
+  fIncludeComments=fConfiguration.getFeature(INCLUDE_COMMENTS_FEATURE);
+  fCreateCDATANodes=fConfiguration.getFeature(CREATE_CDATA_NODES_FEATURE);
+  setDocumentClassName((String)fConfiguration.getProperty(DOCUMENT_CLASS_NAME));
+  fDocument=null;
+  fDocumentImpl=null;
+  fStorePSVI=false;
+  fDocumentType=null;
+  fDocumentTypeIndex=-1;
+  fDeferredDocumentImpl=null;
+  fCurrentNode=null;
+  fStringBuilder.setLength(0);
+  fRoot=null;
+  fInDTD=false;
+  fInDTDExternalSubset=false;
+  fInCDATASection=false;
+  fFirstChunk=false;
+  fCurrentCDATASection=null;
+  fCurrentCDATASectionIndex=-1;
+  fBaseURIStack.removeAllElements();
+}

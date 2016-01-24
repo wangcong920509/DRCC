@@ -1,0 +1,22 @@
+/** 
+ * Customization hook: Get the name that will be used for the <var>sequence</var> MBeanParameterInfo of the MBeanConstructorInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom parameter name.  The default implementation returns {@link MBeanParameterInfo#getName() param.getName()}.
+ * @param ctor  The default MBeanConstructorInfo derived by reflection.
+ * @param param The default MBeanParameterInfo derived by reflection.
+ * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
+ * @return the name for the given MBeanParameterInfo.
+ */
+protected String getParameterName(MBeanConstructorInfo ctor,MBeanParameterInfo param,int sequence){
+  if (param == null)   return null;
+  return param.getName();
+}
+/** 
+ * Customization hook: Get the name that will be used for the <var>sequence</var> MBeanParameterInfo of the MBeanOperationInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom parameter name.  The default implementation returns {@link MBeanParameterInfo#getName() param.getName()}.
+ * @param op    The default MBeanOperationInfo derived by reflection.
+ * @param param The default MBeanParameterInfo derived by reflection.
+ * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
+ * @return the name to use for the given MBeanParameterInfo.
+ */
+protected String getParameterName(MBeanOperationInfo op,MBeanParameterInfo param,int sequence){
+  if (param == null)   return null;
+  return param.getName();
+}

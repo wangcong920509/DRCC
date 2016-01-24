@@ -1,0 +1,16 @@
+/** 
+ * Method add
+ * @param xmlX509SubjectName
+ */
+public void add(XMLX509SubjectName xmlX509SubjectName){
+  this._constructionElement.appendChild(xmlX509SubjectName.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param xmlX509Certificate
+ */
+public void add(XMLX509Certificate xmlX509Certificate){
+  this._constructionElement.appendChild(xmlX509Certificate.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

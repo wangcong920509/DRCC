@@ -1,0 +1,8 @@
+public ByteBuffer putChar(char x){
+  Bits.putChar(this,ix(nextPutIndex(2)),x,bigEndian);
+  return this;
+}
+public ByteBuffer putInt(int i,int x){
+  Bits.putInt(this,ix(checkIndex(i,4)),x,bigEndian);
+  return this;
+}

@@ -1,0 +1,33 @@
+/** 
+ * Resets the <code>Builder</code> to match the provided <code>locale</code>.  Existing state is discarded. <p>All fields of the locale must be well-formed, see  {@link Locale}. <p>Locales with any ill-formed fields cause <code>IllformedLocaleException</code> to be thrown, except for the following three cases which are accepted for compatibility reasons:<ul> <li>Locale("ja", "JP", "JP") is treated as "ja-JP-u-ca-japanese" <li>Locale("th", "TH", "TH") is treated as "th-TH-u-nu-thai" <li>Locale("no", "NO", "NY") is treated as "nn-NO"</ul>
+ * @param locale the locale
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>locale</code> hasany ill-formed fields.
+ * @throws NullPointerException if <code>locale</code> is null.
+ */
+public Builder setLocale(Locale locale){
+  try {
+    localeBuilder.setLocale(locale.baseLocale,locale.localeExtensions);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}
+/** 
+ * Removes a unicode locale attribute, if present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Attribute comparision for removal is case-insensitive.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
+ */
+public Builder removeUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.removeUnicodeLocaleAttribute(attribute);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}

@@ -1,0 +1,31 @@
+/** 
+ * Returns the first tab index with a given <code>icon</code>, or -1 if no tab has this icon.
+ * @param icon the icon for the tab
+ * @return the first tab index which matches <code>icon</code>,or -1 if no tab has this icon
+ */
+public int indexOfTab(Icon icon){
+  for (int i=0; i < getTabCount(); i++) {
+    Icon tabIcon=getIconAt(i);
+    if ((tabIcon != null && tabIcon.equals(icon)) || (tabIcon == null && tabIcon == icon)) {
+      return i;
+    }
+  }
+  return -1;
+}
+/** 
+ * Returns the index of the tab for the specified tab component. Returns -1 if there is no tab for this tab component.
+ * @param tabComponent the tab component for the tab
+ * @return the first tab which matches this tab component, or -1if there is no tab for this tab component
+ * @see #setTabComponentAt
+ * @see #getTabComponentAt
+ * @since 1.6
+ */
+public int indexOfTabComponent(Component tabComponent){
+  for (int i=0; i < getTabCount(); i++) {
+    Component c=getTabComponentAt(i);
+    if (c == tabComponent) {
+      return i;
+    }
+  }
+  return -1;
+}

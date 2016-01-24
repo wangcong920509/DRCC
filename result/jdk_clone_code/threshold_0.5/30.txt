@@ -1,0 +1,8 @@
+public static UtilSystemException get(ORB orb,String logDomain){
+  UtilSystemException wrapper=(UtilSystemException)orb.getLogWrapper(logDomain,"UTIL",factory);
+  return wrapper;
+}
+public static UtilSystemException get(String logDomain){
+  UtilSystemException wrapper=(UtilSystemException)ORB.staticGetLogWrapper(logDomain,"UTIL",factory);
+  return wrapper;
+}

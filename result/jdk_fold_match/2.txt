@@ -1,0 +1,25 @@
+jdk_src\com\sun\corba\se\impl\dynamicany\DynUnionImpl.java
+protected void clearData(){
+  super.clearData();
+  discriminator=null;
+  currentMember.destroy();
+  currentMember=null;
+  currentMemberIndex=NO_INDEX;
+}
+public void set_to_no_active_member() throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch {
+  if (status == STATUS_DESTROYED) {
+    throw wrapper.dynAnyDestroyed();
+  }
+  if (defaultIndex() != -1) {
+    throw new TypeMismatch();
+  }
+  checkInitComponents();
+  Any discriminatorAny=getAny(discriminator);
+  discriminatorAny.type(discriminatorAny.type());
+  index=0;
+  currentMemberIndex=NO_INDEX;
+  currentMember.destroy();
+  currentMember=null;
+  components[0]=discriminator;
+  representations=REPRESENTATION_COMPONENTS;
+}

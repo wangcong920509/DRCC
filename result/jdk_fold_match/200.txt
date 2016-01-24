@@ -1,0 +1,43 @@
+jdk_src\java\util\concurrent\LinkedBlockingQueue.java
+public E poll(long timeout,TimeUnit unit) throws InterruptedException {
+  E x=null;
+  int c=-1;
+  long nanos=unit.toNanos(timeout);
+  final AtomicInteger count=this.count;
+  final ReentrantLock takeLock=this.takeLock;
+  takeLock.lockInterruptibly();
+  try {
+    while (count.get() == 0) {
+      if (nanos <= 0)       return null;
+      nanos=notEmpty.awaitNanos(nanos);
+    }
+    x=dequeue();
+    c=count.getAndDecrement();
+    if (c > 1)     notEmpty.signal();
+  }
+  finally {
+    takeLock.unlock();
+  }
+  if (c == capacity)   signalNotFull();
+  return x;
+}
+public E poll(){
+  final AtomicInteger count=this.count;
+  if (count.get() == 0)   return null;
+  E x=null;
+  int c=-1;
+  final ReentrantLock takeLock=this.takeLock;
+  takeLock.lock();
+  try {
+    if (count.get() > 0) {
+      x=dequeue();
+      c=count.getAndDecrement();
+      if (c > 1)       notEmpty.signal();
+    }
+  }
+  finally {
+    takeLock.unlock();
+  }
+  if (c == capacity)   signalNotFull();
+  return x;
+}

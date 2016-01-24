@@ -1,0 +1,8 @@
+public CharBuffer put(char x){
+  unsafe.putChar(ix(nextPutIndex()),((x)));
+  return this;
+}
+public CharBuffer put(int i,char x){
+  unsafe.putChar(ix(checkIndex(i)),((x)));
+  return this;
+}

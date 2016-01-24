@@ -1,0 +1,19 @@
+/** 
+ * Look up an augmentations by Namespace name.
+ * @param uri The Namespace URI, or null if the
+ * @param localName The local name of the attribute.
+ * @return Augmentations
+ */
+public Augmentations getAugmentations(String uri,String localName){
+  int index=getIndex(uri,localName);
+  return index != -1 ? fAttributes[index].augs : null;
+}
+/** 
+ * Look up an augmentation by XML 1.0 qualified name. <p>
+ * @param qName The XML 1.0 qualified name.
+ * @return Augmentations
+ */
+public Augmentations getAugmentations(String qName){
+  int index=getIndex(qName);
+  return index != -1 ? fAttributes[index].augs : null;
+}

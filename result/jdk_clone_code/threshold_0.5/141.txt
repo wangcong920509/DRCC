@@ -1,0 +1,11 @@
+public GOTO_W(InstructionHandle target){
+  super(com.sun.org.apache.bcel.internal.Constants.GOTO_W,target);
+  length=5;
+}
+/** 
+ * Read needed data (e.g. index) from file.
+ */
+protected void initFromFile(ByteSequence bytes,boolean wide) throws IOException {
+  index=bytes.readInt();
+  length=5;
+}

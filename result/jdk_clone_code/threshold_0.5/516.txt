@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
+}

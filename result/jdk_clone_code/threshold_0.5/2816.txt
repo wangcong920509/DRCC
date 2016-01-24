@@ -1,0 +1,8 @@
+public FloatBuffer put(float x){
+  unsafe.putFloat(ix(nextPutIndex()),((x)));
+  return this;
+}
+public FloatBuffer put(int i,float x){
+  unsafe.putFloat(ix(checkIndex(i)),((x)));
+  return this;
+}

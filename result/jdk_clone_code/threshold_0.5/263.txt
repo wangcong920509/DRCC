@@ -1,0 +1,11 @@
+public void addGlobalElementDecl(XSElementDecl decl){
+  fGlobalElemDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}
+/** 
+ * register one global complex type
+ */
+public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl){
+  fGlobalTypeDecls.put(decl.getName(),decl);
+  decl.setNamespaceItem(this);
+}

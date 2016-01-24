@@ -1,0 +1,22 @@
+/** 
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
+ */
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
+  }
+  return null;
+}
+/** 
+ * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
+ * @param orig the exception to wrap.
+ * @return the wrapped exception.
+ */
+public static RemoteException wrapException(Throwable orig){
+  if (utilDelegate != null) {
+    return utilDelegate.wrapException(orig);
+  }
+  return null;
+}

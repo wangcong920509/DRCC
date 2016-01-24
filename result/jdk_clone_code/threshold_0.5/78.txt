@@ -1,0 +1,8 @@
+private void Part(Control control,int value){
+  this.control=control;
+  this.value=value;
+}
+private void Prop(Class type,int value){
+  this.type=type;
+  this.value=value;
+}

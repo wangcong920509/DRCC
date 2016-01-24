@@ -1,0 +1,8 @@
+public ByteBuffer putChar(char x){
+  putChar(ix(nextPutIndex((1 << 1))),x);
+  return this;
+}
+public ByteBuffer putInt(int i,int x){
+  putInt(ix(checkIndex(i,(1 << 2))),x);
+  return this;
+}

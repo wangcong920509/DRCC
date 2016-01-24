@@ -1,0 +1,52 @@
+jdk_src\java\io\ObjectInputStream.java
+/** 
+ * Reads in and returns class object.  Sets passHandle to class object's assigned handle.  Returns null if class is unresolvable (in which case a ClassNotFoundException will be associated with the class' handle in the handle table).
+ */
+private Class readClass(boolean unshared) throws IOException {
+  if (bin.readByte() != TC_CLASS) {
+    throw new InternalError();
+  }
+  ObjectStreamClass desc=readClassDesc(false);
+  Class cl=desc.forClass();
+  passHandle=handles.assign(unshared ? unsharedMarker : cl);
+  ClassNotFoundException resolveEx=desc.getResolveException();
+  if (resolveEx != null) {
+    handles.markException(passHandle,resolveEx);
+  }
+  handles.finish(passHandle);
+  return cl;
+}
+/** 
+ * Reads in and returns enum constant, or null if enum type is unresolvable.  Sets passHandle to enum constant's assigned handle.
+ */
+private Enum readEnum(boolean unshared) throws IOException {
+  if (bin.readByte() != TC_ENUM) {
+    throw new InternalError();
+  }
+  ObjectStreamClass desc=readClassDesc(false);
+  if (!desc.isEnum()) {
+    throw new InvalidClassException("non-enum class: " + desc);
+  }
+  int enumHandle=handles.assign(unshared ? unsharedMarker : null);
+  ClassNotFoundException resolveEx=desc.getResolveException();
+  if (resolveEx != null) {
+    handles.markException(enumHandle,resolveEx);
+  }
+  String name=readString(false);
+  Enum en=null;
+  Class cl=desc.forClass();
+  if (cl != null) {
+    try {
+      en=Enum.valueOf(cl,name);
+    }
+ catch (    IllegalArgumentException ex) {
+      throw (IOException)new InvalidObjectException("enum constant " + name + " does not exist in "+ cl).initCause(ex);
+    }
+    if (!unshared) {
+      handles.setObject(enumHandle,en);
+    }
+  }
+  handles.finish(enumHandle);
+  passHandle=enumHandle;
+  return en;
+}

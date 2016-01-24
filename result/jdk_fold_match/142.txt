@@ -1,0 +1,74 @@
+jdk_src\java\awt\font\TextLine.java
+/** 
+ * Create a TextLine from the text.  The Font must be able to display all of the text. attributes==null is equivalent to using an empty Map for attributes
+ */
+public static TextLine fastCreateTextLine(FontRenderContext frc,char[] chars,Font font,CoreMetrics lm,Map attributes){
+  boolean isDirectionLTR=true;
+  byte[] levels=null;
+  int[] charsLtoV=null;
+  Bidi bidi=null;
+  int characterCount=chars.length;
+  boolean requiresBidi=false;
+  byte[] embs=null;
+  AttributeValues values=null;
+  if (attributes != null) {
+    values=AttributeValues.fromMap(attributes);
+    if (values.getRunDirection() >= 0) {
+      isDirectionLTR=values.getRunDirection() == 0;
+      requiresBidi=!isDirectionLTR;
+    }
+    if (values.getBidiEmbedding() != 0) {
+      requiresBidi=true;
+      byte level=(byte)values.getBidiEmbedding();
+      embs=new byte[characterCount];
+      for (int i=0; i < embs.length; ++i) {
+        embs[i]=level;
+      }
+    }
+  }
+  if (!requiresBidi) {
+    requiresBidi=Bidi.requiresBidi(chars,0,chars.length);
+  }
+  if (requiresBidi) {
+    int bidiflags=values == null ? Bidi.DIRECTION_DEFAULT_LEFT_TO_RIGHT : values.getRunDirection();
+    bidi=new Bidi(chars,0,embs,0,chars.length,bidiflags);
+    if (!bidi.isLeftToRight()) {
+      levels=BidiUtils.getLevels(bidi);
+      int[] charsVtoL=BidiUtils.createVisualToLogicalMap(levels);
+      charsLtoV=BidiUtils.createInverseMap(charsVtoL);
+      isDirectionLTR=bidi.baseIsLeftToRight();
+    }
+  }
+  Decoration decorator=Decoration.getDecoration(values);
+  int layoutFlags=0;
+  TextLabelFactory factory=new TextLabelFactory(frc,chars,bidi,layoutFlags);
+  TextLineComponent[] components=new TextLineComponent[1];
+  components=createComponentsOnRun(0,chars.length,chars,charsLtoV,levels,factory,font,lm,frc,decorator,components,0);
+  int numComponents=components.length;
+  while (components[numComponents - 1] == null) {
+    numComponents-=1;
+  }
+  if (numComponents != components.length) {
+    TextLineComponent[] temp=new TextLineComponent[numComponents];
+    System.arraycopy(components,0,temp,0,numComponents);
+    components=temp;
+  }
+  return new TextLine(frc,components,lm.baselineOffsets,chars,0,chars.length,charsLtoV,levels,isDirectionLTR);
+}
+/** 
+ * Create a TextLine from the text.  chars is just the text in the iterator.
+ */
+public static TextLine standardCreateTextLine(FontRenderContext frc,AttributedCharacterIterator text,char[] chars,float[] baselineOffsets){
+  StyledParagraph styledParagraph=new StyledParagraph(text,chars);
+  Bidi bidi=new Bidi(text);
+  if (bidi.isLeftToRight()) {
+    bidi=null;
+  }
+  int layoutFlags=0;
+  TextLabelFactory factory=new TextLabelFactory(frc,chars,bidi,layoutFlags);
+  boolean isDirectionLTR=true;
+  if (bidi != null) {
+    isDirectionLTR=bidi.baseIsLeftToRight();
+  }
+  return createLineFromText(chars,styledParagraph,factory,isDirectionLTR,baselineOffsets);
+}

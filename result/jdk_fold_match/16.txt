@@ -1,0 +1,263 @@
+jdk_src\com\sun\imageio\plugins\jpeg\JPEGMetadata.java
+private void mergeStandardChromaNode(Node node,NodeList siblings) throws IIOInvalidTreeException {
+  if (transparencyDone) {
+    throw new IIOInvalidTreeException("Transparency node must follow Chroma node",node);
+  }
+  Node csType=node.getFirstChild();
+  if ((csType == null) || !csType.getNodeName().equals("ColorSpaceType")) {
+    return;
+  }
+  String csName=csType.getAttributes().getNamedItem("name").getNodeValue();
+  int numChannels=0;
+  boolean wantJFIF=false;
+  boolean wantAdobe=false;
+  int transform=0;
+  boolean willSubsample=false;
+  byte[] ids={1,2,3,4};
+  if (csName.equals("GRAY")) {
+    numChannels=1;
+    wantJFIF=true;
+  }
+ else   if (csName.equals("YCbCr")) {
+    numChannels=3;
+    wantJFIF=true;
+    willSubsample=true;
+  }
+ else   if (csName.equals("PhotoYCC")) {
+    numChannels=3;
+    wantAdobe=true;
+    transform=JPEG.ADOBE_YCC;
+    ids[0]=(byte)'Y';
+    ids[1]=(byte)'C';
+    ids[2]=(byte)'c';
+  }
+ else   if (csName.equals("RGB")) {
+    numChannels=3;
+    wantAdobe=true;
+    transform=JPEG.ADOBE_UNKNOWN;
+    ids[0]=(byte)'R';
+    ids[1]=(byte)'G';
+    ids[2]=(byte)'B';
+  }
+ else   if ((csName.equals("XYZ")) || (csName.equals("Lab")) || (csName.equals("Luv"))|| (csName.equals("YxY"))|| (csName.equals("HSV"))|| (csName.equals("HLS"))|| (csName.equals("CMY"))|| (csName.equals("3CLR"))) {
+    numChannels=3;
+  }
+ else   if (csName.equals("YCCK")) {
+    numChannels=4;
+    wantAdobe=true;
+    transform=JPEG.ADOBE_YCCK;
+    willSubsample=true;
+  }
+ else   if (csName.equals("CMYK")) {
+    numChannels=4;
+    wantAdobe=true;
+    transform=JPEG.ADOBE_UNKNOWN;
+  }
+ else   if (csName.equals("4CLR")) {
+    numChannels=4;
+  }
+ else {
+    return;
+  }
+  boolean wantAlpha=false;
+  for (int i=0; i < siblings.getLength(); i++) {
+    Node trans=siblings.item(i);
+    if (trans.getNodeName().equals("Transparency")) {
+      wantAlpha=wantAlpha(trans);
+      break;
+    }
+  }
+  if (wantAlpha) {
+    numChannels++;
+    wantJFIF=false;
+    if (ids[0] == (byte)'R') {
+      ids[3]=(byte)'A';
+      wantAdobe=false;
+    }
+  }
+  JFIFMarkerSegment jfif=(JFIFMarkerSegment)findMarkerSegment(JFIFMarkerSegment.class,true);
+  AdobeMarkerSegment adobe=(AdobeMarkerSegment)findMarkerSegment(AdobeMarkerSegment.class,true);
+  SOFMarkerSegment sof=(SOFMarkerSegment)findMarkerSegment(SOFMarkerSegment.class,true);
+  SOSMarkerSegment sos=(SOSMarkerSegment)findMarkerSegment(SOSMarkerSegment.class,true);
+  if ((sof != null) && (sof.tag == JPEG.SOF2)) {
+    if ((sof.componentSpecs.length != numChannels) && (sos != null)) {
+      return;
+    }
+  }
+  if (!wantJFIF && (jfif != null)) {
+    markerSequence.remove(jfif);
+  }
+  if (wantJFIF && !isStream) {
+    markerSequence.add(0,new JFIFMarkerSegment());
+  }
+  if (wantAdobe) {
+    if ((adobe == null) && !isStream) {
+      adobe=new AdobeMarkerSegment(transform);
+      insertAdobeMarkerSegment(adobe);
+    }
+ else {
+      adobe.transform=transform;
+    }
+  }
+ else   if (adobe != null) {
+    markerSequence.remove(adobe);
+  }
+  boolean updateQtables=false;
+  boolean updateHtables=false;
+  boolean progressive=false;
+  int[] subsampledSelectors={0,1,1,0};
+  int[] nonSubsampledSelectors={0,0,0,0};
+  int[] newTableSelectors=willSubsample ? subsampledSelectors : nonSubsampledSelectors;
+  SOFMarkerSegment.ComponentSpec[] oldCompSpecs=null;
+  if (sof != null) {
+    oldCompSpecs=sof.componentSpecs;
+    progressive=(sof.tag == JPEG.SOF2);
+    markerSequence.set(markerSequence.indexOf(sof),new SOFMarkerSegment(progressive,false,willSubsample,ids,numChannels));
+    for (int i=0; i < oldCompSpecs.length; i++) {
+      if (oldCompSpecs[i].QtableSelector != newTableSelectors[i]) {
+        updateQtables=true;
+      }
+    }
+    if (progressive) {
+      boolean idsDiffer=false;
+      for (int i=0; i < oldCompSpecs.length; i++) {
+        if (ids[i] != oldCompSpecs[i].componentId) {
+          idsDiffer=true;
+        }
+      }
+      if (idsDiffer) {
+        for (Iterator iter=markerSequence.iterator(); iter.hasNext(); ) {
+          MarkerSegment seg=(MarkerSegment)iter.next();
+          if (seg instanceof SOSMarkerSegment) {
+            SOSMarkerSegment target=(SOSMarkerSegment)seg;
+            for (int i=0; i < target.componentSpecs.length; i++) {
+              int oldSelector=target.componentSpecs[i].componentSelector;
+              for (int j=0; j < oldCompSpecs.length; j++) {
+                if (oldCompSpecs[j].componentId == oldSelector) {
+                  target.componentSpecs[i].componentSelector=ids[j];
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+ else {
+      if (sos != null) {
+        for (int i=0; i < sos.componentSpecs.length; i++) {
+          if ((sos.componentSpecs[i].dcHuffTable != newTableSelectors[i]) || (sos.componentSpecs[i].acHuffTable != newTableSelectors[i])) {
+            updateHtables=true;
+          }
+        }
+        markerSequence.set(markerSequence.indexOf(sos),new SOSMarkerSegment(willSubsample,ids,numChannels));
+      }
+    }
+  }
+ else {
+    if (isStream) {
+      updateQtables=true;
+      updateHtables=true;
+    }
+  }
+  if (updateQtables) {
+    List tableSegments=new ArrayList();
+    for (Iterator iter=markerSequence.iterator(); iter.hasNext(); ) {
+      MarkerSegment seg=(MarkerSegment)iter.next();
+      if (seg instanceof DQTMarkerSegment) {
+        tableSegments.add(seg);
+      }
+    }
+    if (!tableSegments.isEmpty() && willSubsample) {
+      boolean found=false;
+      for (Iterator iter=tableSegments.iterator(); iter.hasNext(); ) {
+        DQTMarkerSegment testdqt=(DQTMarkerSegment)iter.next();
+        for (Iterator tabiter=testdqt.tables.iterator(); tabiter.hasNext(); ) {
+          DQTMarkerSegment.Qtable tab=(DQTMarkerSegment.Qtable)tabiter.next();
+          if (tab.tableID == 1) {
+            found=true;
+          }
+        }
+      }
+      if (!found) {
+        DQTMarkerSegment.Qtable table0=null;
+        for (Iterator iter=tableSegments.iterator(); iter.hasNext(); ) {
+          DQTMarkerSegment testdqt=(DQTMarkerSegment)iter.next();
+          for (Iterator tabiter=testdqt.tables.iterator(); tabiter.hasNext(); ) {
+            DQTMarkerSegment.Qtable tab=(DQTMarkerSegment.Qtable)tabiter.next();
+            if (tab.tableID == 0) {
+              table0=tab;
+            }
+          }
+        }
+        DQTMarkerSegment dqt=(DQTMarkerSegment)tableSegments.get(tableSegments.size() - 1);
+        dqt.tables.add(dqt.getChromaForLuma(table0));
+      }
+    }
+  }
+  if (updateHtables) {
+    List tableSegments=new ArrayList();
+    for (Iterator iter=markerSequence.iterator(); iter.hasNext(); ) {
+      MarkerSegment seg=(MarkerSegment)iter.next();
+      if (seg instanceof DHTMarkerSegment) {
+        tableSegments.add(seg);
+      }
+    }
+    if (!tableSegments.isEmpty() && willSubsample) {
+      boolean found=false;
+      for (Iterator iter=tableSegments.iterator(); iter.hasNext(); ) {
+        DHTMarkerSegment testdht=(DHTMarkerSegment)iter.next();
+        for (Iterator tabiter=testdht.tables.iterator(); tabiter.hasNext(); ) {
+          DHTMarkerSegment.Htable tab=(DHTMarkerSegment.Htable)tabiter.next();
+          if (tab.tableID == 1) {
+            found=true;
+          }
+        }
+      }
+      if (!found) {
+        DHTMarkerSegment lastDHT=(DHTMarkerSegment)tableSegments.get(tableSegments.size() - 1);
+        lastDHT.addHtable(JPEGHuffmanTable.StdDCLuminance,true,1);
+        lastDHT.addHtable(JPEGHuffmanTable.StdACLuminance,true,1);
+      }
+    }
+  }
+}
+/** 
+ * Check that this metadata object is in a consistent state and return <code>true</code> if it is or <code>false</code> otherwise.  All the constructors and modifiers should call this method at the end to guarantee that the data is always consistent, as the writer relies on this.
+ */
+private boolean isConsistent(){
+  SOFMarkerSegment sof=(SOFMarkerSegment)findMarkerSegment(SOFMarkerSegment.class,true);
+  JFIFMarkerSegment jfif=(JFIFMarkerSegment)findMarkerSegment(JFIFMarkerSegment.class,true);
+  AdobeMarkerSegment adobe=(AdobeMarkerSegment)findMarkerSegment(AdobeMarkerSegment.class,true);
+  boolean retval=true;
+  if (!isStream) {
+    if (sof != null) {
+      int numSOFBands=sof.componentSpecs.length;
+      int numScanBands=countScanBands();
+      if (numScanBands != 0) {
+        if (numScanBands != numSOFBands) {
+          retval=false;
+        }
+      }
+      if (jfif != null) {
+        if ((numSOFBands != 1) && (numSOFBands != 3)) {
+          retval=false;
+        }
+        for (int i=0; i < numSOFBands; i++) {
+          if (sof.componentSpecs[i].componentId != i + 1) {
+            retval=false;
+          }
+        }
+        if ((adobe != null) && (((numSOFBands == 1) && (adobe.transform != JPEG.ADOBE_UNKNOWN)) || ((numSOFBands == 3) && (adobe.transform != JPEG.ADOBE_YCC)))) {
+          retval=false;
+        }
+      }
+    }
+ else {
+      SOSMarkerSegment sos=(SOSMarkerSegment)findMarkerSegment(SOSMarkerSegment.class,true);
+      if ((jfif != null) || (adobe != null) || (sof != null)|| (sos != null)) {
+        retval=false;
+      }
+    }
+  }
+  return retval;
+}

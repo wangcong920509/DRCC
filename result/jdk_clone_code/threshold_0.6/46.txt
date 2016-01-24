@@ -1,0 +1,16 @@
+/** 
+ * Constructor X509Data
+ * @param doc
+ */
+public X509Data(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method addUnknownElement
+ * @param element
+ */
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

@@ -1,0 +1,8 @@
+private DynValueCommonImpl(){
+  this(null,(Any)null,false);
+  isNull=true;
+}
+public void set_to_null(){
+  isNull=true;
+  clearData();
+}

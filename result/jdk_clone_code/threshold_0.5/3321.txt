@@ -1,0 +1,22 @@
+/** 
+ * Customization hook: Get the description that will be used for the  <var>sequence</var> MBeanParameterInfo of the MBeanConstructorInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom description.  The default implementation returns {@link MBeanParameterInfo#getDescription() param.getDescription()}.
+ * @param ctor  The default MBeanConstructorInfo derived by reflection.
+ * @param param The default MBeanParameterInfo derived by reflection.
+ * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
+ * @return the description for the given MBeanParameterInfo.
+ */
+protected String getDescription(MBeanConstructorInfo ctor,MBeanParameterInfo param,int sequence){
+  if (param == null)   return null;
+  return param.getDescription();
+}
+/** 
+ * Customization hook: Get the description that will be used for the  <var>sequence</var> MBeanParameterInfo of the MBeanOperationInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom description.  The default implementation returns {@link MBeanParameterInfo#getDescription() param.getDescription()}.
+ * @param op    The default MBeanOperationInfo derived by reflection.
+ * @param param The default MBeanParameterInfo derived by reflection.
+ * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
+ * @return the description for the given MBeanParameterInfo.
+ */
+protected String getDescription(MBeanOperationInfo op,MBeanParameterInfo param,int sequence){
+  if (param == null)   return null;
+  return param.getDescription();
+}

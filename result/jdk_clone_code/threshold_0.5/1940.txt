@@ -1,0 +1,20 @@
+/** 
+ * Constructs and initializes a point at the specified {@code (x,y)} location in the coordinate space.
+ * @param x the X coordinate of the newly constructed <code>Point</code>
+ * @param y the Y coordinate of the newly constructed <code>Point</code>
+ * @since 1.0
+ */
+public Point(int x,int y){
+  this.x=x;
+  this.y=y;
+}
+/** 
+ * Moves this point to the specified location in the {@code (x,y)} coordinate plane. This methodis identical with <code>setLocation(int,&nbsp;int)</code>.
+ * @param x the X coordinate of the new location
+ * @param y the Y coordinate of the new location
+ * @see java.awt.Component#setLocation(int,int)
+ */
+public void move(int x,int y){
+  this.x=x;
+  this.y=y;
+}

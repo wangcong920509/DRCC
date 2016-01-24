@@ -1,0 +1,8 @@
+public StringBuilder append(int i){
+  super.append(i);
+  return this;
+}
+public StringBuilder append(float f){
+  super.append(f);
+  return this;
+}

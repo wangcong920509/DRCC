@@ -1,0 +1,8 @@
+private Rectangle2D decodeRect4(){
+  rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
+  return rect;
+}
+private Rectangle2D decodeRect14(){
+  rect.setRect(decodeX(0.8f),decodeY(2.6f),decodeX(2.2f) - decodeX(0.8f),decodeY(2.8f) - decodeY(2.6f));
+  return rect;
+}

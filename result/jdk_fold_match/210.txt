@@ -1,0 +1,47 @@
+jdk_src\javax\imageio\metadata\IIOMetadataFormatImpl.java
+/** 
+ * Constructs a blank <code>IIOMetadataFormatImpl</code> instance, with a given root element name and child policy (other than <code>CHILD_POLICY_REPEAT</code>).  Additional elements, and their attributes and <code>Object</code> reference information may be added using the various <code>add</code> methods.
+ * @param rootName the name of the root element.
+ * @param childPolicy one of the <code>CHILD_POLICY_*</code> constants,other than <code>CHILD_POLICY_REPEAT</code>.
+ * @exception IllegalArgumentException if <code>rootName</code> is<code>null</code>.
+ * @exception IllegalArgumentException if <code>childPolicy</code> isnot one of the predefined constants.
+ */
+public IIOMetadataFormatImpl(String rootName,int childPolicy){
+  if (rootName == null) {
+    throw new IllegalArgumentException("rootName == null!");
+  }
+  if (childPolicy < CHILD_POLICY_EMPTY || childPolicy > CHILD_POLICY_MAX || childPolicy == CHILD_POLICY_REPEAT) {
+    throw new IllegalArgumentException("Invalid value for childPolicy!");
+  }
+  this.rootName=rootName;
+  Element root=new Element();
+  root.elementName=rootName;
+  root.childPolicy=childPolicy;
+  elementMap.put(rootName,root);
+}
+/** 
+ * Constructs a blank <code>IIOMetadataFormatImpl</code> instance, with a given root element name and a child policy of <code>CHILD_POLICY_REPEAT</code>.  Additional elements, and their attributes and <code>Object</code> reference information may be added using the various <code>add</code> methods.
+ * @param rootName the name of the root element.
+ * @param minChildren the minimum number of children of the node.
+ * @param maxChildren the maximum number of children of the node.
+ * @exception IllegalArgumentException if <code>rootName</code> is<code>null</code>.
+ * @exception IllegalArgumentException if <code>minChildren</code>is negative or larger than <code>maxChildren</code>.
+ */
+public IIOMetadataFormatImpl(String rootName,int minChildren,int maxChildren){
+  if (rootName == null) {
+    throw new IllegalArgumentException("rootName == null!");
+  }
+  if (minChildren < 0) {
+    throw new IllegalArgumentException("minChildren < 0!");
+  }
+  if (minChildren > maxChildren) {
+    throw new IllegalArgumentException("minChildren > maxChildren!");
+  }
+  Element root=new Element();
+  root.elementName=rootName;
+  root.childPolicy=CHILD_POLICY_REPEAT;
+  root.minChildren=minChildren;
+  root.maxChildren=maxChildren;
+  this.rootName=rootName;
+  elementMap.put(rootName,root);
+}

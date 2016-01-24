@@ -1,0 +1,100 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\compiler\StepPattern.java
+private void translateSimpleContext(ClassGenerator classGen,MethodGenerator methodGen){
+  int index;
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final InstructionList il=methodGen.getInstructionList();
+  LocalVariableGen match;
+  match=methodGen.addLocalVariable("step_pattern_tmp1",Util.getJCRefType(NODE_SIG),null,null);
+  match.setStart(il.append(new ISTORE(match.getIndex())));
+  if (!_isEpsilon) {
+    il.append(new ILOAD(match.getIndex()));
+    translateKernel(classGen,methodGen);
+  }
+  il.append(methodGen.loadCurrentNode());
+  il.append(methodGen.loadIterator());
+  index=cpg.addMethodref(MATCHING_ITERATOR,"<init>","(I" + NODE_ITERATOR_SIG + ")V");
+  _step.translate(classGen,methodGen);
+  LocalVariableGen stepIteratorTemp=methodGen.addLocalVariable("step_pattern_tmp2",Util.getJCRefType(NODE_ITERATOR_SIG),null,null);
+  stepIteratorTemp.setStart(il.append(new ASTORE(stepIteratorTemp.getIndex())));
+  il.append(new NEW(cpg.addClass(MATCHING_ITERATOR)));
+  il.append(DUP);
+  il.append(new ILOAD(match.getIndex()));
+  stepIteratorTemp.setEnd(il.append(new ALOAD(stepIteratorTemp.getIndex())));
+  il.append(new INVOKESPECIAL(index));
+  il.append(methodGen.loadDOM());
+  il.append(new ILOAD(match.getIndex()));
+  index=cpg.addInterfaceMethodref(DOM_INTF,GET_PARENT,GET_PARENT_SIG);
+  il.append(new INVOKEINTERFACE(index,2));
+  il.append(methodGen.setStartNode());
+  il.append(methodGen.storeIterator());
+  match.setEnd(il.append(new ILOAD(match.getIndex())));
+  il.append(methodGen.storeCurrentNode());
+  Predicate pred=(Predicate)_predicates.elementAt(0);
+  Expression exp=pred.getExpr();
+  exp.translateDesynthesized(classGen,methodGen);
+  InstructionHandle restore=il.append(methodGen.storeIterator());
+  il.append(methodGen.storeCurrentNode());
+  exp.backPatchTrueList(restore);
+  BranchHandle skipFalse=il.append(new GOTO(null));
+  restore=il.append(methodGen.storeIterator());
+  il.append(methodGen.storeCurrentNode());
+  exp.backPatchFalseList(restore);
+  _falseList.add(il.append(new GOTO(null)));
+  skipFalse.setTarget(il.append(NOP));
+}
+private void translateGeneralContext(ClassGenerator classGen,MethodGenerator methodGen){
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final InstructionList il=methodGen.getInstructionList();
+  int iteratorIndex=0;
+  BranchHandle ifBlock=null;
+  LocalVariableGen iter, node, node2;
+  final String iteratorName=getNextFieldName();
+  node=methodGen.addLocalVariable("step_pattern_tmp1",Util.getJCRefType(NODE_SIG),null,null);
+  node.setStart(il.append(new ISTORE(node.getIndex())));
+  iter=methodGen.addLocalVariable("step_pattern_tmp2",Util.getJCRefType(NODE_ITERATOR_SIG),null,null);
+  if (!classGen.isExternal()) {
+    final Field iterator=new Field(ACC_PRIVATE,cpg.addUtf8(iteratorName),cpg.addUtf8(NODE_ITERATOR_SIG),null,cpg.getConstantPool());
+    classGen.addField(iterator);
+    iteratorIndex=cpg.addFieldref(classGen.getClassName(),iteratorName,NODE_ITERATOR_SIG);
+    il.append(classGen.loadTranslet());
+    il.append(new GETFIELD(iteratorIndex));
+    il.append(DUP);
+    iter.setStart(il.append(new ASTORE(iter.getIndex())));
+    ifBlock=il.append(new IFNONNULL(null));
+    il.append(classGen.loadTranslet());
+  }
+  _step.translate(classGen,methodGen);
+  InstructionHandle iterStore=il.append(new ASTORE(iter.getIndex()));
+  if (!classGen.isExternal()) {
+    il.append(new ALOAD(iter.getIndex()));
+    il.append(new PUTFIELD(iteratorIndex));
+    ifBlock.setTarget(il.append(NOP));
+  }
+ else {
+    iter.setStart(iterStore);
+  }
+  il.append(methodGen.loadDOM());
+  il.append(new ILOAD(node.getIndex()));
+  int index=cpg.addInterfaceMethodref(DOM_INTF,GET_PARENT,GET_PARENT_SIG);
+  il.append(new INVOKEINTERFACE(index,2));
+  il.append(new ALOAD(iter.getIndex()));
+  il.append(SWAP);
+  il.append(methodGen.setStartNode());
+  BranchHandle skipNext;
+  InstructionHandle begin, next;
+  node2=methodGen.addLocalVariable("step_pattern_tmp3",Util.getJCRefType(NODE_SIG),null,null);
+  skipNext=il.append(new GOTO(null));
+  next=il.append(new ALOAD(iter.getIndex()));
+  node2.setStart(next);
+  begin=il.append(methodGen.nextNode());
+  il.append(DUP);
+  il.append(new ISTORE(node2.getIndex()));
+  _falseList.add(il.append(new IFLT(null)));
+  il.append(new ILOAD(node2.getIndex()));
+  il.append(new ILOAD(node.getIndex()));
+  iter.setEnd(il.append(new IF_ICMPLT(next)));
+  node2.setEnd(il.append(new ILOAD(node2.getIndex())));
+  node.setEnd(il.append(new ILOAD(node.getIndex())));
+  _falseList.add(il.append(new IF_ICMPNE(null)));
+  skipNext.setTarget(begin);
+}

@@ -1,0 +1,25 @@
+jdk_src\com\sun\corba\se\impl\encoding\CDROutputStream_1_0.java
+private void writeValueBase(org.omg.CORBA.portable.ValueBase object,Class clazz){
+  mustChunk=true;
+  int indirection=writeValueTag(true,true,Util.getCodebase(clazz));
+  String repId=((ValueBase)object)._truncatable_ids()[0];
+  write_repositoryId(repId);
+  updateIndirectionTable(indirection,object,object);
+  start_block();
+  end_flag--;
+  chunkedValueNestingLevel--;
+  writeIDLValue(object,repId);
+  end_block();
+  writeEndTag(true);
+}
+public void start_value(String rep_id){
+  if (debug) {
+    dprint("start_value w/ rep id " + rep_id + " called at pos "+ get_offset()+ " position "+ bbwi.position());
+  }
+  if (inBlock)   end_block();
+  writeValueTag(true,true,null);
+  write_repositoryId(rep_id);
+  end_flag--;
+  chunkedValueNestingLevel--;
+  start_block();
+}

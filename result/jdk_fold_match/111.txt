@@ -1,0 +1,57 @@
+jdk_src\com\sun\org\apache\xerces\internal\xinclude\XPointerElementHandler.java
+public void reset(){
+  elemCount=0;
+  fPointerToken=null;
+  fCurrentTokenint=0;
+  fCurrentTokenString=null;
+  fCurrentTokenType=0;
+  fElementCount=0;
+  fCurrentToken=0;
+  includeElement=false;
+  foundElement=null;
+  skip=false;
+  fSubResourceIdentified=false;
+}
+public void reset(XMLComponentManager componentManager) throws XNIException {
+  fNamespaceContext=null;
+  elemCount=0;
+  fDepth=0;
+  fRootDepth=0;
+  fPointerToken=null;
+  fCurrentTokenint=0;
+  fCurrentTokenString=null;
+  fCurrentTokenType=0;
+  foundElement=null;
+  includeElement=false;
+  skip=false;
+  fSubResourceIdentified=false;
+  try {
+    setErrorReporter((XMLErrorReporter)componentManager.getProperty(ERROR_REPORTER));
+  }
+ catch (  XMLConfigurationException e) {
+    fErrorReporter=null;
+  }
+  try {
+    fGrammarPool=(XMLGrammarPool)componentManager.getProperty(GRAMMAR_POOL);
+  }
+ catch (  XMLConfigurationException e) {
+    fGrammarPool=null;
+  }
+  try {
+    fEntityResolver=(XMLEntityResolver)componentManager.getProperty(ENTITY_RESOLVER);
+  }
+ catch (  XMLConfigurationException e) {
+    fEntityResolver=null;
+  }
+  fSettings=new ParserConfigurationSettings();
+  Enumeration xercesFeatures=Constants.getXercesFeatures();
+  while (xercesFeatures.hasMoreElements()) {
+    String featureId=(String)xercesFeatures.nextElement();
+    fSettings.addRecognizedFeatures(new String[]{featureId});
+    try {
+      fSettings.setFeature(featureId,componentManager.getFeature(featureId));
+    }
+ catch (    XMLConfigurationException e) {
+    }
+  }
+}

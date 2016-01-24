@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getVersion()
+ */
+public String getVersion(){
+  aMethodIsCalled();
+  return null;
+}

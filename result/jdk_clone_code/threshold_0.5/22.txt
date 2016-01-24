@@ -1,0 +1,8 @@
+public void write(ObjectId objectId,OutputStream os){
+  super.write(objectId,os);
+  getORBVersion().write(os);
+}
+public void write(OutputStream os){
+  super.write(os);
+  getORBVersion().write(os);
+}

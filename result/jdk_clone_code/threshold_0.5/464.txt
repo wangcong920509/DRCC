@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputFormat()
+ */
+public Properties getOutputFormat(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see SerializationHandler#getWriter()
+ */
+public Writer getWriter(){
+  aMethodIsCalled();
+  return null;
+}

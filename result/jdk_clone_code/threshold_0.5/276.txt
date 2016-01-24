@@ -1,0 +1,12 @@
+public Object get(int index){
+  if (index >= 0 && index < fLength) {
+    return fArray[index];
+  }
+  throw new IndexOutOfBoundsException("Index: " + index);
+}
+public ListIterator listIterator(int index){
+  if (index >= 0 && index < fLength) {
+    return listIterator0(index);
+  }
+  throw new IndexOutOfBoundsException("Index: " + index);
+}

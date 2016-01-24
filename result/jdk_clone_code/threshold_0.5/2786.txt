@@ -1,0 +1,8 @@
+public DoubleBuffer put(double x){
+  unsafe.putLong(ix(nextPutIndex()),Bits.swap(Double.doubleToRawLongBits(x)));
+  return this;
+}
+public DoubleBuffer put(int i,double x){
+  unsafe.putLong(ix(checkIndex(i)),Bits.swap(Double.doubleToRawLongBits(x)));
+  return this;
+}

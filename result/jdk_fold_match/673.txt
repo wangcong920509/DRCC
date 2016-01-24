@@ -1,0 +1,35 @@
+jdk_src\javax\swing\plaf\nimbus\OptionPanePainter.java
+private void painterrorIconEnabled(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color1);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient1(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(color6);
+  g.fill(path);
+  ellipse=decodeEllipse1();
+  g.setPaint(color6);
+  g.fill(ellipse);
+  path=decodePath4();
+  g.setPaint(color7);
+  g.fill(path);
+}
+private void paintwarningIconEnabled(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color8);
+  g.fill(rect);
+  path=decodePath7();
+  g.setPaint(decodeGradient8(path));
+  g.fill(path);
+  path=decodePath8();
+  g.setPaint(decodeGradient9(path));
+  g.fill(path);
+  path=decodePath9();
+  g.setPaint(decodeGradient10(path));
+  g.fill(path);
+  ellipse=decodeEllipse7();
+  g.setPaint(color37);
+  g.fill(ellipse);
+}

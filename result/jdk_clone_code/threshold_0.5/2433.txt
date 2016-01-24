@@ -1,0 +1,11 @@
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder delete(int start,int end){
+  super.delete(start,end);
+  return this;
+}
+public StringBuilder reverse(){
+  super.reverse();
+  return this;
+}

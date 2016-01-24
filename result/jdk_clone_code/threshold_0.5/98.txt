@@ -1,0 +1,14 @@
+/** 
+ * V3 enabled Adaptor. Each Oid is added using updateRequest method.
+ */
+protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req){
+  this(agent,req);
+  init(engine,incRequest);
+}
+/** 
+ * V3 enabled Adaptor.
+ */
+protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,boolean nouse){
+  this(agent,req,nouse);
+  init(engine,incRequest);
+}

@@ -1,0 +1,12 @@
+public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
+  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
+}
+public void addGlobalGroupDecl(XSGroupDecl decl,String location){
+  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
+}

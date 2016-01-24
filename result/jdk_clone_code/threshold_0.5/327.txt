@@ -1,0 +1,30 @@
+/** 
+ * Constructs a parse exception. 
+ */
+public XMLParseException(XMLLocator locator,String message){
+  super(message);
+  if (locator != null) {
+    fPublicId=locator.getPublicId();
+    fLiteralSystemId=locator.getLiteralSystemId();
+    fExpandedSystemId=locator.getExpandedSystemId();
+    fBaseSystemId=locator.getBaseSystemId();
+    fLineNumber=locator.getLineNumber();
+    fColumnNumber=locator.getColumnNumber();
+    fCharacterOffset=locator.getCharacterOffset();
+  }
+}
+/** 
+ * Constructs a parse exception. 
+ */
+public XMLParseException(XMLLocator locator,String message,Exception exception){
+  super(message,exception);
+  if (locator != null) {
+    fPublicId=locator.getPublicId();
+    fLiteralSystemId=locator.getLiteralSystemId();
+    fExpandedSystemId=locator.getExpandedSystemId();
+    fBaseSystemId=locator.getBaseSystemId();
+    fLineNumber=locator.getLineNumber();
+    fColumnNumber=locator.getColumnNumber();
+    fCharacterOffset=locator.getCharacterOffset();
+  }
+}

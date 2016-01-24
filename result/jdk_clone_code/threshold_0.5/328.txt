@@ -1,0 +1,17 @@
+/** 
+ * Constructs an XNI exception with a wrapped exception.
+ * @param exception The wrapped exception.
+ */
+public XNIException(Exception exception){
+  super(exception.getMessage());
+  fException=exception;
+}
+/** 
+ * Constructs an XNI exception with a message and wrapped exception.
+ * @param message The exception message.
+ * @param exception The wrapped exception.
+ */
+public XNIException(String message,Exception exception){
+  super(message);
+  fException=exception;
+}

@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ */
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
+}

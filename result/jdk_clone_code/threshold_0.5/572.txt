@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}

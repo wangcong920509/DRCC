@@ -1,0 +1,18 @@
+/** 
+ * Overrides <code>Graphics.setClip</code>.
+ */
+public void setClip(int x,int y,int width,int height){
+  graphics.setClip(x,y,width,height);
+  if (debugLog()) {
+    info().log(toShortString() + " Setting new clipRect: " + graphics.getClip());
+  }
+}
+/** 
+ * Overrides <code>Graphics.setClip</code>.
+ */
+public void setClip(Shape clip){
+  graphics.setClip(clip);
+  if (debugLog()) {
+    info().log(toShortString() + " Setting new clipRect: " + graphics.getClip());
+  }
+}

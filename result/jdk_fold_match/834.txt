@@ -1,0 +1,20 @@
+jdk_src\javax\swing\plaf\nimbus\SliderThumbPainter.java
+private void paintBackgroundDisabledAndArrowShape(Graphics2D g){
+  path=decodePath2();
+  g.setPaint(decodeGradient11(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient12(path));
+  g.fill(path);
+}
+private void paintBackgroundFocusedAndArrowShape(Graphics2D g){
+  path=decodePath4();
+  g.setPaint(color12);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient9(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient17(path));
+  g.fill(path);
+}

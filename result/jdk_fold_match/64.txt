@@ -1,0 +1,101 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLDTDScannerImpl.java
+/** 
+ * Scans an element declaration <p> <pre> [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '>' [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!ELEMENT'
+ */
+protected final void scanElementDecl() throws IOException, XNIException {
+  fReportEntity=false;
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ELEMENT_TYPE_IN_ELEMENTDECL",null);
+  }
+  String name=fEntityScanner.scanName();
+  if (name == null) {
+    reportFatalError("MSG_ELEMENT_TYPE_REQUIRED_IN_ELEMENTDECL",null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_CONTENTSPEC_IN_ELEMENTDECL",new Object[]{name});
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.startContentModel(name,null);
+  }
+  String contentModel=null;
+  fReportEntity=true;
+  if (fEntityScanner.skipString("EMPTY")) {
+    contentModel="EMPTY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.empty(null);
+    }
+  }
+ else   if (fEntityScanner.skipString("ANY")) {
+    contentModel="ANY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.any(null);
+    }
+  }
+ else {
+    if (!fEntityScanner.skipChar('(')) {
+      reportFatalError("MSG_OPEN_PAREN_OR_ELEMENT_TYPE_REQUIRED_IN_CHILDREN",new Object[]{name});
+    }
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.startGroup(null);
+    }
+    fStringBuffer.clear();
+    fStringBuffer.append('(');
+    fMarkUpDepth++;
+    skipSeparator(false,!scanningInternalSubset());
+    if (fEntityScanner.skipString("#PCDATA")) {
+      scanMixed(name);
+    }
+ else {
+      scanChildren(name);
+    }
+    contentModel=fStringBuffer.toString();
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.endContentModel(null);
+  }
+  fReportEntity=false;
+  skipSeparator(false,!scanningInternalSubset());
+  if (!fEntityScanner.skipChar('>')) {
+    reportFatalError("ElementDeclUnterminated",new Object[]{name});
+  }
+  fReportEntity=true;
+  fMarkUpDepth--;
+  if (fDTDHandler != null) {
+    fDTDHandler.elementDecl(name,contentModel,null);
+  }
+  if (nonValidatingMode)   nvGrammarInfo.elementDecl(name,contentModel,null);
+}
+/** 
+ * Scans a notation declaration <p> <pre> [82] NotationDecl ::= '&lt;!NOTATION' S Name S (ExternalID|PublicID) S? '>' [83]  PublicID    ::= 'PUBLIC' S PubidLiteral </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!NOTATION'
+ */
+private final void scanNotationDecl() throws IOException, XNIException {
+  fReportEntity=false;
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_NOTATION_NAME_IN_NOTATIONDECL",null);
+  }
+  String name=fEntityScanner.scanName();
+  if (name == null) {
+    reportFatalError("MSG_NOTATION_NAME_REQUIRED_IN_NOTATIONDECL",null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_AFTER_NOTATION_NAME_IN_NOTATIONDECL",new Object[]{name});
+  }
+  scanExternalID(fStrings,true);
+  String systemId=fStrings[0];
+  String publicId=fStrings[1];
+  String baseSystemId=fEntityScanner.getBaseSystemId();
+  if (systemId == null && publicId == null) {
+    reportFatalError("ExternalIDorPublicIDRequired",new Object[]{name});
+  }
+  skipSeparator(false,!scanningInternalSubset());
+  if (!fEntityScanner.skipChar('>')) {
+    reportFatalError("NotationDeclUnterminated",new Object[]{name});
+  }
+  fMarkUpDepth--;
+  fResourceIdentifier.setValues(publicId,systemId,baseSystemId,XMLEntityManager.expandSystemId(systemId,baseSystemId));
+  if (nonValidatingMode)   nvGrammarInfo.notationDecl(name,fResourceIdentifier,null);
+  if (fDTDHandler != null) {
+    fDTDHandler.notationDecl(name,fResourceIdentifier,null);
+  }
+  fReportEntity=true;
+}

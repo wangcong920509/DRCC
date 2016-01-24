@@ -1,0 +1,32 @@
+jdk_src\java\util\StringTokenizer.java
+/** 
+ * Constructs a string tokenizer for the specified string. All characters in the <code>delim</code> argument are the delimiters for separating tokens. <p> If the <code>returnDelims</code> flag is <code>true</code>, then the delimiter characters are also returned as tokens. Each delimiter is returned as a string of length one. If the flag is <code>false</code>, the delimiter characters are skipped and only serve as separators between tokens. <p> Note that if <tt>delim</tt> is <tt>null</tt>, this constructor does not throw an exception. However, trying to invoke other methods on the resulting <tt>StringTokenizer</tt> may result in a <tt>NullPointerException</tt>.
+ * @param str            a string to be parsed.
+ * @param delim          the delimiters.
+ * @param returnDelims   flag indicating whether to return the delimitersas tokens.
+ * @exception NullPointerException if str is <CODE>null</CODE>
+ */
+public StringTokenizer(String str,String delim,boolean returnDelims){
+  currentPosition=0;
+  newPosition=-1;
+  delimsChanged=false;
+  this.str=str;
+  maxPosition=str.length();
+  delimiters=delim;
+  retDelims=returnDelims;
+  setMaxDelimCodePoint();
+}
+/** 
+ * Returns the next token from this string tokenizer.
+ * @return     the next token from this string tokenizer.
+ * @exception NoSuchElementException  if there are no more tokens in thistokenizer's string.
+ */
+public String nextToken(){
+  currentPosition=(newPosition >= 0 && !delimsChanged) ? newPosition : skipDelimiters(currentPosition);
+  delimsChanged=false;
+  newPosition=-1;
+  if (currentPosition >= maxPosition)   throw new NoSuchElementException();
+  int start=currentPosition;
+  currentPosition=scanToken(currentPosition);
+  return str.substring(start,currentPosition);
+}

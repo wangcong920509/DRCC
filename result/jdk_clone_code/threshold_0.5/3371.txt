@@ -1,0 +1,21 @@
+/** 
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
+ */
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
+  }
+  return null;
+}
+/** 
+ * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
+ * @param orig the exception to wrap.
+ * @return the wrapped exception.
+ */
+public static RemoteException wrapException(Throwable orig){
+  if (utilDelegate != null) {
+    return utilDelegate.wrapException(orig);
+  }
+  return null;
+}

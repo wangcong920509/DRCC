@@ -1,0 +1,32 @@
+/** 
+ * Retrieves the <code>BLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Blob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
+ * @return a <code>Blob</code> object representing the SQL<code>BLOB</code> value at the head of this stream; if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ */
+public Blob readBlob() throws SQLException {
+  Blob attrib=(Blob)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}
+/** 
+ * Retrieves the <code>CLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Clob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
+ * @return a <code>Clob</code> object representing the SQL<code>CLOB</code> value at the head of the stream; if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ */
+public Clob readClob() throws SQLException {
+  Clob attrib=(Clob)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}

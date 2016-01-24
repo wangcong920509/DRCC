@@ -1,0 +1,18 @@
+/** 
+ * Sets the <code>address</code> to the <code>W3CEndpointReference</code> instance's <code>wsa:Address</code>. <p> The <code>address</code> MUST be set to a non-<code>null</code> value when building a <code>W3CEndpointReference</code> for a web service endpoint that is not published by the same Java EE application or when running on Java SE.
+ * @param address The address of the endpoint to be targetedby the returned <code>W3CEndpointReference</code>.
+ * @return A <code>W3CEndpointReferenceBuilder</code> instance withthe <code>address</code> set to the <code>wsa:Address</code>.
+ */
+public W3CEndpointReferenceBuilder address(String address){
+  this.address=address;
+  return this;
+}
+/** 
+ * Sets the <code>interfaceName</code> as the <code>wsam:InterfaceName</code> element in the <code>wsa:Metadata</code> element. See <a href="http://www.w3.org/TR/2007/REC-ws-addr-metadata-20070904/#refmetadatfromepr"> 2.1 Referencing WSDL Metadata from an EPR</a> for more details.
+ * @param interfaceName The port type name of the endpoint to be targetedby the returned <code>W3CEndpointReference</code>.
+ * @return A <code>W3CEndpointReferenceBuilder</code> instance withthe <code>interfaceName</code> as <code>wsam:InterfaceName</code> element added to the <code>wsa:Metadata</code> element
+ */
+public W3CEndpointReferenceBuilder interfaceName(QName interfaceName){
+  this.interfaceName=interfaceName;
+  return this;
+}

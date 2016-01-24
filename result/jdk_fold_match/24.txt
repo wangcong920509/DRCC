@@ -1,0 +1,51 @@
+jdk_src\com\sun\jmx\interceptor\DefaultMBeanServerInterceptor.java
+private ObjectInstance createMBean(String className,ObjectName name,ObjectName loaderName,boolean withDefaultLoaderRepository,Object[] params,String[] signature) throws ReflectionException, InstanceAlreadyExistsException, MBeanRegistrationException, MBeanException, NotCompliantMBeanException, InstanceNotFoundException {
+  Class<?> theClass;
+  if (className == null) {
+    final RuntimeException wrapped=new IllegalArgumentException("The class name cannot be null");
+    throw new RuntimeOperationsException(wrapped,"Exception occurred during MBean creation");
+  }
+  if (name != null) {
+    if (name.isPattern()) {
+      final RuntimeException wrapped=new IllegalArgumentException("Invalid name->" + name.toString());
+      final String msg="Exception occurred during MBean creation";
+      throw new RuntimeOperationsException(wrapped,msg);
+    }
+    name=nonDefaultDomain(name);
+  }
+  checkMBeanPermission(className,null,null,"instantiate");
+  checkMBeanPermission(className,null,name,"registerMBean");
+  if (withDefaultLoaderRepository) {
+    if (MBEANSERVER_LOGGER.isLoggable(Level.FINER)) {
+      MBEANSERVER_LOGGER.logp(Level.FINER,DefaultMBeanServerInterceptor.class.getName(),"createMBean","ClassName = " + className + ", ObjectName = "+ name);
+    }
+    theClass=instantiator.findClassWithDefaultLoaderRepository(className);
+  }
+ else   if (loaderName == null) {
+    if (MBEANSERVER_LOGGER.isLoggable(Level.FINER)) {
+      MBEANSERVER_LOGGER.logp(Level.FINER,DefaultMBeanServerInterceptor.class.getName(),"createMBean","ClassName = " + className + ", ObjectName = "+ name+ ", Loader name = null");
+    }
+    theClass=instantiator.findClass(className,server.getClass().getClassLoader());
+  }
+ else {
+    loaderName=nonDefaultDomain(loaderName);
+    if (MBEANSERVER_LOGGER.isLoggable(Level.FINER)) {
+      MBEANSERVER_LOGGER.logp(Level.FINER,DefaultMBeanServerInterceptor.class.getName(),"createMBean","ClassName = " + className + ", ObjectName = "+ name+ ", Loader name = "+ loaderName);
+    }
+    theClass=instantiator.findClass(className,loaderName);
+  }
+  checkMBeanTrustPermission(theClass);
+  Introspector.testCreation(theClass);
+  Introspector.checkCompliance(theClass);
+  Object moi=instantiator.instantiate(theClass,params,signature,server.getClass().getClassLoader());
+  final String infoClassName=getNewMBeanClassName(moi);
+  return registerObject(infoClassName,moi,name);
+}
+public ObjectInstance registerMBean(Object object,ObjectName name) throws InstanceAlreadyExistsException, MBeanRegistrationException, NotCompliantMBeanException {
+  Class<?> theClass=object.getClass();
+  Introspector.checkCompliance(theClass);
+  final String infoClassName=getNewMBeanClassName(object);
+  checkMBeanPermission(infoClassName,null,name,"registerMBean");
+  checkMBeanTrustPermission(theClass);
+  return registerObject(infoClassName,object,name);
+}

@@ -1,0 +1,8 @@
+public int addParam(Param param){
+  _globals.addElement(param);
+  return _globals.size() - 1;
+}
+public int addVariable(Variable global){
+  _globals.addElement(global);
+  return _globals.size() - 1;
+}

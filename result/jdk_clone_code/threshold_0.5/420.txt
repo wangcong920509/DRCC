@@ -1,0 +1,21 @@
+/** 
+ * MissingKeyResourceFailureException constructor.
+ * @param _msgID
+ * @param reference
+ * @see #getReference
+ */
+public MissingResourceFailureException(String _msgID,Reference reference){
+  super(_msgID);
+  this.uninitializedReference=reference;
+}
+/** 
+ * Constructor MissingResourceFailureException
+ * @param _msgID
+ * @param exArgs
+ * @param reference
+ * @see #getReference
+ */
+public MissingResourceFailureException(String _msgID,Object exArgs[],Reference reference){
+  super(_msgID,exArgs);
+  this.uninitializedReference=reference;
+}

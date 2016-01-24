@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ */
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getEncoding()
+ */
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
+}

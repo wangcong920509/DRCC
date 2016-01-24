@@ -1,0 +1,29 @@
+/** 
+ * Generates a Transform object that implements the specified <code>Transform algorithm</code> URI.
+ * @param algorithmURI <code>Transform algorithm</code> URI representation,such as specified in <a href=http://www.w3.org/TR/xmldsig-core/#sec-TransformAlg>Transform algorithm </a>
+ * @param contextChild the child element of <code>Transform</code> element
+ * @param doc the proxy {@link Document}
+ * @throws InvalidTransformException
+ */
+public Transform(Document doc,String algorithmURI,Element contextChild) throws InvalidTransformException {
+  super(doc);
+  HelperNodeList contextNodes=null;
+  if (contextChild != null) {
+    contextNodes=new HelperNodeList();
+    XMLUtils.addReturnToElement(doc,contextNodes);
+    contextNodes.appendChild(contextChild);
+    XMLUtils.addReturnToElement(doc,contextNodes);
+  }
+  transformSpi=initializeTransform(algorithmURI,contextNodes);
+}
+/** 
+ * Constructs  {@link Transform}
+ * @param doc the {@link Document} in which <code>Transform</code> will beplaced
+ * @param algorithmURI URI representation of <code>Transform algorithm</code>
+ * @param contextNodes the child node list of <code>Transform</code> element
+ * @throws InvalidTransformException
+ */
+public Transform(Document doc,String algorithmURI,NodeList contextNodes) throws InvalidTransformException {
+  super(doc);
+  transformSpi=initializeTransform(algorithmURI,contextNodes);
+}

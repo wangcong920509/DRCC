@@ -1,0 +1,39 @@
+jdk_src\java\security\spec\ECFieldF2m.java
+/** 
+ * Creates an elliptic curve characteristic 2 finite field which has 2^<code>m</code> elements with normal basis.
+ * @param m with 2^<code>m</code> being the number of elements.
+ * @exception IllegalArgumentException if <code>m</code>is not positive.
+ */
+public ECFieldF2m(int m){
+  if (m <= 0) {
+    throw new IllegalArgumentException("m is not positive");
+  }
+  this.m=m;
+  this.ks=null;
+  this.rp=null;
+}
+/** 
+ * Creates an elliptic curve characteristic 2 finite field which has 2^<code>m</code> elements with polynomial basis. The reduction polynomial for this field is based on <code>rp</code> whose i-th bit correspondes to the i-th coefficient of the reduction polynomial.<p> Note: A valid reduction polynomial is either a trinomial (X^<code>m</code> + X^<code>k</code> + 1 with <code>m</code> > <code>k</code> >= 1) or a pentanomial (X^<code>m</code> + X^<code>k3</code> + X^<code>k2</code> + X^<code>k1</code> + 1 with <code>m</code> > <code>k3</code> > <code>k2</code> > <code>k1</code> >= 1).
+ * @param m with 2^<code>m</code> being the number of elements.
+ * @param rp the BigInteger whose i-th bit corresponds tothe i-th coefficient of the reduction polynomial.
+ * @exception NullPointerException if <code>rp</code> is null.
+ * @exception IllegalArgumentException if <code>m</code>is not positive, or <code>rp</code> does not represent a valid reduction polynomial.
+ */
+public ECFieldF2m(int m,BigInteger rp){
+  this.m=m;
+  this.rp=rp;
+  if (m <= 0) {
+    throw new IllegalArgumentException("m is not positive");
+  }
+  int bitCount=this.rp.bitCount();
+  if (!this.rp.testBit(0) || !this.rp.testBit(m) || ((bitCount != 3) && (bitCount != 5))) {
+    throw new IllegalArgumentException("rp does not represent a valid reduction polynomial");
+  }
+  BigInteger temp=this.rp.clearBit(0).clearBit(m);
+  this.ks=new int[bitCount - 2];
+  for (int i=this.ks.length - 1; i >= 0; i--) {
+    int index=temp.getLowestSetBit();
+    this.ks[i]=index;
+    temp=temp.clearBit(index);
+  }
+}

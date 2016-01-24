@@ -1,0 +1,41 @@
+jdk_src\com\sun\org\apache\xml\internal\security\signature\SignedInfo.java
+/** 
+ * Constructor SignedInfo
+ * @param doc <code>SignedInfo</code> is placed in this document
+ * @param signatureMethodURI URI representation of the Digest andSignature algorithm
+ * @param hMACOutputLength
+ * @param canonicalizationMethodURI URI representation of theCanonicalization method
+ * @throws XMLSecurityException
+ */
+public SignedInfo(Document doc,String signatureMethodURI,int hMACOutputLength,String canonicalizationMethodURI) throws XMLSecurityException {
+  super(doc);
+  c14nMethod=XMLUtils.createElementInSignatureSpace(this._doc,Constants._TAG_CANONICALIZATIONMETHOD);
+  c14nMethod.setAttributeNS(null,Constants._ATT_ALGORITHM,canonicalizationMethodURI);
+  this._constructionElement.appendChild(c14nMethod);
+  XMLUtils.addReturnToElement(this._constructionElement);
+  if (hMACOutputLength > 0) {
+    this._signatureAlgorithm=new SignatureAlgorithm(this._doc,signatureMethodURI,hMACOutputLength);
+  }
+ else {
+    this._signatureAlgorithm=new SignatureAlgorithm(this._doc,signatureMethodURI);
+  }
+  signatureMethod=this._signatureAlgorithm.getElement();
+  this._constructionElement.appendChild(signatureMethod);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * @param doc
+ * @param signatureMethodElem
+ * @param canonicalizationMethodElem
+ * @throws XMLSecurityException
+ */
+public SignedInfo(Document doc,Element signatureMethodElem,Element canonicalizationMethodElem) throws XMLSecurityException {
+  super(doc);
+  this.c14nMethod=canonicalizationMethodElem;
+  this._constructionElement.appendChild(c14nMethod);
+  XMLUtils.addReturnToElement(this._constructionElement);
+  this._signatureAlgorithm=new SignatureAlgorithm(signatureMethodElem,null);
+  signatureMethod=this._signatureAlgorithm.getElement();
+  this._constructionElement.appendChild(signatureMethod);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

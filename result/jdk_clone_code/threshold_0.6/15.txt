@@ -1,0 +1,14 @@
+/** 
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
+ */
+public void removeNotificationListener(ObjectName name,NotificationListener listener) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener);
+}
+/** 
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
+ */
+public void removeNotificationListener(ObjectName name,ObjectName listener) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener);
+}

@@ -1,0 +1,13 @@
+private static final Appendable nonNullAppendable(Appendable a){
+  if (a == null)   return new StringBuilder();
+  return a;
+}
+/** 
+ * Returns the destination for the output.
+ * @return  The destination for the output
+ * @throws FormatterClosedException If this formatter has been closed by invoking its  {@link #close()} method
+ */
+public Appendable out(){
+  ensureOpen();
+  return a;
+}

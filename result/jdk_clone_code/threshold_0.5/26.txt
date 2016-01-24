@@ -1,0 +1,8 @@
+public static NamingSystemException get(ORB orb,String logDomain){
+  NamingSystemException wrapper=(NamingSystemException)orb.getLogWrapper(logDomain,"NAMING",factory);
+  return wrapper;
+}
+public static NamingSystemException get(String logDomain){
+  NamingSystemException wrapper=(NamingSystemException)ORB.staticGetLogWrapper(logDomain,"NAMING",factory);
+  return wrapper;
+}

@@ -1,0 +1,14 @@
+public static IORFactory getIORFactory(ObjectReferenceTemplate ort){
+  if (ort instanceof ObjectReferenceTemplateImpl) {
+    ObjectReferenceTemplateImpl orti=(ObjectReferenceTemplateImpl)ort;
+    return orti.getIORFactory();
+  }
+  throw new BAD_PARAM();
+}
+public static IORTemplateList getIORTemplateList(ObjectReferenceFactory orf){
+  if (orf instanceof ObjectReferenceProducerBase) {
+    ObjectReferenceProducerBase base=(ObjectReferenceProducerBase)orf;
+    return base.getIORTemplateList();
+  }
+  throw new BAD_PARAM();
+}

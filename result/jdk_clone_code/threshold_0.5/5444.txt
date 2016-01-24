@@ -1,0 +1,8 @@
+public void writeLineBreak() throws IOException {
+  writeRawString("\n");
+  afterKeyword=false;
+}
+public void writeBegingroup() throws IOException {
+  outputStream.write('{');
+  afterKeyword=false;
+}

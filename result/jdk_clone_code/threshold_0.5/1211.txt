@@ -1,0 +1,17 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Attribute node name
+ * @return null
+ */
+public Attr getAttributeNode(String name){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the version number of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
+ */
+public String getVersion(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

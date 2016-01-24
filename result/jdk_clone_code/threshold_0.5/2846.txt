@@ -1,0 +1,8 @@
+public LongBuffer put(long x){
+  unsafe.putLong(ix(nextPutIndex()),Bits.swap((x)));
+  return this;
+}
+public LongBuffer put(int i,long x){
+  unsafe.putLong(ix(checkIndex(i)),Bits.swap((x)));
+  return this;
+}

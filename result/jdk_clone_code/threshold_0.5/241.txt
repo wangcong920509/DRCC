@@ -1,0 +1,16 @@
+public boolean hasAttribute(String name){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(name)) {
+      return true;
+    }
+  }
+  return false;
+}
+public boolean hasAttributeNS(String namespaceURI,String localName){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(),namespaceURI)) {
+      return true;
+    }
+  }
+  return false;
+}

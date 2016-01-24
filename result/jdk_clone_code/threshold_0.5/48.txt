@@ -1,0 +1,8 @@
+protected CorbaMessageMediator createResponseHelper(CorbaMessageMediator messageMediator,ServiceContexts svc){
+  ReplyMessage message=MessageBase.createReply((ORB)messageMediator.getBroker(),messageMediator.getGIOPVersion(),messageMediator.getEncodingVersion(),messageMediator.getRequestId(),ReplyMessage.NO_EXCEPTION,svc,null);
+  return createResponseHelper(messageMediator,message,null);
+}
+protected CorbaMessageMediator createResponseHelper(CorbaMessageMediator messageMediator,ServiceContexts svc,boolean user){
+  ReplyMessage message=MessageBase.createReply((ORB)messageMediator.getBroker(),messageMediator.getGIOPVersion(),messageMediator.getEncodingVersion(),messageMediator.getRequestId(),user ? ReplyMessage.USER_EXCEPTION : ReplyMessage.SYSTEM_EXCEPTION,svc,null);
+  return createResponseHelper(messageMediator,message,null);
+}

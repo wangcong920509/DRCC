@@ -1,0 +1,22 @@
+/** 
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
+ */
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
+}
+/** 
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
+ */
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
+}

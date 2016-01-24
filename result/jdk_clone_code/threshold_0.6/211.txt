@@ -1,0 +1,18 @@
+/** 
+ * Creates a new PropertyPermission object with the specified name. The name is the name of the system property, and <i>actions</i> contains a comma-separated list of the desired actions granted on the property. Possible actions are "read" and "write".
+ * @param name the name of the PropertyPermission.
+ * @param actions the actions string.
+ * @throws NullPointerException if <code>name</code> is <code>null</code>.
+ * @throws IllegalArgumentException if <code>name</code> is empty or if<code>actions</code> is invalid.
+ */
+public PropertyPermission(String name,String actions){
+  super(name,actions);
+  init(getMask(actions));
+}
+/** 
+ * readObject is called to restore the state of the PropertyPermission from a stream.
+ */
+private synchronized void readObject(java.io.ObjectInputStream s) throws IOException, ClassNotFoundException {
+  s.defaultReadObject();
+  init(getMask(actions));
+}

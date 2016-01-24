@@ -1,0 +1,195 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLDTDScannerImpl.java
+/** 
+ * Scans an element declaration <p> <pre> [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '>' [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!ELEMENT'
+ */
+protected final void scanElementDecl() throws IOException, XNIException {
+  fReportEntity=false;
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ELEMENT_TYPE_IN_ELEMENTDECL",null);
+  }
+  String name=fEntityScanner.scanName();
+  if (name == null) {
+    reportFatalError("MSG_ELEMENT_TYPE_REQUIRED_IN_ELEMENTDECL",null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_CONTENTSPEC_IN_ELEMENTDECL",new Object[]{name});
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.startContentModel(name,null);
+  }
+  String contentModel=null;
+  fReportEntity=true;
+  if (fEntityScanner.skipString("EMPTY")) {
+    contentModel="EMPTY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.empty(null);
+    }
+  }
+ else   if (fEntityScanner.skipString("ANY")) {
+    contentModel="ANY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.any(null);
+    }
+  }
+ else {
+    if (!fEntityScanner.skipChar('(')) {
+      reportFatalError("MSG_OPEN_PAREN_OR_ELEMENT_TYPE_REQUIRED_IN_CHILDREN",new Object[]{name});
+    }
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.startGroup(null);
+    }
+    fStringBuffer.clear();
+    fStringBuffer.append('(');
+    fMarkUpDepth++;
+    skipSeparator(false,!scanningInternalSubset());
+    if (fEntityScanner.skipString("#PCDATA")) {
+      scanMixed(name);
+    }
+ else {
+      scanChildren(name);
+    }
+    contentModel=fStringBuffer.toString();
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.endContentModel(null);
+  }
+  fReportEntity=false;
+  skipSeparator(false,!scanningInternalSubset());
+  if (!fEntityScanner.skipChar('>')) {
+    reportFatalError("ElementDeclUnterminated",new Object[]{name});
+  }
+  fReportEntity=true;
+  fMarkUpDepth--;
+  if (fDTDHandler != null) {
+    fDTDHandler.elementDecl(name,contentModel,null);
+  }
+  if (nonValidatingMode)   nvGrammarInfo.elementDecl(name,contentModel,null);
+}
+/** 
+ * Scans an entity declaration <p> <pre> [70]    EntityDecl  ::=    GEDecl | PEDecl [71]    GEDecl      ::=    '&lt;!ENTITY' S Name S EntityDef S? '>' [72]    PEDecl      ::=    '&lt;!ENTITY' S '%' S Name S PEDef S? '>' [73]    EntityDef   ::=    EntityValue | (ExternalID NDataDecl?) [74]    PEDef       ::=    EntityValue | ExternalID [75]    ExternalID  ::=    'SYSTEM' S SystemLiteral | 'PUBLIC' S PubidLiteral S SystemLiteral [76]    NDataDecl   ::=    S 'NDATA' S Name </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!ENTITY'
+ */
+private final void scanEntityDecl() throws IOException, XNIException {
+  boolean isPEDecl=false;
+  boolean sawPERef=false;
+  fReportEntity=false;
+  if (fEntityScanner.skipSpaces()) {
+    if (!fEntityScanner.skipChar('%')) {
+      isPEDecl=false;
+    }
+ else     if (skipSeparator(true,!scanningInternalSubset())) {
+      isPEDecl=true;
+    }
+ else     if (scanningInternalSubset()) {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ENTITY_NAME_IN_ENTITYDECL",null);
+      isPEDecl=true;
+    }
+ else     if (fEntityScanner.peekChar() == '%') {
+      skipSeparator(false,!scanningInternalSubset());
+      isPEDecl=true;
+    }
+ else {
+      sawPERef=true;
+    }
+  }
+ else   if (scanningInternalSubset() || !fEntityScanner.skipChar('%')) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ENTITY_NAME_IN_ENTITYDECL",null);
+    isPEDecl=false;
+  }
+ else   if (fEntityScanner.skipSpaces()) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_PERCENT_IN_PEDECL",null);
+    isPEDecl=false;
+  }
+ else {
+    sawPERef=true;
+  }
+  if (sawPERef) {
+    while (true) {
+      String peName=fEntityScanner.scanName();
+      if (peName == null) {
+        reportFatalError("NameRequiredInPEReference",null);
+      }
+ else       if (!fEntityScanner.skipChar(';')) {
+        reportFatalError("SemicolonRequiredInPEReference",new Object[]{peName});
+      }
+ else {
+        startPE(peName,false);
+      }
+      fEntityScanner.skipSpaces();
+      if (!fEntityScanner.skipChar('%'))       break;
+      if (!isPEDecl) {
+        if (skipSeparator(true,!scanningInternalSubset())) {
+          isPEDecl=true;
+          break;
+        }
+        isPEDecl=fEntityScanner.skipChar('%');
+      }
+    }
+  }
+  String name=fEntityScanner.scanName();
+  if (name == null) {
+    reportFatalError("MSG_ENTITY_NAME_REQUIRED_IN_ENTITYDECL",null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_AFTER_ENTITY_NAME_IN_ENTITYDECL",new Object[]{name});
+  }
+  scanExternalID(fStrings,false);
+  String systemId=fStrings[0];
+  String publicId=fStrings[1];
+  if (isPEDecl && systemId != null) {
+    fSeenExternalPE=true;
+  }
+  String notation=null;
+  boolean sawSpace=skipSeparator(true,!scanningInternalSubset());
+  if (!isPEDecl && fEntityScanner.skipString("NDATA")) {
+    if (!sawSpace) {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_NDATA_IN_UNPARSED_ENTITYDECL",new Object[]{name});
+    }
+    if (!skipSeparator(true,!scanningInternalSubset())) {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_NOTATION_NAME_IN_UNPARSED_ENTITYDECL",new Object[]{name});
+    }
+    notation=fEntityScanner.scanName();
+    if (notation == null) {
+      reportFatalError("MSG_NOTATION_NAME_REQUIRED_FOR_UNPARSED_ENTITYDECL",new Object[]{name});
+    }
+  }
+  if (systemId == null) {
+    scanEntityValue(fLiteral,fLiteral2);
+    fStringBuffer.clear();
+    fStringBuffer2.clear();
+    fStringBuffer.append(fLiteral.ch,fLiteral.offset,fLiteral.length);
+    fStringBuffer2.append(fLiteral2.ch,fLiteral2.offset,fLiteral2.length);
+  }
+  skipSeparator(false,!scanningInternalSubset());
+  if (!fEntityScanner.skipChar('>')) {
+    reportFatalError("EntityDeclUnterminated",new Object[]{name});
+  }
+  fMarkUpDepth--;
+  if (isPEDecl) {
+    name="%" + name;
+  }
+  if (systemId != null) {
+    String baseSystemId=fEntityScanner.getBaseSystemId();
+    if (notation != null) {
+      fEntityStore.addUnparsedEntity(name,publicId,systemId,baseSystemId,notation);
+    }
+ else {
+      fEntityStore.addExternalEntity(name,publicId,systemId,baseSystemId);
+    }
+    if (fDTDHandler != null) {
+      fResourceIdentifier.setValues(publicId,systemId,baseSystemId,XMLEntityManager.expandSystemId(systemId,baseSystemId));
+      if (notation != null) {
+        fDTDHandler.unparsedEntityDecl(name,fResourceIdentifier,notation,null);
+      }
+ else {
+        fDTDHandler.externalEntityDecl(name,fResourceIdentifier,null);
+      }
+    }
+  }
+ else {
+    fEntityStore.addInternalEntity(name,fStringBuffer.toString());
+    if (fDTDHandler != null) {
+      fDTDHandler.internalEntityDecl(name,fStringBuffer,fStringBuffer2,null);
+    }
+  }
+  fReportEntity=true;
+}

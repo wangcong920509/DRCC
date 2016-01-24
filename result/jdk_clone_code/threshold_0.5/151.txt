@@ -1,0 +1,14 @@
+public boolean assertEquals(StringBuffer log,String message,String expected,String actual){
+  if (expected != null && !expected.equals(actual) || actual != null && !actual.equals(expected)) {
+    test.fail(log,message + " (expected \"" + expected+ "\", actual \""+ actual+ "\")");
+    return false;
+  }
+  return true;
+}
+public boolean assertEquals(StringBuffer log,String message,int expected,int actual){
+  if (expected != actual) {
+    test.fail(log,message + " (expected \"" + expected+ "\", actual \""+ actual+ "\")");
+    return false;
+  }
+  return true;
+}

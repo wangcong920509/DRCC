@@ -1,0 +1,20 @@
+/** 
+ * Constructor ObjectPool
+ * @param className Fully qualified name of the type of objects for this pool.
+ */
+public ObjectPool(String className){
+  try {
+    objectType=ObjectFactory.findProviderClass(className,true);
+  }
+ catch (  ClassNotFoundException cnfe) {
+    throw new WrappedRuntimeException(cnfe);
+  }
+  freeStack=new ArrayList();
+}
+/** 
+ * Constructor ObjectPool
+ */
+public ObjectPool(){
+  objectType=null;
+  freeStack=new ArrayList();
+}

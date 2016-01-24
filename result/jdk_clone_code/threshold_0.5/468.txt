@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputFormat()
+ */
+public Properties getOutputFormat(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ */
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
+}

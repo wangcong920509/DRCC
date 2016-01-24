@@ -1,0 +1,38 @@
+jdk_src\com\sun\imageio\plugins\jpeg\JPEGMetadata.java
+/** 
+ * Insert the given AdobeMarkerSegment into the marker sequence, as follows (we assume there is no Adobe segment yet): If there is a JFIF segment, then the new Adobe segment is inserted after it. If there is no JFIF segment, the new Adobe segment is inserted after the last Unknown segment, if there are any. If there are no Unknown segments, the new Adobe segment is inserted at the beginning of the sequence.
+ */
+private void insertAdobeMarkerSegment(AdobeMarkerSegment newGuy){
+  boolean hasJFIF=(findMarkerSegment(JFIFMarkerSegment.class,true) != null);
+  int lastUnknown=findLastUnknownMarkerSegmentPosition();
+  if (hasJFIF) {
+    markerSequence.add(1,newGuy);
+  }
+ else   if (lastUnknown != -1) {
+    markerSequence.add(lastUnknown + 1,newGuy);
+  }
+ else {
+    markerSequence.add(0,newGuy);
+  }
+}
+/** 
+ * Merge the given Unknown node into the marker sequence. A new Unknown marker segment is created and added to the sequence as follows: If there already exist Unknown marker segments, the new one is inserted after the last one. If there are no Unknown marker segments, the new Unknown marker segment is inserted after the JFIF segment, if there is one. If there is no JFIF segment, the new Unknown segment is inserted before the Adobe marker segment, if there is one. If there is no Adobe segment, the new Unknown segment is inserted at the beginning of the sequence.
+ */
+private void mergeUnknownNode(Node node) throws IIOInvalidTreeException {
+  MarkerSegment newGuy=new MarkerSegment(node);
+  int lastUnknown=findLastUnknownMarkerSegmentPosition();
+  boolean hasJFIF=(findMarkerSegment(JFIFMarkerSegment.class,true) != null);
+  int firstAdobe=findMarkerSegmentPosition(AdobeMarkerSegment.class,true);
+  if (lastUnknown != -1) {
+    markerSequence.add(lastUnknown + 1,newGuy);
+  }
+ else   if (hasJFIF) {
+    markerSequence.add(1,newGuy);
+  }
+  if (firstAdobe != -1) {
+    markerSequence.add(firstAdobe,newGuy);
+  }
+ else {
+    markerSequence.add(0,newGuy);
+  }
+}

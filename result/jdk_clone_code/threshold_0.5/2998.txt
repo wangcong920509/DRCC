@@ -1,0 +1,8 @@
+public DoubleBuffer put(double x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
+}
+public DoubleBuffer put(int i,double x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}

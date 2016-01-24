@@ -1,0 +1,33 @@
+/** 
+ * Adds a <code>component</code> with a tab title defaulting to the name of the component which is the result of calling <code>component.getName</code>. Cover method for <code>insertTab</code>.
+ * @param component the component to be displayed when this tab is clicked
+ * @return the component
+ * @see #insertTab
+ * @see #removeTabAt
+ */
+public Component add(Component component){
+  if (!(component instanceof UIResource)) {
+    addTab(component.getName(),component);
+  }
+ else {
+    super.add(component);
+  }
+  return component;
+}
+/** 
+ * Adds a <code>component</code> with the specified tab title. Cover method for <code>insertTab</code>.
+ * @param title the title to be displayed in this tab
+ * @param component the component to be displayed when this tab is clicked
+ * @return the component
+ * @see #insertTab
+ * @see #removeTabAt
+ */
+public Component add(String title,Component component){
+  if (!(component instanceof UIResource)) {
+    addTab(title,component);
+  }
+ else {
+    super.add(title,component);
+  }
+  return component;
+}

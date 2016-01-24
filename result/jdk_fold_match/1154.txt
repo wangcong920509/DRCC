@@ -1,0 +1,49 @@
+jdk_src\javax\swing\plaf\nimbus\TreePainter.java
+private Path2D decodePath6(){
+  path.reset();
+  path.moveTo(decodeX(0.0f),decodeY(2.4f));
+  path.lineTo(decodeX(0.0f),decodeY(2.6f));
+  path.lineTo(decodeX(0.2f),decodeY(3.0f));
+  path.lineTo(decodeX(2.6f),decodeY(3.0f));
+  path.lineTo(decodeX(2.8f),decodeY(2.6f));
+  path.lineTo(decodeX(2.8f),decodeY(2.4f));
+  path.lineTo(decodeX(0.0f),decodeY(2.4f));
+  path.closePath();
+  return path;
+}
+private Path2D decodePath9(){
+  path.reset();
+  path.moveTo(decodeX(3.0f),decodeY(0.8f));
+  path.lineTo(decodeX(3.0f),decodeY(1.0f));
+  path.lineTo(decodeX(2.4f),decodeY(1.0f));
+  path.lineTo(decodeX(2.4f),decodeY(0.6f));
+  path.lineTo(decodeX(1.5f),decodeY(0.6f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.4f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.2f));
+  path.lineTo(decodeX(0.5888889f),decodeY(0.20370372f));
+  path.lineTo(decodeX(0.5962963f),decodeY(0.34814817f));
+  path.lineTo(decodeX(0.34814817f),decodeY(0.6f));
+  path.lineTo(decodeX(0.2f),decodeY(0.6f));
+  path.lineTo(decodeX(0.2f),decodeY(2.6f));
+  path.lineTo(decodeX(2.6f),decodeY(2.6f));
+  path.lineTo(decodeX(2.6f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.774074f),decodeY(1.1604939f));
+  path.lineTo(decodeX(2.8f),decodeY(1.0f));
+  path.lineTo(decodeX(3.0f),decodeY(1.0f));
+  path.lineTo(decodeX(2.8925927f),decodeY(1.1882716f));
+  path.lineTo(decodeX(2.8f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.8f),decodeY(2.6f));
+  path.lineTo(decodeX(2.6f),decodeY(2.8f));
+  path.lineTo(decodeX(0.2f),decodeY(2.8f));
+  path.lineTo(decodeX(0.0f),decodeY(2.6f));
+  path.lineTo(decodeX(0.0f),decodeY(0.65185183f));
+  path.lineTo(decodeX(0.63703704f),decodeY(0.0f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.0f));
+  path.lineTo(decodeX(1.5925925f),decodeY(0.4f));
+  path.lineTo(decodeX(2.4f),decodeY(0.4f));
+  path.lineTo(decodeX(2.6f),decodeY(0.6f));
+  path.lineTo(decodeX(2.6f),decodeY(0.8f));
+  path.lineTo(decodeX(3.0f),decodeY(0.8f));
+  path.closePath();
+  return path;
+}

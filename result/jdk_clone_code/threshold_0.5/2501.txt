@@ -1,0 +1,8 @@
+public FloatBuffer put(float x){
+  Bits.putFloatB(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public FloatBuffer put(int i,float x){
+  Bits.putFloatB(bb,ix(checkIndex(i)),x);
+  return this;
+}

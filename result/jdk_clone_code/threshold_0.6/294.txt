@@ -1,0 +1,44 @@
+/** 
+ * Writes a stream of ASCII characters to this <code>SQLOutputImpl</code> object. The driver will do any necessary conversion from ASCII to the database <code>CHAR</code> format.
+ * @param x the value to pass to the database
+ * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ */
+public void writeAsciiStream(java.io.InputStream x) throws SQLException {
+  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+  try {
+    int i;
+    while ((i=bufReader.read()) != -1) {
+      char ch=(char)i;
+      StringBuffer strBuf=new StringBuffer();
+      strBuf.append(ch);
+      String str=new String(strBuf);
+      String strLine=bufReader.readLine();
+      writeString(str.concat(strLine));
+    }
+  }
+ catch (  IOException ioe) {
+    throw new SQLException(ioe.getMessage());
+  }
+}
+/** 
+ * Writes a stream of uninterpreted bytes to this <code>SQLOutputImpl</code> object.
+ * @param x the value to pass to the database
+ * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ */
+public void writeBinaryStream(java.io.InputStream x) throws SQLException {
+  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+  try {
+    int i;
+    while ((i=bufReader.read()) != -1) {
+      char ch=(char)i;
+      StringBuffer strBuf=new StringBuffer();
+      strBuf.append(ch);
+      String str=new String(strBuf);
+      String strLine=bufReader.readLine();
+      writeString(str.concat(strLine));
+    }
+  }
+ catch (  IOException ioe) {
+    throw new SQLException(ioe.getMessage());
+  }
+}

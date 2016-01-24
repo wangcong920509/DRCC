@@ -1,0 +1,43 @@
+jdk_src\com\sun\jmx\snmp\agent\SnmpMibOid.java
+private int retrieveIndex(long val){
+  int low=0;
+  int cursor=(int)val;
+  if (varList == null || varList.length < 1)   return nbChildren;
+  int max=varList.length - 1;
+  int curr=low + (max - low) / 2;
+  int elmt=0;
+  while (low <= max) {
+    elmt=varList[curr];
+    if (cursor == elmt) {
+      return curr;
+    }
+    if (elmt < cursor) {
+      low=curr + 1;
+    }
+ else {
+      max=curr - 1;
+    }
+    curr=low + (max - low) / 2;
+  }
+  return -1;
+}
+private int getInsertAt(long val){
+  int low=0;
+  final int index=(int)val;
+  if (varList == null)   return -1;
+  int max=varList.length - 1;
+  int elmt=0;
+  int curr=low + (max - low) / 2;
+  while (low <= max) {
+    elmt=varList[curr];
+    if (index == elmt)     return curr;
+    if (elmt < index) {
+      low=curr + 1;
+    }
+ else {
+      max=curr - 1;
+    }
+    curr=low + (max - low) / 2;
+  }
+  return curr;
+}

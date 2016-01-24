@@ -1,0 +1,8 @@
+HeapFloatBufferR(int cap,int lim){
+  super(cap,lim);
+  this.isReadOnly=true;
+}
+HeapFloatBufferR(float[] buf,int off,int len){
+  super(buf,off,len);
+  this.isReadOnly=true;
+}

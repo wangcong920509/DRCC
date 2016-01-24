@@ -1,0 +1,14 @@
+public MethodType(Type resultType){
+  _argsType=null;
+  _resultType=resultType;
+}
+public MethodType(Type resultType,Type arg1){
+  if (arg1 != Type.Void) {
+    _argsType=new Vector();
+    _argsType.addElement(arg1);
+  }
+ else {
+    _argsType=null;
+  }
+  _resultType=resultType;
+}

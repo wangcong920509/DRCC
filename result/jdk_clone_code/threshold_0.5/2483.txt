@@ -1,0 +1,23 @@
+/** 
+ * Translates a  {@code double} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal} is the smallest value such that<tt>(10<sup>scale</sup> &times; val)</tt> is an integer. <p>The results of this constructor can be somewhat unpredictable and its use is generally not recommended; see the notes under the  {@link #BigDecimal(double)} constructor.
+ * @param val {@code double} value to be converted to{@code BigDecimal}.
+ * @param mc the context to use.
+ * @throws ArithmeticException if the result is inexact but theRoundingMode is UNNECESSARY.
+ * @throws NumberFormatException if {@code val} is infinite or NaN.
+ * @since  1.5
+ */
+public BigDecimal(double val,MathContext mc){
+  this(val);
+  if (mc.precision > 0)   roundThis(mc);
+}
+/** 
+ * Translates a  {@code BigInteger} into a {@code BigDecimal}rounding according to the context settings.  The scale of the {@code BigDecimal} is zero.
+ * @param val {@code BigInteger} value to be converted to{@code BigDecimal}.
+ * @param mc the context to use.
+ * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
+ * @since  1.5
+ */
+public BigDecimal(BigInteger val,MathContext mc){
+  this(val);
+  if (mc.precision > 0)   roundThis(mc);
+}

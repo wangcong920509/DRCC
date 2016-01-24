@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputStream()
+ */
+public OutputStream getOutputStream(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
+}

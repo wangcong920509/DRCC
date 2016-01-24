@@ -1,0 +1,23 @@
+jdk_src\javax\swing\plaf\nimbus\CheckBoxPainter.java
+private void painticonDisabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient1(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient2(roundRect));
+  g.fill(roundRect);
+}
+private void painticonPressedAndSelected(Graphics2D g){
+  roundRect=decodeRoundRect3();
+  g.setPaint(color29);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient11(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient12(roundRect));
+  g.fill(roundRect);
+  path=decodePath1();
+  g.setPaint(color28);
+  g.fill(path);
+}

@@ -1,0 +1,14 @@
+public E peekFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
+}
+public E peekLast(){
+  for (Node<E> p=last(); p != null; p=pred(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
+}

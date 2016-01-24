@@ -1,0 +1,11 @@
+public StringBuilder append(float f){
+  super.append(f);
+  return this;
+}
+/** 
+ * @since 1.5
+ */
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
+  return this;
+}

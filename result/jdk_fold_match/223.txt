@@ -1,0 +1,46 @@
+jdk_src\javax\swing\plaf\basic\BasicTextUI.java
+private void installDefaults2(){
+  editor.addMouseListener(dragListener);
+  editor.addMouseMotionListener(dragListener);
+  String prefix=getPropertyPrefix();
+  Caret caret=editor.getCaret();
+  if (caret == null || caret instanceof UIResource) {
+    caret=createCaret();
+    editor.setCaret(caret);
+    int rate=DefaultLookup.getInt(getComponent(),this,prefix + ".caretBlinkRate",500);
+    caret.setBlinkRate(rate);
+  }
+  Highlighter highlighter=editor.getHighlighter();
+  if (highlighter == null || highlighter instanceof UIResource) {
+    editor.setHighlighter(createHighlighter());
+  }
+  TransferHandler th=editor.getTransferHandler();
+  if (th == null || th instanceof UIResource) {
+    editor.setTransferHandler(getTransferHandler());
+  }
+}
+/** 
+ * Paints the interface safely with a guarantee that the model won't change from the view of this thread. This does the following things, rendering from back to front. <ol> <li> If the component is marked as opaque, the background is painted in the current background color of the component. <li> The highlights (if any) are painted. <li> The view hierarchy is painted. <li> The caret is painted. </ol>
+ * @param g the graphics context
+ */
+protected void paintSafely(Graphics g){
+  painted=true;
+  Highlighter highlighter=editor.getHighlighter();
+  Caret caret=editor.getCaret();
+  if (editor.isOpaque()) {
+    paintBackground(g);
+  }
+  if (highlighter != null) {
+    highlighter.paint(g);
+  }
+  Rectangle alloc=getVisibleEditorRect();
+  if (alloc != null) {
+    rootView.paint(g,alloc);
+  }
+  if (caret != null) {
+    caret.paint(g);
+  }
+  if (dropCaret != null) {
+    dropCaret.paint(g);
+  }
+}

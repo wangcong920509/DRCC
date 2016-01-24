@@ -1,0 +1,22 @@
+/** 
+ * Tell if the table contains the given string.
+ * @param key String to look up
+ * @return True if the given string is in this table
+ */
+public final boolean contains(String key){
+  for (int i=0; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(key))     return true;
+  }
+  return false;
+}
+/** 
+ * Tell if the table contains the given string.
+ * @param val value to look up
+ * @return True if the given value is in the table.
+ */
+public final boolean containsValue(String val){
+  for (int i=1; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(val))     return true;
+  }
+  return false;
+}

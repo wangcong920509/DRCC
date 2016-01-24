@@ -1,0 +1,16 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public NamedNodeMap getAttributes(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public String getLocalName(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

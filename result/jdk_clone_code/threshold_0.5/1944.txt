@@ -1,0 +1,16 @@
+public static boolean isFilterableICM(ColorModel cm){
+  if (cm instanceof IndexColorModel) {
+    IndexColorModel icm=(IndexColorModel)cm;
+    if (icm.getMapSize() <= 256) {
+      return true;
+    }
+  }
+  return false;
+}
+public static boolean isFilterableDCM(ColorModel cm){
+  if (cm instanceof DirectColorModel) {
+    DirectColorModel dcm=(DirectColorModel)cm;
+    return (isMaskOK(dcm.getAlphaMask(),true) && isMaskOK(dcm.getRedMask(),false) && isMaskOK(dcm.getGreenMask(),false)&& isMaskOK(dcm.getBlueMask(),false));
+  }
+  return false;
+}

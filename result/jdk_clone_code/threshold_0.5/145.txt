@@ -1,0 +1,11 @@
+public LDC(int index){
+  super(com.sun.org.apache.bcel.internal.Constants.LDC_W,index);
+  setSize();
+}
+/** 
+ * Set the index to constant pool and adjust size.
+ */
+public final void setIndex(int index){
+  super.setIndex(index);
+  setSize();
+}

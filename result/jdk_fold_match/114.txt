@@ -1,0 +1,23 @@
+jdk_src\com\sun\org\apache\xml\internal\security\keys\content\KeyValue.java
+/** 
+ * Constructor KeyValue
+ * @param doc
+ * @param dsaKeyValue
+ */
+public KeyValue(Document doc,DSAKeyValue dsaKeyValue){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+  this._constructionElement.appendChild(dsaKeyValue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Constructor KeyValue
+ * @param doc
+ * @param unknownKeyValue
+ */
+public KeyValue(Document doc,Element unknownKeyValue){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+  this._constructionElement.appendChild(unknownKeyValue);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceMappings()
+ */
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getVersion()
+ */
+public String getVersion(){
+  aMethodIsCalled();
+  return null;
+}

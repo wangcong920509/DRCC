@@ -1,0 +1,27 @@
+jdk_src\javax\swing\plaf\nimbus\TreePainter.java
+private Path2D decodePath12(){
+  path.reset();
+  path.moveTo(decodeX(0.6f),decodeY(2.6f));
+  path.lineTo(decodeX(0.6f),decodeY(2.2f));
+  path.lineTo(decodeX(0.8f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.8f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.8f),decodeY(1.6666667f));
+  path.lineTo(decodeX(2.6f),decodeY(2.6f));
+  path.lineTo(decodeX(0.6f),decodeY(2.6f));
+  path.closePath();
+  return path;
+}
+private Path2D decodePath15(){
+  path.reset();
+  path.moveTo(decodeX(2.4f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.4f),decodeY(1.1666666f));
+  path.lineTo(decodeX(0.74f),decodeY(1.1666666f));
+  path.lineTo(decodeX(0.4f),decodeY(2.0f));
+  path.lineTo(decodeX(0.4f),decodeY(2.6f));
+  path.lineTo(decodeX(0.6f),decodeY(2.6f));
+  path.lineTo(decodeX(0.5925926f),decodeY(2.225926f));
+  path.lineTo(decodeX(0.8f),decodeY(1.3333334f));
+  path.lineTo(decodeX(2.4f),decodeY(1.3333334f));
+  path.closePath();
+  return path;
+}

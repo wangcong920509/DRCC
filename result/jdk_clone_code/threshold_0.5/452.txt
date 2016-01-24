@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#asContentHandler()
+ */
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceMappings()
+ */
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
+}

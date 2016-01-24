@@ -1,0 +1,8 @@
+public ByteBuffer putFloat(float x){
+  putFloat(ix(nextPutIndex((1 << 2))),x);
+  return this;
+}
+public ByteBuffer putFloat(int i,float x){
+  putFloat(ix(checkIndex(i,(1 << 2))),x);
+  return this;
+}

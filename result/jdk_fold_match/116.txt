@@ -1,0 +1,35 @@
+jdk_src\com\sun\org\apache\xml\internal\security\keys\KeyInfo.java
+/** 
+ * Method lengthUnknownElement NOTE posibly buggy.
+ * @return the number of the UnknownElement tags
+ */
+public int lengthUnknownElement(){
+  int res=0;
+  NodeList nl=this._constructionElement.getChildNodes();
+  for (int i=0; i < nl.getLength(); i++) {
+    Node current=nl.item(i);
+    if ((current.getNodeType() == Node.ELEMENT_NODE) && current.getNamespaceURI().equals(Constants.SignatureSpecNS)) {
+      res++;
+    }
+  }
+  return res;
+}
+/** 
+ * Method itemUnknownElement
+ * @param i index
+ * @return the element number of the unknown elemens
+ */
+public Element itemUnknownElement(int i){
+  NodeList nl=this._constructionElement.getChildNodes();
+  int res=0;
+  for (int j=0; j < nl.getLength(); j++) {
+    Node current=nl.item(j);
+    if ((current.getNodeType() == Node.ELEMENT_NODE) && current.getNamespaceURI().equals(Constants.SignatureSpecNS)) {
+      res++;
+      if (res == i) {
+        return (Element)current;
+      }
+    }
+  }
+  return null;
+}

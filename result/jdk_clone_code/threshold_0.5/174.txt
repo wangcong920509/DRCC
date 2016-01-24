@@ -1,0 +1,13 @@
+public DTMAxisIterator setStartNode(int node){
+  if (_isRestartable) {
+    _startNode=node;
+    _source.setStartNode(node);
+    resetPosition();
+    _isRestartable=false;
+  }
+  return this;
+}
+public DTMAxisIterator reset(){
+  _index=0;
+  return this;
+}

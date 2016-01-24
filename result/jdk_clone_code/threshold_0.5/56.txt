@@ -1,0 +1,8 @@
+public ServerAlreadyActive(String _serverId){
+  super(ServerAlreadyActiveHelper.id());
+  serverId=_serverId;
+}
+public ServerAlreadyActive(String $reason,String _serverId){
+  super(ServerAlreadyActiveHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

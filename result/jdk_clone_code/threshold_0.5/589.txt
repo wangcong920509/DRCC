@@ -1,0 +1,15 @@
+/** 
+ * Default constructor.
+ */
+public NodeVector(){
+  m_blocksize=32;
+  m_mapSize=0;
+}
+/** 
+ * Construct a NodeVector, using the given block size.
+ * @param blocksize Size of blocks to allocate
+ */
+public NodeVector(int blocksize){
+  m_blocksize=blocksize;
+  m_mapSize=0;
+}

@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypeSystem()
+ */
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}

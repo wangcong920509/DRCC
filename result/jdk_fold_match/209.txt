@@ -1,0 +1,125 @@
+jdk_src\java\util\zip\ZipOutputStream.java
+private void writeCEN(XEntry xentry) throws IOException {
+  ZipEntry e=xentry.entry;
+  int flag=e.flag;
+  int version=version(e);
+  long csize=e.csize;
+  long size=e.size;
+  long offset=xentry.offset;
+  int e64len=0;
+  boolean hasZip64=false;
+  if (e.csize >= ZIP64_MAGICVAL) {
+    csize=ZIP64_MAGICVAL;
+    e64len+=8;
+    hasZip64=true;
+  }
+  if (e.size >= ZIP64_MAGICVAL) {
+    size=ZIP64_MAGICVAL;
+    e64len+=8;
+    hasZip64=true;
+  }
+  if (xentry.offset >= ZIP64_MAGICVAL) {
+    offset=ZIP64_MAGICVAL;
+    e64len+=8;
+    hasZip64=true;
+  }
+  writeInt(CENSIG);
+  if (hasZip64) {
+    writeShort(45);
+    writeShort(45);
+  }
+ else {
+    writeShort(version);
+    writeShort(version);
+  }
+  writeShort(flag);
+  writeShort(e.method);
+  writeInt(e.time);
+  writeInt(e.crc);
+  writeInt(csize);
+  writeInt(size);
+  byte[] nameBytes=zc.getBytes(e.name);
+  writeShort(nameBytes.length);
+  if (hasZip64) {
+    writeShort(e64len + 4 + (e.extra != null ? e.extra.length : 0));
+  }
+ else {
+    writeShort(e.extra != null ? e.extra.length : 0);
+  }
+  byte[] commentBytes;
+  if (e.comment != null) {
+    commentBytes=zc.getBytes(e.comment);
+    writeShort(Math.min(commentBytes.length,0xffff));
+  }
+ else {
+    commentBytes=null;
+    writeShort(0);
+  }
+  writeShort(0);
+  writeShort(0);
+  writeInt(0);
+  writeInt(offset);
+  writeBytes(nameBytes,0,nameBytes.length);
+  if (hasZip64) {
+    writeShort(ZIP64_EXTID);
+    writeShort(e64len);
+    if (size == ZIP64_MAGICVAL)     writeLong(e.size);
+    if (csize == ZIP64_MAGICVAL)     writeLong(e.csize);
+    if (offset == ZIP64_MAGICVAL)     writeLong(xentry.offset);
+  }
+  if (e.extra != null) {
+    writeBytes(e.extra,0,e.extra.length);
+  }
+  if (commentBytes != null) {
+    writeBytes(commentBytes,0,Math.min(commentBytes.length,0xffff));
+  }
+}
+private void writeEND(long off,long len) throws IOException {
+  boolean hasZip64=false;
+  long xlen=len;
+  long xoff=off;
+  if (xlen >= ZIP64_MAGICVAL) {
+    xlen=ZIP64_MAGICVAL;
+    hasZip64=true;
+  }
+  if (xoff >= ZIP64_MAGICVAL) {
+    xoff=ZIP64_MAGICVAL;
+    hasZip64=true;
+  }
+  int count=xentries.size();
+  if (count >= ZIP64_MAGICCOUNT) {
+    count=ZIP64_MAGICCOUNT;
+    hasZip64=true;
+  }
+  if (hasZip64) {
+    long off64=written;
+    writeInt(ZIP64_ENDSIG);
+    writeLong(ZIP64_ENDHDR - 12);
+    writeShort(45);
+    writeShort(45);
+    writeInt(0);
+    writeInt(0);
+    writeLong(xentries.size());
+    writeLong(xentries.size());
+    writeLong(len);
+    writeLong(off);
+    writeInt(ZIP64_LOCSIG);
+    writeInt(0);
+    writeLong(off64);
+    writeInt(1);
+  }
+  writeInt(ENDSIG);
+  writeShort(0);
+  writeShort(0);
+  writeShort(count);
+  writeShort(count);
+  writeInt(xlen);
+  writeInt(xoff);
+  if (comment != null) {
+    writeShort(comment.length);
+    writeBytes(comment,0,comment.length);
+  }
+ else {
+    writeShort(0);
+  }
+}

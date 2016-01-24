@@ -1,0 +1,13 @@
+private boolean checkSpecialClasses(Object obj) throws IOException {
+  if (obj instanceof ObjectStreamClass) {
+    throw new IOException("Serialization of ObjectStreamClass not supported");
+  }
+  return false;
+}
+private boolean checkSubstitutableSpecialClasses(Object obj) throws IOException {
+  if (obj instanceof String) {
+    orbStream.write_value((java.io.Serializable)obj);
+    return true;
+  }
+  return false;
+}

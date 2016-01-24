@@ -1,0 +1,8 @@
+public IntBuffer put(int x){
+  unsafe.putInt(ix(nextPutIndex()),((x)));
+  return this;
+}
+public IntBuffer put(int i,int x){
+  unsafe.putInt(ix(checkIndex(i)),((x)));
+  return this;
+}

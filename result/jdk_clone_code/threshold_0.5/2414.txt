@@ -1,0 +1,8 @@
+public StringBuilder append(double d){
+  super.append(d);
+  return this;
+}
+public StringBuilder reverse(){
+  super.reverse();
+  return this;
+}

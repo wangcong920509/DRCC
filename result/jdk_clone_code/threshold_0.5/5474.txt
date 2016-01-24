@@ -1,0 +1,15 @@
+/** 
+ * Constructs a <code>SOAPException</code> object with no reason or embedded <code>Throwable</code> object.
+ */
+public SOAPException(){
+  super();
+  this.cause=null;
+}
+/** 
+ * Constructs a <code>SOAPException</code> object with the given <code>String</code> as the reason for the exception being thrown.
+ * @param reason a description of what caused the exception
+ */
+public SOAPException(String reason){
+  super(reason);
+  this.cause=null;
+}

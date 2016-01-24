@@ -1,0 +1,41 @@
+jdk_src\com\sun\corba\se\impl\orb\ORBImpl.java
+public ClientInvocationInfo createOrIncrementInvocationInfo(){
+synchronized (this) {
+    checkShutdownState();
+  }
+  StackImpl invocationInfoStack=(StackImpl)clientInvocationInfoStack.get();
+  ClientInvocationInfo clientInvocationInfo=null;
+  if (!invocationInfoStack.empty()) {
+    clientInvocationInfo=(ClientInvocationInfo)invocationInfoStack.peek();
+  }
+  if ((clientInvocationInfo == null) || (!clientInvocationInfo.isRetryInvocation())) {
+    clientInvocationInfo=new CorbaInvocationInfo(this);
+    startingDispatch();
+    invocationInfoStack.push(clientInvocationInfo);
+  }
+  clientInvocationInfo.setIsRetryInvocation(false);
+  clientInvocationInfo.incrementEntryCount();
+  return clientInvocationInfo;
+}
+public void releaseOrDecrementInvocationInfo(){
+synchronized (this) {
+    checkShutdownState();
+  }
+  int entryCount=-1;
+  ClientInvocationInfo clientInvocationInfo=null;
+  StackImpl invocationInfoStack=(StackImpl)clientInvocationInfoStack.get();
+  if (!invocationInfoStack.empty()) {
+    clientInvocationInfo=(ClientInvocationInfo)invocationInfoStack.peek();
+  }
+ else {
+    throw wrapper.invocationInfoStackEmpty();
+  }
+  clientInvocationInfo.decrementEntryCount();
+  entryCount=clientInvocationInfo.getEntryCount();
+  if (clientInvocationInfo.getEntryCount() == 0) {
+    if (!clientInvocationInfo.isRetryInvocation()) {
+      invocationInfoStack.pop();
+    }
+    finishedDispatch();
+  }
+}

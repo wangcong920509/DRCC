@@ -1,0 +1,19 @@
+/** 
+ * @param systemid
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(String systemid,PropertyManager props) throws XMLStreamException {
+  init(props);
+  XMLInputSource inputSource=new XMLInputSource(null,systemid,null);
+  setInputSource(inputSource);
+}
+/** 
+ * @param inputSource
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
+  init(props);
+  setInputSource(inputSource);
+}

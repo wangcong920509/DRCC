@@ -1,0 +1,8 @@
+public ContentHandler asContentHandler() throws IOException {
+  prepare();
+  return this;
+}
+public DOMSerializer asDOMSerializer() throws IOException {
+  prepare();
+  return this;
+}

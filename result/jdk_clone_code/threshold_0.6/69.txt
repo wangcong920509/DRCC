@@ -1,0 +1,16 @@
+/** 
+ * Create an empty nodelist.
+ */
+public NodeSetDTM(DTMManager dtmManager){
+  super();
+  m_manager=dtmManager;
+}
+/** 
+ * Create an empty, using the given block size.
+ * @param blocksize Size of blocks to allocate
+ * @param dummy pass zero for right now...
+ */
+public NodeSetDTM(int blocksize,int dummy,DTMManager dtmManager){
+  super(blocksize);
+  m_manager=dtmManager;
+}

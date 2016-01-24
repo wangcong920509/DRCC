@@ -1,0 +1,8 @@
+private Element getElementFromMap(Map<String,Element> registry,String declKey){
+  if (registry == null)   return null;
+  return registry.get(declKey);
+}
+private XSDocumentInfo getDocInfoFromMap(Map<String,XSDocumentInfo> registry,String declKey){
+  if (registry == null)   return null;
+  return registry.get(declKey);
+}

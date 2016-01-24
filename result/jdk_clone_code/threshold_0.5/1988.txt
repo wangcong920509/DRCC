@@ -1,0 +1,12 @@
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
+  return this;
+}
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @since      1.5
+ */
+public synchronized StringBuffer append(CharSequence s,int start,int end){
+  super.append(s,start,end);
+  return this;
+}

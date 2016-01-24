@@ -1,0 +1,8 @@
+public DTMAxisIterator reset(){
+  _pos=0;
+  return this;
+}
+public DTMAxisIterator setStartNode(int node){
+  if (node == END)   _nodes=EMPTY;
+  return this;
+}

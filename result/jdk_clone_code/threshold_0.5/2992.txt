@@ -1,0 +1,8 @@
+public CharBuffer put(char x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
+}
+public CharBuffer put(int i,char x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}

@@ -1,0 +1,23 @@
+/** 
+ * Returns true if system fonts should be used, this is only useful for windows.
+ */
+static boolean useSystemFonts(){
+  if (isWindows() && useSystemFonts) {
+    if (METAL_LOOK_AND_FEEL_INITED) {
+      Object value=UIManager.get("Application.useSystemFontSettings");
+      return (value == null || Boolean.TRUE.equals(value));
+    }
+    return true;
+  }
+  return false;
+}
+/** 
+ * Returns true if the high contrast theme should be used as the default theme.
+ */
+private static boolean useHighContrastTheme(){
+  if (isWindows() && useSystemFonts()) {
+    Boolean highContrast=(Boolean)Toolkit.getDefaultToolkit().getDesktopProperty("win.highContrast.on");
+    return (highContrast == null) ? false : highContrast.booleanValue();
+  }
+  return false;
+}

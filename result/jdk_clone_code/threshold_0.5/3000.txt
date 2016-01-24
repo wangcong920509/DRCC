@@ -1,0 +1,25 @@
+public DoubleBuffer put(int i,double x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}
+public DoubleBuffer put(DoubleBuffer src){
+  if (src instanceof HeapDoubleBuffer) {
+    if (src == this)     throw new IllegalArgumentException();
+    HeapDoubleBuffer sb=(HeapDoubleBuffer)src;
+    int n=sb.remaining();
+    if (n > remaining())     throw new BufferOverflowException();
+    System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
+    sb.position(sb.position() + n);
+    position(position() + n);
+  }
+ else   if (src.isDirect()) {
+    int n=src.remaining();
+    if (n > remaining())     throw new BufferOverflowException();
+    src.get(hb,ix(position()),n);
+    position(position() + n);
+  }
+ else {
+    super.put(src);
+  }
+  return this;
+}

@@ -1,0 +1,14 @@
+/** 
+ * @see org.w3c.dom.Node
+ */
+@Override public final Node getLastChild(){
+  int newnode=dtm.getLastChild(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+}
+/** 
+ * @see org.w3c.dom.Node
+ */
+@Override public final Node getPreviousSibling(){
+  int newnode=dtm.getPreviousSibling(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+}

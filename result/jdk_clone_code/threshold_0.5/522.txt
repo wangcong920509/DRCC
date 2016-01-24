@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceMappings()
+ */
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ */
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
+}

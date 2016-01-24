@@ -1,0 +1,8 @@
+public LongBuffer put(long x){
+  Bits.putLongB(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public LongBuffer put(int i,long x){
+  Bits.putLongB(bb,ix(checkIndex(i)),x);
+  return this;
+}

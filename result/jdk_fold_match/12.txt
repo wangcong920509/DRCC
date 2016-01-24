@@ -1,0 +1,97 @@
+jdk_src\com\sun\imageio\plugins\gif\GIFImageWriter.java
+private boolean needToCreateIndex(RenderedImage image){
+  SampleModel sampleModel=image.getSampleModel();
+  ColorModel colorModel=image.getColorModel();
+  return sampleModel.getNumBands() != 1 || sampleModel.getSampleSize()[0] > 8 || colorModel.getComponentSize()[0] > 8;
+}
+/** 
+ * Writes any extension blocks, the Image Descriptor, the image data, and optionally the header (Signature and Logical Screen Descriptor) and trailer (Block Terminator).
+ * @param writeHeader Whether to write the header.
+ * @param writeTrailer Whether to write the trailer.
+ * @param sm The stream metadata or <code>null</code> if<code>writeHeader</code> is <code>false</code>.
+ * @param iioimage The image and image metadata.
+ * @param p The write parameters.
+ * @throws IllegalArgumentException if the number of bands is not 1.
+ * @throws IllegalArgumentException if the number of bits per sample isgreater than 8.
+ * @throws IllegalArgumentException if the color component size isgreater than 8.
+ * @throws IllegalArgumentException if <code>writeHeader</code> is<code>true</code> and <code>sm</code> is <code>null</code>.
+ * @throws IllegalArgumentException if <code>writeHeader</code> is<code>false</code> and a sequence is not being written.
+ */
+private void write(boolean writeHeader,boolean writeTrailer,IIOMetadata sm,IIOImage iioimage,ImageWriteParam p) throws IOException {
+  clearAbortRequest();
+  RenderedImage image=iioimage.getRenderedImage();
+  if (needToCreateIndex(image)) {
+    image=PaletteBuilder.createIndexedImage(image);
+    iioimage.setRenderedImage(image);
+  }
+  ColorModel colorModel=image.getColorModel();
+  SampleModel sampleModel=image.getSampleModel();
+  Rectangle sourceBounds=new Rectangle(image.getMinX(),image.getMinY(),image.getWidth(),image.getHeight());
+  Dimension destSize=new Dimension();
+  computeRegions(sourceBounds,destSize,p);
+  GIFWritableImageMetadata imageMetadata=null;
+  if (iioimage.getMetadata() != null) {
+    imageMetadata=new GIFWritableImageMetadata();
+    convertMetadata(IMAGE_METADATA_NAME,iioimage.getMetadata(),imageMetadata);
+    if (imageMetadata.localColorTable == null) {
+      imageMetadata.localColorTable=createColorTable(colorModel,sampleModel);
+      if (colorModel instanceof IndexColorModel) {
+        IndexColorModel icm=(IndexColorModel)colorModel;
+        int index=icm.getTransparentPixel();
+        imageMetadata.transparentColorFlag=(index != -1);
+        if (imageMetadata.transparentColorFlag) {
+          imageMetadata.transparentColorIndex=index;
+        }
+      }
+    }
+  }
+  byte[] globalColorTable=null;
+  if (writeHeader) {
+    if (sm == null) {
+      throw new IllegalArgumentException("Cannot write null header!");
+    }
+    GIFWritableStreamMetadata streamMetadata=(GIFWritableStreamMetadata)sm;
+    if (streamMetadata.version == null) {
+      streamMetadata.version="89a";
+    }
+    if (streamMetadata.logicalScreenWidth == GIFMetadata.UNDEFINED_INTEGER_VALUE) {
+      streamMetadata.logicalScreenWidth=destSize.width;
+    }
+    if (streamMetadata.logicalScreenHeight == GIFMetadata.UNDEFINED_INTEGER_VALUE) {
+      streamMetadata.logicalScreenHeight=destSize.height;
+    }
+    if (streamMetadata.colorResolution == GIFMetadata.UNDEFINED_INTEGER_VALUE) {
+      streamMetadata.colorResolution=colorModel != null ? colorModel.getComponentSize()[0] : sampleModel.getSampleSize()[0];
+    }
+    if (streamMetadata.globalColorTable == null) {
+      if (isWritingSequence && imageMetadata != null && imageMetadata.localColorTable != null) {
+        streamMetadata.globalColorTable=imageMetadata.localColorTable;
+      }
+ else       if (imageMetadata == null || imageMetadata.localColorTable == null) {
+        streamMetadata.globalColorTable=createColorTable(colorModel,sampleModel);
+      }
+    }
+    globalColorTable=streamMetadata.globalColorTable;
+    int bitsPerPixel;
+    if (globalColorTable != null) {
+      bitsPerPixel=getNumBits(globalColorTable.length / 3);
+    }
+ else     if (imageMetadata != null && imageMetadata.localColorTable != null) {
+      bitsPerPixel=getNumBits(imageMetadata.localColorTable.length / 3);
+    }
+ else {
+      bitsPerPixel=sampleModel.getSampleSize(0);
+    }
+    writeHeader(streamMetadata,bitsPerPixel);
+  }
+ else   if (isWritingSequence) {
+    globalColorTable=theStreamMetadata.globalColorTable;
+  }
+ else {
+    throw new IllegalArgumentException("Must write header for single image!");
+  }
+  writeImage(iioimage.getRenderedImage(),imageMetadata,p,globalColorTable,sourceBounds,destSize);
+  if (writeTrailer) {
+    writeTrailer();
+  }
+}

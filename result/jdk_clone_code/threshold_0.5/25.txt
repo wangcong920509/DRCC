@@ -1,0 +1,8 @@
+public static IORSystemException get(ORB orb,String logDomain){
+  IORSystemException wrapper=(IORSystemException)orb.getLogWrapper(logDomain,"IOR",factory);
+  return wrapper;
+}
+public static IORSystemException get(String logDomain){
+  IORSystemException wrapper=(IORSystemException)ORB.staticGetLogWrapper(logDomain,"IOR",factory);
+  return wrapper;
+}

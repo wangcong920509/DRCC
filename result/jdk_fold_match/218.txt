@@ -1,0 +1,32 @@
+jdk_src\javax\swing\plaf\basic\BasicGraphicsUtils.java
+public static void drawEtchedRect(Graphics g,int x,int y,int w,int h,Color shadow,Color darkShadow,Color highlight,Color lightHighlight){
+  Color oldColor=g.getColor();
+  g.translate(x,y);
+  g.setColor(shadow);
+  g.drawLine(0,0,w - 1,0);
+  g.drawLine(0,1,0,h - 2);
+  g.setColor(darkShadow);
+  g.drawLine(1,1,w - 3,1);
+  g.drawLine(1,2,1,h - 3);
+  g.setColor(lightHighlight);
+  g.drawLine(w - 1,0,w - 1,h - 1);
+  g.drawLine(0,h - 1,w - 1,h - 1);
+  g.setColor(highlight);
+  g.drawLine(w - 2,1,w - 2,h - 3);
+  g.drawLine(1,h - 2,w - 2,h - 2);
+  g.translate(-x,-y);
+  g.setColor(oldColor);
+}
+public static void drawGroove(Graphics g,int x,int y,int w,int h,Color shadow,Color highlight){
+  Color oldColor=g.getColor();
+  g.translate(x,y);
+  g.setColor(shadow);
+  g.drawRect(0,0,w - 2,h - 2);
+  g.setColor(highlight);
+  g.drawLine(1,h - 3,1,1);
+  g.drawLine(1,1,w - 3,1);
+  g.drawLine(0,h - 1,w - 1,h - 1);
+  g.drawLine(w - 1,h - 1,w - 1,0);
+  g.translate(-x,-y);
+  g.setColor(oldColor);
+}

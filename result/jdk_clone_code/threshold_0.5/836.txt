@@ -1,0 +1,19 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public Node getLastChild(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI of the attribute
+ * @param qualifiedName Qualified name of the attribute
+ * @return null
+ * @throws DOMException
+ */
+public Attr createAttributeNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

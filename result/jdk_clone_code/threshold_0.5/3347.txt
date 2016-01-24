@@ -1,0 +1,8 @@
+public NamingEnumeration listBindings(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.listBindings(name);
+}
+public NamingEnumeration listBindings(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.listBindings(name);
+}

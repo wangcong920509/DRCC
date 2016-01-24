@@ -1,0 +1,15 @@
+/** 
+ * Constructs a default <code>GregorianCalendar</code> using the current time in the default time zone with the default locale.
+ */
+public GregorianCalendar(){
+  this(TimeZone.getDefaultRef(),Locale.getDefault(Locale.Category.FORMAT));
+  setZoneShared(true);
+}
+/** 
+ * Constructs a <code>GregorianCalendar</code> based on the current time in the default time zone with the given locale.
+ * @param aLocale the given locale.
+ */
+public GregorianCalendar(Locale aLocale){
+  this(TimeZone.getDefaultRef(),aLocale);
+  setZoneShared(true);
+}

@@ -1,0 +1,21 @@
+public CharBuffer get(char[] dst,int offset,int length){
+  if ((length << 1) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyToCharArray(ix(pos),dst,offset << 1,length << 1);
+ else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 1,length << 1);
+    position(pos + length);
+  }
+ else {
+    super.get(dst,offset,length);
+  }
+  return this;
+}
+public CharBuffer put(int i,char x){
+  unsafe.putChar(ix(checkIndex(i)),Bits.swap((x)));
+  return this;
+}

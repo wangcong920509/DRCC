@@ -1,0 +1,17 @@
+/** 
+ * Constructs a InvocationTargetException with a target exception.
+ * @param target the target exception
+ */
+public InvocationTargetException(Throwable target){
+  super((Throwable)null);
+  this.target=target;
+}
+/** 
+ * Constructs a InvocationTargetException with a target exception and a detail message.
+ * @param target the target exception
+ * @param s      the detail message
+ */
+public InvocationTargetException(Throwable target,String s){
+  super(s,null);
+  this.target=target;
+}

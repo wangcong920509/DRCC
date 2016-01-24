@@ -1,0 +1,16 @@
+/** 
+ * Method add
+ * @param mgmtdata
+ */
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param retrievalmethod
+ */
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

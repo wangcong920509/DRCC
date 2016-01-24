@@ -1,0 +1,8 @@
+public ServerNotRegistered(int _serverId){
+  super(ServerNotRegisteredHelper.id());
+  serverId=_serverId;
+}
+public ServerNotRegistered(String $reason,int _serverId){
+  super(ServerNotRegisteredHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

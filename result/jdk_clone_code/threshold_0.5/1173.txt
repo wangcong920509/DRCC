@@ -1,0 +1,18 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name
+ * @param x
+ * @return false
+ */
+public boolean hasAttributeNS(String name,String x){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return false;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return False
+ */
+public boolean getSpecified(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return false;
+}

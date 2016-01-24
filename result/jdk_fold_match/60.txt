@@ -1,0 +1,55 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLDocumentScannerImpl.java
+public void reset(PropertyManager propertyManager){
+  super.reset(propertyManager);
+  fDoctypeName=null;
+  fDoctypePublicId=null;
+  fDoctypeSystemId=null;
+  fSeenDoctypeDecl=false;
+  fNamespaceContext.reset();
+  fSupportDTD=((Boolean)propertyManager.getProperty(XMLInputFactory.SUPPORT_DTD)).booleanValue();
+  fLoadExternalDTD=!((Boolean)propertyManager.getProperty(Constants.ZEPHYR_PROPERTY_PREFIX + Constants.IGNORE_EXTERNAL_DTD)).booleanValue();
+  setScannerState(XMLEvent.START_DOCUMENT);
+  setDriver(fXMLDeclDriver);
+  fSeenInternalSubset=false;
+  if (fDTDScanner != null) {
+    ((XMLDTDScannerImpl)fDTDScanner).reset(propertyManager);
+  }
+  fEndPos=0;
+  fStartPos=0;
+  if (fDTDDecl != null) {
+    fDTDDecl.clear();
+  }
+}
+/** 
+ * Resets the component. The component can query the component manager about any features and properties that affect the operation of the component.
+ * @param componentManager The component manager.
+ * @throws SAXException Thrown by component on initialization error.For example, if a feature or property is required for the operation of the component, the component manager may throw a SAXNotRecognizedException or a SAXNotSupportedException.
+ */
+public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
+  super.reset(componentManager);
+  fDoctypeName=null;
+  fDoctypePublicId=null;
+  fDoctypeSystemId=null;
+  fSeenDoctypeDecl=false;
+  fExternalSubsetSource=null;
+  fLoadExternalDTD=componentManager.getFeature(LOAD_EXTERNAL_DTD,true);
+  fDisallowDoctype=componentManager.getFeature(DISALLOW_DOCTYPE_DECL_FEATURE,false);
+  fNamespaces=componentManager.getFeature(NAMESPACES,true);
+  fSeenInternalSubset=false;
+  fDTDScanner=(XMLDTDScanner)componentManager.getProperty(DTD_SCANNER);
+  fValidationManager=(ValidationManager)componentManager.getProperty(VALIDATION_MANAGER,null);
+  try {
+    fNamespaceContext=(NamespaceContext)componentManager.getProperty(NAMESPACE_CONTEXT);
+  }
+ catch (  XMLConfigurationException e) {
+  }
+  if (fNamespaceContext == null) {
+    fNamespaceContext=new NamespaceSupport();
+  }
+  fNamespaceContext.reset();
+  fEndPos=0;
+  fStartPos=0;
+  if (fDTDDecl != null)   fDTDDecl.clear();
+  setScannerState(SCANNER_STATE_XML_DECL);
+  setDriver(fXMLDeclDriver);
+}

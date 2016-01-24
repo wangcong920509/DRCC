@@ -1,0 +1,30 @@
+private void changeSelection(int clearMin,int clearMax,int setMin,int setMax,boolean clearFirst){
+  for (int i=Math.min(setMin,clearMin); i <= Math.max(setMax,clearMax); i++) {
+    boolean shouldClear=contains(clearMin,clearMax,i);
+    boolean shouldSet=contains(setMin,setMax,i);
+    if (shouldSet && shouldClear) {
+      if (clearFirst) {
+        shouldClear=false;
+      }
+ else {
+        shouldSet=false;
+      }
+    }
+    if (shouldSet) {
+      set(i);
+    }
+    if (shouldClear) {
+      clear(i);
+    }
+  }
+  fireValueChanged();
+}
+/** 
+ * Set the anchor selection index, leaving all selection values unchanged. If leadAnchorNotificationEnabled is true, send a notification covering the old and new anchor cells.
+ * @see #getAnchorSelectionIndex
+ * @see #setLeadSelectionIndex
+ */
+public void setAnchorSelectionIndex(int anchorIndex){
+  updateLeadAnchorIndices(anchorIndex,this.leadIndex);
+  fireValueChanged();
+}

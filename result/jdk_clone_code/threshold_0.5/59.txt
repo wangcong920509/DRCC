@@ -1,0 +1,8 @@
+public ServerAlreadyUninstalled(String _serverId){
+  super(ServerAlreadyUninstalledHelper.id());
+  serverId=_serverId;
+}
+public ServerAlreadyUninstalled(String $reason,String _serverId){
+  super(ServerAlreadyUninstalledHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

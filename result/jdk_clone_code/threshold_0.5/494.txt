@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getWriter()
+ */
+public Writer getWriter(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ */
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
+}

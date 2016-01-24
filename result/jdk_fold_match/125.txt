@@ -1,0 +1,46 @@
+jdk_src\com\sun\org\apache\xml\internal\serialize\TextSerializer.java
+public void startElement(String tagName,AttributeList attrs) throws SAXException {
+  boolean preserveSpace;
+  ElementState state;
+  try {
+    state=getElementState();
+    if (isDocumentState()) {
+      if (!_started)       startDocument(tagName);
+    }
+    preserveSpace=state.preserveSpace;
+    state=enterElementState(null,null,tagName,preserveSpace);
+  }
+ catch (  IOException except) {
+    throw new SAXException(except);
+  }
+}
+/** 
+ * Called to serialize a DOM element. Equivalent to calling  {@link #startElement},  {@link #endElement} and serializing everythinginbetween, but better optimized.
+ */
+protected void serializeElement(Element elem) throws IOException {
+  Node child;
+  ElementState state;
+  boolean preserveSpace;
+  String tagName;
+  tagName=elem.getTagName();
+  state=getElementState();
+  if (isDocumentState()) {
+    if (!_started)     startDocument(tagName);
+  }
+  preserveSpace=state.preserveSpace;
+  if (elem.hasChildNodes()) {
+    state=enterElementState(null,null,tagName,preserveSpace);
+    child=elem.getFirstChild();
+    while (child != null) {
+      serializeNode(child);
+      child=child.getNextSibling();
+    }
+    endElementIO(tagName);
+  }
+ else {
+    if (!isDocumentState()) {
+      state.afterElement=true;
+      state.empty=false;
+    }
+  }
+}

@@ -1,0 +1,14 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public long extract_longlong(){
+  checkExtractBadOperation(TCKind._tk_longlong);
+  return value;
+}
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public long extract_ulonglong(){
+  checkExtractBadOperation(TCKind._tk_ulonglong);
+  return value;
+}

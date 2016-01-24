@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#reset()
+ */
+public boolean reset(){
+  aMethodIsCalled();
+  return false;
+}
+/** 
+ * @see XSLOutputAttributes#getIndent()
+ */
+public boolean getIndent(){
+  aMethodIsCalled();
+  return false;
+}

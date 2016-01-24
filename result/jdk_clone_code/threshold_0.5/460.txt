@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#asContentHandler()
+ */
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}

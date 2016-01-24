@@ -1,0 +1,8 @@
+public Name composeName(Name name,Name prefix) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.composeName(name,prefix);
+}
+public String composeName(String name,String prefix) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.composeName(name,prefix);
+}

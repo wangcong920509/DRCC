@@ -1,0 +1,14 @@
+/** 
+ * Setter for _includeSelf flag.
+ */
+public NodeIterator includeSelf(){
+  _includeSelf=true;
+  return this;
+}
+/** 
+ * Reset the position in this iterator.
+ */
+protected final NodeIterator resetPosition(){
+  _position=0;
+  return this;
+}

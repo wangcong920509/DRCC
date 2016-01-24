@@ -1,0 +1,14 @@
+/** 
+ * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ */
+protected SnmpSubBulkRequestHandler(SnmpEngine engine,SnmpAdaptorServer server,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
+  super(engine,incRequest,agent,req);
+  init(server,req,nonRepeat,maxRepeat,R);
+}
+/** 
+ * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ */
+protected SnmpSubBulkRequestHandler(SnmpAdaptorServer server,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
+  super(agent,req);
+  init(server,req,nonRepeat,maxRepeat,R);
+}

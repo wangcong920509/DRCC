@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ */
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ */
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
+}

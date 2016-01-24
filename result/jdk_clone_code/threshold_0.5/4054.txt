@@ -1,0 +1,8 @@
+private Ellipse2D decodeEllipse2(){
+  ellipse.setFrame(decodeX(0.6f),decodeY(0.2f),decodeX(0.8f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
+  return ellipse;
+}
+private Ellipse2D decodeEllipse8(){
+  ellipse.setFrame(decodeX(0.6f),decodeY(0.8f),decodeX(2.2f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.8f));
+  return ellipse;
+}

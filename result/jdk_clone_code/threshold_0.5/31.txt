@@ -1,0 +1,8 @@
+protected java.lang.Object internalGetServant(byte[] id,String operation) throws ForwardRequest {
+  if (defaultServant == null)   throw poa.invocationWrapper().poaNoDefaultServant();
+  return defaultServant;
+}
+public Servant getDefaultServant() throws NoServant, WrongPolicy {
+  if (defaultServant == null)   throw new NoServant();
+  return defaultServant;
+}

@@ -1,0 +1,12 @@
+public int getLineNumber(){
+  if (fLocator != null) {
+    return fLocator.getLineNumber();
+  }
+  return -1;
+}
+public int getColumnNumber(){
+  if (fLocator != null) {
+    return fLocator.getColumnNumber();
+  }
+  return -1;
+}

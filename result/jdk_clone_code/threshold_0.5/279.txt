@@ -1,0 +1,12 @@
+public XSAttributeUse getAttributeUse(String namespace,String name){
+  for (int i=0; i < fAttrUseNum; i++) {
+    if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name))     return fAttributeUses[i];
+  }
+  return null;
+}
+public XSAttributeUse getAttributeUseNoProhibited(String namespace,String name){
+  for (int i=0; i < fAttrUseNum; i++) {
+    if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name) && (fAttributeUses[i].fUse != SchemaSymbols.USE_PROHIBITED))     return fAttributeUses[i];
+  }
+  return null;
+}

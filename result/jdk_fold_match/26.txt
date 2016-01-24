@@ -1,0 +1,71 @@
+jdk_src\com\sun\jmx\mbeanserver\MBeanInstantiator.java
+/** 
+ * De-serializes a byte array in the context of a given MBean class loader. <P>The class loader is the one that loaded the class with name "className". <P>The name of the class loader to be used for loading the specified class is specified. If null, a default one has to be provided (for a MBean Server, its own class loader will be used).
+ * @param className The name of the class whose class loader shouldbe used for the de-serialization.
+ * @param data The byte array to be de-sererialized.
+ * @param loaderName The name of the class loader to be used for loadingthe specified class. If null, a default one has to be provided (for a MBean Server, its own class loader will be used).
+ * @return  The de-serialized object stream.
+ * @exception InstanceNotFoundException The specified class loader MBean isnot found.
+ * @exception OperationsException Any of the usual Input/Output relatedexceptions.
+ * @exception ReflectionException The specified class could not be loadedby the specified class loader.
+ */
+public ObjectInputStream deserialize(String className,ObjectName loaderName,byte[] data,ClassLoader loader) throws InstanceNotFoundException, OperationsException, ReflectionException {
+  if (data == null) {
+    throw new RuntimeOperationsException(new IllegalArgumentException(),"Null data passed in parameter");
+  }
+  if (data.length == 0) {
+    throw new RuntimeOperationsException(new IllegalArgumentException(),"Empty data passed in parameter");
+  }
+  if (className == null) {
+    throw new RuntimeOperationsException(new IllegalArgumentException(),"Null className passed in parameter");
+  }
+  ReflectUtil.checkPackageAccess(className);
+  Class<?> theClass;
+  if (loaderName == null) {
+    theClass=findClass(className,loader);
+  }
+ else {
+    try {
+      ClassLoader instance=null;
+      instance=getClassLoader(loaderName);
+      if (instance == null)       throw new ClassNotFoundException(className);
+      theClass=Class.forName(className,false,instance);
+    }
+ catch (    ClassNotFoundException e) {
+      throw new ReflectionException(e,"The MBean class could not be loaded by the " + loaderName.toString() + " class loader");
+    }
+  }
+  ByteArrayInputStream bIn;
+  ObjectInputStream objIn;
+  bIn=new ByteArrayInputStream(data);
+  try {
+    objIn=new ObjectInputStreamWithLoader(bIn,theClass.getClassLoader());
+  }
+ catch (  IOException e) {
+    throw new OperationsException("An IOException occurred trying to de-serialize the data");
+  }
+  return objIn;
+}
+/** 
+ * Load a class with the specified loader, or with this object class loader if the specified loader is null.
+ */
+static Class<?> loadClass(String className,ClassLoader loader) throws ReflectionException {
+  Class<?> theClass;
+  if (className == null) {
+    throw new RuntimeOperationsException(new IllegalArgumentException("The class name cannot be null"),"Exception occurred during object instantiation");
+  }
+  ReflectUtil.checkPackageAccess(className);
+  try {
+    if (loader == null)     loader=MBeanInstantiator.class.getClassLoader();
+    if (loader != null) {
+      theClass=Class.forName(className,false,loader);
+    }
+ else {
+      theClass=Class.forName(className);
+    }
+  }
+ catch (  ClassNotFoundException e) {
+    throw new ReflectionException(e,"The MBean class could not be loaded");
+  }
+  return theClass;
+}

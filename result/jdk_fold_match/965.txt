@@ -1,0 +1,26 @@
+jdk_src\javax\swing\plaf\nimbus\TableHeaderRendererPainter.java
+private void paintBackgroundEnabled(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(decodeGradient1(rect));
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(decodeGradient2(rect));
+  g.fill(rect);
+}
+private void paintBackgroundEnabledAndFocused(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(decodeGradient1(rect));
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(decodeGradient2(rect));
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color10);
+  g.fill(path);
+}

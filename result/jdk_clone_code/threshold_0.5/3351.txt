@@ -1,0 +1,8 @@
+public NameParser getNameParser(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.getNameParser(name);
+}
+public NameParser getNameParser(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.getNameParser(name);
+}

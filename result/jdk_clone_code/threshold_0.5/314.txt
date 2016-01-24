@@ -1,0 +1,29 @@
+/** 
+ * Look up the index of an attribute by Namespace name.
+ * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndex(String uri,String localPart){
+  for (int i=0; i < fLength; i++) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart) && ((uri == attribute.name.uri) || (uri != null && attribute.name.uri != null && attribute.name.uri.equals(uri)))) {
+      return i;
+    }
+  }
+  return -1;
+}
+/** 
+ * Look up the index of an attribute by XML 1.0 qualified name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
+ * @param qName The qualified (prefixed) name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndexFast(String qName){
+  for (int i=0; i < fLength; ++i) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.rawname == qName) {
+      return i;
+    }
+  }
+  return -1;
+}

@@ -1,0 +1,8 @@
+HeapByteBufferR(int cap,int lim){
+  super(cap,lim);
+  this.isReadOnly=true;
+}
+HeapByteBufferR(byte[] buf,int off,int len){
+  super(buf,off,len);
+  this.isReadOnly=true;
+}

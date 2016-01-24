@@ -1,0 +1,16 @@
+/** 
+ * Method add
+ * @param xmlX509IssuerSerial
+ */
+public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
+  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param xmlX509SubjectName
+ */
+public void add(XMLX509SubjectName xmlX509SubjectName){
+  this._constructionElement.appendChild(xmlX509SubjectName.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

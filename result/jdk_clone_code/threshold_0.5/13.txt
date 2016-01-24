@@ -1,0 +1,8 @@
+protected DynValueCommonImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  isNull=true;
+}
+public void set_to_null(){
+  isNull=true;
+  clearData();
+}

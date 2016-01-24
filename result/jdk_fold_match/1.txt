@@ -1,0 +1,24 @@
+jdk_src\com\sun\corba\se\impl\corba\AnyImpl.java
+/** 
+ * A constructor that sets the Any to contain a null. It also marks the value as being invalid so that extractions throw an exception until an insertion has been performed.
+ */
+public AnyImpl(ORB orb){
+  this.orb=orb;
+  wrapper=ORBUtilSystemException.get((com.sun.corba.se.spi.orb.ORB)orb,CORBALogDomains.RPC_PRESENTATION);
+  typeCode=orb.get_primitive_tc(TCKind._tk_null);
+  stream=null;
+  object=null;
+  value=0;
+  isInitialized=true;
+}
+/** 
+ * sets the type of the element to be contained in the Any.
+ * @param tc                the TypeCode for the element in the Any
+ */
+public void type(TypeCode tc){
+  typeCode=TypeCodeImpl.convertToNative(orb,tc);
+  stream=null;
+  value=0;
+  object=null;
+  isInitialized=(tc.kind().value() == TCKind._tk_null);
+}

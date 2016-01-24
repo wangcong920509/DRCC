@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputFormat()
+ */
+public Properties getOutputFormat(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getEncoding()
+ */
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
+}

@@ -1,0 +1,12 @@
+private int scopeOfBaseURI(int depth){
+  for (int i=fBaseURIScope.size() - 1; i >= 0; i--) {
+    if (fBaseURIScope.elementAt(i) <= depth)     return i;
+  }
+  return -1;
+}
+private int scopeOfLanguage(int depth){
+  for (int i=fLanguageScope.size() - 1; i >= 0; i--) {
+    if (fLanguageScope.elementAt(i) <= depth)     return i;
+  }
+  return -1;
+}

@@ -1,0 +1,15 @@
+/** 
+ * Create an empty nodelist.
+ */
+public NodeSet(){
+  m_blocksize=32;
+  m_mapSize=0;
+}
+/** 
+ * Create an empty, using the given block size.
+ * @param blocksize Size of blocks to allocate
+ */
+public NodeSet(int blocksize){
+  m_blocksize=blocksize;
+  m_mapSize=0;
+}

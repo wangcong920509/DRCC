@@ -1,0 +1,83 @@
+jdk_src\com\sun\corba\se\impl\orbutil\concurrent\CondVar.java
+/** 
+ * Wait for notification. This operation at least momentarily releases the mutex. The mutex is always held upon return, even if interrupted.
+ * @exception InterruptedException if the thread was interruptedbefore or during the wait. However, if the thread is interrupted after the wait but during mutex re-acquisition, the interruption is ignored, while still ensuring that the currentThread's interruption state stays true, so can be probed by callers.
+ */
+public void await() throws InterruptedException {
+  int count=0;
+  if (Thread.interrupted())   throw new InterruptedException();
+  try {
+    if (debug_)     ORBUtility.dprintTrace(this,"await enter");
+synchronized (this) {
+      count=releaseMutex();
+      try {
+        wait();
+      }
+ catch (      InterruptedException ex) {
+        notify();
+        throw ex;
+      }
+    }
+  }
+  finally {
+    boolean interrupted=false;
+    for (; ; ) {
+      try {
+        acquireMutex(count);
+        break;
+      }
+ catch (      InterruptedException ex) {
+        interrupted=true;
+      }
+    }
+    if (interrupted) {
+      Thread.currentThread().interrupt();
+    }
+    if (debug_)     ORBUtility.dprintTrace(this,"await exit");
+  }
+}
+/** 
+ * Wait for at most msecs for notification. This operation at least momentarily releases the mutex. The mutex is always held upon return, even if interrupted.
+ * @param msecs The time to wait. A value less than or equal to zerocauses a momentarily release and re-acquire of the mutex, and always returns false.
+ * @return false if at least msecs have elapsedupon resumption; else true. A false return does NOT necessarily imply that the thread was not notified. For example, it might have been notified after the time elapsed but just before resuming.
+ * @exception InterruptedException if the thread was interruptedbefore or during the wait.
+ */
+public boolean timedwait(long msecs) throws InterruptedException {
+  if (Thread.interrupted())   throw new InterruptedException();
+  boolean success=false;
+  int count=0;
+  try {
+    if (debug_)     ORBUtility.dprintTrace(this,"timedwait enter");
+synchronized (this) {
+      count=releaseMutex();
+      try {
+        if (msecs > 0) {
+          long start=System.currentTimeMillis();
+          wait(msecs);
+          success=System.currentTimeMillis() - start <= msecs;
+        }
+      }
+ catch (      InterruptedException ex) {
+        notify();
+        throw ex;
+      }
+    }
+  }
+  finally {
+    boolean interrupted=false;
+    for (; ; ) {
+      try {
+        acquireMutex(count);
+        break;
+      }
+ catch (      InterruptedException ex) {
+        interrupted=true;
+      }
+    }
+    if (interrupted) {
+      Thread.currentThread().interrupt();
+    }
+    if (debug_)     ORBUtility.dprintTrace(this,"timedwait exit");
+  }
+  return success;
+}

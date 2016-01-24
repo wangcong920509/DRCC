@@ -1,0 +1,47 @@
+jdk_src\com\sun\java\swing\plaf\gtk\Metacity.java
+protected void drawArc(Node node,Graphics g){
+  NamedNodeMap attrs=node.getAttributes();
+  Color color=parseColor(getStringAttr(attrs,"color"));
+  int x=aee.evaluate(getStringAttr(attrs,"x"));
+  int y=aee.evaluate(getStringAttr(attrs,"y"));
+  int w=aee.evaluate(getStringAttr(attrs,"width"));
+  int h=aee.evaluate(getStringAttr(attrs,"height"));
+  int start_angle=aee.evaluate(getStringAttr(attrs,"start_angle"));
+  int extent_angle=aee.evaluate(getStringAttr(attrs,"extent_angle"));
+  boolean filled=getBooleanAttr(node,"filled",false);
+  if (getInt("width") == -1) {
+    x-=w;
+  }
+  if (getInt("height") == -1) {
+    y-=h;
+  }
+  g.setColor(color);
+  if (filled) {
+    g.fillArc(x,y,w,h,start_angle,extent_angle);
+  }
+ else {
+    g.drawArc(x,y,w,h,start_angle,extent_angle);
+  }
+}
+protected void drawRectangle(Node node,Graphics g){
+  NamedNodeMap attrs=node.getAttributes();
+  Color color=parseColor(getStringAttr(attrs,"color"));
+  boolean filled=getBooleanAttr(node,"filled",false);
+  int x=aee.evaluate(getStringAttr(attrs,"x"));
+  int y=aee.evaluate(getStringAttr(attrs,"y"));
+  int w=aee.evaluate(getStringAttr(attrs,"width"));
+  int h=aee.evaluate(getStringAttr(attrs,"height"));
+  g.setColor(color);
+  if (getInt("width") == -1) {
+    x-=w;
+  }
+  if (getInt("height") == -1) {
+    y-=h;
+  }
+  if (filled) {
+    g.fillRect(x,y,w,h);
+  }
+ else {
+    g.drawRect(x,y,w,h);
+  }
+}

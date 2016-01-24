@@ -1,0 +1,39 @@
+jdk_src\javax\swing\plaf\synth\SynthToolBarUI.java
+private void updateStyle(JToolBar c){
+  SynthContext context=getContext(c,Region.TOOL_BAR_CONTENT,null,ENABLED);
+  contentStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(c,Region.TOOL_BAR_DRAG_WINDOW,null,ENABLED);
+  dragWindowStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(c,ENABLED);
+  SynthStyle oldStyle=style;
+  style=SynthLookAndFeel.updateStyle(context,this);
+  if (oldStyle != style) {
+    handleIcon=style.getIcon(context,"ToolBar.handleIcon");
+    if (oldStyle != null) {
+      uninstallKeyboardActions();
+      installKeyboardActions();
+    }
+  }
+  context.dispose();
+}
+/** 
+ * @inheritDoc
+ */
+@Override protected void uninstallDefaults(){
+  SynthContext context=getContext(toolBar,ENABLED);
+  style.uninstallDefaults(context);
+  context.dispose();
+  style=null;
+  handleIcon=null;
+  context=getContext(toolBar,Region.TOOL_BAR_CONTENT,contentStyle,ENABLED);
+  contentStyle.uninstallDefaults(context);
+  context.dispose();
+  contentStyle=null;
+  context=getContext(toolBar,Region.TOOL_BAR_DRAG_WINDOW,dragWindowStyle,ENABLED);
+  dragWindowStyle.uninstallDefaults(context);
+  context.dispose();
+  dragWindowStyle=null;
+  toolBar.setLayout(null);
+}

@@ -1,0 +1,19 @@
+private static MenuElement previousEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i >= toIndex; i--) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
+}
+static MenuElement findEnabledChild(MenuElement e[],MenuElement elem,boolean forward){
+  for (int i=0; i < e.length; i++) {
+    if (e[i] == elem) {
+      return findEnabledChild(e,i,forward);
+    }
+  }
+  return null;
+}

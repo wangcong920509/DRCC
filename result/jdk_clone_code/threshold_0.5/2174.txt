@@ -1,0 +1,12 @@
+public synchronized StringBuffer append(float f){
+  super.append(f);
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
+ */
+public synchronized StringBuffer delete(int start,int end){
+  super.delete(start,end);
+  return this;
+}

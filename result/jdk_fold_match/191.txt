@@ -1,0 +1,32 @@
+jdk_src\java\util\concurrent\ForkJoinWorkerThread.java
+/** 
+ * Tries to take a task from the base of the queue, failing if empty or contended. Note: Specializations of this code appear in locallyDeqTask and elsewhere.
+ * @return a task, or null if none or contended
+ */
+final ForkJoinTask<?> deqTask(){
+  ForkJoinTask<?> t;
+  ForkJoinTask<?>[] q;
+  int b, i;
+  if (queueTop != (b=queueBase) && (q=queue) != null && (i=(q.length - 1) & b) >= 0 && (t=q[i]) != null && queueBase == b && UNSAFE.compareAndSwapObject(q,(i << ASHIFT) + ABASE,t,null)) {
+    queueBase=b + 1;
+    return t;
+  }
+  return null;
+}
+/** 
+ * If present, pops and executes the given task, or any other cancelled task
+ * @return false if any other non-cancelled task exists in local queue
+ */
+private boolean localHelpJoinTask(ForkJoinTask<?> joinMe){
+  int s, i;
+  ForkJoinTask<?>[] q;
+  ForkJoinTask<?> t;
+  if ((s=queueTop) != queueBase && (q=queue) != null && (i=(q.length - 1) & --s) >= 0 && (t=q[i]) != null) {
+    if (t != joinMe && t.status >= 0)     return false;
+    if (UNSAFE.compareAndSwapObject(q,(i << ASHIFT) + ABASE,t,null)) {
+      queueTop=s;
+      t.doExec();
+    }
+  }
+  return true;
+}

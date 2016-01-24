@@ -1,0 +1,109 @@
+protected CorbaMessageMediator readBits(){
+  try {
+    if (orb.transportDebugFlag) {
+      dprint(".readBits->: " + this);
+    }
+    MessageMediator messageMediator;
+    if (contactInfo != null) {
+      messageMediator=contactInfo.createMessageMediator(orb,this);
+    }
+ else     if (acceptor != null) {
+      messageMediator=acceptor.createMessageMediator(orb,this);
+    }
+ else {
+      throw new RuntimeException("SocketOrChannelConnectionImpl.readBits");
+    }
+    return (CorbaMessageMediator)messageMediator;
+  }
+ catch (  ThreadDeath td) {
+    if (orb.transportDebugFlag) {
+      dprint(".readBits: " + this + ": ThreadDeath: "+ td,td);
+    }
+    try {
+      purgeCalls(wrapper.connectionAbort(td),false,false);
+    }
+ catch (    Throwable t) {
+      if (orb.transportDebugFlag) {
+        dprint(".readBits: " + this + ": purgeCalls: Throwable: "+ t,t);
+      }
+    }
+    throw td;
+  }
+catch (  Throwable ex) {
+    if (orb.transportDebugFlag) {
+      dprint(".readBits: " + this + ": Throwable: "+ ex,ex);
+    }
+    try {
+      if (ex instanceof INTERNAL) {
+        sendMessageError(GIOPVersion.DEFAULT_VERSION);
+      }
+    }
+ catch (    IOException e) {
+      if (orb.transportDebugFlag) {
+        dprint(".readBits: " + this + ": sendMessageError: IOException: "+ e,e);
+      }
+    }
+    orb.getTransportManager().getSelector(0).unregisterForEvent(this);
+    purgeCalls(wrapper.connectionAbort(ex),true,false);
+  }
+ finally {
+    if (orb.transportDebugFlag) {
+      dprint(".readBits<-: " + this);
+    }
+  }
+  return null;
+}
+protected CorbaMessageMediator finishReadingBits(MessageMediator messageMediator){
+  try {
+    if (orb.transportDebugFlag) {
+      dprint(".finishReadingBits->: " + this);
+    }
+    if (contactInfo != null) {
+      messageMediator=contactInfo.finishCreatingMessageMediator(orb,this,messageMediator);
+    }
+ else     if (acceptor != null) {
+      messageMediator=acceptor.finishCreatingMessageMediator(orb,this,messageMediator);
+    }
+ else {
+      throw new RuntimeException("SocketOrChannelConnectionImpl.finishReadingBits");
+    }
+    return (CorbaMessageMediator)messageMediator;
+  }
+ catch (  ThreadDeath td) {
+    if (orb.transportDebugFlag) {
+      dprint(".finishReadingBits: " + this + ": ThreadDeath: "+ td,td);
+    }
+    try {
+      purgeCalls(wrapper.connectionAbort(td),false,false);
+    }
+ catch (    Throwable t) {
+      if (orb.transportDebugFlag) {
+        dprint(".finishReadingBits: " + this + ": purgeCalls: Throwable: "+ t,t);
+      }
+    }
+    throw td;
+  }
+catch (  Throwable ex) {
+    if (orb.transportDebugFlag) {
+      dprint(".finishReadingBits: " + this + ": Throwable: "+ ex,ex);
+    }
+    try {
+      if (ex instanceof INTERNAL) {
+        sendMessageError(GIOPVersion.DEFAULT_VERSION);
+      }
+    }
+ catch (    IOException e) {
+      if (orb.transportDebugFlag) {
+        dprint(".finishReadingBits: " + this + ": sendMessageError: IOException: "+ e,e);
+      }
+    }
+    orb.getTransportManager().getSelector(0).unregisterForEvent(this);
+    purgeCalls(wrapper.connectionAbort(ex),true,false);
+  }
+ finally {
+    if (orb.transportDebugFlag) {
+      dprint(".finishReadingBits<-: " + this);
+    }
+  }
+  return null;
+}

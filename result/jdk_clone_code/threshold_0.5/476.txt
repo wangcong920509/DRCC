@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputFormat()
+ */
+public Properties getOutputFormat(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see Serializer#asDOMSerializer()
+ */
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
+}

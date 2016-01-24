@@ -1,0 +1,20 @@
+public ByteBuffer get(byte[] dst,int offset,int length){
+  if ((length << 0) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 0,length << 0);
+    position(pos + length);
+  }
+ else {
+    super.get(dst,offset,length);
+  }
+  return this;
+}
+public ByteBuffer putShort(int i,short x){
+  putShort(ix(checkIndex(i,(1 << 1))),x);
+  return this;
+}

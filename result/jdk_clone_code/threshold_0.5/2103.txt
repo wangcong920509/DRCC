@@ -1,0 +1,8 @@
+public synchronized StringBuffer append(boolean b){
+  super.append(b);
+  return this;
+}
+public synchronized StringBuffer append(char c){
+  super.append(c);
+  return this;
+}

@@ -1,0 +1,18 @@
+/** 
+ * Invoked when a column is repositioned. If a cell is being edited, then editing is stopped and the cell is redrawn. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @param e   the event received
+ * @see TableColumnModelListener
+ */
+public void columnMoved(TableColumnModelEvent e){
+  if (isEditing() && !getCellEditor().stopCellEditing()) {
+    getCellEditor().cancelCellEditing();
+  }
+  repaint();
+}
+/** 
+ * Equivalent to <code>revalidate</code> followed by <code>repaint</code>.
+ */
+protected void resizeAndRepaint(){
+  revalidate();
+  repaint();
+}

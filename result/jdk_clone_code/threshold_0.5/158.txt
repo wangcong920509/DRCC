@@ -1,0 +1,11 @@
+private void addDOMField(ClassGenerator classGen){
+  final FieldGen fgen=new FieldGen(ACC_PUBLIC,Util.getJCRefType(DOM_INTF_SIG),DOM_FIELD,classGen.getConstantPool());
+  classGen.addField(fgen.getField());
+}
+/** 
+ * Add a static field
+ */
+private void addStaticField(ClassGenerator classGen,String type,String name){
+  final FieldGen fgen=new FieldGen(ACC_PROTECTED | ACC_STATIC,Util.getJCRefType(type),name,classGen.getConstantPool());
+  classGen.addField(fgen.getField());
+}

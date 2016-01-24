@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getWriter()
+ */
+public Writer getWriter(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ */
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
+}

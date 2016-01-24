@@ -1,0 +1,16 @@
+public String getAttribute(String name){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(name)) {
+      return attrs[i].getValue();
+    }
+  }
+  return "";
+}
+public String getAttributeNS(String namespaceURI,String localName){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getLocalName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(),namespaceURI)) {
+      return attrs[i].getValue();
+    }
+  }
+  return "";
+}

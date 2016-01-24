@@ -1,0 +1,8 @@
+@ForceInline static Object checkBase(Object obj){
+  obj.getClass();
+  return obj;
+}
+@ForceInline static Object nullCheck(Object obj){
+  obj.getClass();
+  return obj;
+}

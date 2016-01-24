@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputStream()
+ */
+public OutputStream getOutputStream(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getDoctypeSystem()
+ */
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
+}

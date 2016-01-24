@@ -1,0 +1,32 @@
+/** 
+ * Returns the next attribute in this <code>SQLInputImpl</code> object as a stream of uninterpreted bytes. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
+ * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ */
+public java.io.InputStream readBinaryStream() throws SQLException {
+  java.io.InputStream attrib=(java.io.InputStream)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}
+/** 
+ * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
+ * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ */
+public Array readArray() throws SQLException {
+  Array attrib=(Array)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}

@@ -1,0 +1,16 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return 0
+ */
+public short getNodeType(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return 0;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.NodeList
+ * @return 0
+ */
+public int getLength(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return 0;
+}

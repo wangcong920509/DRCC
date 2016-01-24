@@ -1,0 +1,58 @@
+jdk_src\java\awt\image\LookupOp.java
+private final void byteFilter(ByteLookupTable lookup,Raster src,WritableRaster dst,int width,int height,int numBands){
+  int[] srcPix=null;
+  byte[][] table=lookup.getTable();
+  int offset=lookup.getOffset();
+  int tidx;
+  int step=1;
+  if (table.length == 1) {
+    step=0;
+  }
+  int x;
+  int y;
+  int band;
+  int len=table[0].length;
+  for (y=0; y < height; y++) {
+    tidx=0;
+    for (band=0; band < numBands; band++, tidx+=step) {
+      srcPix=src.getSamples(0,y,width,1,band,srcPix);
+      for (x=0; x < width; x++) {
+        int index=srcPix[x] - offset;
+        if (index < 0 || index > len) {
+          throw new IllegalArgumentException("index (" + index + "(out of range: "+ " srcPix["+ x+ "]="+ srcPix[x]+ " offset="+ offset);
+        }
+        srcPix[x]=table[tidx][index];
+      }
+      dst.setSamples(0,y,width,1,band,srcPix);
+    }
+  }
+}
+private final void shortFilter(ShortLookupTable lookup,Raster src,WritableRaster dst,int width,int height,int numBands){
+  int band;
+  int[] srcPix=null;
+  short[][] table=lookup.getTable();
+  int offset=lookup.getOffset();
+  int tidx;
+  int step=1;
+  if (table.length == 1) {
+    step=0;
+  }
+  int x=0;
+  int y=0;
+  int index;
+  int maxShort=(1 << 16) - 1;
+  for (y=0; y < height; y++) {
+    tidx=0;
+    for (band=0; band < numBands; band++, tidx+=step) {
+      srcPix=src.getSamples(0,y,width,1,band,srcPix);
+      for (x=0; x < width; x++) {
+        index=srcPix[x] - offset;
+        if (index < 0 || index > maxShort) {
+          throw new IllegalArgumentException("index out of range " + index + " x is "+ x+ "srcPix[x]="+ srcPix[x]+ " offset="+ offset);
+        }
+        srcPix[x]=table[tidx][index];
+      }
+      dst.setSamples(0,y,width,1,band,srcPix);
+    }
+  }
+}

@@ -1,0 +1,18 @@
+/** 
+ * Returns the element name
+ */
+public String getNodeName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}
+/** 
+ * Returns the name of the Element. Note that Element.nodeName() is defined to also return the tag name. <p> This is case-preserving in XML. HTML should uppercasify it on the way in.
+ */
+public String getTagName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}

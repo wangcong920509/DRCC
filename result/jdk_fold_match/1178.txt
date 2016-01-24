@@ -1,0 +1,27 @@
+jdk_src\javax\swing\text\html\HTMLWriter.java
+/** 
+ * Writes out comment string.
+ * @param string   the comment
+ * @exception IOException on any I/O error
+ * @exception BadLocationException if pos represents an invalidlocation within the document.
+ */
+void writeComment(String string) throws IOException {
+  write("<!--");
+  if (string != null) {
+    write(string);
+  }
+  write("-->");
+  writeLineSeparator();
+  indentSmart();
+}
+void writeStyleEndTag() throws IOException {
+  decrIndent();
+  indentSmart();
+  write("-->");
+  writeLineSeparator();
+  decrIndent();
+  indentSmart();
+  write("</style>");
+  writeLineSeparator();
+  indentSmart();
+}

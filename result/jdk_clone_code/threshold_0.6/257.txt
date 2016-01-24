@@ -1,0 +1,32 @@
+/** 
+ * Retrieves the next attribute in this <code>SQLInputImpl</code> object as an array of bytes. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
+ * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ */
+public byte[] readBytes() throws SQLException {
+  byte[] attrib=(byte[])getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}
+/** 
+ * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a stream of Unicode characters. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
+ * @return the attribute; if the value is <code>SQL NULL</code>, return <code>null</code>
+ * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ */
+public java.io.Reader readCharacterStream() throws SQLException {
+  java.io.Reader attrib=(java.io.Reader)getNextAttribute();
+  if (attrib == null) {
+    lastValueWasNull=true;
+    return null;
+  }
+ else {
+    lastValueWasNull=false;
+    return attrib;
+  }
+}

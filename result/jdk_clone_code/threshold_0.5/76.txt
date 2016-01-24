@@ -1,0 +1,15 @@
+public IIOMetadata convertStreamMetadata(IIOMetadata inData,ImageWriteParam param){
+  if (inData instanceof JPEGMetadata) {
+    JPEGMetadata jpegData=(JPEGMetadata)inData;
+    if (jpegData.isStream) {
+      return inData;
+    }
+  }
+  return null;
+}
+public Dimension[] getPreferredThumbnailSizes(ImageTypeSpecifier imageType,ImageWriteParam param,IIOMetadata streamMetadata,IIOMetadata imageMetadata){
+  if (jfifOK(imageType,param,streamMetadata,imageMetadata)) {
+    return (Dimension[])preferredThumbSizes.clone();
+  }
+  return null;
+}

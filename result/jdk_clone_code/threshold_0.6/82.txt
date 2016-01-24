@@ -1,0 +1,17 @@
+/** 
+ * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable}.
+ * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
+ */
+public UndeclaredThrowableException(Throwable undeclaredThrowable){
+  super((Throwable)null);
+  this.undeclaredThrowable=undeclaredThrowable;
+}
+/** 
+ * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable} and a detail message.
+ * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
+ * @param s the detail message
+ */
+public UndeclaredThrowableException(Throwable undeclaredThrowable,String s){
+  super(s,null);
+  this.undeclaredThrowable=undeclaredThrowable;
+}

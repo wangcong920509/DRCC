@@ -1,0 +1,14 @@
+/** 
+ * {@inheritDoc}
+ */
+public void modelStructureChanged(){
+  allChanged();
+  modelRowCount=getModelWrapper().getRowCount();
+}
+/** 
+ * {@inheritDoc}
+ */
+public void allRowsChanged(){
+  modelRowCount=getModelWrapper().getRowCount();
+  sort();
+}

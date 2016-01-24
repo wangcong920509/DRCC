@@ -1,0 +1,17 @@
+/** 
+ * Creates a new FilePermission object with the specified actions. <i>path</i> is the pathname of a file or directory, and <i>actions</i> contains a comma-separated list of the desired actions granted on the file or directory. Possible actions are "read", "write", "execute", "delete", and "readlink". <p>A pathname that ends in "/*" (where "/" is the file separator character, <code>File.separatorChar</code>) indicates all the files and directories contained in that directory. A pathname that ends with "/-" indicates (recursively) all files and subdirectories contained in that directory. The special pathname "&lt;&lt;ALL FILES&gt;&gt;" matches any file. <p>A pathname consisting of a single "*" indicates all the files in the current directory, while a pathname consisting of a single "-" indicates all the files in the current directory and (recursively) all files and subdirectories contained in the current directory. <p>A pathname containing an empty string represents an empty path.
+ * @param path the pathname of the file/directory.
+ * @param actions the action string.
+ * @throws IllegalArgumentException If actions is <code>null</code>, empty or contains an action other than the specified possible actions.
+ */
+public FilePermission(String path,String actions){
+  super(path);
+  init(getMask(actions));
+}
+/** 
+ * readObject is called to restore the state of the FilePermission from a stream.
+ */
+private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+  s.defaultReadObject();
+  init(getMask(actions));
+}

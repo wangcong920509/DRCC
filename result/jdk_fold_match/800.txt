@@ -1,0 +1,35 @@
+jdk_src\javax\swing\plaf\nimbus\ScrollBarButtonPainter.java
+private void paintForegroundMouseOver(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color1);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient4(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient5(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath5();
+  g.setPaint(color13);
+  g.fill(path);
+}
+private void paintForegroundPressed(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color1);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient7(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient8(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(color31);
+  g.fill(path);
+  path=decodePath5();
+  g.setPaint(color13);
+  g.fill(path);
+}

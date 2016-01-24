@@ -1,0 +1,8 @@
+public ServerHeldDown(String _serverId){
+  super(ServerHeldDownHelper.id());
+  serverId=_serverId;
+}
+public ServerHeldDown(String $reason,String _serverId){
+  super(ServerHeldDownHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

@@ -1,0 +1,8 @@
+public ByteBuffer put(int i,byte x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
+}
+public ByteBuffer putShort(int i,short x){
+  Bits.putShort(this,ix(checkIndex(i,2)),x,bigEndian);
+  return this;
+}

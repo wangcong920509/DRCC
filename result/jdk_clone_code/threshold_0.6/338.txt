@@ -1,0 +1,17 @@
+/** 
+ * Construct an exception with the assocated exception
+ * @param th a nested exception
+ */
+public XMLStreamException(Throwable th){
+  super(th);
+  nested=th;
+}
+/** 
+ * Construct an exception with the assocated message and exception
+ * @param th a nested exception
+ * @param msg the message to report
+ */
+public XMLStreamException(String msg,Throwable th){
+  super(msg,th);
+  nested=th;
+}

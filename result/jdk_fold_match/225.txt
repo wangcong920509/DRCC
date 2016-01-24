@@ -1,0 +1,125 @@
+jdk_src\javax\swing\plaf\metal\MetalSplitPaneDivider.java
+/** 
+ * Creates and return an instance of JButton that can be used to collapse the left component in the metal split pane.
+ */
+protected JButton createLeftOneTouchButton(){
+  JButton b=new JButton(){
+    int[][] buffer={{0,0,0,2,2,0,0,0,0},{0,0,2,1,1,1,0,0,0},{0,2,1,1,1,1,1,0,0},{2,1,1,1,1,1,1,1,0},{0,3,3,3,3,3,3,3,3}};
+    public void setBorder(    Border b){
+    }
+    public void paint(    Graphics g){
+      JSplitPane splitPane=getSplitPaneFromSuper();
+      if (splitPane != null) {
+        int oneTouchSize=getOneTouchSizeFromSuper();
+        int orientation=getOrientationFromSuper();
+        int blockSize=Math.min(getDividerSize(),oneTouchSize);
+        Color[] colors={this.getBackground(),MetalLookAndFeel.getPrimaryControlDarkShadow(),MetalLookAndFeel.getPrimaryControlInfo(),MetalLookAndFeel.getPrimaryControlHighlight()};
+        g.setColor(this.getBackground());
+        if (isOpaque()) {
+          g.fillRect(0,0,this.getWidth(),this.getHeight());
+        }
+        if (getModel().isPressed()) {
+          colors[1]=colors[2];
+        }
+        if (orientation == JSplitPane.VERTICAL_SPLIT) {
+          for (int i=1; i <= buffer[0].length; i++) {
+            for (int j=1; j < blockSize; j++) {
+              if (buffer[j - 1][i - 1] == 0) {
+                continue;
+              }
+ else {
+                g.setColor(colors[buffer[j - 1][i - 1]]);
+              }
+              g.drawLine(i,j,i,j);
+            }
+          }
+        }
+ else {
+          for (int i=1; i <= buffer[0].length; i++) {
+            for (int j=1; j < blockSize; j++) {
+              if (buffer[j - 1][i - 1] == 0) {
+                continue;
+              }
+ else {
+                g.setColor(colors[buffer[j - 1][i - 1]]);
+              }
+              g.drawLine(j,i,j,i);
+            }
+          }
+        }
+      }
+    }
+    public boolean isFocusTraversable(){
+      return false;
+    }
+  }
+;
+  b.setRequestFocusEnabled(false);
+  b.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+  b.setFocusPainted(false);
+  b.setBorderPainted(false);
+  maybeMakeButtonOpaque(b);
+  return b;
+}
+/** 
+ * Creates and return an instance of JButton that can be used to collapse the right component in the metal split pane.
+ */
+protected JButton createRightOneTouchButton(){
+  JButton b=new JButton(){
+    int[][] buffer={{2,2,2,2,2,2,2,2},{0,1,1,1,1,1,1,3},{0,0,1,1,1,1,3,0},{0,0,0,1,1,3,0,0},{0,0,0,0,3,0,0,0}};
+    public void setBorder(    Border border){
+    }
+    public void paint(    Graphics g){
+      JSplitPane splitPane=getSplitPaneFromSuper();
+      if (splitPane != null) {
+        int oneTouchSize=getOneTouchSizeFromSuper();
+        int orientation=getOrientationFromSuper();
+        int blockSize=Math.min(getDividerSize(),oneTouchSize);
+        Color[] colors={this.getBackground(),MetalLookAndFeel.getPrimaryControlDarkShadow(),MetalLookAndFeel.getPrimaryControlInfo(),MetalLookAndFeel.getPrimaryControlHighlight()};
+        g.setColor(this.getBackground());
+        if (isOpaque()) {
+          g.fillRect(0,0,this.getWidth(),this.getHeight());
+        }
+        if (getModel().isPressed()) {
+          colors[1]=colors[2];
+        }
+        if (orientation == JSplitPane.VERTICAL_SPLIT) {
+          for (int i=1; i <= buffer[0].length; i++) {
+            for (int j=1; j < blockSize; j++) {
+              if (buffer[j - 1][i - 1] == 0) {
+                continue;
+              }
+ else {
+                g.setColor(colors[buffer[j - 1][i - 1]]);
+              }
+              g.drawLine(i,j,i,j);
+            }
+          }
+        }
+ else {
+          for (int i=1; i <= buffer[0].length; i++) {
+            for (int j=1; j < blockSize; j++) {
+              if (buffer[j - 1][i - 1] == 0) {
+                continue;
+              }
+ else {
+                g.setColor(colors[buffer[j - 1][i - 1]]);
+              }
+              g.drawLine(j,i,j,i);
+            }
+          }
+        }
+      }
+    }
+    public boolean isFocusTraversable(){
+      return false;
+    }
+  }
+;
+  b.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+  b.setFocusPainted(false);
+  b.setBorderPainted(false);
+  b.setRequestFocusEnabled(false);
+  maybeMakeButtonOpaque(b);
+  return b;
+}

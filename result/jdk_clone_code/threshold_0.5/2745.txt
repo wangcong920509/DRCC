@@ -1,0 +1,8 @@
+public ByteBuffer putLong(int i,long x){
+  putLong(ix(checkIndex(i,(1 << 3))),x);
+  return this;
+}
+public ByteBuffer putDouble(double x){
+  putDouble(ix(nextPutIndex((1 << 3))),x);
+  return this;
+}

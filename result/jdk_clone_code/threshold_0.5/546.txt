@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ */
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}

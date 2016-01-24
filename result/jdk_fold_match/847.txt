@@ -1,0 +1,23 @@
+jdk_src\javax\swing\plaf\nimbus\SliderTrackPainter.java
+private void paintBackgroundDisabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color1);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient1(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient2(roundRect));
+  g.fill(roundRect);
+}
+private void paintBackgroundEnabled(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color6);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient3(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect5();
+  g.setPaint(decodeGradient4(roundRect));
+  g.fill(roundRect);
+}

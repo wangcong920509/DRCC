@@ -9,10 +9,8 @@ package main;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,22 +70,6 @@ public class Main {
             return null;  
         }  
     }
-	
-	/* Method writeToFile : write the content to the file
-	 * fileName : name of the file
-	 * content : a String written to file
-	 */
-	public void writeToFile(String fileName, String content) {
-		Writer writer;
-		try {
-			writer = new FileWriter(fileName);
-			writer.write(content);  
-	        writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
-	}
 	
 	/* Method getSampleFile
 	 * return : the list of file names

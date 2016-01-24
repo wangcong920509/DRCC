@@ -1,0 +1,24 @@
+/** 
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
+ */
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
+  }
+  return null;
+}
+/** 
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
+ */
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
+  }
+  return null;
+}

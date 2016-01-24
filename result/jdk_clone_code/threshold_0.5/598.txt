@@ -1,0 +1,22 @@
+/** 
+ * Tell if the table contains the given string.
+ * @param key String to look up
+ * @return return the value of the string or null if not found.
+ */
+public final String get(String key){
+  for (int i=0; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(key))     return m_map[i + 1];
+  }
+  return null;
+}
+/** 
+ * Tell if the table contains the given string in the value.
+ * @param val Value of the string to look up
+ * @return the string associated with the given value or null if not found
+ */
+public final String getByValue(String val){
+  for (int i=1; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(val))     return m_map[i - 1];
+  }
+  return null;
+}

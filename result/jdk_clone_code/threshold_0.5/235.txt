@@ -1,0 +1,43 @@
+/** 
+ * @return
+ */
+public String getValue(){
+  if (fEventType == XMLEvent.PROCESSING_INSTRUCTION) {
+    return fScanner.getPIData().toString();
+  }
+ else   if (fEventType == XMLEvent.COMMENT) {
+    return fScanner.getComment();
+  }
+ else   if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    return fScanner.getElementQName().localpart;
+  }
+ else   if (fEventType == XMLEvent.CHARACTERS) {
+    return fScanner.getCharacterData().toString();
+  }
+  return null;
+}
+protected List getEntityDecls(){
+  if (fEventType == XMLStreamConstants.DTD) {
+    XMLEntityStorage entityStore=fEntityManager.getEntityStore();
+    ArrayList list=null;
+    if (entityStore.hasEntities()) {
+      EntityDeclarationImpl decl=null;
+      list=new ArrayList(entityStore.getEntitySize());
+      Enumeration enu=entityStore.getEntityKeys();
+      while (enu.hasMoreElements()) {
+        String key=(String)enu.nextElement();
+        Entity en=(Entity)entityStore.getEntity(key);
+        decl=new EntityDeclarationImpl();
+        decl.setEntityName(key);
+        if (en.isExternal()) {
+          decl.setXMLResourceIdentifier(((Entity.ExternalEntity)en).entityLocation);
+          decl.setNotationName(((Entity.ExternalEntity)en).notation);
+        }
+ else         decl.setEntityReplacementText(((Entity.InternalEntity)en).text);
+        list.add(decl);
+      }
+    }
+    return list;
+  }
+  return null;
+}

@@ -1,0 +1,42 @@
+private Operation makeIORToSocketInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iorToSocketInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IORToSocketInfo.class.isAssignableFrom(iorToSocketInfoClass)) {
+          return iorToSocketInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIorToSocketInfoType(iorToSocketInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIorToSocketInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}
+private Operation makeContactInfoListFactoryOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> contactInfoListFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (CorbaContactInfoListFactory.class.isAssignableFrom(contactInfoListFactoryClass)) {
+          return contactInfoListFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalContactInfoListFactoryType(contactInfoListFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badContactInfoListFactory(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}

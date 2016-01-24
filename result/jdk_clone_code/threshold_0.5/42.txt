@@ -1,0 +1,42 @@
+private Operation makeLegacySocketFactoryOperation(){
+  Operation sfop=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> legacySocketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (com.sun.corba.se.spi.legacy.connection.ORBSocketFactory.class.isAssignableFrom(legacySocketFactoryClass)) {
+          return legacySocketFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalSocketFactoryType(legacySocketFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomSocketFactory(ex,param);
+      }
+    }
+  }
+;
+  return sfop;
+}
+private Operation makeSocketFactoryOperation(){
+  Operation sfop=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> socketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (com.sun.corba.se.spi.transport.ORBSocketFactory.class.isAssignableFrom(socketFactoryClass)) {
+          return socketFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalSocketFactoryType(socketFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomSocketFactory(ex,param);
+      }
+    }
+  }
+;
+  return sfop;
+}

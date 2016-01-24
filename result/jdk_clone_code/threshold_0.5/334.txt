@@ -1,0 +1,49 @@
+/** 
+ * Given a node identity, get the index of the node's first attribute.
+ * @param identity int identity of the node.
+ * @return Identity of first attribute, or DTM.NULL to indicate none exists.
+ */
+protected int getFirstAttributeIdentity(int identity){
+  int type=_type(identity);
+  if (DTM.ELEMENT_NODE == type) {
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      type=_type(identity);
+      if (type == DTM.ATTRIBUTE_NODE) {
+        return identity;
+      }
+ else       if (DTM.NAMESPACE_NODE != type) {
+        break;
+      }
+    }
+  }
+  return DTM.NULL;
+}
+/** 
+ * Given a namespace handle, advance to the next namespace.
+ * @param baseHandle handle to original node from where the first namespacewas relative to (needed to return nodes in document order).
+ * @param nodeHandle A namespace handle for which we will find the next node.
+ * @param inScope true if all namespaces that are in scope should be processed,otherwise just process the nodes in the given element handle.
+ * @return handle of next namespace, or DTM.NULL to indicate none exists.
+ */
+public int getNextNamespaceNode(int baseHandle,int nodeHandle,boolean inScope){
+  if (inScope) {
+    SuballocatedIntVector nsContext=findNamespaceContext(makeNodeIdentity(baseHandle));
+    if (nsContext == null)     return NULL;
+    int i=1 + nsContext.indexOf(nodeHandle);
+    if (i <= 0 || i == nsContext.size())     return NULL;
+    return nsContext.elementAt(i);
+  }
+ else {
+    int identity=makeNodeIdentity(nodeHandle);
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      int type=_type(identity);
+      if (type == DTM.NAMESPACE_NODE) {
+        return makeNodeHandle(identity);
+      }
+ else       if (type != DTM.ATTRIBUTE_NODE) {
+        break;
+      }
+    }
+  }
+  return DTM.NULL;
+}

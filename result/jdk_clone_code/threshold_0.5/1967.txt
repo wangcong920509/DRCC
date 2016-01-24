@@ -1,0 +1,18 @@
+/** 
+ * Writes a <code>short</code> to the file as two bytes, high byte first. The write starts at the current position of the file pointer.
+ * @param v   a <code>short</code> to be written.
+ * @exception IOException  if an I/O error occurs.
+ */
+public final void writeShort(int v) throws IOException {
+  write((v >>> 8) & 0xFF);
+  write((v >>> 0) & 0xFF);
+}
+/** 
+ * Writes a <code>char</code> to the file as a two-byte value, high byte first. The write starts at the current position of the file pointer.
+ * @param v   a <code>char</code> value to be written.
+ * @exception IOException  if an I/O error occurs.
+ */
+public final void writeChar(int v) throws IOException {
+  write((v >>> 8) & 0xFF);
+  write((v >>> 0) & 0xFF);
+}

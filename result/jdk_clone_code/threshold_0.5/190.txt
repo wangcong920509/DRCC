@@ -1,0 +1,16 @@
+public String getNodeValue(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return data;
+}
+/** 
+ * Retrieve character data currently stored in this node.
+ * @throws DOMExcpetion (DOMSTRING_SIZE_ERR) In some implementations, the stored data may exceed the permitted length of strings. If so, getData() will throw this DOMException advising the user to instead retrieve the data in chunks via the substring() operation.
+ */
+public String getData(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return data;
+}

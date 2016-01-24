@@ -1,0 +1,21 @@
+/** 
+ * If the <code>realEditor</code> will allow editing to stop, the <code>realEditor</code> is removed and true is returned, otherwise false is returned.
+ */
+public boolean stopCellEditing(){
+  if (realEditor.stopCellEditing()) {
+    cleanupAfterEditing();
+    return true;
+  }
+  return false;
+}
+/** 
+ * Returns true if <code>event</code> is a <code>MouseEvent</code> and the click count is 1.
+ * @param event  the event being studied
+ */
+protected boolean shouldStartEditingTimer(EventObject event){
+  if ((event instanceof MouseEvent) && SwingUtilities.isLeftMouseButton((MouseEvent)event)) {
+    MouseEvent me=(MouseEvent)event;
+    return (me.getClickCount() == 1 && inHitRegion(me.getX(),me.getY()));
+  }
+  return false;
+}

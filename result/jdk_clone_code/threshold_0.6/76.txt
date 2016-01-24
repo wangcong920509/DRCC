@@ -1,0 +1,11 @@
+/** 
+ * Constructs an (invalid) FileDescriptor object.
+ */
+public FileDescriptor(){
+  fd=-1;
+  useCount=new AtomicInteger();
+}
+private FileDescriptor(int fd){
+  this.fd=fd;
+  useCount=new AtomicInteger();
+}

@@ -1,0 +1,33 @@
+/** 
+ * Resets the <code>Builder</code> to match the provided <code>locale</code>.  Existing state is discarded. <p>All fields of the locale must be well-formed, see  {@link Locale}. <p>Locales with any ill-formed fields cause <code>IllformedLocaleException</code> to be thrown, except for the following three cases which are accepted for compatibility reasons:<ul> <li>Locale("ja", "JP", "JP") is treated as "ja-JP-u-ca-japanese" <li>Locale("th", "TH", "TH") is treated as "th-TH-u-nu-thai" <li>Locale("no", "NO", "NY") is treated as "nn-NO"</ul>
+ * @param locale the locale
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>locale</code> hasany ill-formed fields.
+ * @throws NullPointerException if <code>locale</code> is null.
+ */
+public Builder setLocale(Locale locale){
+  try {
+    localeBuilder.setLocale(locale.baseLocale,locale.localeExtensions);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}
+/** 
+ * Sets the extension for the given key. If the value is null or the empty string, the extension is removed.  Otherwise, the extension must be <a href="./Locale.html#def_extensions">well-formed</a> or an exception is thrown. <p><b>Note:</b> The key  {@link Locale#UNICODE_LOCALE_EXTENSION UNICODE_LOCALE_EXTENSION} ('u') is used for the Unicode locale extension.Setting a value for this key replaces any existing Unicode locale key/type pairs with those defined in the extension. <p><b>Note:</b> The key  {@link Locale#PRIVATE_USE_EXTENSION PRIVATE_USE_EXTENSION} ('x') is used for the private use code. To bewell-formed, the value for this key needs only to have subtags of one to eight alphanumeric characters, not two to eight as in the general case.
+ * @param key the extension key
+ * @param value the extension value
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> is illegalor <code>value</code> is ill-formed
+ * @see #setUnicodeLocaleKeyword(String,String)
+ */
+public Builder setExtension(char key,String value){
+  try {
+    localeBuilder.setExtension(key,value);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
+}

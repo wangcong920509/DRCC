@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see Serializer#asDOMSerializer()
+ */
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
+}

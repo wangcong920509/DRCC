@@ -1,0 +1,33 @@
+jdk_src\com\sun\org\apache\bcel\internal\generic\ConstantPoolGen.java
+/** 
+ * Add a new Methodref constant to the ConstantPool, if it is not already in there.
+ * @param n Methodref string to add
+ * @return index of entry
+ */
+public int addMethodref(String class_name,String method_name,String signature){
+  int ret, class_index, name_and_type_index;
+  if ((ret=lookupMethodref(class_name,method_name,signature)) != -1)   return ret;
+  adjustSize();
+  name_and_type_index=addNameAndType(method_name,signature);
+  class_index=addClass(class_name);
+  ret=index;
+  constants[index++]=new ConstantMethodref(class_index,name_and_type_index);
+  cp_table.put(class_name + METHODREF_DELIM + method_name+ METHODREF_DELIM+ signature,new Index(ret));
+  return ret;
+}
+/** 
+ * Add a new InterfaceMethodref constant to the ConstantPool, if it is not already in there.
+ * @param n InterfaceMethodref string to add
+ * @return index of entry
+ */
+public int addInterfaceMethodref(String class_name,String method_name,String signature){
+  int ret, class_index, name_and_type_index;
+  if ((ret=lookupInterfaceMethodref(class_name,method_name,signature)) != -1)   return ret;
+  adjustSize();
+  class_index=addClass(class_name);
+  name_and_type_index=addNameAndType(method_name,signature);
+  ret=index;
+  constants[index++]=new ConstantInterfaceMethodref(class_index,name_and_type_index);
+  cp_table.put(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature,new Index(ret));
+  return ret;
+}

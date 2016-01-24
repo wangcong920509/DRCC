@@ -1,0 +1,11 @@
+public StringBuilder append(char[] str){
+  super.append(str);
+  return this;
+}
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder deleteCharAt(int index){
+  super.deleteCharAt(index);
+  return this;
+}

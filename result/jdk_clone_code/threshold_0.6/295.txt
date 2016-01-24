@@ -1,0 +1,22 @@
+/** 
+ * Creates a matte border with the specified insets and color.
+ * @param top the top inset of the border
+ * @param left the left inset of the border
+ * @param bottom the bottom inset of the border
+ * @param right the right inset of the border
+ * @param matteColor the color rendered for the border
+ */
+public MatteBorder(int top,int left,int bottom,int right,Color matteColor){
+  super(top,left,bottom,right);
+  this.color=matteColor;
+}
+/** 
+ * Creates a matte border with the specified insets and color.
+ * @param borderInsets the insets of the border
+ * @param matteColor the color rendered for the border
+ * @since 1.3
+ */
+public MatteBorder(Insets borderInsets,Color matteColor){
+  super(borderInsets);
+  this.color=matteColor;
+}

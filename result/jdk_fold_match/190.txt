@@ -1,0 +1,17 @@
+jdk_src\java\util\concurrent\CyclicBarrier.java
+/** 
+ * Updates state on barrier trip and wakes up everyone. Called only while holding lock.
+ */
+private void nextGeneration(){
+  trip.signalAll();
+  count=parties;
+  generation=new Generation();
+}
+/** 
+ * Sets current barrier generation as broken and wakes up everyone. Called only while holding lock.
+ */
+private void breakBarrier(){
+  generation.broken=true;
+  count=parties;
+  trip.signalAll();
+}

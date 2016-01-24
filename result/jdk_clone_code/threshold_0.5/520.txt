@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
+ */
+public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
+  couldThrowSAXException();
+  return false;
+}
+/** 
+ * @see XSLOutputAttributes#getIndent()
+ */
+public boolean getIndent(){
+  aMethodIsCalled();
+  return false;
+}

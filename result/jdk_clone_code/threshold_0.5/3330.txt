@@ -1,0 +1,22 @@
+/** 
+ * Adds a single component to the end of this composite name.
+ * @param comp     The non-null component to add.
+ * @return The updated CompositeName, not a new one. Cannot be null.
+ * @exception InvalidNameException If adding comp at end of the namewould violate the name's syntax.
+ */
+public Name add(String comp) throws InvalidNameException {
+  impl.add(comp);
+  return this;
+}
+/** 
+ * Adds a single component at a specified position within this composite name. Components of this composite name at or after the index of the new component are shifted up by one (away from index 0) to accommodate the new component.
+ * @param comp    The non-null component to add.
+ * @param posn    The index at which to add the new component.Must be in the range [0,size()].
+ * @return The updated CompositeName, not a new one. Cannot be null.
+ * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * @exception InvalidNameException If adding comp at the specified positionwould violate the name's syntax.
+ */
+public Name add(int posn,String comp) throws InvalidNameException {
+  impl.add(posn,comp);
+  return this;
+}

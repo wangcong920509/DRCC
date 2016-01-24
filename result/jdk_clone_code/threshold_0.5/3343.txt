@@ -1,0 +1,8 @@
+public void rebind(Name name,Object newObj) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.rebind(name,newObj);
+}
+public void rebind(String name,Object newObj) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.rebind(name,newObj);
+}

@@ -1,0 +1,22 @@
+/** 
+ * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
+ * @see TraceDestination#send(int,int,String,String,String)
+ */
+public boolean send(int level,int type,String className,String methodName,String info){
+  if (isSelected(level,type)) {
+    getLogger(type).logp(getLevel(level),className,methodName,info);
+    return true;
+  }
+  return false;
+}
+/** 
+ * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
+ * @see TraceDestination#send(int,int,String,String,Throwable)
+ */
+public boolean send(int level,int type,String className,String methodName,Throwable exception){
+  if (isSelected(level,type)) {
+    getLogger(type).log(getLevel(level),className + ": Exception occurred in " + methodName,exception);
+    return true;
+  }
+  return false;
+}

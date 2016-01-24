@@ -1,0 +1,15 @@
+/** 
+ * Default constructor.
+ */
+public InvalidTargetObjectTypeException(){
+  super("InvalidTargetObjectTypeException: ");
+  exception=null;
+}
+/** 
+ * Constructor from a string.
+ * @param s String value that will be incorporated in the message forthis exception.
+ */
+public InvalidTargetObjectTypeException(String s){
+  super("InvalidTargetObjectTypeException: " + s);
+  exception=null;
+}

@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputStream()
+ */
+public OutputStream getOutputStream(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceMappings()
+ */
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
+}

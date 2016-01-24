@@ -1,0 +1,15 @@
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    return createInputMap(condition);
+  }
+  return null;
+}
+InputMap createInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(frame,this,"InternalFrame.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(frame,bindings);
+    }
+  }
+  return null;
+}

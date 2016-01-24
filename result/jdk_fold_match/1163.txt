@@ -1,0 +1,52 @@
+jdk_src\javax\swing\plaf\synth\SynthSplitPaneUI.java
+private void updateStyle(JSplitPane splitPane){
+  SynthContext context=getContext(splitPane,Region.SPLIT_PANE_DIVIDER,ENABLED);
+  SynthStyle oldDividerStyle=dividerStyle;
+  dividerStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(splitPane,ENABLED);
+  SynthStyle oldStyle=style;
+  style=SynthLookAndFeel.updateStyle(context,this);
+  if (style != oldStyle) {
+    Object value=style.get(context,"SplitPane.size");
+    if (value == null) {
+      value=Integer.valueOf(6);
+    }
+    LookAndFeel.installProperty(splitPane,"dividerSize",value);
+    value=style.get(context,"SplitPane.oneTouchExpandable");
+    if (value != null) {
+      LookAndFeel.installProperty(splitPane,"oneTouchExpandable",value);
+    }
+    if (divider != null) {
+      splitPane.remove(divider);
+      divider.setDividerSize(splitPane.getDividerSize());
+    }
+    if (oldStyle != null) {
+      uninstallKeyboardActions();
+      installKeyboardActions();
+    }
+  }
+  if (style != oldStyle || dividerStyle != oldDividerStyle) {
+    if (divider != null) {
+      splitPane.remove(divider);
+    }
+    divider=createDefaultDivider();
+    divider.setBasicSplitPaneUI(this);
+    splitPane.add(divider,JSplitPane.DIVIDER);
+  }
+  context.dispose();
+}
+/** 
+ * Uninstalls the UI defaults.
+ */
+@Override protected void uninstallDefaults(){
+  SynthContext context=getContext(splitPane,ENABLED);
+  style.uninstallDefaults(context);
+  context.dispose();
+  style=null;
+  context=getContext(splitPane,Region.SPLIT_PANE_DIVIDER,ENABLED);
+  dividerStyle.uninstallDefaults(context);
+  context.dispose();
+  dividerStyle=null;
+  super.uninstallDefaults();
+}

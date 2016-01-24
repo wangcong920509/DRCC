@@ -1,0 +1,36 @@
+jdk_src\com\sun\jmx\remote\internal\ClientNotifForwarder.java
+public synchronized Integer[] removeNotificationListener(ObjectName name,NotificationListener listener) throws ListenerNotFoundException, IOException {
+  beforeRemove();
+  if (logger.traceOn()) {
+    logger.trace("removeNotificationListener","Remove the listener " + listener + " from "+ name);
+  }
+  List<Integer> ids=new ArrayList<Integer>();
+  List<ClientListenerInfo> values=new ArrayList<ClientListenerInfo>(infoList.values());
+  for (int i=values.size() - 1; i >= 0; i--) {
+    ClientListenerInfo li=values.get(i);
+    if (li.sameAs(name,listener)) {
+      ids.add(li.getListenerID());
+      infoList.remove(li.getListenerID());
+    }
+  }
+  if (ids.isEmpty())   throw new ListenerNotFoundException("Listener not found");
+  return ids.toArray(new Integer[0]);
+}
+public synchronized Integer removeNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws ListenerNotFoundException, IOException {
+  if (logger.traceOn()) {
+    logger.trace("removeNotificationListener","Remove the listener " + listener + " from "+ name);
+  }
+  beforeRemove();
+  Integer id=null;
+  List<ClientListenerInfo> values=new ArrayList<ClientListenerInfo>(infoList.values());
+  for (int i=values.size() - 1; i >= 0; i--) {
+    ClientListenerInfo li=values.get(i);
+    if (li.sameAs(name,listener,filter,handback)) {
+      id=li.getListenerID();
+      infoList.remove(id);
+      break;
+    }
+  }
+  if (id == null)   throw new ListenerNotFoundException("Listener not found");
+  return id;
+}

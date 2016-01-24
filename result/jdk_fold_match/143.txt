@@ -1,0 +1,152 @@
+jdk_src\java\awt\GridBagLayout.java
+private long[] preInitMaximumArraySizes(Container parent){
+  Component components[]=parent.getComponents();
+  Component comp;
+  GridBagConstraints constraints;
+  int curX, curY;
+  int curWidth, curHeight;
+  int preMaximumArrayXIndex=0;
+  int preMaximumArrayYIndex=0;
+  long[] returnArray=new long[2];
+  for (int compId=0; compId < components.length; compId++) {
+    comp=components[compId];
+    if (!comp.isVisible()) {
+      continue;
+    }
+    constraints=lookupConstraints(comp);
+    curX=constraints.gridx;
+    curY=constraints.gridy;
+    curWidth=constraints.gridwidth;
+    curHeight=constraints.gridheight;
+    if (curX < 0) {
+      curX=++preMaximumArrayYIndex;
+    }
+    if (curY < 0) {
+      curY=++preMaximumArrayXIndex;
+    }
+    if (curWidth <= 0) {
+      curWidth=1;
+    }
+    if (curHeight <= 0) {
+      curHeight=1;
+    }
+    preMaximumArrayXIndex=Math.max(curY + curHeight,preMaximumArrayXIndex);
+    preMaximumArrayYIndex=Math.max(curX + curWidth,preMaximumArrayYIndex);
+  }
+  returnArray[0]=preMaximumArrayXIndex;
+  returnArray[1]=preMaximumArrayYIndex;
+  return returnArray;
+}
+/** 
+ * This method is obsolete and supplied for backwards compatability only; new code should call  {@link #arrangeGrid(Container) arrangeGrid} instead.This method is the same as <code>arrangeGrid</code>; refer to <code>arrangeGrid</code> for details on the parameter.
+ */
+protected void ArrangeGrid(Container parent){
+  Component comp;
+  int compindex;
+  GridBagConstraints constraints;
+  Insets insets=parent.getInsets();
+  Component components[]=parent.getComponents();
+  Dimension d;
+  Rectangle r=new Rectangle();
+  int i, diffw, diffh;
+  double weight;
+  GridBagLayoutInfo info;
+  rightToLeft=!parent.getComponentOrientation().isLeftToRight();
+  if (components.length == 0 && (columnWidths == null || columnWidths.length == 0) && (rowHeights == null || rowHeights.length == 0)) {
+    return;
+  }
+  info=getLayoutInfo(parent,PREFERREDSIZE);
+  d=getMinSize(parent,info);
+  if (parent.width < d.width || parent.height < d.height) {
+    info=getLayoutInfo(parent,MINSIZE);
+    d=getMinSize(parent,info);
+  }
+  layoutInfo=info;
+  r.width=d.width;
+  r.height=d.height;
+  diffw=parent.width - r.width;
+  if (diffw != 0) {
+    weight=0.0;
+    for (i=0; i < info.width; i++)     weight+=info.weightX[i];
+    if (weight > 0.0) {
+      for (i=0; i < info.width; i++) {
+        int dx=(int)((((double)diffw) * info.weightX[i]) / weight);
+        info.minWidth[i]+=dx;
+        r.width+=dx;
+        if (info.minWidth[i] < 0) {
+          r.width-=info.minWidth[i];
+          info.minWidth[i]=0;
+        }
+      }
+    }
+    diffw=parent.width - r.width;
+  }
+ else {
+    diffw=0;
+  }
+  diffh=parent.height - r.height;
+  if (diffh != 0) {
+    weight=0.0;
+    for (i=0; i < info.height; i++)     weight+=info.weightY[i];
+    if (weight > 0.0) {
+      for (i=0; i < info.height; i++) {
+        int dy=(int)((((double)diffh) * info.weightY[i]) / weight);
+        info.minHeight[i]+=dy;
+        r.height+=dy;
+        if (info.minHeight[i] < 0) {
+          r.height-=info.minHeight[i];
+          info.minHeight[i]=0;
+        }
+      }
+    }
+    diffh=parent.height - r.height;
+  }
+ else {
+    diffh=0;
+  }
+  info.startx=diffw / 2 + insets.left;
+  info.starty=diffh / 2 + insets.top;
+  for (compindex=0; compindex < components.length; compindex++) {
+    comp=components[compindex];
+    if (!comp.isVisible()) {
+      continue;
+    }
+    constraints=lookupConstraints(comp);
+    if (!rightToLeft) {
+      r.x=info.startx;
+      for (i=0; i < constraints.tempX; i++)       r.x+=info.minWidth[i];
+    }
+ else {
+      r.x=parent.width - (diffw / 2 + insets.right);
+      for (i=0; i < constraints.tempX; i++)       r.x-=info.minWidth[i];
+    }
+    r.y=info.starty;
+    for (i=0; i < constraints.tempY; i++)     r.y+=info.minHeight[i];
+    r.width=0;
+    for (i=constraints.tempX; i < (constraints.tempX + constraints.tempWidth); i++) {
+      r.width+=info.minWidth[i];
+    }
+    r.height=0;
+    for (i=constraints.tempY; i < (constraints.tempY + constraints.tempHeight); i++) {
+      r.height+=info.minHeight[i];
+    }
+    componentAdjusting=comp;
+    adjustForGravity(constraints,r);
+    if (r.x < 0) {
+      r.width+=r.x;
+      r.x=0;
+    }
+    if (r.y < 0) {
+      r.height+=r.y;
+      r.y=0;
+    }
+    if ((r.width <= 0) || (r.height <= 0)) {
+      comp.setBounds(0,0,0,0);
+    }
+ else {
+      if (comp.x != r.x || comp.y != r.y || comp.width != r.width || comp.height != r.height) {
+        comp.setBounds(r.x,r.y,r.width,r.height);
+      }
+    }
+  }
+}

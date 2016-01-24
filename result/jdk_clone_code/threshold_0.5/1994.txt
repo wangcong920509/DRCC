@@ -1,0 +1,11 @@
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
+  return this;
+}
+/** 
+ * @since 1.5
+ */
+public synchronized StringBuffer appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
+  return this;
+}

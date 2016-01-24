@@ -1,0 +1,20 @@
+/** 
+ * Checks if the Relation Service is active. Current condition is that the Relation Service must be registered in the MBean Server
+ * @exception RelationServiceNotRegisteredException  if it is notregistered
+ */
+public void isActive() throws RelationServiceNotRegisteredException {
+  if (myMBeanServer == null) {
+    String excMsg="Relation Service not registered in the MBean Server.";
+    throw new RelationServiceNotRegisteredException(excMsg);
+  }
+  return;
+}
+/** 
+ * Sets the flag to indicate if when a notification is received for the unregistration of an MBean referenced in a relation, if an immediate "purge" of the relations (look for the relations no longer valid) has to be performed , or if that will be performed only when the purgeRelations method will be explicitly called. <P>true is immediate purge.
+ * @param purgeFlag  flag
+ * @see #getPurgeFlag
+ */
+public void setPurgeFlag(boolean purgeFlag){
+  myPurgeFlag=purgeFlag;
+  return;
+}

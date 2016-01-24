@@ -1,0 +1,30 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLScanner.java
+/** 
+ * @param componentManager The component manager.
+ * @throws SAXException Throws exception if required features andproperties cannot be found.
+ */
+public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
+  fParserSettings=componentManager.getFeature(PARSER_SETTINGS,true);
+  if (!fParserSettings) {
+    init();
+    return;
+  }
+  fSymbolTable=(SymbolTable)componentManager.getProperty(SYMBOL_TABLE);
+  fErrorReporter=(XMLErrorReporter)componentManager.getProperty(ERROR_REPORTER);
+  fEntityManager=(XMLEntityManager)componentManager.getProperty(ENTITY_MANAGER);
+  fEntityStore=fEntityManager.getEntityStore();
+  fValidation=componentManager.getFeature(VALIDATION,false);
+  fNamespaces=componentManager.getFeature(NAMESPACES,true);
+  fNotifyCharRefs=componentManager.getFeature(NOTIFY_CHAR_REFS,false);
+  init();
+}
+public void reset(PropertyManager propertyManager){
+  init();
+  fSymbolTable=(SymbolTable)propertyManager.getProperty(Constants.XERCES_PROPERTY_PREFIX + Constants.SYMBOL_TABLE_PROPERTY);
+  fErrorReporter=(XMLErrorReporter)propertyManager.getProperty(Constants.XERCES_PROPERTY_PREFIX + Constants.ERROR_REPORTER_PROPERTY);
+  fEntityManager=(XMLEntityManager)propertyManager.getProperty(ENTITY_MANAGER);
+  fEntityStore=fEntityManager.getEntityStore();
+  fEntityScanner=(XMLEntityScanner)fEntityManager.getEntityScanner();
+  fValidation=false;
+  fNotifyCharRefs=false;
+}

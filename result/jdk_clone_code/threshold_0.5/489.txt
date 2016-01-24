@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#getOutputStream()
+ */
+public OutputStream getOutputStream(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see Serializer#asDOMSerializer()
+ */
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
+}

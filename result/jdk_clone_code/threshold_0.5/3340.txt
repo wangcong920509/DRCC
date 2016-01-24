@@ -1,0 +1,30 @@
+private boolean doesListMatch(int beg,int end,List rdns){
+  for (int i=beg; i < end; i++) {
+    if (!this.rdns.get(i).equals(rdns.get(i - beg))) {
+      return false;
+    }
+  }
+  return true;
+}
+private boolean matches(int beg,int end,Name n){
+  if (n instanceof LdapName) {
+    LdapName ln=(LdapName)n;
+    return doesListMatch(beg,end,ln.rdns);
+  }
+ else {
+    for (int i=beg; i < end; i++) {
+      Rdn rdn;
+      String rdnString=n.get(i - beg);
+      try {
+        rdn=(new Rfc2253Parser(rdnString)).parseRdn();
+      }
+ catch (      InvalidNameException e) {
+        return false;
+      }
+      if (!rdn.equals(rdns.get(i))) {
+        return false;
+      }
+    }
+  }
+  return true;
+}

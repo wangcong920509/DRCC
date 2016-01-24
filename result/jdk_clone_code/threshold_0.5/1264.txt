@@ -1,0 +1,18 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of the element
+ * @param localName Local part of qualified name of the element
+ * @return null
+ */
+public NodeList getElementsByTagNameNS(String namespaceURI,String localName){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @return null
+ */
+public DocumentType getDoctype(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

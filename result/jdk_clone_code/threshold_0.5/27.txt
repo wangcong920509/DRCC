@@ -1,0 +1,8 @@
+public static OMGSystemException get(ORB orb,String logDomain){
+  OMGSystemException wrapper=(OMGSystemException)orb.getLogWrapper(logDomain,"OMG",factory);
+  return wrapper;
+}
+public static OMGSystemException get(String logDomain){
+  OMGSystemException wrapper=(OMGSystemException)ORB.staticGetLogWrapper(logDomain,"OMG",factory);
+  return wrapper;
+}

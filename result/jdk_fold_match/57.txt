@@ -1,0 +1,75 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\dv\xs\XSSimpleTypeDecl.java
+protected XSSimpleTypeDecl(XSSimpleTypeDecl base,String name,short validateDV,short ordered,boolean bounded,boolean finite,boolean numeric,boolean isImmutable,short builtInKind){
+  fIsImmutable=isImmutable;
+  fBase=base;
+  fTypeName=name;
+  fTargetNamespace=URI_SCHEMAFORSCHEMA;
+  fVariety=VARIETY_ATOMIC;
+  fValidationDV=validateDV;
+  fFacetsDefined=FACET_WHITESPACE;
+  if (validateDV == DV_ANYSIMPLETYPE || validateDV == DV_ANYATOMICTYPE || validateDV == DV_STRING) {
+    fWhiteSpace=WS_PRESERVE;
+  }
+ else {
+    fWhiteSpace=WS_COLLAPSE;
+    fFixedFacet=FACET_WHITESPACE;
+  }
+  this.fOrdered=ordered;
+  this.fBounded=bounded;
+  this.fFinite=finite;
+  this.fNumeric=numeric;
+  fAnnotations=null;
+  fBuiltInKind=builtInKind;
+}
+protected XSSimpleTypeDecl(XSSimpleTypeDecl base,String name,String uri,short finalSet,boolean isImmutable,XSObjectList annotations){
+  fBase=base;
+  fTypeName=name;
+  fTargetNamespace=uri;
+  fFinalSet=finalSet;
+  fAnnotations=annotations;
+  fVariety=fBase.fVariety;
+  fValidationDV=fBase.fValidationDV;
+switch (fVariety) {
+case VARIETY_ATOMIC:
+    break;
+case VARIETY_LIST:
+  fItemType=fBase.fItemType;
+break;
+case VARIETY_UNION:
+fMemberTypes=fBase.fMemberTypes;
+break;
+}
+fLength=fBase.fLength;
+fMinLength=fBase.fMinLength;
+fMaxLength=fBase.fMaxLength;
+fPattern=fBase.fPattern;
+fPatternStr=fBase.fPatternStr;
+fEnumeration=fBase.fEnumeration;
+fEnumerationType=fBase.fEnumerationType;
+fEnumerationItemType=fBase.fEnumerationItemType;
+fWhiteSpace=fBase.fWhiteSpace;
+fMaxExclusive=fBase.fMaxExclusive;
+fMaxInclusive=fBase.fMaxInclusive;
+fMinExclusive=fBase.fMinExclusive;
+fMinInclusive=fBase.fMinInclusive;
+fTotalDigits=fBase.fTotalDigits;
+fFractionDigits=fBase.fFractionDigits;
+fPatternType=fBase.fPatternType;
+fFixedFacet=fBase.fFixedFacet;
+fFacetsDefined=fBase.fFacetsDefined;
+lengthAnnotation=fBase.lengthAnnotation;
+minLengthAnnotation=fBase.minLengthAnnotation;
+maxLengthAnnotation=fBase.maxLengthAnnotation;
+patternAnnotations=fBase.patternAnnotations;
+enumerationAnnotations=fBase.enumerationAnnotations;
+whiteSpaceAnnotation=fBase.whiteSpaceAnnotation;
+maxExclusiveAnnotation=fBase.maxExclusiveAnnotation;
+maxInclusiveAnnotation=fBase.maxInclusiveAnnotation;
+minExclusiveAnnotation=fBase.minExclusiveAnnotation;
+minInclusiveAnnotation=fBase.minInclusiveAnnotation;
+totalDigitsAnnotation=fBase.totalDigitsAnnotation;
+fractionDigitsAnnotation=fBase.fractionDigitsAnnotation;
+calcFundamentalFacets();
+fIsImmutable=isImmutable;
+fBuiltInKind=base.fBuiltInKind;
+}

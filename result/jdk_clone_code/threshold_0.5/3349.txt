@@ -1,0 +1,8 @@
+public Context createSubcontext(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.createSubcontext(name);
+}
+public Context createSubcontext(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.createSubcontext(name);
+}

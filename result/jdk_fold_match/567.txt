@@ -1,0 +1,59 @@
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMaximizeButtonPainter.java
+private void paintBackgroundDisabledAndWindowMaximized(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient1(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient2(roundRect));
+  g.fill(roundRect);
+  rect=decodeRect1();
+  g.setPaint(color4);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(color5);
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(color6);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color6);
+  g.fill(rect);
+  rect=decodeRect5();
+  g.setPaint(color7);
+  g.fill(rect);
+  rect=decodeRect6();
+  g.setPaint(color8);
+  g.fill(rect);
+  rect=decodeRect7();
+  g.setPaint(color9);
+  g.fill(rect);
+  rect=decodeRect8();
+  g.setPaint(color7);
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(decodeGradient3(path));
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(color12);
+  g.fill(path);
+}
+private void paintBackgroundPressed(Graphics2D g){
+  roundRect=decodeRoundRect3();
+  g.setPaint(color69);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient8(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient15(roundRect));
+  g.fill(roundRect);
+  rect=decodeRect1();
+  g.setPaint(color4);
+  g.fill(rect);
+  path=decodePath3();
+  g.setPaint(color71);
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(color65);
+  g.fill(path);
+}

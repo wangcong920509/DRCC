@@ -1,0 +1,67 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLDocumentFragmentScannerImpl.java
+/** 
+ * Resets the component. The component can query the component manager about any features and properties that affect the operation of the component.
+ * @param componentManager The component manager.
+ * @throws SAXException Thrown by component on initialization error.For example, if a feature or property is required for the operation of the component, the component manager may throw a SAXNotRecognizedException or a SAXNotSupportedException.
+ */
+public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
+  super.reset(componentManager);
+  fReportCdataEvent=componentManager.getFeature(Constants.STAX_REPORT_CDATA_EVENT,true);
+  fSecurityManager=(SecurityManager)componentManager.getProperty(Constants.SECURITY_MANAGER,null);
+  fElementAttributeLimit=(fSecurityManager != null) ? fSecurityManager.getElementAttrLimit() : 0;
+  fNotifyBuiltInRefs=componentManager.getFeature(NOTIFY_BUILTIN_REFS,false);
+  Object resolver=componentManager.getProperty(ENTITY_RESOLVER,null);
+  fExternalSubsetResolver=(resolver instanceof ExternalSubsetResolver) ? (ExternalSubsetResolver)resolver : null;
+  fMarkupDepth=0;
+  fCurrentElement=null;
+  fElementStack.clear();
+  fHasExternalDTD=false;
+  fStandaloneSet=false;
+  fStandalone=false;
+  fInScanContent=false;
+  fShouldSkip=false;
+  fAdd=false;
+  fSkip=false;
+  fReadingAttributes=false;
+  fSupportExternalEntities=true;
+  fSupportExternalEntities=true;
+  fSupportExternalEntities=true;
+  fSupportExternalEntities=true;
+  fReplaceEntityReferences=true;
+  fIsCoalesce=false;
+  setScannerState(SCANNER_STATE_CONTENT);
+  setDriver(fContentDriver);
+  fEntityStore=fEntityManager.getEntityStore();
+  dtdGrammarUtil=null;
+  XMLSecurityPropertyManager spm=(XMLSecurityPropertyManager)componentManager.getProperty(XML_SECURITY_PROPERTY_MANAGER,null);
+  fAccessExternalDTD=spm.getValue(XMLSecurityPropertyManager.Property.ACCESS_EXTERNAL_DTD);
+  fStrictURI=componentManager.getFeature(STANDARD_URI_CONFORMANT,false);
+}
+public void reset(PropertyManager propertyManager){
+  super.reset(propertyManager);
+  fNamespaces=((Boolean)propertyManager.getProperty(XMLInputFactory.IS_NAMESPACE_AWARE)).booleanValue();
+  fNotifyBuiltInRefs=false;
+  fMarkupDepth=0;
+  fCurrentElement=null;
+  fShouldSkip=false;
+  fAdd=false;
+  fSkip=false;
+  fElementStack.clear();
+  fHasExternalDTD=false;
+  fStandaloneSet=false;
+  fStandalone=false;
+  Boolean bo=(Boolean)propertyManager.getProperty(XMLInputFactoryImpl.IS_REPLACING_ENTITY_REFERENCES);
+  fReplaceEntityReferences=bo.booleanValue();
+  bo=(Boolean)propertyManager.getProperty(XMLInputFactoryImpl.IS_SUPPORTING_EXTERNAL_ENTITIES);
+  fSupportExternalEntities=bo.booleanValue();
+  Boolean cdata=(Boolean)propertyManager.getProperty(Constants.ZEPHYR_PROPERTY_PREFIX + Constants.STAX_REPORT_CDATA_EVENT);
+  if (cdata != null)   fReportCdataEvent=cdata.booleanValue();
+  Boolean coalesce=(Boolean)propertyManager.getProperty(XMLInputFactory.IS_COALESCING);
+  if (coalesce != null)   fIsCoalesce=coalesce.booleanValue();
+  fReportCdataEvent=fIsCoalesce ? false : (fReportCdataEvent && true);
+  fReplaceEntityReferences=fIsCoalesce ? true : fReplaceEntityReferences;
+  fEntityStore=fEntityManager.getEntityStore();
+  dtdGrammarUtil=null;
+  XMLSecurityPropertyManager spm=(XMLSecurityPropertyManager)propertyManager.getProperty(XML_SECURITY_PROPERTY_MANAGER);
+  fAccessExternalDTD=spm.getValue(XMLSecurityPropertyManager.Property.ACCESS_EXTERNAL_DTD);
+}

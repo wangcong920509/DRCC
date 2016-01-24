@@ -1,0 +1,8 @@
+static void putChar(byte[] b,int off,char val){
+  b[off + 1]=(byte)(val);
+  b[off]=(byte)(val >>> 8);
+}
+static void putShort(byte[] b,int off,short val){
+  b[off + 1]=(byte)(val);
+  b[off]=(byte)(val >>> 8);
+}

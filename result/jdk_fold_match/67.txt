@@ -1,0 +1,91 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\xpath\regex\RangeToken.java
+protected void mergeRanges(Token token){
+  RangeToken tok=(RangeToken)token;
+  this.sortRanges();
+  tok.sortRanges();
+  if (tok.ranges == null)   return;
+  this.icaseCache=null;
+  this.setSorted(true);
+  if (this.ranges == null) {
+    this.ranges=new int[tok.ranges.length];
+    System.arraycopy(tok.ranges,0,this.ranges,0,tok.ranges.length);
+    return;
+  }
+  int[] result=new int[this.ranges.length + tok.ranges.length];
+  for (int i=0, j=0, k=0; i < this.ranges.length || j < tok.ranges.length; ) {
+    if (i >= this.ranges.length) {
+      result[k++]=tok.ranges[j++];
+      result[k++]=tok.ranges[j++];
+    }
+ else     if (j >= tok.ranges.length) {
+      result[k++]=this.ranges[i++];
+      result[k++]=this.ranges[i++];
+    }
+ else     if (tok.ranges[j] < this.ranges[i] || tok.ranges[j] == this.ranges[i] && tok.ranges[j + 1] < this.ranges[i + 1]) {
+      result[k++]=tok.ranges[j++];
+      result[k++]=tok.ranges[j++];
+    }
+ else {
+      result[k++]=this.ranges[i++];
+      result[k++]=this.ranges[i++];
+    }
+  }
+  this.ranges=result;
+}
+protected void subtractRanges(Token token){
+  if (token.type == NRANGE) {
+    this.intersectRanges(token);
+    return;
+  }
+  RangeToken tok=(RangeToken)token;
+  if (tok.ranges == null || this.ranges == null)   return;
+  this.icaseCache=null;
+  this.sortRanges();
+  this.compactRanges();
+  tok.sortRanges();
+  tok.compactRanges();
+  int[] result=new int[this.ranges.length + tok.ranges.length];
+  int wp=0, src=0, sub=0;
+  while (src < this.ranges.length && sub < tok.ranges.length) {
+    int srcbegin=this.ranges[src];
+    int srcend=this.ranges[src + 1];
+    int subbegin=tok.ranges[sub];
+    int subend=tok.ranges[sub + 1];
+    if (srcend < subbegin) {
+      result[wp++]=this.ranges[src++];
+      result[wp++]=this.ranges[src++];
+    }
+ else     if (srcend >= subbegin && srcbegin <= subend) {
+      if (subbegin <= srcbegin && srcend <= subend) {
+        src+=2;
+      }
+ else       if (subbegin <= srcbegin) {
+        this.ranges[src]=subend + 1;
+        sub+=2;
+      }
+ else       if (srcend <= subend) {
+        result[wp++]=srcbegin;
+        result[wp++]=subbegin - 1;
+        src+=2;
+      }
+ else {
+        result[wp++]=srcbegin;
+        result[wp++]=subbegin - 1;
+        this.ranges[src]=subend + 1;
+        sub+=2;
+      }
+    }
+ else     if (subend < srcbegin) {
+      sub+=2;
+    }
+ else {
+      throw new RuntimeException("Token#subtractRanges(): Internal Error: [" + this.ranges[src] + ","+ this.ranges[src + 1]+ "] - ["+ tok.ranges[sub]+ ","+ tok.ranges[sub + 1]+ "]");
+    }
+  }
+  while (src < this.ranges.length) {
+    result[wp++]=this.ranges[src++];
+    result[wp++]=this.ranges[src++];
+  }
+  this.ranges=new int[wp];
+  System.arraycopy(result,0,this.ranges,0,wp);
+}

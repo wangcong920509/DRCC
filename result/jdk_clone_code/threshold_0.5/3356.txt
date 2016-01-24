@@ -1,0 +1,22 @@
+/** 
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
+ */
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
+}
+/** 
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
+ */
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
+  }
+  return null;
+}

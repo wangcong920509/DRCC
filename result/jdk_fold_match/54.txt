@@ -1,0 +1,18 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\trax\SAX2StAXEventWriter.java
+public void startDocument() throws SAXException {
+  super.startDocument();
+  namespaceStack.clear();
+  eventFactory.setLocation(getCurrentLocation());
+  needToCallStartDocument=true;
+}
+public void endDocument() throws SAXException {
+  eventFactory.setLocation(getCurrentLocation());
+  try {
+    writer.add(eventFactory.createEndDocument());
+  }
+ catch (  XMLStreamException e) {
+    throw new SAXException(e);
+  }
+  super.endDocument();
+  namespaceStack.clear();
+}

@@ -1,0 +1,8 @@
+public ShortBuffer put(short x){
+  unsafe.putShort(ix(nextPutIndex()),Bits.swap((x)));
+  return this;
+}
+public ShortBuffer put(int i,short x){
+  unsafe.putShort(ix(checkIndex(i)),Bits.swap((x)));
+  return this;
+}

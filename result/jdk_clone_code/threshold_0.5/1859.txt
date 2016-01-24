@@ -1,0 +1,18 @@
+/** 
+ * Cast result object to a nodelist. Always issues an error.
+ * @return null
+ * @throws javax.xml.transform.TransformerException
+ */
+public NodeIterator nodeset() throws javax.xml.transform.TransformerException {
+  error(XPATHErrorResources.ER_CANT_CONVERT_TO_NODELIST,new Object[]{getTypeString()});
+  return null;
+}
+/** 
+ * Cast result object to a nodelist. Always issues an error.
+ * @return null
+ * @throws javax.xml.transform.TransformerException
+ */
+public NodeList nodelist() throws javax.xml.transform.TransformerException {
+  error(XPATHErrorResources.ER_CANT_CONVERT_TO_NODELIST,new Object[]{getTypeString()});
+  return null;
+}

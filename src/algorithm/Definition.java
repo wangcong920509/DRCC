@@ -6,6 +6,9 @@
  */
 package algorithm;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
@@ -21,8 +24,9 @@ public class Definition {
 	
 	private String srcName = "";
 	private int number = 1;
-	private double threshold = 0.7;
+	public double threshold = 0.6;
 	private static CountNodes mVisit = new CountNodes();
+	private final static String BASIC_ADDR = "result\\jdk_fold_match\\";
 	
 	// Method setSrcName : set the name of the source file
 	public void setSrcName(String str){
@@ -120,7 +124,7 @@ public class Definition {
 		if(bc.list.size() != 0)
 			same = bc.bestChoice(0);
 		if(!mFlag){
-			System.out.println("[" + number + ":" + srcName + "]" + md1.getName().toString() + "-" + md2.getName().toString() + ":" + same / total);
+			writeToFile(BASIC_ADDR + number + ".txt", srcName + "\n" + md1.toString() + md2.toString());
 			number += 1;
 		}
 		return same / total > threshold;
@@ -164,5 +168,21 @@ public class Definition {
 		if(bc.list.size() != 0)
 			same = bc.bestChoice(0);
 		return same / total > threshold;
+	}
+	
+	/* Method writeToFile : write the content to the file
+	 * fileName : name of the file
+	 * content : a String written to file
+	 */
+	public void writeToFile(String fileName, String content) {
+		Writer writer;
+		try {
+			writer = new FileWriter(fileName);
+			writer.write(content);  
+	        writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
 	}
 }

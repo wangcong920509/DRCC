@@ -1,0 +1,46 @@
+/** 
+ * Returns the start index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
+ */
+public final int getParenStart(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return start0;
+case 1:
+    return start1;
+case 2:
+  return start2;
+default :
+if (startn == null) {
+  allocParens();
+}
+return startn[which];
+}
+}
+return -1;
+}
+/** 
+ * Returns the end index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
+ */
+public final int getParenEnd(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return end0;
+case 1:
+    return end1;
+case 2:
+  return end2;
+default :
+if (endn == null) {
+  allocParens();
+}
+return endn[which];
+}
+}
+return -1;
+}

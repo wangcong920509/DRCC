@@ -1,0 +1,20 @@
+/** 
+ * Returns true if there are some marker associated with component <code>comp</code> in a markers' queue
+ * @since 1.5
+ */
+private boolean hasMarker(Component comp){
+  for (Iterator iter=typeAheadMarkers.iterator(); iter.hasNext(); ) {
+    if (((TypeAheadMarker)iter.next()).untilFocused == comp) {
+      return true;
+    }
+  }
+  return false;
+}
+private boolean consumeProcessedKeyEvent(KeyEvent e){
+  if ((e.getID() == KeyEvent.KEY_TYPED) && consumeNextKeyTyped) {
+    e.consume();
+    consumeNextKeyTyped=false;
+    return true;
+  }
+  return false;
+}

@@ -1,0 +1,18 @@
+/** 
+ * Customization hook: Get the description that will be used in the MBeanInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom MBean description.  The default implementation returns {@link MBeanInfo#getDescription() info.getDescription()}.
+ * @param info The default MBeanInfo derived by reflection.
+ * @return the description for the new MBeanInfo.
+ */
+protected String getDescription(MBeanInfo info){
+  if (info == null)   return null;
+  return info.getDescription();
+}
+/** 
+ * <p>Customization hook: Get the description that will be used in the MBeanFeatureInfo returned by this MBean.</p> <p>Subclasses may redefine this method in order to supply their custom description.  The default implementation returns {@link MBeanFeatureInfo#getDescription() info.getDescription()}.</p> <p>This method is called by {@link #getDescription(MBeanAttributeInfo)}, {@link #getDescription(MBeanOperationInfo)}, {@link #getDescription(MBeanConstructorInfo)}.</p>
+ * @param info The default MBeanFeatureInfo derived by reflection.
+ * @return the description for the given MBeanFeatureInfo.
+ */
+protected String getDescription(MBeanFeatureInfo info){
+  if (info == null)   return null;
+  return info.getDescription();
+}

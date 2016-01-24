@@ -1,0 +1,14 @@
+/** 
+ * Translates an object of this type to the external (Java) type denoted by <code>clazz</code>. This method is used to translate parameters when external functions are called.
+ */
+public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),clazz.getClass().toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
+}
+/** 
+ * Translates an object of this type to its unboxed representation.
+ */
+public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
+}

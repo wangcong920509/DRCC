@@ -1,0 +1,8 @@
+public Object lookupLink(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.lookupLink(name);
+}
+public Object lookupLink(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  return ctx.lookupLink(name);
+}

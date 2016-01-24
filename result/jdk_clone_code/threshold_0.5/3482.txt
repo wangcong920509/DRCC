@@ -1,0 +1,19 @@
+/** 
+ * Adds the specified component to the end of this list.
+ * @param element   the component to be added
+ * @see Vector#addElement(Object)
+ */
+public void addElement(E element){
+  int index=delegate.size();
+  delegate.addElement(element);
+  fireIntervalAdded(this,index,index);
+}
+/** 
+ * Inserts the specified element at the specified position in this list. <p> Throws an <code>ArrayIndexOutOfBoundsException</code> if the index is out of range (<code>index &lt; 0 || index &gt; size()</code>).
+ * @param index index at which the specified element is to be inserted
+ * @param element element to be inserted
+ */
+public void add(int index,E element){
+  delegate.insertElementAt(element,index);
+  fireIntervalAdded(this,index,index);
+}

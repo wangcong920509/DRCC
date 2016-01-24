@@ -1,0 +1,69 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\xpath\regex\RegexParser.java
+Token processNegativelookbehind() throws ParseException {
+  this.next();
+  Token tok=Token.createLook(Token.NEGATIVELOOKBEHIND,this.parseRegex());
+  if (this.read() != T_RPAREN)   throw ex("parser.factor.1",this.offset - 1);
+  this.next();
+  return tok;
+}
+Token processCondition() throws ParseException {
+  if (this.offset + 1 >= this.regexlen)   throw ex("parser.factor.4",this.offset);
+  int refno=-1;
+  Token condition=null;
+  int ch=this.regex.charAt(this.offset);
+  if ('1' <= ch && ch <= '9') {
+    refno=ch - '0';
+    int finalRefno=refno;
+    if (this.parennumber <= refno)     throw ex("parser.parse.2",this.offset);
+    while (this.offset + 1 < this.regexlen) {
+      ch=this.regex.charAt(this.offset + 1);
+      if ('1' <= ch && ch <= '9') {
+        refno=(refno * 10) + (ch - '0');
+        if (refno < this.parennumber) {
+          finalRefno=refno;
+          ++this.offset;
+        }
+ else {
+          break;
+        }
+      }
+ else {
+        break;
+      }
+    }
+    this.hasBackReferences=true;
+    if (this.references == null)     this.references=new Vector();
+    this.references.addElement(new ReferencePosition(finalRefno,this.offset));
+    this.offset++;
+    if (this.regex.charAt(this.offset) != ')')     throw ex("parser.factor.1",this.offset);
+    this.offset++;
+  }
+ else {
+    if (ch == '?')     this.offset--;
+    this.next();
+    condition=this.parseFactor();
+switch (condition.type) {
+case Token.LOOKAHEAD:
+case Token.NEGATIVELOOKAHEAD:
+case Token.LOOKBEHIND:
+case Token.NEGATIVELOOKBEHIND:
+      break;
+case Token.ANCHOR:
+    if (this.read() != T_RPAREN)     throw ex("parser.factor.1",this.offset - 1);
+  break;
+default :
+throw ex("parser.factor.5",this.offset);
+}
+}
+this.next();
+Token yesPattern=this.parseRegex();
+Token noPattern=null;
+if (yesPattern.type == Token.UNION) {
+if (yesPattern.size() != 2) throw ex("parser.factor.6",this.offset);
+noPattern=yesPattern.getChild(1);
+yesPattern=yesPattern.getChild(0);
+}
+if (this.read() != T_RPAREN) throw ex("parser.factor.1",this.offset - 1);
+this.next();
+return Token.createCondition(refno,condition,yesPattern,noPattern);
+}

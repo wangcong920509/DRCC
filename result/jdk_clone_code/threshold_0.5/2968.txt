@@ -1,0 +1,8 @@
+public ByteBuffer putInt(int i,int x){
+  Bits.putInt(this,ix(checkIndex(i,4)),x,bigEndian);
+  return this;
+}
+public ByteBuffer putLong(long x){
+  Bits.putLong(this,ix(nextPutIndex(8)),x,bigEndian);
+  return this;
+}

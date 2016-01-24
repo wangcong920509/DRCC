@@ -1,0 +1,8 @@
+public void bind(Name name,Object newObj) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.bind(name,newObj);
+}
+public void bind(String name,Object newObj) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.bind(name,newObj);
+}

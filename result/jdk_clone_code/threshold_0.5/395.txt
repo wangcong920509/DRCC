@@ -1,0 +1,16 @@
+/** 
+ * Constructor KeyInfo
+ * @param doc
+ */
+public KeyInfo(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method addPGPData
+ * @param pgpdata
+ */
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

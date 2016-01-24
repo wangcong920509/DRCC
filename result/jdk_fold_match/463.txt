@@ -1,0 +1,65 @@
+jdk_src\javax\swing\plaf\nimbus\FileChooserPainter.java
+private void paintupFolderIconEnabled(Graphics2D g){
+  path=decodePath12();
+  g.setPaint(decodeGradient7(path));
+  g.fill(path);
+  path=decodePath13();
+  g.setPaint(decodeGradient8(path));
+  g.fill(path);
+  path=decodePath14();
+  g.setPaint(decodeGradient9(path));
+  g.fill(path);
+  path=decodePath15();
+  g.setPaint(decodeGradient10(path));
+  g.fill(path);
+  path=decodePath16();
+  g.setPaint(color32);
+  g.fill(path);
+  path=decodePath17();
+  g.setPaint(decodeGradient11(path));
+  g.fill(path);
+  path=decodePath18();
+  g.setPaint(color35);
+  g.fill(path);
+  path=decodePath19();
+  g.setPaint(decodeGradient12(path));
+  g.fill(path);
+}
+private void paintnewFolderIconEnabled(Graphics2D g){
+  path=decodePath6();
+  g.setPaint(color10);
+  g.fill(path);
+  path=decodePath7();
+  g.setPaint(decodeGradient3(path));
+  g.fill(path);
+  path=decodePath8();
+  g.setPaint(decodeGradient4(path));
+  g.fill(path);
+  rect=decodeRect3();
+  g.setPaint(color16);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color17);
+  g.fill(rect);
+  rect=decodeRect5();
+  g.setPaint(color18);
+  g.fill(rect);
+  path=decodePath9();
+  g.setPaint(decodeGradient5(path));
+  g.fill(path);
+  path=decodePath10();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath11();
+  g.setPaint(color24);
+  g.fill(path);
+  path=decodePath20();
+  g.setPaint(color38);
+  g.fill(path);
+  path=decodePath21();
+  g.setPaint(color39);
+  g.fill(path);
+  path=decodePath22();
+  g.setPaint(decodeRadial1(path));
+  g.fill(path);
+}

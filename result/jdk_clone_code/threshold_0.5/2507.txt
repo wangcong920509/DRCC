@@ -1,0 +1,8 @@
+public ShortBuffer put(short x){
+  Bits.putShortB(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public ShortBuffer put(int i,short x){
+  Bits.putShortB(bb,ix(checkIndex(i)),x);
+  return this;
+}

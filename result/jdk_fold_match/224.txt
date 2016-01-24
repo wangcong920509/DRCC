@@ -1,0 +1,32 @@
+jdk_src\javax\swing\plaf\metal\MetalFileChooserUI.java
+private void doDirectoryChanged(PropertyChangeEvent e){
+  JFileChooser fc=getFileChooser();
+  FileSystemView fsv=fc.getFileSystemView();
+  clearIconCache();
+  File currentDirectory=fc.getCurrentDirectory();
+  if (currentDirectory != null) {
+    directoryComboBoxModel.addItem(currentDirectory);
+    if (fc.isDirectorySelectionEnabled() && !fc.isFileSelectionEnabled()) {
+      if (fsv.isFileSystem(currentDirectory)) {
+        setFileName(currentDirectory.getPath());
+      }
+ else {
+        setFileName(null);
+      }
+    }
+  }
+}
+private void doFileSelectionModeChanged(PropertyChangeEvent e){
+  if (fileNameLabel != null) {
+    populateFileNameLabel();
+  }
+  clearIconCache();
+  JFileChooser fc=getFileChooser();
+  File currentDirectory=fc.getCurrentDirectory();
+  if (currentDirectory != null && fc.isDirectorySelectionEnabled() && !fc.isFileSelectionEnabled() && fc.getFileSystemView().isFileSystem(currentDirectory)) {
+    setFileName(currentDirectory.getPath());
+  }
+ else {
+    setFileName(null);
+  }
+}

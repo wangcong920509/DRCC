@@ -1,0 +1,14 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public String extract_string(){
+  checkExtractBadOperation(TCKind._tk_string);
+  return (String)object;
+}
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public String extract_wstring(){
+  checkExtractBadOperation(TCKind._tk_wstring);
+  return (String)object;
+}

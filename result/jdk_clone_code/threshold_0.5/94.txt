@@ -1,0 +1,14 @@
+/** 
+ * Constructs a CommunicationException with a target exception.
+ */
+public CommunicationException(Throwable target){
+  super(target.getMessage());
+  initCause(target);
+}
+/** 
+ * Constructs a CommunicationException with a target exception and a detail message.
+ */
+public CommunicationException(Throwable target,String msg){
+  super(msg);
+  initCause(target);
+}

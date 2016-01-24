@@ -1,0 +1,14 @@
+/** 
+ * register one global attribute
+ */
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}
+/** 
+ * register one global group
+ */
+public void addGlobalGroupDecl(XSGroupDecl decl){
+  fGlobalGroupDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}

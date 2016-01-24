@@ -1,0 +1,106 @@
+jdk_src\com\sun\java\swing\plaf\gtk\GTKPainter.java
+public void paintSeparatorBackground(SynthContext context,Graphics g,int x,int y,int w,int h,int orientation){
+  Region id=context.getRegion();
+  int state=context.getComponentState();
+  JComponent c=context.getComponent();
+  String detail;
+  if (c instanceof JToolBar.Separator) {
+    detail="toolbar";
+    float pct=0.2f;
+    JToolBar.Separator sep=(JToolBar.Separator)c;
+    Dimension size=sep.getSeparatorSize();
+    GTKStyle style=(GTKStyle)context.getStyle();
+    if (orientation == JSeparator.HORIZONTAL) {
+      x+=(int)(w * pct);
+      w-=(int)(w * pct * 2);
+      y+=(size.height - style.getYThickness()) / 2;
+    }
+ else {
+      y+=(int)(h * pct);
+      h-=(int)(h * pct * 2);
+      x+=(size.width - style.getXThickness()) / 2;
+    }
+  }
+ else {
+    detail="separator";
+    Insets insets=c.getInsets();
+    x+=insets.left;
+    y+=insets.top;
+    if (orientation == JSeparator.HORIZONTAL) {
+      w-=(insets.left + insets.right);
+    }
+ else {
+      h-=(insets.top + insets.bottom);
+    }
+  }
+synchronized (UNIXToolkit.GTK_LOCK) {
+    if (!ENGINE.paintCachedImage(g,x,y,w,h,id,state,detail,orientation)) {
+      ENGINE.startPainting(g,x,y,w,h,id,state,detail,orientation);
+      if (orientation == JSeparator.HORIZONTAL) {
+        ENGINE.paintHline(g,context,id,state,detail,x,y,w,h);
+      }
+ else {
+        ENGINE.paintVline(g,context,id,state,detail,x,y,w,h);
+      }
+      ENGINE.finishPainting();
+    }
+  }
+}
+private void paintTextBackground(SynthContext context,Graphics g,int x,int y,int w,int h){
+  JComponent c=context.getComponent();
+  Container container=c.getParent();
+  Container containerParent=null;
+  GTKStyle style=(GTKStyle)context.getStyle();
+  Region id=context.getRegion();
+  int state=context.getComponentState();
+  if (c instanceof ListCellRenderer && container != null) {
+    containerParent=container.getParent();
+    if (containerParent instanceof JComboBox && containerParent.hasFocus()) {
+      state|=SynthConstants.FOCUSED;
+    }
+  }
+synchronized (UNIXToolkit.GTK_LOCK) {
+    if (ENGINE.paintCachedImage(g,x,y,w,h,id,state)) {
+      return;
+    }
+    int gtkState=GTKLookAndFeel.synthStateToGTKState(id,state);
+    int focusSize=0;
+    boolean interiorFocus=style.getClassSpecificBoolValue(context,"interior-focus",true);
+    focusSize=style.getClassSpecificIntValue(context,"focus-line-width",1);
+    if (!interiorFocus && (state & SynthConstants.FOCUSED) != 0) {
+      x+=focusSize;
+      y+=focusSize;
+      w-=2 * focusSize;
+      h-=2 * focusSize;
+    }
+    int xThickness=style.getXThickness();
+    int yThickness=style.getYThickness();
+    ENGINE.startPainting(g,x,y,w,h,id,state);
+    ENGINE.paintShadow(g,context,id,gtkState,ShadowType.IN,"entry",x,y,w,h);
+    ENGINE.paintFlatBox(g,context,id,gtkState,ShadowType.NONE,"entry_bg",x + xThickness,y + yThickness,w - (2 * xThickness),h - (2 * yThickness),ColorType.TEXT_BACKGROUND);
+    if (focusSize > 0 && (state & SynthConstants.FOCUSED) != 0) {
+      if (!interiorFocus) {
+        x-=focusSize;
+        y-=focusSize;
+        w+=2 * focusSize;
+        h+=2 * focusSize;
+      }
+ else {
+        if (containerParent instanceof JComboBox) {
+          x+=(focusSize + 2);
+          y+=(focusSize + 1);
+          w-=(2 * focusSize + 1);
+          h-=(2 * focusSize + 2);
+        }
+ else {
+          x+=focusSize;
+          y+=focusSize;
+          w-=2 * focusSize;
+          h-=2 * focusSize;
+        }
+      }
+      ENGINE.paintFocus(g,context,id,gtkState,"entry",x,y,w,h);
+    }
+    ENGINE.finishPainting();
+  }
+}

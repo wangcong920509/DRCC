@@ -1,0 +1,42 @@
+private Operation makeIIOPPrimaryToContactInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iiopPrimaryToContactInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IIOPPrimaryToContactInfo.class.isAssignableFrom(iiopPrimaryToContactInfoClass)) {
+          return iiopPrimaryToContactInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIiopPrimaryToContactInfoType(iiopPrimaryToContactInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIiopPrimaryToContactInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}
+private Operation makeContactInfoListFactoryOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> contactInfoListFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (CorbaContactInfoListFactory.class.isAssignableFrom(contactInfoListFactoryClass)) {
+          return contactInfoListFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalContactInfoListFactoryType(contactInfoListFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badContactInfoListFactory(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}

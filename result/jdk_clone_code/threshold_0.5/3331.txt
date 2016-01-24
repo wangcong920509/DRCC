@@ -1,0 +1,20 @@
+/** 
+ * Creates a compound name whose components consist of a prefix of the components in this compound name. The result and this compound name share the same syntax. Subsequent changes to this compound name does not affect the name that is returned and vice versa.
+ * @param posn    The 0-based index of the component at which to stop.Must be in the range [0,size()].
+ * @return A compound name consisting of the components at indexes inthe range [0,posn).
+ * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ */
+public Name getPrefix(int posn){
+  Enumeration comps=impl.getPrefix(posn);
+  return (new CompoundName(comps,mySyntax));
+}
+/** 
+ * Creates a compound name whose components consist of a suffix of the components in this compound name. The result and this compound name share the same syntax. Subsequent changes to this compound name does not affect the name that is returned.
+ * @param posn    The 0-based index of the component at which to start.Must be in the range [0,size()].
+ * @return A compound name consisting of the components at indexes inthe range [posn,size()).  If posn is equal to size(), an empty compound name is returned.
+ * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ */
+public Name getSuffix(int posn){
+  Enumeration comps=impl.getSuffix(posn);
+  return (new CompoundName(comps,mySyntax));
+}

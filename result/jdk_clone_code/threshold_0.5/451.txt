@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#asContentHandler()
+ */
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
+  return null;
+}
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
+}

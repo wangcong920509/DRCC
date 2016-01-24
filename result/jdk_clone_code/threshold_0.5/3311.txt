@@ -1,0 +1,36 @@
+/** 
+ * Constructor.
+ * @param roleName  name of the role.
+ * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}.
+ * @param read  flag to indicate if the corresponding rolecan be read
+ * @param write  flag to indicate if the corresponding rolecan be set
+ * @param min  minimum degree for role, i.e. minimum number ofMBeans to provide in corresponding role Must be less than or equal to <tt>max</tt>. (ROLE_CARDINALITY_INFINITY for unlimited)
+ * @param max  maximum degree for role, i.e. maximum number ofMBeans to provide in corresponding role Must be greater than or equal to <tt>min</tt> (ROLE_CARDINALITY_INFINITY for unlimited)
+ * @param descr  description of the role (can be null)
+ * @exception IllegalArgumentException  if null parameter
+ * @exception InvalidRoleInfoException  if the minimum degree isgreater than the maximum degree.
+ * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ * @exception NotCompliantMBeanException  if the class mbeanClassNameis not a MBean class.
+ */
+public RoleInfo(String roleName,String mbeanClassName,boolean read,boolean write,int min,int max,String descr) throws IllegalArgumentException, InvalidRoleInfoException, ClassNotFoundException, NotCompliantMBeanException {
+  init(roleName,mbeanClassName,read,write,min,max,descr);
+  return;
+}
+/** 
+ * Constructor.
+ * @param roleName  name of the role
+ * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}.
+ * @param read  flag to indicate if the corresponding rolecan be read
+ * @param write  flag to indicate if the corresponding rolecan be set <P>Minimum and maximum degrees defaulted to 1. <P>Description of role defaulted to null.
+ * @exception IllegalArgumentException  if null parameter
+ * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ * @exception NotCompliantMBeanException As of JMX 1.2, thisexception can no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ */
+public RoleInfo(String roleName,String mbeanClassName,boolean read,boolean write) throws IllegalArgumentException, ClassNotFoundException, NotCompliantMBeanException {
+  try {
+    init(roleName,mbeanClassName,read,write,1,1,null);
+  }
+ catch (  InvalidRoleInfoException exc) {
+  }
+  return;
+}

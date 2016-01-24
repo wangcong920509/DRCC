@@ -1,0 +1,8 @@
+public BadServerDefinition(String _reason){
+  super(BadServerDefinitionHelper.id());
+  reason=_reason;
+}
+public BadServerDefinition(String $reason,String _reason){
+  super(BadServerDefinitionHelper.id() + "  " + $reason);
+  reason=_reason;
+}

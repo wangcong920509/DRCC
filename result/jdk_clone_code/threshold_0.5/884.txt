@@ -1,0 +1,16 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public Node getNextSibling(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
+ */
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

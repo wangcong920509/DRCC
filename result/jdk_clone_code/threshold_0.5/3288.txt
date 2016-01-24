@@ -1,0 +1,28 @@
+/** 
+ * Returns <code>true</code> if the writer supports the insertion of a new image at the given index.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support any image insertion may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> withour checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index at which the image is to beinserted.
+ * @return <code>true</code> if an image may be inserted at thegiven index.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
+ */
+public boolean canInsertImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}
+/** 
+ * Returns <code>true</code> if the writer supports the removal of an existing image at the given index.  Existing images with indices greater than the insertion index will have their indices decreased by 1. <p> A writer that does not support any image removal may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image to be removed.
+ * @return <code>true</code> if it is possible to remove the givenimage.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage removal in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during thequery.
+ */
+public boolean canRemoveImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}

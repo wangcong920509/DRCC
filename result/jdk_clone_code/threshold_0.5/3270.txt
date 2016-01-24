@@ -1,0 +1,17 @@
+/** 
+ * Advance the cursor by one, and peek the next character, ignoring the COMMENTS setting
+ */
+private int nextEscaped(){
+  int ch=temp[++cursor];
+  return ch;
+}
+/** 
+ * If in xmode parse past whitespace and comments.
+ */
+private int parsePastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[cursor++];
+    if (ch == '#')     ch=parsePastLine();
+  }
+  return ch;
+}

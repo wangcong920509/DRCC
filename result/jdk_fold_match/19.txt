@@ -1,0 +1,43 @@
+jdk_src\com\sun\java\swing\plaf\gtk\GTKPainter.java
+public void paintTabbedPaneContentBackground(SynthContext context,Graphics g,int x,int y,int w,int h){
+  JTabbedPane pane=(JTabbedPane)context.getComponent();
+  int selectedIndex=pane.getSelectedIndex();
+  PositionType placement=GTKLookAndFeel.SwingOrientationConstantToGTK(pane.getTabPlacement());
+  int gapStart=0;
+  int gapSize=0;
+  if (selectedIndex != -1) {
+    Rectangle tabBounds=pane.getBoundsAt(selectedIndex);
+    if (placement == PositionType.TOP || placement == PositionType.BOTTOM) {
+      gapStart=tabBounds.x - x;
+      gapSize=tabBounds.width;
+    }
+ else {
+      gapStart=tabBounds.y - y;
+      gapSize=tabBounds.height;
+    }
+  }
+  Region id=context.getRegion();
+  int gtkState=GTKLookAndFeel.synthStateToGTKState(id,context.getComponentState());
+synchronized (UNIXToolkit.GTK_LOCK) {
+    if (!ENGINE.paintCachedImage(g,x,y,w,h,id,gtkState,placement,gapStart,gapSize)) {
+      ENGINE.startPainting(g,x,y,w,h,id,gtkState,placement,gapStart,gapSize);
+      ENGINE.paintBoxGap(g,context,id,gtkState,ShadowType.OUT,"notebook",x,y,w,h,placement,gapStart,gapSize);
+      ENGINE.finishPainting();
+    }
+  }
+}
+public void paintTabbedPaneTabBackground(SynthContext context,Graphics g,int x,int y,int w,int h,int tabIndex){
+  Region id=context.getRegion();
+  int state=context.getComponentState();
+  int gtkState=((state & SynthConstants.SELECTED) != 0 ? SynthConstants.ENABLED : SynthConstants.PRESSED);
+  JTabbedPane pane=(JTabbedPane)context.getComponent();
+  int placement=pane.getTabPlacement();
+synchronized (UNIXToolkit.GTK_LOCK) {
+    if (!ENGINE.paintCachedImage(g,x,y,w,h,id,gtkState,placement,tabIndex)) {
+      PositionType side=POSITIONS[placement - 1];
+      ENGINE.startPainting(g,x,y,w,h,id,gtkState,placement,tabIndex);
+      ENGINE.paintExtension(g,context,id,gtkState,ShadowType.OUT,"tab",x,y,w,h,side,tabIndex);
+      ENGINE.finishPainting();
+    }
+  }
+}

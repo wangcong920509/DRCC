@@ -1,0 +1,14 @@
+/** 
+ * @return Code attribute of method, if any
+ */
+public final Code getCode(){
+  for (int i=0; i < attributes_count; i++)   if (attributes[i] instanceof Code)   return (Code)attributes[i];
+  return null;
+}
+/** 
+ * @return ExceptionTable attribute of method, if any, i.e., list allexceptions the method may throw not exception handlers!
+ */
+public final ExceptionTable getExceptionTable(){
+  for (int i=0; i < attributes_count; i++)   if (attributes[i] instanceof ExceptionTable)   return (ExceptionTable)attributes[i];
+  return null;
+}

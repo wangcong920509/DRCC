@@ -1,0 +1,18 @@
+/** 
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
+ */
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
+}
+/** 
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
+ */
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
+}

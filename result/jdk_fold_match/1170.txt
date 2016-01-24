@@ -1,0 +1,43 @@
+jdk_src\javax\swing\text\GlyphPainter1.java
+/** 
+ * Paints the glyphs representing the given range.
+ */
+public void paint(GlyphView v,Graphics g,Shape a,int p0,int p1){
+  sync(v);
+  Segment text;
+  TabExpander expander=v.getTabExpander();
+  Rectangle alloc=(a instanceof Rectangle) ? (Rectangle)a : a.getBounds();
+  int x=alloc.x;
+  int p=v.getStartOffset();
+  int[] justificationData=getJustificationData(v);
+  if (p != p0) {
+    text=v.getText(p,p0);
+    int width=Utilities.getTabbedTextWidth(v,text,metrics,x,expander,p,justificationData);
+    x+=width;
+    SegmentCache.releaseSharedSegment(text);
+  }
+  int y=alloc.y + metrics.getHeight() - metrics.getDescent();
+  text=v.getText(p0,p1);
+  g.setFont(metrics.getFont());
+  Utilities.drawTabbedText(v,text,x,y,g,expander,p0,justificationData);
+  SegmentCache.releaseSharedSegment(text);
+}
+public Shape modelToView(GlyphView v,int pos,Position.Bias bias,Shape a) throws BadLocationException {
+  sync(v);
+  Rectangle alloc=(a instanceof Rectangle) ? (Rectangle)a : a.getBounds();
+  int p0=v.getStartOffset();
+  int p1=v.getEndOffset();
+  TabExpander expander=v.getTabExpander();
+  Segment text;
+  if (pos == p1) {
+    return new Rectangle(alloc.x + alloc.width,alloc.y,0,metrics.getHeight());
+  }
+  if ((pos >= p0) && (pos <= p1)) {
+    text=v.getText(p0,pos);
+    int[] justificationData=getJustificationData(v);
+    int width=Utilities.getTabbedTextWidth(v,text,metrics,alloc.x,expander,p0,justificationData);
+    SegmentCache.releaseSharedSegment(text);
+    return new Rectangle(alloc.x + width,alloc.y,0,metrics.getHeight());
+  }
+  throw new BadLocationException("modelToView - can't convert",p1);
+}

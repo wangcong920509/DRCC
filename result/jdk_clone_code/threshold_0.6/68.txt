@@ -1,0 +1,14 @@
+/** 
+ * Create a FilterExprIteratorSimple object.
+ */
+public FilterExprIteratorSimple(Expression expr){
+  super(null);
+  m_expr=expr;
+}
+/** 
+ * Set the inner contained expression of this filter.
+ */
+public void setInnerExpression(Expression expr){
+  expr.exprSetParent(this);
+  m_expr=expr;
+}

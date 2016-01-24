@@ -1,0 +1,8 @@
+public StringBuilder append(int i){
+  super.append(i);
+  return this;
+}
+public StringBuilder append(long lng){
+  super.append(lng);
+  return this;
+}

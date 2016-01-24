@@ -1,0 +1,19 @@
+/** 
+ * Constructs an empty insertion-ordered <tt>LinkedHashMap</tt> instance with the specified initial capacity and load factor.
+ * @param initialCapacity the initial capacity
+ * @param loadFactor      the load factor
+ * @throws IllegalArgumentException if the initial capacity is negativeor the load factor is nonpositive
+ */
+public LinkedHashMap(int initialCapacity,float loadFactor){
+  super(initialCapacity,loadFactor);
+  accessOrder=false;
+}
+/** 
+ * Constructs an insertion-ordered <tt>LinkedHashMap</tt> instance with the same mappings as the specified map.  The <tt>LinkedHashMap</tt> instance is created with a default load factor (0.75) and an initial capacity sufficient to hold the mappings in the specified map.
+ * @param m the map whose mappings are to be placed in this map
+ * @throws NullPointerException if the specified map is null
+ */
+public LinkedHashMap(Map<? extends K,? extends V> m){
+  super(m);
+  accessOrder=false;
+}

@@ -1,0 +1,18 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public String getLocalName(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Attribute name
+ * @return null
+ * @throws DOMException
+ */
+public Attr createAttribute(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

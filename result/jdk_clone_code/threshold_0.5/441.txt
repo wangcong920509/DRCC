@@ -1,0 +1,14 @@
+/** 
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
+ */
+public XML11Serializer(){
+  super();
+  _format.setVersion("1.1");
+}
+/** 
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
+ */
+public XML11Serializer(OutputFormat format){
+  super(format);
+  _format.setVersion("1.1");
+}

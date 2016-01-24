@@ -1,0 +1,8 @@
+public OutputBuffer append(String s){
+  _buffer.append(s);
+  return this;
+}
+public OutputBuffer append(char ch){
+  _buffer.append(ch);
+  return this;
+}

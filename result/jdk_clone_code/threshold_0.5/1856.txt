@@ -1,0 +1,16 @@
+/** 
+ * Cast result object to a number.
+ * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ */
+public double num(){
+  int node=item(0);
+  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+}
+/** 
+ * Cast result object to a number, but allow side effects, such as the incrementing of an iterator.
+ * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ */
+public double numWithSideEffects(){
+  int node=nextNode();
+  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+}

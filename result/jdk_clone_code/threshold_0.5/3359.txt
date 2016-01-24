@@ -1,0 +1,24 @@
+/** 
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
+ */
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
+}
+/** 
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
+ */
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
+  }
+  return null;
+}

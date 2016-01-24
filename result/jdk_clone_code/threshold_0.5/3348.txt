@@ -1,0 +1,8 @@
+public void destroySubcontext(Name name) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.destroySubcontext(name);
+}
+public void destroySubcontext(String name) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.destroySubcontext(name);
+}

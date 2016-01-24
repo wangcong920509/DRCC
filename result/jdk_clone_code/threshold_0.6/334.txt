@@ -1,0 +1,17 @@
+/** 
+ * Create a new <code>FactoryConfigurationError</code> with a given <code>Exception</code> base cause of the error.
+ * @param e The exception to be encapsulated in aFactoryConfigurationError.
+ */
+public FactoryConfigurationError(Exception e){
+  super(e.toString());
+  this.exception=e;
+}
+/** 
+ * Create a new <code>FactoryConfigurationError</code> with the given <code>Exception</code> base cause and detail message.
+ * @param e The exception to be encapsulated in aFactoryConfigurationError
+ * @param msg The detail message.
+ */
+public FactoryConfigurationError(Exception e,String msg){
+  super(msg);
+  this.exception=e;
+}

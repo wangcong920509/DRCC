@@ -1,0 +1,90 @@
+jdk_src\javax\swing\text\BoxView.java
+/** 
+ * Calculates the size requirements for the major axis <code>axis</code>.
+ * @param axis the axis being studied
+ * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
+ * @return the newly initialized <code>SizeRequirements</code> object
+ * @see javax.swing.SizeRequirements
+ */
+protected SizeRequirements calculateMajorAxisRequirements(int axis,SizeRequirements r){
+  float min=0;
+  float pref=0;
+  float max=0;
+  int n=getViewCount();
+  for (int i=0; i < n; i++) {
+    View v=getView(i);
+    min+=v.getMinimumSpan(axis);
+    pref+=v.getPreferredSpan(axis);
+    max+=v.getMaximumSpan(axis);
+  }
+  if (r == null) {
+    r=new SizeRequirements();
+  }
+  r.alignment=0.5f;
+  r.minimum=(int)min;
+  r.preferred=(int)pref;
+  r.maximum=(int)max;
+  return r;
+}
+/** 
+ * Calculates the size requirements for this <code>BoxView</code> by examining the size of each child view.
+ * @param axis the axis being studied
+ * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
+ * @return the newly initialized <code>SizeRequirements</code> object
+ */
+protected SizeRequirements baselineRequirements(int axis,SizeRequirements r){
+  SizeRequirements totalAscent=new SizeRequirements();
+  SizeRequirements totalDescent=new SizeRequirements();
+  if (r == null) {
+    r=new SizeRequirements();
+  }
+  r.alignment=0.5f;
+  int n=getViewCount();
+  for (int i=0; i < n; i++) {
+    View v=getView(i);
+    float align=v.getAlignment(axis);
+    float span;
+    int ascent;
+    int descent;
+    span=v.getPreferredSpan(axis);
+    ascent=(int)(align * span);
+    descent=(int)(span - ascent);
+    totalAscent.preferred=Math.max(ascent,totalAscent.preferred);
+    totalDescent.preferred=Math.max(descent,totalDescent.preferred);
+    if (v.getResizeWeight(axis) > 0) {
+      span=v.getMinimumSpan(axis);
+      ascent=(int)(align * span);
+      descent=(int)(span - ascent);
+      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
+      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
+      span=v.getMaximumSpan(axis);
+      ascent=(int)(align * span);
+      descent=(int)(span - ascent);
+      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
+      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
+    }
+ else {
+      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
+      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
+      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
+      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
+    }
+  }
+  r.preferred=(int)Math.min((long)totalAscent.preferred + (long)totalDescent.preferred,Integer.MAX_VALUE);
+  if (r.preferred > 0) {
+    r.alignment=(float)totalAscent.preferred / r.preferred;
+  }
+  if (r.alignment == 0.0f) {
+    r.minimum=totalDescent.minimum;
+    r.maximum=totalDescent.maximum;
+  }
+ else   if (r.alignment == 1.0f) {
+    r.minimum=totalAscent.minimum;
+    r.maximum=totalAscent.maximum;
+  }
+ else {
+    r.minimum=Math.round(Math.max(totalAscent.minimum / r.alignment,totalDescent.minimum / (1.0f - r.alignment)));
+    r.maximum=Math.round(Math.min(totalAscent.maximum / r.alignment,totalDescent.maximum / (1.0f - r.alignment)));
+  }
+  return r;
+}

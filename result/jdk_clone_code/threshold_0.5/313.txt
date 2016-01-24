@@ -1,0 +1,29 @@
+/** 
+ * Look up the index of an attribute by Namespace name.
+ * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndex(String uri,String localPart){
+  for (int i=0; i < fLength; i++) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart) && ((uri == attribute.name.uri) || (uri != null && attribute.name.uri != null && attribute.name.uri.equals(uri)))) {
+      return i;
+    }
+  }
+  return -1;
+}
+/** 
+ * Look up the index of an attribute by local name only, ignoring its namespace.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndexByLocalName(String localPart){
+  for (int i=0; i < fLength; i++) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart)) {
+      return i;
+    }
+  }
+  return -1;
+}

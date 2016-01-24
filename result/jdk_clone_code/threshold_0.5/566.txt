@@ -1,0 +1,14 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypeSystem()
+ */
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see Serializer#asDOMSerializer()
+ */
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
+}

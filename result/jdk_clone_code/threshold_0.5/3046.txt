@@ -1,0 +1,31 @@
+/** 
+ * Verifies the passed-in signature. <p>A call to this method resets this signature object to the state it was in when previously initialized for verification via a call to <code>initVerify(PublicKey)</code>. That is, the object is reset and available to verify another signature from the identity whose public key was specified in the call to <code>initVerify</code>.
+ * @param signature the signature bytes to be verified.
+ * @return true if the signature was verified, false if not.
+ * @exception SignatureException if this signature object is notinitialized properly, the passed-in signature is improperly encoded or of the wrong type, if this signature algorithm is unable to process the input data provided, etc.
+ */
+public final boolean verify(byte[] signature) throws SignatureException {
+  if (state == VERIFY) {
+    return engineVerify(signature);
+  }
+  throw new SignatureException("object not initialized for " + "verification");
+}
+/** 
+ * Verifies the passed-in signature in the specified array of bytes, starting at the specified offset. <p>A call to this method resets this signature object to the state it was in when previously initialized for verification via a call to <code>initVerify(PublicKey)</code>. That is, the object is reset and available to verify another signature from the identity whose public key was specified in the call to <code>initVerify</code>.
+ * @param signature the signature bytes to be verified.
+ * @param offset the offset to start from in the array of bytes.
+ * @param length the number of bytes to use, starting at offset.
+ * @return true if the signature was verified, false if not.
+ * @exception SignatureException if this signature object is notinitialized properly, the passed-in signature is improperly encoded or of the wrong type, if this signature algorithm is unable to process the input data provided, etc.
+ * @exception IllegalArgumentException if the <code>signature</code>byte array is null, or the <code>offset</code> or <code>length</code> is less than 0, or the sum of the <code>offset</code> and <code>length</code> is greater than the length of the <code>signature</code> byte array.
+ * @since 1.4
+ */
+public final boolean verify(byte[] signature,int offset,int length) throws SignatureException {
+  if (state == VERIFY) {
+    if ((signature == null) || (offset < 0) || (length < 0)|| (length > signature.length - offset)) {
+      throw new IllegalArgumentException("Bad arguments");
+    }
+    return engineVerify(signature,offset,length);
+  }
+  throw new SignatureException("object not initialized for " + "verification");
+}

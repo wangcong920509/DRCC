@@ -1,0 +1,35 @@
+jdk_src\com\sun\corba\se\impl\interceptors\ClientRequestInfoImpl.java
+/** 
+ * Reset the info object so that it can be reused for a retry, for example.
+ */
+void reset(){
+  super.reset();
+  retryRequest=RetryType.NONE;
+  request=null;
+  diiInitiate=false;
+  messageMediator=null;
+  cachedTargetObject=null;
+  cachedEffectiveTargetObject=null;
+  cachedArguments=null;
+  cachedExceptions=null;
+  cachedContexts=null;
+  cachedOperationContext=null;
+  cachedReceivedExceptionId=null;
+  cachedResult=null;
+  cachedReceivedException=null;
+  cachedEffectiveProfile=null;
+  cachedRequestServiceContexts=null;
+  cachedReplyServiceContexts=null;
+  cachedEffectiveComponents=null;
+  piCurrentPushed=false;
+  startingPointCall=CALL_SEND_REQUEST;
+  endingPointCall=CALL_RECEIVE_REPLY;
+}
+/** 
+ * Overridden from RequestInfoImpl.
+ */
+protected void setException(Exception exception){
+  super.setException(exception);
+  cachedReceivedException=null;
+  cachedReceivedExceptionId=null;
+}

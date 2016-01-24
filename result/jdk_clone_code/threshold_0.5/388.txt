@@ -1,0 +1,16 @@
+/** 
+ * Method add
+ * @param xmlX509SubjectName
+ */
+public void add(XMLX509SubjectName xmlX509SubjectName){
+  this._constructionElement.appendChild(xmlX509SubjectName.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method addUnknownElement
+ * @param element
+ */
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

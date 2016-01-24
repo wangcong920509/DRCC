@@ -1,0 +1,14 @@
+/** 
+ * @see SerializationHandler#asContentHandler()
+ */
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
+  return null;
+}
+/** 
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ */
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
+}

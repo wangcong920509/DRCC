@@ -1,0 +1,12 @@
+public float getPreferredSpan(int axis){
+  if (isVisible) {
+    return super.getPreferredSpan(axis);
+  }
+  return 0;
+}
+public float getMaximumSpan(int axis){
+  if (isVisible) {
+    return super.getMaximumSpan(axis);
+  }
+  return 0;
+}

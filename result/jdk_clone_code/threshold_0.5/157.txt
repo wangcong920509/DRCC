@@ -1,0 +1,8 @@
+public void setImportingStylesheet(Stylesheet parent){
+  _importedFrom=parent;
+  parent.addIncludedStylesheet(this);
+}
+public void setIncludingStylesheet(Stylesheet parent){
+  _includedFrom=parent;
+  parent.addIncludedStylesheet(this);
+}

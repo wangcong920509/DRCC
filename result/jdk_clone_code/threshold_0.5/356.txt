@@ -1,0 +1,18 @@
+public void endPrefixMapping(java.lang.String prefix) throws org.xml.sax.SAXException {
+  if (--eventcounter <= 0) {
+    co_yield(true);
+    eventcounter=frequency;
+  }
+  if (clientContentHandler != null)   clientContentHandler.endPrefixMapping(prefix);
+}
+/** 
+ * <p>In the SAX delegation code, I've inlined the count-down in the hope of encouraging compilers to deliver better performance. However, if we subclass (eg to directly connect the output to a DTM builder), that would require calling super in order to run that logic... which seems inelegant.  Hence this routine for the convenience of subclasses: every [frequency] invocations, issue a co_yield.</p>
+ * @param moreExepected Should always be true unless this is being calledat the end of endDocument() handling.
+ */
+protected void count_and_yield(boolean moreExpected) throws SAXException {
+  if (!moreExpected)   eventcounter=0;
+  if (--eventcounter <= 0) {
+    co_yield(true);
+    eventcounter=frequency;
+  }
+}

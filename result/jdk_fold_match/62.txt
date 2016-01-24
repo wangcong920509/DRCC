@@ -1,0 +1,138 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\XMLDTDScannerImpl.java
+/** 
+ * Scans an element declaration <p> <pre> [45]    elementdecl    ::=    '&lt;!ELEMENT' S Name S contentspec S? '>' [46]    contentspec    ::=    'EMPTY' | 'ANY' | Mixed | children </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!ELEMENT'
+ */
+protected final void scanElementDecl() throws IOException, XNIException {
+  fReportEntity=false;
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ELEMENT_TYPE_IN_ELEMENTDECL",null);
+  }
+  String name=fEntityScanner.scanName();
+  if (name == null) {
+    reportFatalError("MSG_ELEMENT_TYPE_REQUIRED_IN_ELEMENTDECL",null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_CONTENTSPEC_IN_ELEMENTDECL",new Object[]{name});
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.startContentModel(name,null);
+  }
+  String contentModel=null;
+  fReportEntity=true;
+  if (fEntityScanner.skipString("EMPTY")) {
+    contentModel="EMPTY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.empty(null);
+    }
+  }
+ else   if (fEntityScanner.skipString("ANY")) {
+    contentModel="ANY";
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.any(null);
+    }
+  }
+ else {
+    if (!fEntityScanner.skipChar('(')) {
+      reportFatalError("MSG_OPEN_PAREN_OR_ELEMENT_TYPE_REQUIRED_IN_CHILDREN",new Object[]{name});
+    }
+    if (fDTDContentModelHandler != null) {
+      fDTDContentModelHandler.startGroup(null);
+    }
+    fStringBuffer.clear();
+    fStringBuffer.append('(');
+    fMarkUpDepth++;
+    skipSeparator(false,!scanningInternalSubset());
+    if (fEntityScanner.skipString("#PCDATA")) {
+      scanMixed(name);
+    }
+ else {
+      scanChildren(name);
+    }
+    contentModel=fStringBuffer.toString();
+  }
+  if (fDTDContentModelHandler != null) {
+    fDTDContentModelHandler.endContentModel(null);
+  }
+  fReportEntity=false;
+  skipSeparator(false,!scanningInternalSubset());
+  if (!fEntityScanner.skipChar('>')) {
+    reportFatalError("ElementDeclUnterminated",new Object[]{name});
+  }
+  fReportEntity=true;
+  fMarkUpDepth--;
+  if (fDTDHandler != null) {
+    fDTDHandler.elementDecl(name,contentModel,null);
+  }
+  if (nonValidatingMode)   nvGrammarInfo.elementDecl(name,contentModel,null);
+}
+/** 
+ * Scans an attlist declaration <p> <pre> [52]  AttlistDecl    ::=   '&lt;!ATTLIST' S Name AttDef* S? '>' [53]  AttDef         ::=   S Name S AttType S DefaultDecl </pre> <p> <strong>Note:</strong> Called after scanning past '&lt;!ATTLIST'
+ */
+protected final void scanAttlistDecl() throws IOException, XNIException {
+  fReportEntity=false;
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ELEMENT_TYPE_IN_ATTLISTDECL",null);
+  }
+  String elName=fEntityScanner.scanName();
+  if (elName == null) {
+    reportFatalError("MSG_ELEMENT_TYPE_REQUIRED_IN_ATTLISTDECL",null);
+  }
+  if (fDTDHandler != null) {
+    fDTDHandler.startAttlist(elName,null);
+  }
+  if (!skipSeparator(true,!scanningInternalSubset())) {
+    if (fEntityScanner.skipChar('>')) {
+      if (fDTDHandler != null) {
+        fDTDHandler.endAttlist(null);
+      }
+      fMarkUpDepth--;
+      return;
+    }
+ else {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ATTRIBUTE_NAME_IN_ATTDEF",new Object[]{elName});
+    }
+  }
+  while (!fEntityScanner.skipChar('>')) {
+    String name=fEntityScanner.scanName();
+    if (name == null) {
+      reportFatalError("AttNameRequiredInAttDef",new Object[]{elName});
+    }
+    if (!skipSeparator(true,!scanningInternalSubset())) {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_ATTTYPE_IN_ATTDEF",new Object[]{elName,name});
+    }
+    String type=scanAttType(elName,name);
+    if (!skipSeparator(true,!scanningInternalSubset())) {
+      reportFatalError("MSG_SPACE_REQUIRED_BEFORE_DEFAULTDECL_IN_ATTDEF",new Object[]{elName,name});
+    }
+    String defaultType=scanAttDefaultDecl(elName,name,type,fLiteral,fLiteral2);
+    String[] enumr=null;
+    if (fDTDHandler != null || nonValidatingMode) {
+      if (fEnumerationCount != 0) {
+        enumr=new String[fEnumerationCount];
+        System.arraycopy(fEnumeration,0,enumr,0,fEnumerationCount);
+      }
+    }
+    if (defaultType != null && (defaultType.equals("#REQUIRED") || defaultType.equals("#IMPLIED"))) {
+      if (fDTDHandler != null) {
+        fDTDHandler.attributeDecl(elName,name,type,enumr,defaultType,null,null,null);
+      }
+      if (nonValidatingMode) {
+        nvGrammarInfo.attributeDecl(elName,name,type,enumr,defaultType,null,null,null);
+      }
+    }
+ else {
+      if (fDTDHandler != null) {
+        fDTDHandler.attributeDecl(elName,name,type,enumr,defaultType,fLiteral,fLiteral2,null);
+      }
+      if (nonValidatingMode) {
+        nvGrammarInfo.attributeDecl(elName,name,type,enumr,defaultType,fLiteral,fLiteral2,null);
+      }
+    }
+    skipSeparator(false,!scanningInternalSubset());
+  }
+  if (fDTDHandler != null) {
+    fDTDHandler.endAttlist(null);
+  }
+  fMarkUpDepth--;
+  fReportEntity=true;
+}

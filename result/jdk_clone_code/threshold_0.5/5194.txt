@@ -1,0 +1,8 @@
+private RoundRectangle2D decodeRoundRect1(){
+  roundRect.setRoundRect(decodeX(0.2f),decodeY(1.6f),decodeX(2.8f) - decodeX(0.2f),decodeY(2.8333333f) - decodeY(1.6f),8.705882f,8.705882f);
+  return roundRect;
+}
+private RoundRectangle2D decodeRoundRect2(){
+  roundRect.setRoundRect(decodeX(0.0f),decodeY(1.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(2.0f) - decodeY(1.0f),4.9411764f,4.9411764f);
+  return roundRect;
+}

@@ -1,0 +1,14 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_short(){
+  checkExtractBadOperation(TCKind._tk_short);
+  return (short)value;
+}
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_ushort(){
+  checkExtractBadOperation(TCKind._tk_ushort);
+  return (short)value;
+}

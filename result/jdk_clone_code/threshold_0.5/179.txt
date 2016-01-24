@@ -1,0 +1,14 @@
+/** 
+ * SAX2: Receive notification of a processing instruction.
+ */
+public void processingInstruction(String target,String data) throws SAXException {
+  super.processingInstruction(target,data);
+  handleTextEscaping();
+}
+/** 
+ * SAX2: Report an XML comment anywhere in the document.
+ */
+public void comment(char[] ch,int start,int length) throws SAXException {
+  super.comment(ch,start,length);
+  handleTextEscaping();
+}

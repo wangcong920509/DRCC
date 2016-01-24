@@ -1,0 +1,41 @@
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMaximizeButtonPainter.java
+private void paintBackgroundEnabledAndWindowNotFocusedAndWindowMaximized(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient10(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient11(roundRect));
+  g.fill(roundRect);
+  rect=decodeRect1();
+  g.setPaint(color4);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color54);
+  g.fill(rect);
+  rect=decodeRect5();
+  g.setPaint(color55);
+  g.fill(rect);
+  rect=decodeRect8();
+  g.setPaint(color56);
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color57);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(color58);
+  g.fill(path);
+}
+private void paintBackgroundEnabledAndWindowNotFocused(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient10(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient16(roundRect));
+  g.fill(roundRect);
+  rect=decodeRect1();
+  g.setPaint(color4);
+  g.fill(rect);
+  path=decodePath4();
+  g.setPaint(color72);
+  g.fill(path);
+}

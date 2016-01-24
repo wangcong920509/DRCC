@@ -1,0 +1,44 @@
+jdk_src\com\sun\org\apache\xml\internal\security\utils\XPathFuncHereAPI.java
+/** 
+ * Evaluate XPath string to an XObject. XPath namespace prefixes are resolved from the namespaceNode. The implementation of this is a little slow, since it creates a number of objects each time it is called.  This could be optimized to keep the same objects around, but then thread-safety issues would arise.
+ * @param contextNode The node to start searching from.
+ * @param xpathnode
+ * @param namespaceNode The node from which prefixes in the XPath will be resolved to namespaces.
+ * @return An XObject, which can be used to obtain a string, number, nodelist, etc, should never be null.
+ * @see com.sun.org.apache.xpath.internal.objects.XObject
+ * @see com.sun.org.apache.xpath.internal.objects.XNull
+ * @see com.sun.org.apache.xpath.internal.objects.XBoolean
+ * @see com.sun.org.apache.xpath.internal.objects.XNumber
+ * @see com.sun.org.apache.xpath.internal.objects.XString
+ * @see com.sun.org.apache.xpath.internal.objects.XRTreeFrag
+ * @throws TransformerException
+ */
+public static XObject eval(Node contextNode,Node xpathnode,Node namespaceNode) throws TransformerException {
+  FuncHereContext xpathSupport=new FuncHereContext(xpathnode);
+  PrefixResolverDefault prefixResolver=new PrefixResolverDefault((namespaceNode.getNodeType() == Node.DOCUMENT_NODE) ? ((Document)namespaceNode).getDocumentElement() : namespaceNode);
+  String str=getStrFromNode(xpathnode);
+  XPath xpath=new XPath(str,null,prefixResolver,XPath.SELECT,null);
+  int ctxtNode=xpathSupport.getDTMHandleFromNode(contextNode);
+  return xpath.execute(xpathSupport,ctxtNode,prefixResolver);
+}
+/** 
+ * Evaluate XPath string to an XObject. XPath namespace prefixes are resolved from the namespaceNode. The implementation of this is a little slow, since it creates a number of objects each time it is called.  This could be optimized to keep the same objects around, but then thread-safety issues would arise.
+ * @param contextNode The node to start searching from.
+ * @param xpathnode
+ * @param prefixResolver Will be called if the parser encounters namespaceprefixes, to resolve the prefixes to URLs.
+ * @return An XObject, which can be used to obtain a string, number, nodelist, etc, should never be null.
+ * @see com.sun.org.apache.xpath.internal.objects.XObject
+ * @see com.sun.org.apache.xpath.internal.objects.XNull
+ * @see com.sun.org.apache.xpath.internal.objects.XBoolean
+ * @see com.sun.org.apache.xpath.internal.objects.XNumber
+ * @see com.sun.org.apache.xpath.internal.objects.XString
+ * @see com.sun.org.apache.xpath.internal.objects.XRTreeFrag
+ * @throws TransformerException
+ */
+public static XObject eval(Node contextNode,Node xpathnode,PrefixResolver prefixResolver) throws TransformerException {
+  String str=getStrFromNode(xpathnode);
+  XPath xpath=new XPath(str,null,prefixResolver,XPath.SELECT,null);
+  FuncHereContext xpathSupport=new FuncHereContext(xpathnode);
+  int ctxtNode=xpathSupport.getDTMHandleFromNode(contextNode);
+  return xpath.execute(xpathSupport,ctxtNode,prefixResolver);
+}

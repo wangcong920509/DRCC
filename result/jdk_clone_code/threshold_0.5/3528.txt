@@ -1,0 +1,25 @@
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(optionPane,this,"OptionPane.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(optionPane,bindings);
+    }
+  }
+  return null;
+}
+/** 
+ * If <code>c</code> is the <code>JOptionPane</code> the receiver is contained in, the preferred size that is returned is the maximum of the preferred size of the <code>LayoutManager</code> for the <code>JOptionPane</code>, and <code>getMinimumOptionPaneSize</code>.
+ */
+public Dimension getPreferredSize(JComponent c){
+  if (c == optionPane) {
+    Dimension ourMin=getMinimumOptionPaneSize();
+    LayoutManager lm=c.getLayout();
+    if (lm != null) {
+      Dimension lmSize=lm.preferredLayoutSize(c);
+      if (ourMin != null)       return new Dimension(Math.max(lmSize.width,ourMin.width),Math.max(lmSize.height,ourMin.height));
+      return lmSize;
+    }
+    return ourMin;
+  }
+  return null;
+}

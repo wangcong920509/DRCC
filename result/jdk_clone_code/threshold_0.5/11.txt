@@ -1,0 +1,8 @@
+private DynValueCommonImpl(){
+  this(null,(Any)null,false);
+  isNull=true;
+}
+protected DynValueCommonImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  isNull=true;
+}

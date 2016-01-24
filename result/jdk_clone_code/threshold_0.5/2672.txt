@@ -1,0 +1,14 @@
+public ByteBuffer putShort(short x){
+  putShort(ix(nextPutIndex((1 << 1))),x);
+  return this;
+}
+private ByteBuffer putInt(long a,int x){
+  if (unaligned) {
+    int y=(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putInt(a,x,bigEndian);
+  }
+  return this;
+}

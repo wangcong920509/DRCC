@@ -1,0 +1,22 @@
+/** 
+ * Construct a StepPattern that tests for namespaces and node names.
+ * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
+ * @param namespace The namespace to be tested.
+ * @param name The local name to be tested.
+ * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
+ * @param axisForPredicate No longer used.
+ */
+public StepPattern(int whatToShow,String namespace,String name,int axis,int axisForPredicate){
+  super(whatToShow,namespace,name);
+  m_axis=axis;
+}
+/** 
+ * Construct a StepPattern that doesn't test for node names.
+ * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
+ * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
+ * @param axisForPredicate No longer used.
+ */
+public StepPattern(int whatToShow,int axis,int axisForPredicate){
+  super(whatToShow);
+  m_axis=axis;
+}

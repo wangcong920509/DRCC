@@ -1,0 +1,8 @@
+public IntBuffer put(int x){
+  Bits.putIntL(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public IntBuffer put(int i,int x){
+  Bits.putIntL(bb,ix(checkIndex(i)),x);
+  return this;
+}

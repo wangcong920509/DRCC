@@ -1,0 +1,34 @@
+jdk_src\java\security\SignedObject.java
+/** 
+ * Constructs a SignedObject from any Serializable object. The given object is signed with the given signing key, using the designated signature engine.
+ * @param object the object to be signed.
+ * @param signingKey the private key for signing.
+ * @param signingEngine the signature signing engine.
+ * @exception IOException if an error occurs during serialization
+ * @exception InvalidKeyException if the key is invalid.
+ * @exception SignatureException if signing fails.
+ */
+public SignedObject(Serializable object,PrivateKey signingKey,Signature signingEngine) throws IOException, InvalidKeyException, SignatureException {
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  ObjectOutput a=new ObjectOutputStream(b);
+  a.writeObject(object);
+  a.flush();
+  a.close();
+  this.content=b.toByteArray();
+  b.close();
+  this.sign(signingKey,signingEngine);
+}
+/** 
+ * Retrieves the encapsulated object. The encapsulated object is de-serialized before it is returned.
+ * @return the encapsulated object.
+ * @exception IOException if an error occurs during de-serialization
+ * @exception ClassNotFoundException if an error occurs duringde-serialization
+ */
+public Object getObject() throws IOException, ClassNotFoundException {
+  ByteArrayInputStream b=new ByteArrayInputStream(this.content);
+  ObjectInput a=new ObjectInputStream(b);
+  Object obj=a.readObject();
+  b.close();
+  a.close();
+  return obj;
+}

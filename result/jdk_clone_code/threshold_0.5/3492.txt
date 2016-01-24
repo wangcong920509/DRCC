@@ -1,0 +1,24 @@
+/** 
+ * {@inheritDoc}
+ * @since 1.6
+ */
+protected void addImpl(Component comp,Object constraints,int index){
+  super.addImpl(comp,constraints,index);
+  if (componentOrderCheckingEnabled) {
+    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
+      componentOrderChanged=true;
+    }
+  }
+}
+/** 
+ * {@inheritDoc}
+ * @since 1.6
+ */
+public void setComponentZOrder(Component comp,int index){
+  super.setComponentZOrder(comp,index);
+  if (componentOrderCheckingEnabled) {
+    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
+      componentOrderChanged=true;
+    }
+  }
+}

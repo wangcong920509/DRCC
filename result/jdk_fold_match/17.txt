@@ -1,0 +1,44 @@
+jdk_src\com\sun\java\swing\plaf\gtk\GTKFileChooserUI.java
+protected JScrollPane createFilesList(){
+  fileList=new JList();
+  fileList.setName("GTKFileChooser.fileList");
+  fileList.putClientProperty(AccessibleContext.ACCESSIBLE_NAME_PROPERTY,filesLabelText);
+  if (getFileChooser().isMultiSelectionEnabled()) {
+    fileList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+  }
+ else {
+    fileList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+  }
+  fileList.setModel(new GTKFileListModel());
+  fileList.getSelectionModel().removeSelectionInterval(0,0);
+  fileList.setCellRenderer(new FileCellRenderer());
+  fileList.addListSelectionListener(createListSelectionListener(getFileChooser()));
+  fileList.addMouseListener(createDoubleClickListener(getFileChooser(),fileList));
+  align(fileList);
+  JScrollPane scrollpane=new JScrollPane(fileList);
+  scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+  scrollpane.setName("GTKFileChooser.fileListScrollPane");
+  scrollpane.setPreferredSize(prefListSize);
+  scrollpane.setMaximumSize(MAX_SIZE);
+  align(scrollpane);
+  return scrollpane;
+}
+protected JScrollPane createDirectoryList(){
+  directoryList=new JList();
+  directoryList.setName("GTKFileChooser.directoryList");
+  directoryList.putClientProperty(AccessibleContext.ACCESSIBLE_NAME_PROPERTY,foldersLabelText);
+  align(directoryList);
+  directoryList.setCellRenderer(new DirectoryCellRenderer());
+  directoryListModel=new GTKDirectoryListModel();
+  directoryList.getSelectionModel().removeSelectionInterval(0,0);
+  directoryList.setModel(directoryListModel);
+  directoryList.addMouseListener(createDoubleClickListener(getFileChooser(),directoryList));
+  directoryList.addListSelectionListener(createListSelectionListener(getFileChooser()));
+  JScrollPane scrollpane=new JScrollPane(directoryList);
+  scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+  scrollpane.setName("GTKFileChooser.directoryListScrollPane");
+  scrollpane.setMaximumSize(MAX_SIZE);
+  scrollpane.setPreferredSize(prefListSize);
+  align(scrollpane);
+  return scrollpane;
+}

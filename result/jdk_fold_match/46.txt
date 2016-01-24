@@ -1,0 +1,336 @@
+jdk_src\com\sun\org\apache\xalan\internal\xsltc\compiler\Mode.java
+/** 
+ * Compiles the applyTemplates() method and adds it to the translet. This is the main dispatch method.
+ */
+public void compileApplyTemplates(ClassGenerator classGen){
+  final XSLTC xsltc=classGen.getParser().getXSLTC();
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final Vector names=xsltc.getNamesIndex();
+  final com.sun.org.apache.bcel.internal.generic.Type[] argTypes=new com.sun.org.apache.bcel.internal.generic.Type[3];
+  argTypes[0]=Util.getJCRefType(DOM_INTF_SIG);
+  argTypes[1]=Util.getJCRefType(NODE_ITERATOR_SIG);
+  argTypes[2]=Util.getJCRefType(TRANSLET_OUTPUT_SIG);
+  final String[] argNames=new String[3];
+  argNames[0]=DOCUMENT_PNAME;
+  argNames[1]=ITERATOR_PNAME;
+  argNames[2]=TRANSLET_OUTPUT_PNAME;
+  final InstructionList mainIL=new InstructionList();
+  final MethodGenerator methodGen=new MethodGenerator(ACC_PUBLIC | ACC_FINAL,com.sun.org.apache.bcel.internal.generic.Type.VOID,argTypes,argNames,functionName(),getClassName(),mainIL,classGen.getConstantPool());
+  methodGen.addException("com.sun.org.apache.xalan.internal.xsltc.TransletException");
+  mainIL.append(NOP);
+  final LocalVariableGen current;
+  current=methodGen.addLocalVariable2("current",com.sun.org.apache.bcel.internal.generic.Type.INT,null);
+  _currentIndex=current.getIndex();
+  final InstructionList body=new InstructionList();
+  body.append(NOP);
+  final InstructionList ilLoop=new InstructionList();
+  ilLoop.append(methodGen.loadIterator());
+  ilLoop.append(methodGen.nextNode());
+  ilLoop.append(DUP);
+  ilLoop.append(new ISTORE(_currentIndex));
+  final BranchHandle ifeq=ilLoop.append(new IFLT(null));
+  final BranchHandle loop=ilLoop.append(new GOTO_W(null));
+  ifeq.setTarget(ilLoop.append(RETURN));
+  final InstructionHandle ihLoop=ilLoop.getStart();
+  current.setStart(mainIL.append(new GOTO_W(ihLoop)));
+  current.setEnd(loop);
+  InstructionList ilRecurse=compileDefaultRecursion(classGen,methodGen,ihLoop);
+  InstructionHandle ihRecurse=ilRecurse.getStart();
+  InstructionList ilText=compileDefaultText(classGen,methodGen,ihLoop);
+  InstructionHandle ihText=ilText.getStart();
+  final int[] types=new int[DTM.NTYPES + names.size()];
+  for (int i=0; i < types.length; i++) {
+    types[i]=i;
+  }
+  final boolean[] isAttribute=new boolean[types.length];
+  final boolean[] isNamespace=new boolean[types.length];
+  for (int i=0; i < names.size(); i++) {
+    final String name=(String)names.elementAt(i);
+    isAttribute[i + DTM.NTYPES]=isAttributeName(name);
+    isNamespace[i + DTM.NTYPES]=isNamespaceName(name);
+  }
+  compileTemplates(classGen,methodGen,ihLoop);
+  final TestSeq elemTest=_testSeq[DTM.ELEMENT_NODE];
+  InstructionHandle ihElem=ihRecurse;
+  if (elemTest != null)   ihElem=elemTest.compile(classGen,methodGen,ihRecurse);
+  final TestSeq attrTest=_testSeq[DTM.ATTRIBUTE_NODE];
+  InstructionHandle ihAttr=ihText;
+  if (attrTest != null)   ihAttr=attrTest.compile(classGen,methodGen,ihAttr);
+  InstructionList ilKey=null;
+  if (_idxTestSeq != null) {
+    loop.setTarget(_idxTestSeq.compile(classGen,methodGen,body.getStart()));
+    ilKey=_idxTestSeq.getInstructionList();
+  }
+ else {
+    loop.setTarget(body.getStart());
+  }
+  if (_childNodeTestSeq != null) {
+    double nodePrio=_childNodeTestSeq.getPriority();
+    int nodePos=_childNodeTestSeq.getPosition();
+    double elemPrio=(0 - Double.MAX_VALUE);
+    int elemPos=Integer.MIN_VALUE;
+    if (elemTest != null) {
+      elemPrio=elemTest.getPriority();
+      elemPos=elemTest.getPosition();
+    }
+    if (elemPrio == Double.NaN || elemPrio < nodePrio || (elemPrio == nodePrio && elemPos < nodePos)) {
+      ihElem=_childNodeTestSeq.compile(classGen,methodGen,ihLoop);
+    }
+    final TestSeq textTest=_testSeq[DTM.TEXT_NODE];
+    double textPrio=(0 - Double.MAX_VALUE);
+    int textPos=Integer.MIN_VALUE;
+    if (textTest != null) {
+      textPrio=textTest.getPriority();
+      textPos=textTest.getPosition();
+    }
+    if (textPrio == Double.NaN || textPrio < nodePrio || (textPrio == nodePrio && textPos < nodePos)) {
+      ihText=_childNodeTestSeq.compile(classGen,methodGen,ihLoop);
+      _testSeq[DTM.TEXT_NODE]=_childNodeTestSeq;
+    }
+  }
+  InstructionHandle elemNamespaceHandle=ihElem;
+  InstructionList nsElem=compileNamespaces(classGen,methodGen,isNamespace,isAttribute,false,ihElem);
+  if (nsElem != null)   elemNamespaceHandle=nsElem.getStart();
+  InstructionHandle attrNamespaceHandle=ihAttr;
+  InstructionList nsAttr=compileNamespaces(classGen,methodGen,isNamespace,isAttribute,true,ihAttr);
+  if (nsAttr != null)   attrNamespaceHandle=nsAttr.getStart();
+  final InstructionHandle[] targets=new InstructionHandle[types.length];
+  for (int i=DTM.NTYPES; i < targets.length; i++) {
+    final TestSeq testSeq=_testSeq[i];
+    if (isNamespace[i]) {
+      if (isAttribute[i])       targets[i]=attrNamespaceHandle;
+ else       targets[i]=elemNamespaceHandle;
+    }
+ else     if (testSeq != null) {
+      if (isAttribute[i])       targets[i]=testSeq.compile(classGen,methodGen,attrNamespaceHandle);
+ else       targets[i]=testSeq.compile(classGen,methodGen,elemNamespaceHandle);
+    }
+ else {
+      targets[i]=ihLoop;
+    }
+  }
+  targets[DTM.ROOT_NODE]=_rootPattern != null ? getTemplateInstructionHandle(_rootPattern.getTemplate()) : ihRecurse;
+  targets[DTM.DOCUMENT_NODE]=_rootPattern != null ? getTemplateInstructionHandle(_rootPattern.getTemplate()) : ihRecurse;
+  targets[DTM.TEXT_NODE]=_testSeq[DTM.TEXT_NODE] != null ? _testSeq[DTM.TEXT_NODE].compile(classGen,methodGen,ihText) : ihText;
+  targets[DTM.NAMESPACE_NODE]=ihLoop;
+  targets[DTM.ELEMENT_NODE]=elemNamespaceHandle;
+  targets[DTM.ATTRIBUTE_NODE]=attrNamespaceHandle;
+  InstructionHandle ihPI=ihLoop;
+  if (_childNodeTestSeq != null)   ihPI=ihElem;
+  if (_testSeq[DTM.PROCESSING_INSTRUCTION_NODE] != null)   targets[DTM.PROCESSING_INSTRUCTION_NODE]=_testSeq[DTM.PROCESSING_INSTRUCTION_NODE].compile(classGen,methodGen,ihPI);
+ else   targets[DTM.PROCESSING_INSTRUCTION_NODE]=ihPI;
+  InstructionHandle ihComment=ihLoop;
+  if (_childNodeTestSeq != null)   ihComment=ihElem;
+  targets[DTM.COMMENT_NODE]=_testSeq[DTM.COMMENT_NODE] != null ? _testSeq[DTM.COMMENT_NODE].compile(classGen,methodGen,ihComment) : ihComment;
+  targets[DTM.CDATA_SECTION_NODE]=ihLoop;
+  targets[DTM.DOCUMENT_FRAGMENT_NODE]=ihLoop;
+  targets[DTM.DOCUMENT_TYPE_NODE]=ihLoop;
+  targets[DTM.ENTITY_NODE]=ihLoop;
+  targets[DTM.ENTITY_REFERENCE_NODE]=ihLoop;
+  targets[DTM.NOTATION_NODE]=ihLoop;
+  for (int i=DTM.NTYPES; i < targets.length; i++) {
+    final TestSeq testSeq=_testSeq[i];
+    if ((testSeq == null) || (isNamespace[i])) {
+      if (isAttribute[i])       targets[i]=attrNamespaceHandle;
+ else       targets[i]=elemNamespaceHandle;
+    }
+ else {
+      if (isAttribute[i])       targets[i]=testSeq.compile(classGen,methodGen,attrNamespaceHandle);
+ else       targets[i]=testSeq.compile(classGen,methodGen,elemNamespaceHandle);
+    }
+  }
+  if (ilKey != null)   body.insert(ilKey);
+  final int getType=cpg.addInterfaceMethodref(DOM_INTF,"getExpandedTypeID","(I)I");
+  body.append(methodGen.loadDOM());
+  body.append(new ILOAD(_currentIndex));
+  body.append(new INVOKEINTERFACE(getType,2));
+  InstructionHandle disp=body.append(new SWITCH(types,targets,ihLoop));
+  appendTestSequences(body);
+  appendTemplateCode(body);
+  if (nsElem != null)   body.append(nsElem);
+  if (nsAttr != null)   body.append(nsAttr);
+  body.append(ilRecurse);
+  body.append(ilText);
+  mainIL.append(body);
+  mainIL.append(ilLoop);
+  peepHoleOptimization(methodGen);
+  classGen.addMethod(methodGen);
+  if (_importLevels != null) {
+    Enumeration levels=_importLevels.keys();
+    while (levels.hasMoreElements()) {
+      Integer max=(Integer)levels.nextElement();
+      Integer min=(Integer)_importLevels.get(max);
+      compileApplyImports(classGen,min.intValue(),max.intValue());
+    }
+  }
+}
+public void compileApplyImports(ClassGenerator classGen,int min,int max){
+  final XSLTC xsltc=classGen.getParser().getXSLTC();
+  final ConstantPoolGen cpg=classGen.getConstantPool();
+  final Vector names=xsltc.getNamesIndex();
+  _namedTemplates=new Hashtable();
+  _neededTemplates=new Hashtable();
+  _templateIHs=new Hashtable();
+  _templateILs=new Hashtable();
+  _patternGroups=new Vector[32];
+  _rootPattern=null;
+  Vector oldTemplates=_templates;
+  _templates=new Vector();
+  final Enumeration templates=oldTemplates.elements();
+  while (templates.hasMoreElements()) {
+    final Template template=(Template)templates.nextElement();
+    final int prec=template.getImportPrecedence();
+    if ((prec >= min) && (prec < max))     addTemplate(template);
+  }
+  processPatterns(_keys);
+  final com.sun.org.apache.bcel.internal.generic.Type[] argTypes=new com.sun.org.apache.bcel.internal.generic.Type[4];
+  argTypes[0]=Util.getJCRefType(DOM_INTF_SIG);
+  argTypes[1]=Util.getJCRefType(NODE_ITERATOR_SIG);
+  argTypes[2]=Util.getJCRefType(TRANSLET_OUTPUT_SIG);
+  argTypes[3]=com.sun.org.apache.bcel.internal.generic.Type.INT;
+  final String[] argNames=new String[4];
+  argNames[0]=DOCUMENT_PNAME;
+  argNames[1]=ITERATOR_PNAME;
+  argNames[2]=TRANSLET_OUTPUT_PNAME;
+  argNames[3]=NODE_PNAME;
+  final InstructionList mainIL=new InstructionList();
+  final MethodGenerator methodGen=new MethodGenerator(ACC_PUBLIC | ACC_FINAL,com.sun.org.apache.bcel.internal.generic.Type.VOID,argTypes,argNames,functionName() + '_' + max,getClassName(),mainIL,classGen.getConstantPool());
+  methodGen.addException("com.sun.org.apache.xalan.internal.xsltc.TransletException");
+  final LocalVariableGen current;
+  current=methodGen.addLocalVariable2("current",com.sun.org.apache.bcel.internal.generic.Type.INT,null);
+  _currentIndex=current.getIndex();
+  mainIL.append(new ILOAD(methodGen.getLocalIndex(NODE_PNAME)));
+  current.setStart(mainIL.append(new ISTORE(_currentIndex)));
+  final InstructionList body=new InstructionList();
+  body.append(NOP);
+  final InstructionList ilLoop=new InstructionList();
+  ilLoop.append(RETURN);
+  final InstructionHandle ihLoop=ilLoop.getStart();
+  InstructionList ilRecurse=compileDefaultRecursion(classGen,methodGen,ihLoop);
+  InstructionHandle ihRecurse=ilRecurse.getStart();
+  InstructionList ilText=compileDefaultText(classGen,methodGen,ihLoop);
+  InstructionHandle ihText=ilText.getStart();
+  final int[] types=new int[DTM.NTYPES + names.size()];
+  for (int i=0; i < types.length; i++) {
+    types[i]=i;
+  }
+  final boolean[] isAttribute=new boolean[types.length];
+  final boolean[] isNamespace=new boolean[types.length];
+  for (int i=0; i < names.size(); i++) {
+    final String name=(String)names.elementAt(i);
+    isAttribute[i + DTM.NTYPES]=isAttributeName(name);
+    isNamespace[i + DTM.NTYPES]=isNamespaceName(name);
+  }
+  compileTemplateCalls(classGen,methodGen,ihLoop,min,max);
+  final TestSeq elemTest=_testSeq[DTM.ELEMENT_NODE];
+  InstructionHandle ihElem=ihRecurse;
+  if (elemTest != null) {
+    ihElem=elemTest.compile(classGen,methodGen,ihLoop);
+  }
+  final TestSeq attrTest=_testSeq[DTM.ATTRIBUTE_NODE];
+  InstructionHandle ihAttr=ihLoop;
+  if (attrTest != null) {
+    ihAttr=attrTest.compile(classGen,methodGen,ihAttr);
+  }
+  InstructionList ilKey=null;
+  if (_idxTestSeq != null) {
+    ilKey=_idxTestSeq.getInstructionList();
+  }
+  if (_childNodeTestSeq != null) {
+    double nodePrio=_childNodeTestSeq.getPriority();
+    int nodePos=_childNodeTestSeq.getPosition();
+    double elemPrio=(0 - Double.MAX_VALUE);
+    int elemPos=Integer.MIN_VALUE;
+    if (elemTest != null) {
+      elemPrio=elemTest.getPriority();
+      elemPos=elemTest.getPosition();
+    }
+    if (elemPrio == Double.NaN || elemPrio < nodePrio || (elemPrio == nodePrio && elemPos < nodePos)) {
+      ihElem=_childNodeTestSeq.compile(classGen,methodGen,ihLoop);
+    }
+    final TestSeq textTest=_testSeq[DTM.TEXT_NODE];
+    double textPrio=(0 - Double.MAX_VALUE);
+    int textPos=Integer.MIN_VALUE;
+    if (textTest != null) {
+      textPrio=textTest.getPriority();
+      textPos=textTest.getPosition();
+    }
+    if (textPrio == Double.NaN || textPrio < nodePrio || (textPrio == nodePrio && textPos < nodePos)) {
+      ihText=_childNodeTestSeq.compile(classGen,methodGen,ihLoop);
+      _testSeq[DTM.TEXT_NODE]=_childNodeTestSeq;
+    }
+  }
+  InstructionHandle elemNamespaceHandle=ihElem;
+  InstructionList nsElem=compileNamespaces(classGen,methodGen,isNamespace,isAttribute,false,ihElem);
+  if (nsElem != null)   elemNamespaceHandle=nsElem.getStart();
+  InstructionList nsAttr=compileNamespaces(classGen,methodGen,isNamespace,isAttribute,true,ihAttr);
+  InstructionHandle attrNamespaceHandle=ihAttr;
+  if (nsAttr != null)   attrNamespaceHandle=nsAttr.getStart();
+  final InstructionHandle[] targets=new InstructionHandle[types.length];
+  for (int i=DTM.NTYPES; i < targets.length; i++) {
+    final TestSeq testSeq=_testSeq[i];
+    if (isNamespace[i]) {
+      if (isAttribute[i])       targets[i]=attrNamespaceHandle;
+ else       targets[i]=elemNamespaceHandle;
+    }
+ else     if (testSeq != null) {
+      if (isAttribute[i])       targets[i]=testSeq.compile(classGen,methodGen,attrNamespaceHandle);
+ else       targets[i]=testSeq.compile(classGen,methodGen,elemNamespaceHandle);
+    }
+ else {
+      targets[i]=ihLoop;
+    }
+  }
+  targets[DTM.ROOT_NODE]=_rootPattern != null ? getTemplateInstructionHandle(_rootPattern.getTemplate()) : ihRecurse;
+  targets[DTM.DOCUMENT_NODE]=_rootPattern != null ? getTemplateInstructionHandle(_rootPattern.getTemplate()) : ihRecurse;
+  targets[DTM.TEXT_NODE]=_testSeq[DTM.TEXT_NODE] != null ? _testSeq[DTM.TEXT_NODE].compile(classGen,methodGen,ihText) : ihText;
+  targets[DTM.NAMESPACE_NODE]=ihLoop;
+  targets[DTM.ELEMENT_NODE]=elemNamespaceHandle;
+  targets[DTM.ATTRIBUTE_NODE]=attrNamespaceHandle;
+  InstructionHandle ihPI=ihLoop;
+  if (_childNodeTestSeq != null)   ihPI=ihElem;
+  if (_testSeq[DTM.PROCESSING_INSTRUCTION_NODE] != null) {
+    targets[DTM.PROCESSING_INSTRUCTION_NODE]=_testSeq[DTM.PROCESSING_INSTRUCTION_NODE].compile(classGen,methodGen,ihPI);
+  }
+ else {
+    targets[DTM.PROCESSING_INSTRUCTION_NODE]=ihPI;
+  }
+  InstructionHandle ihComment=ihLoop;
+  if (_childNodeTestSeq != null)   ihComment=ihElem;
+  targets[DTM.COMMENT_NODE]=_testSeq[DTM.COMMENT_NODE] != null ? _testSeq[DTM.COMMENT_NODE].compile(classGen,methodGen,ihComment) : ihComment;
+  targets[DTM.CDATA_SECTION_NODE]=ihLoop;
+  targets[DTM.DOCUMENT_FRAGMENT_NODE]=ihLoop;
+  targets[DTM.DOCUMENT_TYPE_NODE]=ihLoop;
+  targets[DTM.ENTITY_NODE]=ihLoop;
+  targets[DTM.ENTITY_REFERENCE_NODE]=ihLoop;
+  targets[DTM.NOTATION_NODE]=ihLoop;
+  for (int i=DTM.NTYPES; i < targets.length; i++) {
+    final TestSeq testSeq=_testSeq[i];
+    if ((testSeq == null) || (isNamespace[i])) {
+      if (isAttribute[i])       targets[i]=attrNamespaceHandle;
+ else       targets[i]=elemNamespaceHandle;
+    }
+ else {
+      if (isAttribute[i])       targets[i]=testSeq.compile(classGen,methodGen,attrNamespaceHandle);
+ else       targets[i]=testSeq.compile(classGen,methodGen,elemNamespaceHandle);
+    }
+  }
+  if (ilKey != null)   body.insert(ilKey);
+  final int getType=cpg.addInterfaceMethodref(DOM_INTF,"getExpandedTypeID","(I)I");
+  body.append(methodGen.loadDOM());
+  body.append(new ILOAD(_currentIndex));
+  body.append(new INVOKEINTERFACE(getType,2));
+  InstructionHandle disp=body.append(new SWITCH(types,targets,ihLoop));
+  appendTestSequences(body);
+  appendTemplateCode(body);
+  if (nsElem != null)   body.append(nsElem);
+  if (nsAttr != null)   body.append(nsAttr);
+  body.append(ilRecurse);
+  body.append(ilText);
+  mainIL.append(body);
+  current.setEnd(body.getEnd());
+  mainIL.append(ilLoop);
+  peepHoleOptimization(methodGen);
+  classGen.addMethod(methodGen);
+  _templates=oldTemplates;
+}

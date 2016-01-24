@@ -1,0 +1,18 @@
+/** 
+ * Creates an <code>AttributedCharacterIterator</code> for the String <code>s</code>.
+ * @param s String to create AttributedCharacterIterator from
+ * @return AttributedCharacterIterator wrapping s
+ */
+AttributedCharacterIterator createAttributedCharacterIterator(String s){
+  AttributedString as=new AttributedString(s);
+  return as.getIterator();
+}
+/** 
+ * Creates an <code>AttributedCharacterIterator</code> containg the concatenated contents of the passed in <code>AttributedCharacterIterator</code>s.
+ * @param iterators AttributedCharacterIterators used to create resultingAttributedCharacterIterators
+ * @return AttributedCharacterIterator wrapping passed inAttributedCharacterIterators
+ */
+AttributedCharacterIterator createAttributedCharacterIterator(AttributedCharacterIterator[] iterators){
+  AttributedString as=new AttributedString(iterators);
+  return as.getIterator();
+}

@@ -1,0 +1,17 @@
+/** 
+ * Creates a <CODE>ReflectionException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE>.
+ * @param e the wrapped exception.
+ */
+public ReflectionException(java.lang.Exception e){
+  super();
+  exception=e;
+}
+/** 
+ * Creates a <CODE>ReflectionException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE> with a detail message.
+ * @param e the wrapped exception.
+ * @param message the detail message.
+ */
+public ReflectionException(java.lang.Exception e,String message){
+  super(message);
+  exception=e;
+}

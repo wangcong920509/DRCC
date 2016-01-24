@@ -1,0 +1,20 @@
+/** 
+ * @return field object with given name, or null
+ */
+public Field containsField(String name){
+  for (Iterator e=field_vec.iterator(); e.hasNext(); ) {
+    Field f=(Field)e.next();
+    if (f.getName().equals(name))     return f;
+  }
+  return null;
+}
+/** 
+ * @return method object with given name and signature, or null
+ */
+public Method containsMethod(String name,String signature){
+  for (Iterator e=method_vec.iterator(); e.hasNext(); ) {
+    Method m=(Method)e.next();
+    if (m.getName().equals(name) && m.getSignature().equals(signature))     return m;
+  }
+  return null;
+}

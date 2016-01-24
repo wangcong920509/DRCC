@@ -1,0 +1,22 @@
+jdk_src\javax\swing\text\html\HTMLWriter.java
+void writeStyleStartTag() throws IOException {
+  indentSmart();
+  write("<style type=\"text/css\">");
+  incrIndent();
+  writeLineSeparator();
+  indentSmart();
+  write("<!--");
+  incrIndent();
+  writeLineSeparator();
+}
+void writeStyleEndTag() throws IOException {
+  decrIndent();
+  indentSmart();
+  write("-->");
+  writeLineSeparator();
+  decrIndent();
+  indentSmart();
+  write("</style>");
+  writeLineSeparator();
+  indentSmart();
+}

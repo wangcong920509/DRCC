@@ -1,0 +1,8 @@
+HeapDoubleBufferR(int cap,int lim){
+  super(cap,lim);
+  this.isReadOnly=true;
+}
+HeapDoubleBufferR(double[] buf,int off,int len){
+  super(buf,off,len);
+  this.isReadOnly=true;
+}

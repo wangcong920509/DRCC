@@ -1,0 +1,18 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Attribute node name
+ * @return null
+ */
+public Attr getAttributeNode(String name){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Name of attribute to get
+ * @return null
+ */
+public String getAttribute(String name){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

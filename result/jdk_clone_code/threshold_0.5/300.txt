@@ -1,0 +1,12 @@
+public String getPublicId(){
+  if (fLocator != null) {
+    return fLocator.getPublicId();
+  }
+  return null;
+}
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
+  }
+  return null;
+}

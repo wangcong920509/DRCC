@@ -1,0 +1,8 @@
+public static InterceptorsSystemException get(ORB orb,String logDomain){
+  InterceptorsSystemException wrapper=(InterceptorsSystemException)orb.getLogWrapper(logDomain,"INTERCEPTORS",factory);
+  return wrapper;
+}
+public static InterceptorsSystemException get(String logDomain){
+  InterceptorsSystemException wrapper=(InterceptorsSystemException)ORB.staticGetLogWrapper(logDomain,"INTERCEPTORS",factory);
+  return wrapper;
+}

@@ -1,0 +1,8 @@
+public ParserTokenManager(ASCII_CharStream stream,int lexState){
+  this(stream);
+  SwitchTo(lexState);
+}
+public void ReInit(ASCII_CharStream stream,int lexState){
+  ReInit(stream);
+  SwitchTo(lexState);
+}

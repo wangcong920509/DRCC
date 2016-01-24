@@ -1,0 +1,21 @@
+/** 
+ * Constructs the ACL with a specified owner
+ * @param owner owner of the ACL.
+ * @param name  name of this ACL.
+ */
+public AclImpl(PrincipalImpl owner,String name){
+  super(owner);
+  entryList=new Vector<AclEntry>();
+  aclName=name;
+}
+/** 
+ * Sets the name of this ACL.
+ * @param caller the principal invoking this method. It must be an ownerof this ACL.
+ * @param name the name to be given to this ACL.
+ * @exception NotOwnerException if the caller principal is not an ownerof this ACL.
+ * @see java.security.Principal
+ */
+public void setName(Principal caller,String name) throws NotOwnerException {
+  if (!isOwner(caller))   throw new NotOwnerException();
+  aclName=name;
+}

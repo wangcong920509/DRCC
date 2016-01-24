@@ -1,0 +1,12 @@
+/** 
+ * reset
+ * @param componentManager
+ */
+public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
+  super.reset(componentManager);
+  init();
+}
+public void reset(){
+  super.reset();
+  init();
+}

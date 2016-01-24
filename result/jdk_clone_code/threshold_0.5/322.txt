@@ -1,0 +1,14 @@
+/** 
+ * Constructs a grammar pool with a default number of buckets. 
+ */
+public XMLGrammarPoolImpl(){
+  fGrammars=new Entry[TABLE_SIZE];
+  fPoolIsLocked=false;
+}
+/** 
+ * Constructs a grammar pool with a specified number of buckets. 
+ */
+public XMLGrammarPoolImpl(int initialCapacity){
+  fGrammars=new Entry[initialCapacity];
+  fPoolIsLocked=false;
+}

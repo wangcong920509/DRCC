@@ -1,0 +1,29 @@
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneCloseButtonPainter.java
+private void paintBackgroundDisabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient1(roundRect));
+  g.fill(roundRect);
+  path=decodePath1();
+  g.setPaint(color3);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(color4);
+  g.fill(path);
+}
+private void paintBackgroundMouseOver(Graphics2D g){
+  roundRect=decodeRoundRect2();
+  g.setPaint(color5);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient4(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect4();
+  g.setPaint(decodeGradient5(roundRect));
+  g.fill(roundRect);
+  path=decodePath1();
+  g.setPaint(color20);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(color13);
+  g.fill(path);
+}

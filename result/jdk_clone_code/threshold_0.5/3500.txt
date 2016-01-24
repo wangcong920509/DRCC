@@ -1,0 +1,17 @@
+/** 
+ * Creates a <code>JFormattedTextField</code> with the specified <code>AbstractFormatterFactory</code>.
+ * @param factory AbstractFormatterFactory used for formatting.
+ */
+public JFormattedTextField(AbstractFormatterFactory factory){
+  this();
+  setFormatterFactory(factory);
+}
+/** 
+ * Creates a <code>JFormattedTextField</code> with the specified <code>AbstractFormatterFactory</code> and initial value.
+ * @param factory <code>AbstractFormatterFactory</code> used forformatting.
+ * @param currentValue Initial value to use
+ */
+public JFormattedTextField(AbstractFormatterFactory factory,Object currentValue){
+  this(currentValue);
+  setFormatterFactory(factory);
+}

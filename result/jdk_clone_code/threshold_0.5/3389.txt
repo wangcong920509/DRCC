@@ -1,0 +1,25 @@
+/** 
+ * Returns a stub for the given server object.
+ * @param obj the server object for which a stub is required. Must either be a subclassof PortableRemoteObject or have been previously the target of a call to {@link #exportObject}.
+ * @return the most derived stub for the object.
+ * @exception NoSuchObjectException if a stub cannot be located for the given server object.
+ */
+public static Remote toStub(Remote obj) throws NoSuchObjectException {
+  if (proDelegate != null) {
+    return proDelegate.toStub(obj);
+  }
+  return null;
+}
+/** 
+ * Checks to ensure that an object of a remote or abstract interface type can be cast to a desired type.
+ * @param narrowFrom the object to check.
+ * @param narrowTo the desired type.
+ * @return an object which can be cast to the desired type.
+ * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
+ */
+public static java.lang.Object narrow(java.lang.Object narrowFrom,java.lang.Class narrowTo) throws ClassCastException {
+  if (proDelegate != null) {
+    return proDelegate.narrow(narrowFrom,narrowTo);
+  }
+  return null;
+}

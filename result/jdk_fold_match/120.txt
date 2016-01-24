@@ -1,0 +1,131 @@
+jdk_src\com\sun\org\apache\xml\internal\security\utils\Base64.java
+/** 
+ * Encode a byte array in Base64 format and return an optionally wrapped line.
+ * @param binaryData <code>byte[]</code> data to be encoded
+ * @param length <code>int<code> length of wrapped lines; No wrapping if less than 4.
+ * @return a <code>String</code> with encoded data
+ */
+public static final String encode(byte[] binaryData,int length){
+  if (length < 4) {
+    length=Integer.MAX_VALUE;
+  }
+  if (binaryData == null)   return null;
+  int lengthDataBits=binaryData.length * EIGHTBIT;
+  if (lengthDataBits == 0) {
+    return "";
+  }
+  int fewerThan24bits=lengthDataBits % TWENTYFOURBITGROUP;
+  int numberTriplets=lengthDataBits / TWENTYFOURBITGROUP;
+  int numberQuartet=fewerThan24bits != 0 ? numberTriplets + 1 : numberTriplets;
+  int quartesPerLine=length / 4;
+  int numberLines=(numberQuartet - 1) / quartesPerLine;
+  char encodedData[]=null;
+  encodedData=new char[numberQuartet * 4 + numberLines];
+  byte k=0, l=0, b1=0, b2=0, b3=0;
+  int encodedIndex=0;
+  int dataIndex=0;
+  int i=0;
+  for (int line=0; line < numberLines; line++) {
+    for (int quartet=0; quartet < 19; quartet++) {
+      b1=binaryData[dataIndex++];
+      b2=binaryData[dataIndex++];
+      b3=binaryData[dataIndex++];
+      l=(byte)(b2 & 0x0f);
+      k=(byte)(b1 & 0x03);
+      byte val1=((b1 & SIGN) == 0) ? (byte)(b1 >> 2) : (byte)((b1) >> 2 ^ 0xc0);
+      byte val2=((b2 & SIGN) == 0) ? (byte)(b2 >> 4) : (byte)((b2) >> 4 ^ 0xf0);
+      byte val3=((b3 & SIGN) == 0) ? (byte)(b3 >> 6) : (byte)((b3) >> 6 ^ 0xfc);
+      encodedData[encodedIndex++]=lookUpBase64Alphabet[val1];
+      encodedData[encodedIndex++]=lookUpBase64Alphabet[val2 | (k << 4)];
+      encodedData[encodedIndex++]=lookUpBase64Alphabet[(l << 2) | val3];
+      encodedData[encodedIndex++]=lookUpBase64Alphabet[b3 & 0x3f];
+      i++;
+    }
+    encodedData[encodedIndex++]=0xa;
+  }
+  for (; i < numberTriplets; i++) {
+    b1=binaryData[dataIndex++];
+    b2=binaryData[dataIndex++];
+    b3=binaryData[dataIndex++];
+    l=(byte)(b2 & 0x0f);
+    k=(byte)(b1 & 0x03);
+    byte val1=((b1 & SIGN) == 0) ? (byte)(b1 >> 2) : (byte)((b1) >> 2 ^ 0xc0);
+    byte val2=((b2 & SIGN) == 0) ? (byte)(b2 >> 4) : (byte)((b2) >> 4 ^ 0xf0);
+    byte val3=((b3 & SIGN) == 0) ? (byte)(b3 >> 6) : (byte)((b3) >> 6 ^ 0xfc);
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[val1];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[val2 | (k << 4)];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[(l << 2) | val3];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[b3 & 0x3f];
+  }
+  if (fewerThan24bits == EIGHTBIT) {
+    b1=binaryData[dataIndex];
+    k=(byte)(b1 & 0x03);
+    byte val1=((b1 & SIGN) == 0) ? (byte)(b1 >> 2) : (byte)((b1) >> 2 ^ 0xc0);
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[val1];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[k << 4];
+    encodedData[encodedIndex++]=PAD;
+    encodedData[encodedIndex++]=PAD;
+  }
+ else   if (fewerThan24bits == SIXTEENBIT) {
+    b1=binaryData[dataIndex];
+    b2=binaryData[dataIndex + 1];
+    l=(byte)(b2 & 0x0f);
+    k=(byte)(b1 & 0x03);
+    byte val1=((b1 & SIGN) == 0) ? (byte)(b1 >> 2) : (byte)((b1) >> 2 ^ 0xc0);
+    byte val2=((b2 & SIGN) == 0) ? (byte)(b2 >> 4) : (byte)((b2) >> 4 ^ 0xf0);
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[val1];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[val2 | (k << 4)];
+    encodedData[encodedIndex++]=lookUpBase64Alphabet[l << 2];
+    encodedData[encodedIndex++]=PAD;
+  }
+  return new String(encodedData);
+}
+protected final static void decode(byte[] base64Data,OutputStream os,int len) throws Base64DecodingException, IOException {
+  if (len == -1)   len=removeWhiteSpace(base64Data);
+  if (len % FOURBYTE != 0) {
+    throw new Base64DecodingException("decoding.divisible.four");
+  }
+  int numberQuadruple=(len / FOURBYTE);
+  if (numberQuadruple == 0)   return;
+  byte b1=0, b2=0, b3=0, b4=0;
+  int i=0;
+  int dataIndex=0;
+  for (i=numberQuadruple - 1; i > 0; i--) {
+    b1=base64Alphabet[base64Data[dataIndex++]];
+    b2=base64Alphabet[base64Data[dataIndex++]];
+    b3=base64Alphabet[base64Data[dataIndex++]];
+    b4=base64Alphabet[base64Data[dataIndex++]];
+    if ((b1 == -1) || (b2 == -1) || (b3 == -1)|| (b4 == -1))     throw new Base64DecodingException("decoding.general");
+    os.write((byte)(b1 << 2 | b2 >> 4));
+    os.write((byte)(((b2 & 0xf) << 4) | ((b3 >> 2) & 0xf)));
+    os.write((byte)(b3 << 6 | b4));
+  }
+  b1=base64Alphabet[base64Data[dataIndex++]];
+  b2=base64Alphabet[base64Data[dataIndex++]];
+  if ((b1 == -1) || (b2 == -1)) {
+    throw new Base64DecodingException("decoding.general");
+  }
+  byte d3, d4;
+  b3=base64Alphabet[d3=base64Data[dataIndex++]];
+  b4=base64Alphabet[d4=base64Data[dataIndex++]];
+  if ((b3 == -1) || (b4 == -1)) {
+    if (isPad(d3) && isPad(d4)) {
+      if ((b2 & 0xf) != 0)       throw new Base64DecodingException("decoding.general");
+      os.write((byte)(b1 << 2 | b2 >> 4));
+    }
+ else     if (!isPad(d3) && isPad(d4)) {
+      if ((b3 & 0x3) != 0)       throw new Base64DecodingException("decoding.general");
+      os.write((byte)(b1 << 2 | b2 >> 4));
+      os.write((byte)(((b2 & 0xf) << 4) | ((b3 >> 2) & 0xf)));
+    }
+ else {
+      throw new Base64DecodingException("decoding.general");
+    }
+  }
+ else {
+    os.write((byte)(b1 << 2 | b2 >> 4));
+    os.write((byte)(((b2 & 0xf) << 4) | ((b3 >> 2) & 0xf)));
+    os.write((byte)(b3 << 6 | b4));
+  }
+  return;
+}

@@ -1,0 +1,36 @@
+/** 
+ * Sets list of roles successfully accessed.
+ * @param list  list of roles successfully accessed
+ * @see #getRoles
+ */
+public void setRoles(RoleList list){
+  if (list != null) {
+    roleList=new RoleList();
+    for (Iterator<?> roleIter=list.iterator(); roleIter.hasNext(); ) {
+      Role currRole=(Role)(roleIter.next());
+      roleList.add((Role)(currRole.clone()));
+    }
+  }
+ else {
+    roleList=null;
+  }
+  return;
+}
+/** 
+ * Sets list of roles unsuccessfully accessed.
+ * @param unresolvedList  list of roles unsuccessfully accessed
+ * @see #getRolesUnresolved
+ */
+public void setRolesUnresolved(RoleUnresolvedList unresolvedList){
+  if (unresolvedList != null) {
+    unresolvedRoleList=new RoleUnresolvedList();
+    for (Iterator<?> roleUnresIter=unresolvedList.iterator(); roleUnresIter.hasNext(); ) {
+      RoleUnresolved currRoleUnres=(RoleUnresolved)(roleUnresIter.next());
+      unresolvedRoleList.add((RoleUnresolved)(currRoleUnres.clone()));
+    }
+  }
+ else {
+    unresolvedRoleList=null;
+  }
+  return;
+}

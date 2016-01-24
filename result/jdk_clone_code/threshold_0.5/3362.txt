@@ -1,0 +1,21 @@
+/** 
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
+ */
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
+}
+/** 
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
+ */
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
+}

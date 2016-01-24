@@ -1,0 +1,17 @@
+/** 
+ * Creates a <CODE>RuntimeMBeanException</CODE> that wraps the actual <CODE>java.lang.RuntimeException</CODE>.
+ * @param e the wrapped exception.
+ */
+public RuntimeMBeanException(java.lang.RuntimeException e){
+  super();
+  runtimeException=e;
+}
+/** 
+ * Creates a <CODE>RuntimeMBeanException</CODE> that wraps the actual <CODE>java.lang.RuntimeException</CODE> with a detailed message.
+ * @param e the wrapped exception.
+ * @param message the detail message.
+ */
+public RuntimeMBeanException(java.lang.RuntimeException e,String message){
+  super(message);
+  runtimeException=e;
+}

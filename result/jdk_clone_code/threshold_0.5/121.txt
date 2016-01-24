@@ -1,0 +1,19 @@
+/** 
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
+ */
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
+}
+/** 
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
+ */
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
+}

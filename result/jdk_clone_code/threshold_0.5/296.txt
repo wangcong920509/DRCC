@@ -1,0 +1,22 @@
+/** 
+ * @see com.sun.org.apache.xerces.internal.xni.NamespaceContext#getURI(String)
+ */
+public String getURI(String prefix){
+  for (int i=fNamespaceSize; i > 0; i-=2) {
+    if (fNamespace[i - 2] == prefix) {
+      return fNamespace[i - 1];
+    }
+  }
+  return null;
+}
+/** 
+ * @see com.sun.org.apache.xerces.internal.xni.NamespaceContext#getPrefix(String)
+ */
+public String getPrefix(String uri){
+  for (int i=fNamespaceSize; i > 0; i-=2) {
+    if (fNamespace[i - 1] == uri) {
+      if (getURI(fNamespace[i - 2]) == uri)       return fNamespace[i - 2];
+    }
+  }
+  return null;
+}

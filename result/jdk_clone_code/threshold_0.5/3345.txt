@@ -1,0 +1,8 @@
+public void rename(Name name,Name newName) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.rename(name,newName);
+}
+public void rename(String name,String newName) throws NamingException {
+  Context ctx=getTargetContext();
+  ctx.rename(name,newName);
+}

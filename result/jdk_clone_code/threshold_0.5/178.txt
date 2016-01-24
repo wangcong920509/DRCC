@@ -1,0 +1,15 @@
+/** 
+ * SAX2: Receive notification of character data.
+ */
+public void characters(char[] ch,int start,int length) throws SAXException {
+  super.characters(ch,start,length);
+  _disableEscaping=!_escaping;
+  _textNodeToProcess=getNumberOfNodes();
+}
+/** 
+ * SAX2: Receive notification of ignorable whitespace in element content. Similar to characters(char[], int, int).
+ */
+public void ignorableWhitespace(char[] ch,int start,int length) throws SAXException {
+  super.ignorableWhitespace(ch,start,length);
+  _textNodeToProcess=getNumberOfNodes();
+}

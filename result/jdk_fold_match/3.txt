@@ -1,0 +1,78 @@
+jdk_src\com\sun\corba\se\impl\encoding\CDRInputStream_1_0.java
+public Serializable read_value(Class expectedType){
+  int vType=readValueTag();
+  if (vType == 0)   return null;
+  if (vType == 0xffffffff)   return handleIndirection();
+  int indirection=get_offset() - 4;
+  boolean saveIsChunked=isChunked;
+  isChunked=repIdUtil.isChunkedEncoding(vType);
+  java.lang.Object value=null;
+  String codebase_URL=null;
+  if (repIdUtil.isCodeBasePresent(vType)) {
+    codebase_URL=read_codebase_URL();
+  }
+  String repositoryIDString=readRepositoryIds(vType,expectedType,null);
+  start_block();
+  end_flag--;
+  if (isChunked)   chunkedValueNestingLevel--;
+  if (repositoryIDString.equals(repIdStrs.getWStringValueRepId())) {
+    value=read_wstring();
+  }
+ else   if (repositoryIDString.equals(repIdStrs.getClassDescValueRepId())) {
+    value=readClass();
+  }
+ else {
+    Class valueClass=expectedType;
+    if (expectedType == null || !repositoryIDString.equals(repIdStrs.createForAnyType(expectedType))) {
+      valueClass=getClassFromString(repositoryIDString,codebase_URL,expectedType);
+    }
+    if (valueClass == null) {
+      throw wrapper.couldNotFindClass(CompletionStatus.COMPLETED_MAYBE,new ClassNotFoundException());
+    }
+    if (valueClass != null && org.omg.CORBA.portable.IDLEntity.class.isAssignableFrom(valueClass)) {
+      value=readIDLValue(indirection,repositoryIDString,valueClass,codebase_URL);
+    }
+ else {
+      try {
+        if (valueHandler == null)         valueHandler=ORBUtility.createValueHandler();
+        value=valueHandler.readValue(parent,indirection,valueClass,repositoryIDString,getCodeBase());
+      }
+ catch (      SystemException sysEx) {
+        throw sysEx;
+      }
+catch (      Exception ex) {
+        throw wrapper.valuehandlerReadException(CompletionStatus.COMPLETED_MAYBE,ex);
+      }
+catch (      Error e) {
+        throw wrapper.valuehandlerReadError(CompletionStatus.COMPLETED_MAYBE,e);
+      }
+    }
+  }
+  handleEndOfValue();
+  readEndTag();
+  if (valueCache == null)   valueCache=new CacheTable(orb,false);
+  valueCache.put(value,indirection);
+  isChunked=saveIsChunked;
+  start_block();
+  return (java.io.Serializable)value;
+}
+public void start_value(){
+  int vType=readValueTag();
+  if (vType == 0) {
+    specialNoOptionalDataState=true;
+    return;
+  }
+  if (vType == 0xffffffff) {
+    throw wrapper.customWrapperIndirection(CompletionStatus.COMPLETED_MAYBE);
+  }
+  if (repIdUtil.isCodeBasePresent(vType)) {
+    throw wrapper.customWrapperWithCodebase(CompletionStatus.COMPLETED_MAYBE);
+  }
+  if (repIdUtil.getTypeInfo(vType) != RepositoryIdUtility.SINGLE_REP_TYPE_INFO) {
+    throw wrapper.customWrapperNotSingleRepid(CompletionStatus.COMPLETED_MAYBE);
+  }
+  read_repositoryId();
+  start_block();
+  end_flag--;
+  chunkedValueNestingLevel--;
+}

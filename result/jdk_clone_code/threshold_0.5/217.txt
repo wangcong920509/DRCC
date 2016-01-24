@@ -1,0 +1,42 @@
+/** 
+ * Return the expanded system identifier for the current document event. <p> The return value is the expanded system identifier of the document entity or of the external parsed entity in which the markup triggering the event appears. <p> If the system identifier is a URL, the parser must resolve it fully before passing it to the application.
+ * @return A string containing the expanded system identifier, or nullif none is available.
+ */
+public String getExpandedSystemId(){
+  if (fCurrentEntity != null) {
+    if (fCurrentEntity.entityLocation != null && fCurrentEntity.entityLocation.getExpandedSystemId() != null) {
+      return fCurrentEntity.entityLocation.getExpandedSystemId();
+    }
+ else {
+      int size=fEntityStack.size();
+      for (int i=size - 1; i >= 0; i--) {
+        Entity.ScannedEntity externalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+        if (externalEntity.entityLocation != null && externalEntity.entityLocation.getExpandedSystemId() != null) {
+          return externalEntity.entityLocation.getExpandedSystemId();
+        }
+      }
+    }
+  }
+  return null;
+}
+/** 
+ * Return the literal system identifier for the current document event. <p> The return value is the literal system identifier of the document entity or of the external parsed entity in which the markup triggering the event appears. <p>
+ * @return A string containing the literal system identifier, or nullif none is available.
+ */
+public String getLiteralSystemId(){
+  if (fCurrentEntity != null) {
+    if (fCurrentEntity.entityLocation != null && fCurrentEntity.entityLocation.getLiteralSystemId() != null) {
+      return fCurrentEntity.entityLocation.getLiteralSystemId();
+    }
+ else {
+      int size=fEntityStack.size();
+      for (int i=size - 1; i >= 0; i--) {
+        Entity.ScannedEntity externalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+        if (externalEntity.entityLocation != null && externalEntity.entityLocation.getLiteralSystemId() != null) {
+          return externalEntity.entityLocation.getLiteralSystemId();
+        }
+      }
+    }
+  }
+  return null;
+}

@@ -1,0 +1,16 @@
+/** 
+ * Constructor KeyInfo
+ * @param doc
+ */
+public KeyInfo(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
+}
+/** 
+ * Method add
+ * @param keyname
+ */
+public void add(KeyName keyname){
+  this._constructionElement.appendChild(keyname.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
+}

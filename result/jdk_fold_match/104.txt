@@ -1,0 +1,217 @@
+jdk_src\com\sun\org\apache\xerces\internal\impl\xpath\regex\RegexParser.java
+Token processCondition() throws ParseException {
+  if (this.offset + 1 >= this.regexlen)   throw ex("parser.factor.4",this.offset);
+  int refno=-1;
+  Token condition=null;
+  int ch=this.regex.charAt(this.offset);
+  if ('1' <= ch && ch <= '9') {
+    refno=ch - '0';
+    int finalRefno=refno;
+    if (this.parennumber <= refno)     throw ex("parser.parse.2",this.offset);
+    while (this.offset + 1 < this.regexlen) {
+      ch=this.regex.charAt(this.offset + 1);
+      if ('1' <= ch && ch <= '9') {
+        refno=(refno * 10) + (ch - '0');
+        if (refno < this.parennumber) {
+          finalRefno=refno;
+          ++this.offset;
+        }
+ else {
+          break;
+        }
+      }
+ else {
+        break;
+      }
+    }
+    this.hasBackReferences=true;
+    if (this.references == null)     this.references=new Vector();
+    this.references.addElement(new ReferencePosition(finalRefno,this.offset));
+    this.offset++;
+    if (this.regex.charAt(this.offset) != ')')     throw ex("parser.factor.1",this.offset);
+    this.offset++;
+  }
+ else {
+    if (ch == '?')     this.offset--;
+    this.next();
+    condition=this.parseFactor();
+switch (condition.type) {
+case Token.LOOKAHEAD:
+case Token.NEGATIVELOOKAHEAD:
+case Token.LOOKBEHIND:
+case Token.NEGATIVELOOKBEHIND:
+      break;
+case Token.ANCHOR:
+    if (this.read() != T_RPAREN)     throw ex("parser.factor.1",this.offset - 1);
+  break;
+default :
+throw ex("parser.factor.5",this.offset);
+}
+}
+this.next();
+Token yesPattern=this.parseRegex();
+Token noPattern=null;
+if (yesPattern.type == Token.UNION) {
+if (yesPattern.size() != 2) throw ex("parser.factor.6",this.offset);
+noPattern=yesPattern.getChild(1);
+yesPattern=yesPattern.getChild(0);
+}
+if (this.read() != T_RPAREN) throw ex("parser.factor.1",this.offset - 1);
+this.next();
+return Token.createCondition(refno,condition,yesPattern,noPattern);
+}
+/** 
+ * char-class ::= '[' ( '^'? range ','?)+ ']' range ::= '\d' | '\w' | '\s' | category-block | range-char | range-char '-' range-char range-char ::= '\[' | '\]' | '\\' | '\' [,-efnrtv] | bmp-code | character-2 bmp-code ::= '\' 'u' [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F]
+ */
+protected RangeToken parseCharacterClass(boolean useNrange) throws ParseException {
+  this.setContext(S_INBRACKETS);
+  this.next();
+  boolean nrange=false;
+  RangeToken base=null;
+  RangeToken tok;
+  if (this.read() == T_CHAR && this.chardata == '^') {
+    nrange=true;
+    this.next();
+    if (useNrange) {
+      tok=Token.createNRange();
+    }
+ else {
+      base=Token.createRange();
+      base.addRange(0,Token.UTF16_MAX);
+      tok=Token.createRange();
+    }
+  }
+ else {
+    tok=Token.createRange();
+  }
+  int type;
+  boolean firstloop=true;
+  while ((type=this.read()) != T_EOF) {
+    if (type == T_CHAR && this.chardata == ']' && !firstloop)     break;
+    int c=this.chardata;
+    boolean end=false;
+    if (type == T_BACKSOLIDUS) {
+switch (c) {
+case 'd':
+case 'D':
+case 'w':
+case 'W':
+case 's':
+case 'S':
+        tok.mergeRanges(this.getTokenForShorthand(c));
+      end=true;
+    break;
+case 'i':
+case 'I':
+case 'c':
+case 'C':
+  c=this.processCIinCharacterClass(tok,c);
+if (c < 0) end=true;
+break;
+case 'p':
+case 'P':
+int pstart=this.offset;
+RangeToken tok2=this.processBacksolidus_pP(c);
+if (tok2 == null) throw this.ex("parser.atom.5",pstart);
+tok.mergeRanges(tok2);
+end=true;
+break;
+default :
+c=this.decodeEscaped();
+}
+}
+ else if (type == T_POSIX_CHARCLASS_START) {
+int nameend=this.regex.indexOf(':',this.offset);
+if (nameend < 0) throw this.ex("parser.cc.1",this.offset);
+boolean positive=true;
+if (this.regex.charAt(this.offset) == '^') {
+this.offset++;
+positive=false;
+}
+String name=this.regex.substring(this.offset,nameend);
+RangeToken range=Token.getRange(name,positive,this.isSet(RegularExpression.XMLSCHEMA_MODE));
+if (range == null) throw this.ex("parser.cc.3",this.offset);
+tok.mergeRanges(range);
+end=true;
+if (nameend + 1 >= this.regexlen || this.regex.charAt(nameend + 1) != ']') throw this.ex("parser.cc.1",nameend);
+this.offset=nameend + 2;
+}
+ else if (type == T_XMLSCHEMA_CC_SUBTRACTION && !firstloop) {
+if (nrange) {
+nrange=false;
+if (useNrange) {
+tok=(RangeToken)Token.complementRanges(tok);
+}
+ else {
+base.subtractRanges(tok);
+tok=base;
+}
+}
+RangeToken range2=this.parseCharacterClass(false);
+tok.subtractRanges(range2);
+if (this.read() != T_CHAR || this.chardata != ']') {
+throw this.ex("parser.cc.5",this.offset);
+}
+break;
+}
+this.next();
+if (!end) {
+if (this.read() != T_CHAR || this.chardata != '-') {
+if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
+tok.addRange(c,c);
+}
+ else {
+addCaseInsensitiveChar(tok,c);
+}
+}
+ else if (type == T_XMLSCHEMA_CC_SUBTRACTION) {
+throw this.ex("parser.cc.8",this.offset - 1);
+}
+ else {
+this.next();
+if ((type=this.read()) == T_EOF) throw this.ex("parser.cc.2",this.offset);
+if (type == T_CHAR && this.chardata == ']') {
+if (!this.isSet(RegularExpression.IGNORE_CASE) || c > 0xffff) {
+tok.addRange(c,c);
+}
+ else {
+addCaseInsensitiveChar(tok,c);
+}
+tok.addRange('-','-');
+}
+ else {
+int rangeend=this.chardata;
+if (type == T_BACKSOLIDUS) {
+rangeend=this.decodeEscaped();
+}
+this.next();
+if (c > rangeend) {
+throw this.ex("parser.ope.3",this.offset - 1);
+}
+if (!this.isSet(RegularExpression.IGNORE_CASE) || (c > 0xffff && rangeend > 0xffff)) {
+tok.addRange(c,rangeend);
+}
+ else {
+addCaseInsensitiveCharRange(tok,c,rangeend);
+}
+}
+}
+}
+if (this.isSet(RegularExpression.SPECIAL_COMMA) && this.read() == T_CHAR && this.chardata == ',') {
+this.next();
+}
+firstloop=false;
+}
+if (this.read() == T_EOF) {
+throw this.ex("parser.cc.2",this.offset);
+}
+if (!useNrange && nrange) {
+base.subtractRanges(tok);
+tok=base;
+}
+tok.sortRanges();
+tok.compactRanges();
+this.setContext(S_NORMAL);
+this.next();
+return tok;
+}

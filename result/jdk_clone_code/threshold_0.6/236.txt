@@ -1,0 +1,21 @@
+/** 
+ * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
+ * @param principals the name of the subordinate and target principals
+ * @throws NullPointerException if <code>principals</code> is <code>null</code>.
+ * @throws IllegalArgumentException if <code>principals</code> is empty.
+ */
+public DelegationPermission(String principals){
+  super(principals);
+  init(principals);
+}
+/** 
+ * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
+ * @param principals the name of the subordinate and target principals<p>
+ * @param actions should be null.
+ * @throws NullPointerException if <code>principals</code> is <code>null</code>.
+ * @throws IllegalArgumentException if <code>principals</code> is empty.
+ */
+public DelegationPermission(String principals,String actions){
+  super(principals,actions);
+  init(principals);
+}

@@ -1,0 +1,59 @@
+jdk_src\com\sun\corba\se\impl\encoding\CDROutputStream_1_0.java
+private void writeValueBase(org.omg.CORBA.portable.ValueBase object,Class clazz){
+  mustChunk=true;
+  int indirection=writeValueTag(true,true,Util.getCodebase(clazz));
+  String repId=((ValueBase)object)._truncatable_ids()[0];
+  write_repositoryId(repId);
+  updateIndirectionTable(indirection,object,object);
+  start_block();
+  end_flag--;
+  chunkedValueNestingLevel--;
+  writeIDLValue(object,repId);
+  end_block();
+  writeEndTag(true);
+}
+private void writeIDLEntity(IDLEntity object){
+  mustChunk=true;
+  String repository_id=repIdStrs.createForJavaType(object);
+  Class clazz=object.getClass();
+  String codebase=Util.getCodebase(clazz);
+  int indirection=writeValueTag(true,true,codebase);
+  updateIndirectionTable(indirection,object,object);
+  write_repositoryId(repository_id);
+  end_flag--;
+  chunkedValueNestingLevel--;
+  start_block();
+  try {
+    ClassLoader clazzLoader=(clazz == null ? null : clazz.getClassLoader());
+    final Class helperClass=Utility.loadClassForClass(clazz.getName() + "Helper",codebase,clazzLoader,clazz,clazzLoader);
+    final Class argTypes[]={org.omg.CORBA.portable.OutputStream.class,clazz};
+    Method writeMethod=null;
+    try {
+      writeMethod=(Method)AccessController.doPrivileged(new PrivilegedExceptionAction(){
+        public java.lang.Object run() throws NoSuchMethodException {
+          return helperClass.getDeclaredMethod(kWriteMethod,argTypes);
+        }
+      }
+);
+    }
+ catch (    PrivilegedActionException pae) {
+      throw (NoSuchMethodException)pae.getException();
+    }
+    java.lang.Object args[]={parent,object};
+    writeMethod.invoke(null,args);
+  }
+ catch (  ClassNotFoundException cnfe) {
+    throw wrapper.errorInvokingHelperWrite(CompletionStatus.COMPLETED_MAYBE,cnfe);
+  }
+catch (  NoSuchMethodException nsme) {
+    throw wrapper.errorInvokingHelperWrite(CompletionStatus.COMPLETED_MAYBE,nsme);
+  }
+catch (  IllegalAccessException iae) {
+    throw wrapper.errorInvokingHelperWrite(CompletionStatus.COMPLETED_MAYBE,iae);
+  }
+catch (  InvocationTargetException ite) {
+    throw wrapper.errorInvokingHelperWrite(CompletionStatus.COMPLETED_MAYBE,ite);
+  }
+  end_block();
+  writeEndTag(true);
+}

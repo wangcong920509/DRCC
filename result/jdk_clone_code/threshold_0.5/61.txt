@@ -1,0 +1,8 @@
+public ServerNotActive(String _serverId){
+  super(ServerNotActiveHelper.id());
+  serverId=_serverId;
+}
+public ServerNotActive(String $reason,String _serverId){
+  super(ServerNotActiveHelper.id() + "  " + $reason);
+  serverId=_serverId;
+}

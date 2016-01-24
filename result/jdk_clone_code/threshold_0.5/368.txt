@@ -1,0 +1,15 @@
+/** 
+ * Construct an empty XML Filter with no parent. 
+ */
+public ResolvingXMLFilter(){
+  super();
+  catalogResolver=new CatalogResolver(catalogManager);
+}
+/** 
+ * Construct an XML filter with the specified parent. 
+ */
+public ResolvingXMLFilter(XMLReader parent,CatalogManager manager){
+  super(parent);
+  catalogManager=manager;
+  catalogResolver=new CatalogResolver(catalogManager);
+}

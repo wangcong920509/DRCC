@@ -1,0 +1,33 @@
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMaximizeButtonPainter.java
+private Path2D decodePath2(){
+  path.reset();
+  path.moveTo(decodeX(1.6842105f),decodeY(1.3888888f));
+  path.lineTo(decodeX(1.6842105f),decodeY(1.5f));
+  path.lineTo(decodeX(1.7368422f),decodeY(1.5f));
+  path.lineTo(decodeX(1.7368422f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.4210527f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.4210527f),decodeY(1.6111112f));
+  path.lineTo(decodeX(1.3684211f),decodeY(1.6111112f));
+  path.lineTo(decodeX(1.3684211f),decodeY(1.7222222f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.7222222f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.3888888f));
+  path.lineTo(decodeX(1.6842105f),decodeY(1.3888888f));
+  path.closePath();
+  return path;
+}
+private Path2D decodePath4(){
+  path.reset();
+  path.moveTo(decodeX(1.2105263f),decodeY(1.2222222f));
+  path.lineTo(decodeX(1.2105263f),decodeY(1.7222222f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.7222222f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.3333334f));
+  path.lineTo(decodeX(1.7368422f),decodeY(1.3333334f));
+  path.lineTo(decodeX(1.7368422f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.2631578f),decodeY(1.6666667f));
+  path.lineTo(decodeX(1.2631578f),decodeY(1.3333334f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.3333334f));
+  path.lineTo(decodeX(1.7894738f),decodeY(1.2222222f));
+  path.lineTo(decodeX(1.2105263f),decodeY(1.2222222f));
+  path.closePath();
+  return path;
+}

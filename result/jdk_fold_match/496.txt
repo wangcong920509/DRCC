@@ -1,0 +1,35 @@
+jdk_src\javax\swing\plaf\nimbus\FileChooserPainter.java
+private Path2D decodePath8(){
+  path.reset();
+  path.moveTo(decodeX(0.2f),decodeY(2.6f));
+  path.lineTo(decodeX(0.4f),decodeY(2.6f));
+  path.lineTo(decodeX(0.40833336f),decodeY(1.8645833f));
+  path.lineTo(decodeX(0.79583335f),decodeY(0.8f));
+  path.lineTo(decodeX(2.4f),decodeY(0.8f));
+  path.lineTo(decodeX(2.4f),decodeY(0.6f));
+  path.lineTo(decodeX(1.5f),decodeY(0.6f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.4f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.2f));
+  path.lineTo(decodeX(0.6f),decodeY(0.2f));
+  path.lineTo(decodeX(0.6f),decodeY(0.4f));
+  path.lineTo(decodeX(0.4f),decodeY(0.6f));
+  path.lineTo(decodeX(0.2f),decodeY(0.6f));
+  path.lineTo(decodeX(0.2f),decodeY(2.6f));
+  path.closePath();
+  return path;
+}
+private Path2D decodePath13(){
+  path.reset();
+  path.moveTo(decodeX(0.2f),decodeY(2.8f));
+  path.lineTo(decodeX(0.2f),decodeY(0.8f));
+  path.lineTo(decodeX(0.4f),decodeY(0.8f));
+  path.lineTo(decodeX(0.6f),decodeY(0.6f));
+  path.lineTo(decodeX(0.6f),decodeY(0.4f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.4f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.6f));
+  path.lineTo(decodeX(1.5f),decodeY(0.6f));
+  path.lineTo(decodeX(1.5f),decodeY(2.8f));
+  path.lineTo(decodeX(0.2f),decodeY(2.8f));
+  path.closePath();
+  return path;
+}

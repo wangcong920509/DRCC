@@ -1,0 +1,23 @@
+jdk_src\javax\swing\plaf\nimbus\ToggleButtonPainter.java
+private void paintBackgroundMouseOverAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color16);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient6(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient7(roundRect));
+  g.fill(roundRect);
+}
+private void paintBackgroundPressed(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color22);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient8(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient4(roundRect));
+  g.fill(roundRect);
+}

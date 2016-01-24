@@ -1,0 +1,14 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_char(){
+  checkExtractBadOperation(TCKind._tk_char);
+  return (char)value;
+}
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_wchar(){
+  checkExtractBadOperation(TCKind._tk_wchar);
+  return (char)value;
+}

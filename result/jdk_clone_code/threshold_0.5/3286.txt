@@ -1,0 +1,28 @@
+/** 
+ * Returns <code>true</code> if it is possible to replace the image metadata associated with an existing image with index <code>imageIndex</code>.  If this method returns <code>false</code>, a call to <code>replaceImageMetadata(imageIndex)</code> will throw an <code>UnsupportedOperationException</code>. <p> A writer that does not support any image metadata replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose metadata is tobe replaced.
+ * @return <code>true</code> if the image metadata of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage metadata replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
+ */
+public boolean canReplaceImageMetadata(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}
+/** 
+ * Returns <code>true</code> if the writer supports the insertion of a new, empty image at the given index.  The pixel values of the image are undefined, and may be specified in pieces using the <code>replacePixels</code> methods.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support insertion of empty images may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index at which the image is to beinserted.
+ * @return <code>true</code> if an empty image may be inserted atthe given index.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportsempty image insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during thequery.
+ */
+public boolean canInsertEmpty(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
+}

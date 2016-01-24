@@ -1,0 +1,8 @@
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
+  return this;
+}
+public synchronized StringBuffer append(char[] str){
+  super.append(str);
+  return this;
+}

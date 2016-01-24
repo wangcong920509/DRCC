@@ -1,0 +1,34 @@
+jdk_src\com\sun\org\apache\xpath\internal\XPath.java
+/** 
+ * Construct an XPath object. (Needs review -sc) This method initializes an XPathParser/ Compiler and compiles the expression.
+ * @param exprString The XPath expression.
+ * @param locator The location of the expression, may be null.
+ * @param prefixResolver A prefix resolver to use to resolve prefixes tonamespace URIs.
+ * @param type one of {@link #SELECT} or {@link #MATCH}.
+ * @param errorListener The error listener, or null if default should be used.
+ * @throws javax.xml.transform.TransformerException if syntax or other error.
+ */
+public XPath(String exprString,SourceLocator locator,PrefixResolver prefixResolver,int type,ErrorListener errorListener) throws javax.xml.transform.TransformerException {
+  initFunctionTable();
+  if (null == errorListener)   errorListener=new com.sun.org.apache.xml.internal.utils.DefaultErrorHandler();
+  m_patternString=exprString;
+  XPathParser parser=new XPathParser(errorListener,locator);
+  Compiler compiler=new Compiler(errorListener,locator,m_funcTable);
+  if (SELECT == type)   parser.initXPath(compiler,exprString,prefixResolver);
+ else   if (MATCH == type)   parser.initMatchPattern(compiler,exprString,prefixResolver);
+ else   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_CANNOT_DEAL_XPATH_TYPE,new Object[]{Integer.toString(type)}));
+  Expression expr=compiler.compile(0);
+  this.setExpression(expr);
+  if ((null != locator) && locator instanceof ExpressionNode) {
+    expr.exprSetParent((ExpressionNode)locator);
+  }
+}
+/** 
+ * Construct an XPath object.
+ * @param expr The Expression object.
+ * @throws javax.xml.transform.TransformerException if syntax or other error.
+ */
+public XPath(Expression expr){
+  this.setExpression(expr);
+  initFunctionTable();
+}

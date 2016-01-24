@@ -1,0 +1,8 @@
+public StringBuilder append(boolean b){
+  super.append(b);
+  return this;
+}
+public StringBuilder append(char c){
+  super.append(c);
+  return this;
+}

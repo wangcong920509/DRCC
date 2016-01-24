@@ -1,0 +1,8 @@
+HeapLongBufferR(long[] buf,int off,int len){
+  super(buf,off,len);
+  this.isReadOnly=true;
+}
+protected HeapLongBufferR(long[] buf,int mark,int pos,int lim,int cap,int off){
+  super(buf,mark,pos,lim,cap,off);
+  this.isReadOnly=true;
+}

@@ -1,0 +1,144 @@
+jdk_src\com\sun\imageio\plugins\common\ImageUtil.java
+/** 
+ * Creates a <code>ColorModel</code> that may be used with the specified <code>SampleModel</code>.  If a suitable <code>ColorModel</code> cannot be found, this method returns <code>null</code>. <p> Suitable <code>ColorModel</code>s are guaranteed to exist for all instances of <code>ComponentSampleModel</code>. For 1- and 3- banded <code>SampleModel</code>s, the returned <code>ColorModel</code> will be opaque.  For 2- and 4-banded <code>SampleModel</code>s, the output will use alpha transparency which is not premultiplied.  1- and 2-banded data will use a grayscale <code>ColorSpace</code>, and 3- and 4-banded data a sRGB <code>ColorSpace</code>. Data with 5 or more bands will have a <code>BogusColorSpace</code>.</p> <p>An instance of <code>DirectColorModel</code> will be created for instances of <code>SinglePixelPackedSampleModel</code> with no more than 4 bands.</p> <p>An instance of <code>IndexColorModel</code> will be created for instances of <code>MultiPixelPackedSampleModel</code>. The colormap will be a grayscale ramp with <code>1&nbsp;<<&nbsp;numberOfBits</code> entries ranging from zero to at most 255.</p>
+ * @return An instance of <code>ColorModel</code> that is suitable forthe supplied <code>SampleModel</code>, or <code>null</code>.
+ * @throws IllegalArgumentException  If <code>sampleModel</code> is<code>null</code>.
+ */
+public static final ColorModel createColorModel(SampleModel sampleModel){
+  if (sampleModel == null) {
+    throw new IllegalArgumentException("sampleModel == null!");
+  }
+  int dataType=sampleModel.getDataType();
+switch (dataType) {
+case DataBuffer.TYPE_BYTE:
+case DataBuffer.TYPE_USHORT:
+case DataBuffer.TYPE_SHORT:
+case DataBuffer.TYPE_INT:
+case DataBuffer.TYPE_FLOAT:
+case DataBuffer.TYPE_DOUBLE:
+    break;
+default :
+  return null;
+}
+ColorModel colorModel=null;
+int[] sampleSize=sampleModel.getSampleSize();
+if (sampleModel instanceof ComponentSampleModel) {
+int numBands=sampleModel.getNumBands();
+ColorSpace colorSpace=null;
+if (numBands <= 2) {
+  colorSpace=ColorSpace.getInstance(ColorSpace.CS_GRAY);
+}
+ else if (numBands <= 4) {
+  colorSpace=ColorSpace.getInstance(ColorSpace.CS_sRGB);
+}
+ else {
+  colorSpace=new BogusColorSpace(numBands);
+}
+boolean hasAlpha=(numBands == 2) || (numBands == 4);
+boolean isAlphaPremultiplied=false;
+int transparency=hasAlpha ? Transparency.TRANSLUCENT : Transparency.OPAQUE;
+colorModel=new ComponentColorModel(colorSpace,sampleSize,hasAlpha,isAlphaPremultiplied,transparency,dataType);
+}
+ else if (sampleModel.getNumBands() <= 4 && sampleModel instanceof SinglePixelPackedSampleModel) {
+SinglePixelPackedSampleModel sppsm=(SinglePixelPackedSampleModel)sampleModel;
+int[] bitMasks=sppsm.getBitMasks();
+int rmask=0;
+int gmask=0;
+int bmask=0;
+int amask=0;
+int numBands=bitMasks.length;
+if (numBands <= 2) {
+  rmask=gmask=bmask=bitMasks[0];
+  if (numBands == 2) {
+    amask=bitMasks[1];
+  }
+}
+ else {
+  rmask=bitMasks[0];
+  gmask=bitMasks[1];
+  bmask=bitMasks[2];
+  if (numBands == 4) {
+    amask=bitMasks[3];
+  }
+}
+int bits=0;
+for (int i=0; i < sampleSize.length; i++) {
+  bits+=sampleSize[i];
+}
+return new DirectColorModel(bits,rmask,gmask,bmask,amask);
+}
+ else if (sampleModel instanceof MultiPixelPackedSampleModel) {
+int bitsPerSample=sampleSize[0];
+int numEntries=1 << bitsPerSample;
+byte[] map=new byte[numEntries];
+for (int i=0; i < numEntries; i++) {
+  map[i]=(byte)(i * 255 / (numEntries - 1));
+}
+colorModel=new IndexColorModel(bitsPerSample,numEntries,map,map,map);
+}
+return colorModel;
+}
+public static ColorModel createColorModel(ColorSpace colorSpace,SampleModel sampleModel){
+  ColorModel colorModel=null;
+  if (sampleModel == null) {
+    throw new IllegalArgumentException(I18N.getString("ImageUtil1"));
+  }
+  int numBands=sampleModel.getNumBands();
+  if (numBands < 1 || numBands > 4) {
+    return null;
+  }
+  int dataType=sampleModel.getDataType();
+  if (sampleModel instanceof ComponentSampleModel) {
+    if (dataType < DataBuffer.TYPE_BYTE || dataType > DataBuffer.TYPE_DOUBLE) {
+      return null;
+    }
+    if (colorSpace == null)     colorSpace=numBands <= 2 ? ColorSpace.getInstance(ColorSpace.CS_GRAY) : ColorSpace.getInstance(ColorSpace.CS_sRGB);
+    boolean useAlpha=(numBands == 2) || (numBands == 4);
+    int transparency=useAlpha ? Transparency.TRANSLUCENT : Transparency.OPAQUE;
+    boolean premultiplied=false;
+    int dataTypeSize=DataBuffer.getDataTypeSize(dataType);
+    int[] bits=new int[numBands];
+    for (int i=0; i < numBands; i++) {
+      bits[i]=dataTypeSize;
+    }
+    colorModel=new ComponentColorModel(colorSpace,bits,useAlpha,premultiplied,transparency,dataType);
+  }
+ else   if (sampleModel instanceof SinglePixelPackedSampleModel) {
+    SinglePixelPackedSampleModel sppsm=(SinglePixelPackedSampleModel)sampleModel;
+    int[] bitMasks=sppsm.getBitMasks();
+    int rmask=0;
+    int gmask=0;
+    int bmask=0;
+    int amask=0;
+    numBands=bitMasks.length;
+    if (numBands <= 2) {
+      rmask=gmask=bmask=bitMasks[0];
+      if (numBands == 2) {
+        amask=bitMasks[1];
+      }
+    }
+ else {
+      rmask=bitMasks[0];
+      gmask=bitMasks[1];
+      bmask=bitMasks[2];
+      if (numBands == 4) {
+        amask=bitMasks[3];
+      }
+    }
+    int[] sampleSize=sppsm.getSampleSize();
+    int bits=0;
+    for (int i=0; i < sampleSize.length; i++) {
+      bits+=sampleSize[i];
+    }
+    if (colorSpace == null)     colorSpace=ColorSpace.getInstance(ColorSpace.CS_sRGB);
+    colorModel=new DirectColorModel(colorSpace,bits,rmask,gmask,bmask,amask,false,sampleModel.getDataType());
+  }
+ else   if (sampleModel instanceof MultiPixelPackedSampleModel) {
+    int bits=((MultiPixelPackedSampleModel)sampleModel).getPixelBitStride();
+    int size=1 << bits;
+    byte[] comp=new byte[size];
+    for (int i=0; i < size; i++)     comp[i]=(byte)(255 * i / (size - 1));
+    colorModel=new IndexColorModel(bits,size,comp,comp,comp);
+  }
+  return colorModel;
+}

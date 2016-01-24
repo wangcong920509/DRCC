@@ -1,0 +1,15 @@
+/** 
+ * Get the default Context object
+ * @result          the default Context object
+ */
+public synchronized org.omg.CORBA.Context get_default_context(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
+}
+/** 
+ * This method does nothing. It is not required by the spec to do anything!
+ */
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
+}

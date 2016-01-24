@@ -1,0 +1,14 @@
+/** 
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ */
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
+}
+/** 
+ * @see XSLOutputAttributes#getDoctypePublic()
+ */
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
+}

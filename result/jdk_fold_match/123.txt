@@ -1,0 +1,217 @@
+jdk_src\com\sun\org\apache\xml\internal\serialize\HTMLSerializer.java
+public void startElement(String namespaceURI,String localName,String rawName,Attributes attrs) throws SAXException {
+  int i;
+  boolean preserveSpace;
+  ElementState state;
+  String name;
+  String value;
+  String htmlName;
+  boolean addNSAttr=false;
+  try {
+    if (_printer == null)     throw new IllegalStateException(DOMMessageFormatter.formatMessage(DOMMessageFormatter.SERIALIZER_DOMAIN,"NoWriterSupplied",null));
+    state=getElementState();
+    if (isDocumentState()) {
+      if (!_started)       startDocument((localName == null || localName.length() == 0) ? rawName : localName);
+    }
+ else {
+      if (state.empty)       _printer.printText('>');
+      if (_indenting && !state.preserveSpace && (state.empty || state.afterElement))       _printer.breakLine();
+    }
+    preserveSpace=state.preserveSpace;
+    boolean hasNamespaceURI=(namespaceURI != null && namespaceURI.length() != 0);
+    if (rawName == null || rawName.length() == 0) {
+      rawName=localName;
+      if (hasNamespaceURI) {
+        String prefix;
+        prefix=getPrefix(namespaceURI);
+        if (prefix != null && prefix.length() != 0)         rawName=prefix + ":" + localName;
+      }
+      addNSAttr=true;
+    }
+    if (!hasNamespaceURI)     htmlName=rawName;
+ else {
+      if (namespaceURI.equals(XHTMLNamespace) || (fUserXHTMLNamespace != null && fUserXHTMLNamespace.equals(namespaceURI)))       htmlName=localName;
+ else       htmlName=null;
+    }
+    _printer.printText('<');
+    if (_xhtml)     _printer.printText(rawName.toLowerCase(Locale.ENGLISH));
+ else     _printer.printText(rawName);
+    _printer.indent();
+    if (attrs != null) {
+      for (i=0; i < attrs.getLength(); ++i) {
+        _printer.printSpace();
+        name=attrs.getQName(i).toLowerCase(Locale.ENGLISH);
+        value=attrs.getValue(i);
+        if (_xhtml || hasNamespaceURI) {
+          if (value == null) {
+            _printer.printText(name);
+            _printer.printText("=\"\"");
+          }
+ else {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            printEscaped(value);
+            _printer.printText('"');
+          }
+        }
+ else {
+          if (value == null) {
+            value="";
+          }
+          if (!_format.getPreserveEmptyAttributes() && value.length() == 0)           _printer.printText(name);
+ else           if (HTMLdtd.isURI(rawName,name)) {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            _printer.printText(escapeURI(value));
+            _printer.printText('"');
+          }
+ else           if (HTMLdtd.isBoolean(rawName,name))           _printer.printText(name);
+ else {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            printEscaped(value);
+            _printer.printText('"');
+          }
+        }
+      }
+    }
+    if (htmlName != null && HTMLdtd.isPreserveSpace(htmlName))     preserveSpace=true;
+    if (addNSAttr) {
+      Enumeration keys;
+      keys=_prefixes.keys();
+      while (keys.hasMoreElements()) {
+        _printer.printSpace();
+        value=(String)keys.nextElement();
+        name=(String)_prefixes.get(value);
+        if (name.length() == 0) {
+          _printer.printText("xmlns=\"");
+          printEscaped(value);
+          _printer.printText('"');
+        }
+ else {
+          _printer.printText("xmlns:");
+          _printer.printText(name);
+          _printer.printText("=\"");
+          printEscaped(value);
+          _printer.printText('"');
+        }
+      }
+    }
+    state=enterElementState(namespaceURI,localName,rawName,preserveSpace);
+    if (htmlName != null && (htmlName.equalsIgnoreCase("A") || htmlName.equalsIgnoreCase("TD"))) {
+      state.empty=false;
+      _printer.printText('>');
+    }
+    if (htmlName != null && (rawName.equalsIgnoreCase("SCRIPT") || rawName.equalsIgnoreCase("STYLE"))) {
+      if (_xhtml) {
+        state.doCData=true;
+      }
+ else {
+        state.unescaped=true;
+      }
+    }
+  }
+ catch (  IOException except) {
+    throw new SAXException(except);
+  }
+}
+/** 
+ * Called to serialize a DOM element. Equivalent to calling  {@link #startElement},  {@link #endElement} and serializing everythinginbetween, but better optimized.
+ */
+protected void serializeElement(Element elem) throws IOException {
+  Attr attr;
+  NamedNodeMap attrMap;
+  int i;
+  Node child;
+  ElementState state;
+  boolean preserveSpace;
+  String name;
+  String value;
+  String tagName;
+  tagName=elem.getTagName();
+  state=getElementState();
+  if (isDocumentState()) {
+    if (!_started)     startDocument(tagName);
+  }
+ else {
+    if (state.empty)     _printer.printText('>');
+    if (_indenting && !state.preserveSpace && (state.empty || state.afterElement))     _printer.breakLine();
+  }
+  preserveSpace=state.preserveSpace;
+  _printer.printText('<');
+  if (_xhtml)   _printer.printText(tagName.toLowerCase(Locale.ENGLISH));
+ else   _printer.printText(tagName);
+  _printer.indent();
+  attrMap=elem.getAttributes();
+  if (attrMap != null) {
+    for (i=0; i < attrMap.getLength(); ++i) {
+      attr=(Attr)attrMap.item(i);
+      name=attr.getName().toLowerCase(Locale.ENGLISH);
+      value=attr.getValue();
+      if (attr.getSpecified()) {
+        _printer.printSpace();
+        if (_xhtml) {
+          if (value == null) {
+            _printer.printText(name);
+            _printer.printText("=\"\"");
+          }
+ else {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            printEscaped(value);
+            _printer.printText('"');
+          }
+        }
+ else {
+          if (value == null) {
+            value="";
+          }
+          if (!_format.getPreserveEmptyAttributes() && value.length() == 0)           _printer.printText(name);
+ else           if (HTMLdtd.isURI(tagName,name)) {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            _printer.printText(escapeURI(value));
+            _printer.printText('"');
+          }
+ else           if (HTMLdtd.isBoolean(tagName,name))           _printer.printText(name);
+ else {
+            _printer.printText(name);
+            _printer.printText("=\"");
+            printEscaped(value);
+            _printer.printText('"');
+          }
+        }
+      }
+    }
+  }
+  if (HTMLdtd.isPreserveSpace(tagName))   preserveSpace=true;
+  if (elem.hasChildNodes() || !HTMLdtd.isEmptyTag(tagName)) {
+    state=enterElementState(null,null,tagName,preserveSpace);
+    if (tagName.equalsIgnoreCase("A") || tagName.equalsIgnoreCase("TD")) {
+      state.empty=false;
+      _printer.printText('>');
+    }
+    if (tagName.equalsIgnoreCase("SCRIPT") || tagName.equalsIgnoreCase("STYLE")) {
+      if (_xhtml) {
+        state.doCData=true;
+      }
+ else {
+        state.unescaped=true;
+      }
+    }
+    child=elem.getFirstChild();
+    while (child != null) {
+      serializeNode(child);
+      child=child.getNextSibling();
+    }
+    endElementIO(null,null,tagName);
+  }
+ else {
+    _printer.unindent();
+    if (_xhtml)     _printer.printText(" />");
+ else     _printer.printText('>');
+    state.afterElement=true;
+    state.empty=false;
+    if (isDocumentState())     _printer.flush();
+  }
+}

@@ -1,0 +1,21 @@
+/** 
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
+ */
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
+}
+/** 
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
+ */
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
+  }
+  return null;
+}

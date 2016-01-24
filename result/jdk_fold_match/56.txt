@@ -1,0 +1,238 @@
+jdk_src\com\sun\org\apache\xerces\internal\dom\NodeImpl.java
+/** 
+ * Compares a node with this node with regard to their position in the tree and according to the document order. This order can be extended by module that define additional types of nodes.
+ * @param other The node to compare against this node.
+ * @return Returns how the given node is positioned relatively to thisnode.
+ * @since DOM Level 3
+ * @deprecated
+ */
+public short compareTreePosition(Node other){
+  if (this == other)   return (TREE_POSITION_SAME_NODE | TREE_POSITION_EQUIVALENT);
+  short thisType=this.getNodeType();
+  short otherType=other.getNodeType();
+  if (thisType == Node.ENTITY_NODE || thisType == Node.NOTATION_NODE || otherType == Node.ENTITY_NODE || otherType == Node.NOTATION_NODE) {
+    return TREE_POSITION_DISCONNECTED;
+  }
+  Node node;
+  Node thisAncestor=this;
+  Node otherAncestor=other;
+  int thisDepth=0;
+  int otherDepth=0;
+  for (node=this; node != null; node=node.getParentNode()) {
+    thisDepth+=1;
+    if (node == other)     return (TREE_POSITION_ANCESTOR | TREE_POSITION_PRECEDING);
+    thisAncestor=node;
+  }
+  for (node=other; node != null; node=node.getParentNode()) {
+    otherDepth+=1;
+    if (node == this)     return (TREE_POSITION_DESCENDANT | TREE_POSITION_FOLLOWING);
+    otherAncestor=node;
+  }
+  Node thisNode=this;
+  Node otherNode=other;
+  int thisAncestorType=thisAncestor.getNodeType();
+  int otherAncestorType=otherAncestor.getNodeType();
+  if (thisAncestorType == Node.ATTRIBUTE_NODE) {
+    thisNode=((AttrImpl)thisAncestor).getOwnerElement();
+  }
+  if (otherAncestorType == Node.ATTRIBUTE_NODE) {
+    otherNode=((AttrImpl)otherAncestor).getOwnerElement();
+  }
+  if (thisAncestorType == Node.ATTRIBUTE_NODE && otherAncestorType == Node.ATTRIBUTE_NODE && thisNode == otherNode)   return TREE_POSITION_EQUIVALENT;
+  if (thisAncestorType == Node.ATTRIBUTE_NODE) {
+    thisDepth=0;
+    for (node=thisNode; node != null; node=node.getParentNode()) {
+      thisDepth+=1;
+      if (node == otherNode) {
+        return TREE_POSITION_PRECEDING;
+      }
+      thisAncestor=node;
+    }
+  }
+  if (otherAncestorType == Node.ATTRIBUTE_NODE) {
+    otherDepth=0;
+    for (node=otherNode; node != null; node=node.getParentNode()) {
+      otherDepth+=1;
+      if (node == thisNode)       return TREE_POSITION_FOLLOWING;
+      otherAncestor=node;
+    }
+  }
+  if (thisAncestor != otherAncestor)   return TREE_POSITION_DISCONNECTED;
+  if (thisDepth > otherDepth) {
+    for (int i=0; i < thisDepth - otherDepth; i++)     thisNode=thisNode.getParentNode();
+    if (thisNode == otherNode)     return TREE_POSITION_PRECEDING;
+  }
+ else {
+    for (int i=0; i < otherDepth - thisDepth; i++)     otherNode=otherNode.getParentNode();
+    if (otherNode == thisNode)     return TREE_POSITION_FOLLOWING;
+  }
+  Node thisNodeP, otherNodeP;
+  for (thisNodeP=thisNode.getParentNode(), otherNodeP=otherNode.getParentNode(); thisNodeP != otherNodeP; ) {
+    thisNode=thisNodeP;
+    otherNode=otherNodeP;
+    thisNodeP=thisNodeP.getParentNode();
+    otherNodeP=otherNodeP.getParentNode();
+  }
+  for (Node current=thisNodeP.getFirstChild(); current != null; current=current.getNextSibling()) {
+    if (current == otherNode) {
+      return TREE_POSITION_PRECEDING;
+    }
+ else     if (current == thisNode) {
+      return TREE_POSITION_FOLLOWING;
+    }
+  }
+  return 0;
+}
+/** 
+ * Compares a node with this node with regard to their position in the document.
+ * @param other The node to compare against this node.
+ * @return Returns how the given node is positioned relatively to thisnode.
+ * @since DOM Level 3
+ */
+public short compareDocumentPosition(Node other) throws DOMException {
+  if (this == other)   return 0;
+  try {
+    NodeImpl node=(NodeImpl)other;
+  }
+ catch (  ClassCastException e) {
+    String msg=DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,"NOT_SUPPORTED_ERR",null);
+    throw new DOMException(DOMException.NOT_SUPPORTED_ERR,msg);
+  }
+  Document thisOwnerDoc, otherOwnerDoc;
+  if (this.getNodeType() == Node.DOCUMENT_NODE)   thisOwnerDoc=(Document)this;
+ else   thisOwnerDoc=this.getOwnerDocument();
+  if (other.getNodeType() == Node.DOCUMENT_NODE)   otherOwnerDoc=(Document)other;
+ else   otherOwnerDoc=other.getOwnerDocument();
+  if (thisOwnerDoc != otherOwnerDoc && thisOwnerDoc != null && otherOwnerDoc != null) {
+    int otherDocNum=((CoreDocumentImpl)otherOwnerDoc).getNodeNumber();
+    int thisDocNum=((CoreDocumentImpl)thisOwnerDoc).getNodeNumber();
+    if (otherDocNum > thisDocNum)     return DOCUMENT_POSITION_DISCONNECTED | DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+ else     return DOCUMENT_POSITION_DISCONNECTED | DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+  }
+  Node node;
+  Node thisAncestor=this;
+  Node otherAncestor=other;
+  int thisDepth=0;
+  int otherDepth=0;
+  for (node=this; node != null; node=node.getParentNode()) {
+    thisDepth+=1;
+    if (node == other)     return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+    thisAncestor=node;
+  }
+  for (node=other; node != null; node=node.getParentNode()) {
+    otherDepth+=1;
+    if (node == this)     return (DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING);
+    otherAncestor=node;
+  }
+  int thisAncestorType=thisAncestor.getNodeType();
+  int otherAncestorType=otherAncestor.getNodeType();
+  Node thisNode=this;
+  Node otherNode=other;
+switch (thisAncestorType) {
+case Node.NOTATION_NODE:
+case Node.ENTITY_NODE:
+{
+      DocumentType container=thisOwnerDoc.getDoctype();
+      if (container == otherAncestor)       return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+switch (otherAncestorType) {
+case Node.NOTATION_NODE:
+case Node.ENTITY_NODE:
+{
+          if (thisAncestorType != otherAncestorType)           return ((thisAncestorType > otherAncestorType) ? DOCUMENT_POSITION_PRECEDING : DOCUMENT_POSITION_FOLLOWING);
+ else {
+            if (thisAncestorType == Node.NOTATION_NODE)             if (((NamedNodeMapImpl)container.getNotations()).precedes(otherAncestor,thisAncestor))             return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+ else             return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+ else             if (((NamedNodeMapImpl)container.getEntities()).precedes(otherAncestor,thisAncestor))             return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+ else             return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+          }
+        }
+    }
+    thisNode=thisAncestor=thisOwnerDoc;
+    break;
+  }
+case Node.DOCUMENT_TYPE_NODE:
+{
+  if (otherNode == thisOwnerDoc)   return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_CONTAINS);
+ else   if (thisOwnerDoc != null && thisOwnerDoc == otherOwnerDoc)   return (DOCUMENT_POSITION_FOLLOWING);
+  break;
+}
+case Node.ATTRIBUTE_NODE:
+{
+thisNode=((AttrImpl)thisAncestor).getOwnerElement();
+if (otherAncestorType == Node.ATTRIBUTE_NODE) {
+  otherNode=((AttrImpl)otherAncestor).getOwnerElement();
+  if (otherNode == thisNode) {
+    if (((NamedNodeMapImpl)thisNode.getAttributes()).precedes(other,this))     return (DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+ else     return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC);
+  }
+}
+thisDepth=0;
+for (node=thisNode; node != null; node=node.getParentNode()) {
+  thisDepth+=1;
+  if (node == otherNode) {
+    return (DOCUMENT_POSITION_CONTAINS | DOCUMENT_POSITION_PRECEDING);
+  }
+  thisAncestor=node;
+}
+}
+}
+switch (otherAncestorType) {
+case Node.NOTATION_NODE:
+case Node.ENTITY_NODE:
+{
+DocumentType container=thisOwnerDoc.getDoctype();
+if (container == this) return (DOCUMENT_POSITION_IS_CONTAINED | DOCUMENT_POSITION_FOLLOWING);
+otherNode=otherAncestor=thisOwnerDoc;
+break;
+}
+case Node.DOCUMENT_TYPE_NODE:
+{
+if (thisNode == otherOwnerDoc) return (DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IS_CONTAINED);
+ else if (otherOwnerDoc != null && thisOwnerDoc == otherOwnerDoc) return (DOCUMENT_POSITION_PRECEDING);
+break;
+}
+case Node.ATTRIBUTE_NODE:
+{
+otherDepth=0;
+otherNode=((AttrImpl)otherAncestor).getOwnerElement();
+for (node=otherNode; node != null; node=node.getParentNode()) {
+otherDepth+=1;
+if (node == thisNode) return DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IS_CONTAINED;
+otherAncestor=node;
+}
+}
+}
+if (thisAncestor != otherAncestor) {
+int thisAncestorNum, otherAncestorNum;
+thisAncestorNum=((NodeImpl)thisAncestor).getNodeNumber();
+otherAncestorNum=((NodeImpl)otherAncestor).getNodeNumber();
+if (thisAncestorNum > otherAncestorNum) return DOCUMENT_POSITION_DISCONNECTED | DOCUMENT_POSITION_FOLLOWING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+ else return DOCUMENT_POSITION_DISCONNECTED | DOCUMENT_POSITION_PRECEDING | DOCUMENT_POSITION_IMPLEMENTATION_SPECIFIC;
+}
+if (thisDepth > otherDepth) {
+for (int i=0; i < thisDepth - otherDepth; i++) thisNode=thisNode.getParentNode();
+if (thisNode == otherNode) {
+return DOCUMENT_POSITION_PRECEDING;
+}
+}
+ else {
+for (int i=0; i < otherDepth - thisDepth; i++) otherNode=otherNode.getParentNode();
+if (otherNode == thisNode) return DOCUMENT_POSITION_FOLLOWING;
+}
+Node thisNodeP, otherNodeP;
+for (thisNodeP=thisNode.getParentNode(), otherNodeP=otherNode.getParentNode(); thisNodeP != otherNodeP; ) {
+thisNode=thisNodeP;
+otherNode=otherNodeP;
+thisNodeP=thisNodeP.getParentNode();
+otherNodeP=otherNodeP.getParentNode();
+}
+for (Node current=thisNodeP.getFirstChild(); current != null; current=current.getNextSibling()) {
+if (current == otherNode) {
+return DOCUMENT_POSITION_PRECEDING;
+}
+ else if (current == thisNode) {
+return DOCUMENT_POSITION_FOLLOWING;
+}
+}
+return 0;
+}

@@ -1,0 +1,24 @@
+/** 
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
+ */
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
+}
+/** 
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
+ */
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
+  }
+  return null;
+}

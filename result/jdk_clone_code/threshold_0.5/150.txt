@@ -1,0 +1,42 @@
+boolean testCreation(){
+  try {
+    regexp=new RE();
+    regexp.setProgram(test.compiler.compile(pattern));
+    if (badPattern) {
+      test.fail(log,"Was expected to be an error, but wasn't.");
+      return false;
+    }
+    return true;
+  }
+ catch (  Exception e) {
+    if (badPattern) {
+      log.append("   Match: ERR\n");
+      success("Produces an error (" + e.toString() + "), as expected.");
+      return false;
+    }
+    String message=(e.getMessage() == null) ? e.toString() : e.getMessage();
+    test.fail(log,"Produces an unexpected exception \"" + message + "\"");
+    e.printStackTrace();
+  }
+catch (  Error e) {
+    test.fail(log,"Compiler threw fatal error \"" + e.getMessage() + "\"");
+    e.printStackTrace();
+  }
+  return false;
+}
+boolean tryMatchUsingCI(CharacterIterator matchAgainst){
+  try {
+    boolean result=regexp.match(matchAgainst,0);
+    log.append("   Match: " + (result ? "YES" : "NO") + "\n");
+    return checkResult(result) && (!shouldMatch || checkParens());
+  }
+ catch (  Exception e) {
+    test.fail(log,"Matcher threw exception: " + e.toString());
+    e.printStackTrace();
+  }
+catch (  Error e) {
+    test.fail(log,"Matcher threw fatal error \"" + e.getMessage() + "\"");
+    e.printStackTrace();
+  }
+  return false;
+}

@@ -1,0 +1,20 @@
+/** 
+ * Inserts the specified element at the front of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @since 1.6
+ */
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
+}
+/** 
+ * Inserts the specified element at the end of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerLast})
+ * @since 1.6
+ */
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
+}

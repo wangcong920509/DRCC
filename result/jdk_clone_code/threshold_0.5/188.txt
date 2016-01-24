@@ -1,0 +1,18 @@
+/** 
+ * Returns the attribute name
+ */
+public String getNodeName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}
+/** 
+ * In Attributes, NodeName is considered a synonym for the attribute's Name
+ */
+public String getName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}

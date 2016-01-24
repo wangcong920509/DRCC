@@ -1,0 +1,17 @@
+jdk_src\javax\swing\plaf\nimbus\TabbedPaneTabPainter.java
+private void paintBackgroundSelectedAndDisabled(Graphics2D g){
+  path=decodePath7();
+  g.setPaint(decodeGradient7(path));
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient9(path));
+  g.fill(path);
+}
+private void paintBackgroundSelectedAndPressed(Graphics2D g){
+  path=decodePath8();
+  g.setPaint(decodeGradient13(path));
+  g.fill(path);
+  path=decodePath9();
+  g.setPaint(decodeGradient14(path));
+  g.fill(path);
+}

@@ -1,0 +1,38 @@
+jdk_src\javax\swing\plaf\nimbus\TextFieldPainter.java
+private void paintBorderFocused(Graphics2D g){
+  rect=decodeRect7();
+  g.setPaint(decodeGradient3(rect));
+  g.fill(rect);
+  rect=decodeRect8();
+  g.setPaint(decodeGradient4(rect));
+  g.fill(rect);
+  rect=decodeRect9();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect10();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect11();
+  g.setPaint(color11);
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color12);
+  g.fill(path);
+}
+private void paintBorderEnabled(Graphics2D g){
+  rect=decodeRect7();
+  g.setPaint(decodeGradient5(rect));
+  g.fill(rect);
+  rect=decodeRect8();
+  g.setPaint(decodeGradient4(rect));
+  g.fill(rect);
+  rect=decodeRect9();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect10();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect11();
+  g.setPaint(color11);
+  g.fill(rect);
+}

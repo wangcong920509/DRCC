@@ -1,0 +1,17 @@
+/** 
+ * @param key the key
+ * @throws ClassCastException {@inheritDoc}
+ * @throws NullPointerException if the specified key is null
+ */
+public K floorKey(K key){
+  Node<K,V> n=findNear(key,LT | EQ);
+  return (n == null) ? null : n.key;
+}
+/** 
+ * @throws ClassCastException {@inheritDoc}
+ * @throws NullPointerException if the specified key is null
+ */
+public K ceilingKey(K key){
+  Node<K,V> n=findNear(key,GT | EQ);
+  return (n == null) ? null : n.key;
+}

@@ -12,7 +12,7 @@ import org.eclipse.jdt.core.dom.ASTVisitor;
 public class CountNodes  extends ASTVisitor{
 
 	public int mCount = 0;
-		
+
 	@Override
 	public void preVisit(ASTNode astnode){
 		mCount++;

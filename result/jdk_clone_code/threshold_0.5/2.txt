@@ -1,0 +1,14 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public int extract_long(){
+  checkExtractBadOperationList(new int[]{TCKind._tk_long,TCKind._tk_enum});
+  return (int)value;
+}
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public int extract_ulong(){
+  checkExtractBadOperation(TCKind._tk_ulong);
+  return (int)value;
+}

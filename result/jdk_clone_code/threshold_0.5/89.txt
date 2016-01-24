@@ -1,0 +1,18 @@
+/** 
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
+ */
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
+}
+/** 
+ * Put an object identifier with a specified tag.
+ * @param s The integer to encode.
+ * @param tag The tag to encode.
+ */
+public void putOid(long[] s,int tag){
+  putOidValue(s);
+  putTag(tag);
+}

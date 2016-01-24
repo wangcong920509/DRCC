@@ -1,0 +1,10 @@
+jdk_src\com\sun\org\apache\xml\internal\serializer\ToXMLSAXHandler.java
+public ToXMLSAXHandler(){
+  m_prefixMap=new NamespaceMappings();
+  initCDATA();
+}
+public ToXMLSAXHandler(ContentHandler handler,LexicalHandler lex,String encoding){
+  super(handler,lex,encoding);
+  initCDATA();
+  m_prefixMap=new NamespaceMappings();
+}

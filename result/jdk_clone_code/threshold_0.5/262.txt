@@ -1,0 +1,11 @@
+public void addGlobalElementDecl(XSElementDecl decl){
+  fGlobalElemDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}
+/** 
+ * register one global notation
+ */
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
+}

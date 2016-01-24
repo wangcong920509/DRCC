@@ -1,0 +1,30 @@
+jdk_src\com\sun\java\swing\plaf\gtk\GTKStyle.java
+private Insets getButtonInsets(SynthContext context,Insets insets){
+  int CHILD_SPACING=1;
+  int focusSize=getClassSpecificIntValue(context,"focus-line-width",1);
+  int focusPad=getClassSpecificIntValue(context,"focus-padding",1);
+  int xThickness=getXThickness();
+  int yThickness=getYThickness();
+  int w=focusSize + focusPad + xThickness+ CHILD_SPACING;
+  int h=focusSize + focusPad + yThickness+ CHILD_SPACING;
+  insets.left=insets.right=w;
+  insets.top=insets.bottom=h;
+  Component component=context.getComponent();
+  if ((component instanceof JButton) && !(component.getParent() instanceof JToolBar) && ((JButton)component).isDefaultCapable()) {
+    Insets defaultInsets=getClassSpecificInsetsValue(context,"default-border",BUTTON_DEFAULT_BORDER_INSETS);
+    insets.left+=defaultInsets.left;
+    insets.right+=defaultInsets.right;
+    insets.top+=defaultInsets.top;
+    insets.bottom+=defaultInsets.bottom;
+  }
+  return insets;
+}
+private Insets getTabbedPaneTabInsets(SynthContext context,Insets insets){
+  int xThickness=getXThickness();
+  int yThickness=getYThickness();
+  int focusSize=getClassSpecificIntValue(context,"focus-line-width",1);
+  int pad=2;
+  insets.left=insets.right=focusSize + pad + xThickness;
+  insets.top=insets.bottom=focusSize + pad + yThickness;
+  return insets;
+}

@@ -1,0 +1,16 @@
+/** 
+ * Updates the digest using the specified byte.
+ * @param input the byte with which to update the digest.
+ */
+public void update(byte input){
+  engineUpdate(input);
+  state=IN_PROGRESS;
+}
+/** 
+ * Updates the digest using the specified array of bytes.
+ * @param input the array of bytes.
+ */
+public void update(byte[] input){
+  engineUpdate(input,0,input.length);
+  state=IN_PROGRESS;
+}

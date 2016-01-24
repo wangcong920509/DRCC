@@ -1,0 +1,19 @@
+/** 
+ * Returns the Rectangle enclosing the label portion that the last item in path will be drawn into.  Will return null if any component in path is currently valid.
+ */
+public Rectangle getPathBounds(JTree tree,TreePath path){
+  if (tree != null && treeState != null) {
+    return getPathBounds(path,tree.getInsets(),new Rectangle());
+  }
+  return null;
+}
+/** 
+ * Returns the path to the node that is closest to x,y.  If there is nothing currently visible this will return null, otherwise it'll always return a valid path.  If you need to test if the returned object is exactly at x, y you should get the bounds for the returned path and test x, y against that.
+ */
+public TreePath getClosestPathForLocation(JTree tree,int x,int y){
+  if (tree != null && treeState != null) {
+    y-=tree.getInsets().top;
+    return treeState.getPathClosestTo(x,y);
+  }
+  return null;
+}

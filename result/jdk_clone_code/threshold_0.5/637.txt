@@ -1,0 +1,20 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @param newChild New node to append to the list of this node's children
+ * @return null
+ * @throws DOMException
+ */
+public Node appendChild(Node newChild) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @param data Data for CDATA section
+ * @return null
+ * @throws DOMException
+ */
+public CDATASection createCDATASection(String data) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}

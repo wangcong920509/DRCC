@@ -1,0 +1,8 @@
+public DoubleBuffer put(double x){
+  Bits.putDoubleB(bb,ix(nextPutIndex()),x);
+  return this;
+}
+public DoubleBuffer put(int i,double x){
+  Bits.putDoubleB(bb,ix(checkIndex(i)),x);
+  return this;
+}

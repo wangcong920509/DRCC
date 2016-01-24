@@ -1,0 +1,50 @@
+jdk_src\com\sun\org\apache\xpath\internal\compiler\XPathParser.java
+/** 
+ * Given an string, init an XPath object for pattern matches, in order that a parse doesn't have to be done each time the expression is evaluated.
+ * @param compiler The XPath object to be initialized.
+ * @param expression A String representing the XPath.
+ * @param namespaceContext An object that is able to resolve prefixes inthe XPath to namespaces.
+ * @throws javax.xml.transform.TransformerException
+ */
+public void initMatchPattern(Compiler compiler,String expression,PrefixResolver namespaceContext) throws javax.xml.transform.TransformerException {
+  m_ops=compiler;
+  m_namespaceContext=namespaceContext;
+  m_functionTable=compiler.getFunctionTable();
+  Lexer lexer=new Lexer(compiler,namespaceContext,this);
+  lexer.tokenize(expression);
+  m_ops.setOp(0,OpCodes.OP_MATCHPATTERN);
+  m_ops.setOp(OpMap.MAPINDEX_LENGTH,2);
+  nextToken();
+  Pattern();
+  if (null != m_token) {
+    String extraTokens="";
+    while (null != m_token) {
+      extraTokens+="'" + m_token + "'";
+      nextToken();
+      if (null != m_token)       extraTokens+=", ";
+    }
+    error(XPATHErrorResources.ER_EXTRA_ILLEGAL_TOKENS,new Object[]{extraTokens});
+  }
+  m_ops.setOp(m_ops.getOp(OpMap.MAPINDEX_LENGTH),OpCodes.ENDOP);
+  m_ops.setOp(OpMap.MAPINDEX_LENGTH,m_ops.getOp(OpMap.MAPINDEX_LENGTH) + 1);
+  m_ops.shrink();
+}
+/** 
+ * QName ::=  (Prefix ':')? LocalPart Prefix ::=  NCName LocalPart ::=  NCName
+ * @throws javax.xml.transform.TransformerException
+ */
+protected void QName() throws javax.xml.transform.TransformerException {
+  if (lookahead(':',1)) {
+    m_ops.setOp(m_ops.getOp(OpMap.MAPINDEX_LENGTH),m_queueMark - 1);
+    m_ops.setOp(OpMap.MAPINDEX_LENGTH,m_ops.getOp(OpMap.MAPINDEX_LENGTH) + 1);
+    nextToken();
+    consumeExpected(':');
+  }
+ else {
+    m_ops.setOp(m_ops.getOp(OpMap.MAPINDEX_LENGTH),OpCodes.EMPTY);
+    m_ops.setOp(OpMap.MAPINDEX_LENGTH,m_ops.getOp(OpMap.MAPINDEX_LENGTH) + 1);
+  }
+  m_ops.setOp(m_ops.getOp(OpMap.MAPINDEX_LENGTH),m_queueMark - 1);
+  m_ops.setOp(OpMap.MAPINDEX_LENGTH,m_ops.getOp(OpMap.MAPINDEX_LENGTH) + 1);
+  nextToken();
+}

@@ -1,0 +1,39 @@
+jdk_src\java\util\IdentityHashMap.java
+/** 
+ * Associates the specified value with the specified key in this identity hash map.  If the map previously contained a mapping for the key, the old value is replaced.
+ * @param key the key with which the specified value is to be associated
+ * @param value the value to be associated with the specified key
+ * @return the previous value associated with <tt>key</tt>, or<tt>null</tt> if there was no mapping for <tt>key</tt>. (A <tt>null</tt> return can also indicate that the map previously associated <tt>null</tt> with <tt>key</tt>.)
+ * @see Object#equals(Object)
+ * @see #get(Object)
+ * @see #containsKey(Object)
+ */
+public V put(K key,V value){
+  Object k=maskNull(key);
+  Object[] tab=table;
+  int len=tab.length;
+  int i=hash(k,len);
+  Object item;
+  while ((item=tab[i]) != null) {
+    if (item == k) {
+      V oldValue=(V)tab[i + 1];
+      tab[i + 1]=value;
+      return oldValue;
+    }
+    i=nextKeyIndex(i,len);
+  }
+  modCount++;
+  tab[i]=k;
+  tab[i + 1]=value;
+  if (++size >= threshold)   resize(len);
+  return null;
+}
+/** 
+ * Removes all of the mappings from this map. The map will be empty after this call returns.
+ */
+public void clear(){
+  modCount++;
+  Object[] tab=table;
+  for (int i=0; i < tab.length; i++)   tab[i]=null;
+  size=0;
+}

@@ -1,0 +1,72 @@
+jdk_src\javax\swing\RepaintManager.java
+/** 
+ * Return a volatile offscreen buffer that should be used as a double buffer with the specified component <code>c</code>. The image returned will be an instance of VolatileImage, or null if a VolatileImage object could not be instantiated. This buffer might be smaller than <code>(proposedWidth,proposedHeight)</code>. This happens when the maximum double buffer size has been set for this repaint manager.
+ * @see java.awt.image.VolatileImage
+ * @since 1.4
+ */
+public Image getVolatileOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
+  RepaintManager delegate=getDelegate(c);
+  if (delegate != null) {
+    return delegate.getVolatileOffscreenBuffer(c,proposedWidth,proposedHeight);
+  }
+  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
+  if (!w.isOpaque()) {
+    Toolkit tk=Toolkit.getDefaultToolkit();
+    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
+      return null;
+    }
+  }
+  GraphicsConfiguration config=c.getGraphicsConfiguration();
+  if (config == null) {
+    config=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+  }
+  Dimension maxSize=getDoubleBufferMaximumSize();
+  int width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
+  int height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
+  VolatileImage image=volatileMap.get(config);
+  if (image == null || image.getWidth() < width || image.getHeight() < height) {
+    if (image != null) {
+      image.flush();
+    }
+    image=config.createCompatibleVolatileImage(width,height,volatileBufferType);
+    volatileMap.put(config,image);
+  }
+  return image;
+}
+private Image _getOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
+  Dimension maxSize=getDoubleBufferMaximumSize();
+  DoubleBufferInfo doubleBuffer;
+  int width, height;
+  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
+  if (!w.isOpaque()) {
+    Toolkit tk=Toolkit.getDefaultToolkit();
+    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
+      return null;
+    }
+  }
+  if (standardDoubleBuffer == null) {
+    standardDoubleBuffer=new DoubleBufferInfo();
+  }
+  doubleBuffer=standardDoubleBuffer;
+  width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
+  height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
+  if (doubleBuffer.needsReset || (doubleBuffer.image != null && (doubleBuffer.size.width < width || doubleBuffer.size.height < height))) {
+    doubleBuffer.needsReset=false;
+    if (doubleBuffer.image != null) {
+      doubleBuffer.image.flush();
+      doubleBuffer.image=null;
+    }
+    width=Math.max(doubleBuffer.size.width,width);
+    height=Math.max(doubleBuffer.size.height,height);
+  }
+  Image result=doubleBuffer.image;
+  if (doubleBuffer.image == null) {
+    result=c.createImage(width,height);
+    doubleBuffer.size=new Dimension(width,height);
+    if (c instanceof JComponent) {
+      ((JComponent)c).setCreatedDoubleBuffer(true);
+      doubleBuffer.image=result;
+    }
+  }
+  return result;
+}

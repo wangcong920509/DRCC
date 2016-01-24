@@ -1,0 +1,11 @@
+public synchronized StringBuffer append(long lng){
+  super.append(lng);
+  return this;
+}
+/** 
+ * @since   JDK1.0.2
+ */
+public synchronized StringBuffer reverse(){
+  super.reverse();
+  return this;
+}

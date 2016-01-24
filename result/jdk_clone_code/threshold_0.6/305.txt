@@ -1,0 +1,25 @@
+/** 
+ * Constructs a new frame that is initially invisible. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
+ * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
+ * @see java.awt.GraphicsEnvironment#isHeadless
+ * @see Component#setSize
+ * @see Component#setVisible
+ * @see JComponent#getDefaultLocale
+ */
+public JFrame() throws HeadlessException {
+  super();
+  frameInit();
+}
+/** 
+ * Creates a <code>JFrame</code> with the specified title and the specified <code>GraphicsConfiguration</code> of a screen device. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
+ * @param title the title to be displayed in theframe's border. A <code>null</code> value is treated as an empty string, "".
+ * @param gc the <code>GraphicsConfiguration</code> that is usedto construct the new <code>JFrame</code> with; if <code>gc</code> is <code>null</code>, the system default <code>GraphicsConfiguration</code> is assumed
+ * @exception IllegalArgumentException if <code>gc</code> is not froma screen device.  This exception is always thrown when GraphicsEnvironment.isHeadless() returns true.
+ * @see java.awt.GraphicsEnvironment#isHeadless
+ * @see JComponent#getDefaultLocale
+ * @since     1.3
+ */
+public JFrame(String title,GraphicsConfiguration gc){
+  super(title,gc);
+  frameInit();
+}

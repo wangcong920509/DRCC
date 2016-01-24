@@ -1,0 +1,19 @@
+/** 
+ * Return the unicode code point represented by the high/low surrogate pair. <p> This is not a public API.
+ * @param highSurrogate the high char of the high/low pair
+ * @param lowSurrogate the low char of the high/low pair
+ * @xsl.usage internal
+ */
+static int toCodePoint(char highSurrogate,char lowSurrogate){
+  int codePoint=((highSurrogate - 0xd800) << 10) + (lowSurrogate - 0xdc00) + 0x10000;
+  return codePoint;
+}
+/** 
+ * Return the unicode code point represented by the char. A bit of a dummy method, since all it does is return the char, but as an int value. <p> This is not a public API.
+ * @param ch the char.
+ * @xsl.usage internal
+ */
+static int toCodePoint(char ch){
+  int codePoint=ch;
+  return codePoint;
+}

@@ -1,0 +1,55 @@
+jdk_src\com\sun\imageio\plugins\gif\GIFImageWriter.java
+private boolean needToCreateIndex(RenderedImage image){
+  SampleModel sampleModel=image.getSampleModel();
+  ColorModel colorModel=image.getColorModel();
+  return sampleModel.getNumBands() != 1 || sampleModel.getSampleSize()[0] > 8 || colorModel.getComponentSize()[0] > 8;
+}
+/** 
+ * Writes any extension blocks, the Image Descriptor, and the image data
+ * @param iioimage The image and image metadata.
+ * @param param The write parameters.
+ * @param globalColorTable The Global Color Table.
+ * @param sourceBounds The source region.
+ * @param destSize The destination dimensions.
+ */
+private void writeImage(RenderedImage image,GIFWritableImageMetadata imageMetadata,ImageWriteParam param,byte[] globalColorTable,Rectangle sourceBounds,Dimension destSize) throws IOException {
+  ColorModel colorModel=image.getColorModel();
+  SampleModel sampleModel=image.getSampleModel();
+  boolean writeGraphicsControlExtension;
+  if (imageMetadata == null) {
+    imageMetadata=(GIFWritableImageMetadata)getDefaultImageMetadata(new ImageTypeSpecifier(image),param);
+    writeGraphicsControlExtension=imageMetadata.transparentColorFlag;
+  }
+ else {
+    NodeList list=null;
+    try {
+      IIOMetadataNode root=(IIOMetadataNode)imageMetadata.getAsTree(IMAGE_METADATA_NAME);
+      list=root.getElementsByTagName("GraphicControlExtension");
+    }
+ catch (    IllegalArgumentException iae) {
+    }
+    writeGraphicsControlExtension=list != null && list.getLength() > 0;
+    if (param != null && param.canWriteProgressive()) {
+      if (param.getProgressiveMode() == ImageWriteParam.MODE_DISABLED) {
+        imageMetadata.interlaceFlag=false;
+      }
+ else       if (param.getProgressiveMode() == ImageWriteParam.MODE_DEFAULT) {
+        imageMetadata.interlaceFlag=true;
+      }
+    }
+  }
+  if (Arrays.equals(globalColorTable,imageMetadata.localColorTable)) {
+    imageMetadata.localColorTable=null;
+  }
+  imageMetadata.imageWidth=destSize.width;
+  imageMetadata.imageHeight=destSize.height;
+  if (writeGraphicsControlExtension) {
+    writeGraphicControlExtension(imageMetadata);
+  }
+  writePlainTextExtension(imageMetadata);
+  writeApplicationExtension(imageMetadata);
+  writeCommentExtension(imageMetadata);
+  int bitsPerPixel=getNumBits(imageMetadata.localColorTable == null ? (globalColorTable == null ? sampleModel.getSampleSize(0) : globalColorTable.length / 3) : imageMetadata.localColorTable.length / 3);
+  writeImageDescriptor(imageMetadata,bitsPerPixel);
+  writeRasterData(image,sourceBounds,destSize,param,imageMetadata.interlaceFlag);
+}

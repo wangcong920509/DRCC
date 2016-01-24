@@ -1,0 +1,40 @@
+jdk_src\com\sun\corba\se\impl\interceptors\ServerRequestInfoImpl.java
+/** 
+ * Reset the info object so that it can be reused for a retry, for example.
+ */
+void reset(){
+  super.reset();
+  forwardRequestRaisedInEnding=false;
+  request=null;
+  servant=null;
+  objectId=null;
+  oktemp=null;
+  adapterId=null;
+  adapterName=null;
+  addReplyServiceContextQueue=null;
+  replyMessage=null;
+  targetMostDerivedInterface=null;
+  dsiArguments=null;
+  dsiResult=null;
+  dsiException=null;
+  isDynamic=false;
+  objectAdapter=null;
+  serverRequestId=myORB.getPIHandler().allocateServerRequestId();
+  cachedArguments=null;
+  cachedSendingException=null;
+  cachedRequestServiceContexts=null;
+  cachedReplyServiceContexts=null;
+  startingPointCall=CALL_RECEIVE_REQUEST_SERVICE_CONTEXT;
+  intermediatePointCall=CALL_RECEIVE_REQUEST;
+  endingPointCall=CALL_SEND_REPLY;
+}
+/** 
+ * Creates a new ServerRequestInfo implementation. The constructor is package scope since no other package need create an instance of this class.
+ */
+ServerRequestInfoImpl(ORB myORB){
+  super(myORB);
+  startingPointCall=CALL_RECEIVE_REQUEST_SERVICE_CONTEXT;
+  intermediatePointCall=CALL_RECEIVE_REQUEST;
+  endingPointCall=CALL_SEND_REPLY;
+  serverRequestId=myORB.getPIHandler().allocateServerRequestId();
+}
