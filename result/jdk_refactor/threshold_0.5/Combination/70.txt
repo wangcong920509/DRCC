@@ -1,0 +1,28 @@
+public static String getAnnotation(Node node){
+  if (node instanceof ElementImpl) {
+    return ((ElementImpl)node).getAnnotation();
+  }
+  return null;
+}
+
+public static String getSyntheticAnnotation(Node node){
+  if (node instanceof ElementImpl) {
+    return ((ElementImpl)node).getSyntheticAnnotation();
+  }
+  return null;
+}
+
+-->
+void getAnnotation_getSyntheticAnnotation(Node node,Node node,int combFlag){
+  if (combFlag == 1) {
+    if (node instanceof ElementImpl) {
+      return ((ElementImpl)node).getAnnotation();
+    }
+  }
+ else {
+    if (node instanceof ElementImpl) {
+      return ((ElementImpl)node).getSyntheticAnnotation();
+    }
+  }
+  return null;
+}

@@ -1,38 +1,26 @@
-jdk_src\javax\swing\plaf\nimbus\TextAreaPainter.java
-private void paintBorderDisabledAndNotInScrollPane(Graphics2D g){
-  rect=decodeRect3();
+jdk_src\javax\swing\plaf\nimbus\TableHeaderRendererPainter.java
+private void paintBackgroundEnabledAndFocusedAndSorted(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
   g.setPaint(decodeGradient1(rect));
   g.fill(rect);
-  rect=decodeRect4();
-  g.setPaint(decodeGradient2(rect));
-  g.fill(rect);
-  rect=decodeRect5();
-  g.setPaint(color6);
-  g.fill(rect);
-  rect=decodeRect6();
-  g.setPaint(color4);
-  g.fill(rect);
-  rect=decodeRect7();
-  g.setPaint(color4);
-  g.fill(rect);
-}
-private void paintBorderFocusedAndNotInScrollPane(Graphics2D g){
-  rect=decodeRect8();
-  g.setPaint(decodeGradient3(rect));
-  g.fill(rect);
-  rect=decodeRect9();
-  g.setPaint(decodeGradient4(rect));
-  g.fill(rect);
-  rect=decodeRect10();
-  g.setPaint(color10);
-  g.fill(rect);
-  rect=decodeRect11();
-  g.setPaint(color10);
-  g.fill(rect);
-  rect=decodeRect12();
-  g.setPaint(color11);
+  rect=decodeRect3();
+  g.setPaint(decodeGradient6(rect));
   g.fill(rect);
   path=decodePath1();
-  g.setPaint(color12);
+  g.setPaint(color10);
   g.fill(path);
+}
+private void paintBackgroundDisabledAndSorted(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(decodeGradient1(rect));
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(decodeGradient2(rect));
+  g.fill(rect);
 }

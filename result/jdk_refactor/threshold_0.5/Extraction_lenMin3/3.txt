@@ -1,0 +1,6 @@
+{
+  int pos=position();
+  int lim=limit();
+  assert(pos <= lim);
+  int rem=(pos <= lim ? lim - pos : 0);
+}

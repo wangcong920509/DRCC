@@ -1,10 +1,10 @@
 jdk_src\javax\swing\plaf\nimbus\ScrollBarThumbPainter.java
-private void paintBackgroundMouseOver(Graphics2D g){
+private void paintBackgroundEnabled(Graphics2D g){
   path=decodePath1();
   g.setPaint(decodeGradient1(path));
   g.fill(path);
   path=decodePath2();
-  g.setPaint(decodeGradient5(path));
+  g.setPaint(decodeGradient2(path));
   g.fill(path);
   path=decodePath3();
   g.setPaint(decodeGradient3(path));

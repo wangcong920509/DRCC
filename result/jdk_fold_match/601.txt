@@ -43,17 +43,23 @@ private void paintBackgroundPressedAndWindowMaximized(Graphics2D g){
   g.setPaint(color21);
   g.fill(path);
 }
-private void paintBackgroundEnabledAndWindowNotFocused(Graphics2D g){
+private void paintBackgroundPressed(Graphics2D g){
+  roundRect=decodeRoundRect3();
+  g.setPaint(color69);
+  g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient10(roundRect));
+  g.setPaint(decodeGradient8(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient16(roundRect));
+  g.setPaint(decodeGradient15(roundRect));
   g.fill(roundRect);
   rect=decodeRect1();
   g.setPaint(color4);
   g.fill(rect);
+  path=decodePath3();
+  g.setPaint(color71);
+  g.fill(path);
   path=decodePath4();
-  g.setPaint(color72);
+  g.setPaint(color65);
   g.fill(path);
 }

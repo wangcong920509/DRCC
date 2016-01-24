@@ -1,0 +1,26 @@
+/** 
+ * Setter for _includeSelf flag.
+ */
+public NodeIterator includeSelf(){
+  _includeSelf=true;
+  return this;
+}
+
+/** 
+ * Reset the position in this iterator.
+ */
+protected final NodeIterator resetPosition(){
+  _position=0;
+  return this;
+}
+
+-->
+void includeSelf_resetPosition(int combFlag){
+  if (combFlag == 1) {
+    _includeSelf=true;
+  }
+ else {
+    _position=0;
+  }
+  return this;
+}

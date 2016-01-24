@@ -1,0 +1,26 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public long extract_longlong(){
+  checkExtractBadOperation(TCKind._tk_longlong);
+  return value;
+}
+
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public long extract_ulonglong(){
+  checkExtractBadOperation(TCKind._tk_ulonglong);
+  return value;
+}
+
+-->
+void extract_longlong_extract_ulonglong(int combFlag){
+  if (combFlag == 1) {
+    checkExtractBadOperation(TCKind._tk_longlong);
+  }
+ else {
+    checkExtractBadOperation(TCKind._tk_ulonglong);
+  }
+  return value;
+}

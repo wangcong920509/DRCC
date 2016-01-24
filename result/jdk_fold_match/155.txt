@@ -1,36 +1,52 @@
-jdk_src\java\io\ObjectOutputStream.java
+jdk_src\java\io\ObjectInputStream.java
 /** 
- * Write the non-static and non-transient fields of the current class to this stream.  This may only be called from the writeObject method of the class being serialized. It will throw the NotActiveException if it is called otherwise.
- * @throws IOException if I/O errors occur while writing to the underlying<code>OutputStream</code>
+ * Reads in and returns class object.  Sets passHandle to class object's assigned handle.  Returns null if class is unresolvable (in which case a ClassNotFoundException will be associated with the class' handle in the handle table).
  */
-public void defaultWriteObject() throws IOException {
-  if (curContext == null) {
-    throw new NotActiveException("not in call to writeObject");
+private Class readClass(boolean unshared) throws IOException {
+  if (bin.readByte() != TC_CLASS) {
+    throw new InternalError();
   }
-  Object curObj=curContext.getObj();
-  ObjectStreamClass curDesc=curContext.getDesc();
-  bout.setBlockDataMode(false);
-  defaultWriteFields(curObj,curDesc);
-  bout.setBlockDataMode(true);
+  ObjectStreamClass desc=readClassDesc(false);
+  Class cl=desc.forClass();
+  passHandle=handles.assign(unshared ? unsharedMarker : cl);
+  ClassNotFoundException resolveEx=desc.getResolveException();
+  if (resolveEx != null) {
+    handles.markException(passHandle,resolveEx);
+  }
+  handles.finish(passHandle);
+  return cl;
 }
 /** 
- * Writes class descriptor representing a dynamic proxy class to stream.
+ * Reads in and returns enum constant, or null if enum type is unresolvable.  Sets passHandle to enum constant's assigned handle.
  */
-private void writeProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
-  bout.writeByte(TC_PROXYCLASSDESC);
-  handles.assign(unshared ? null : desc);
+private Enum readEnum(boolean unshared) throws IOException {
+  if (bin.readByte() != TC_ENUM) {
+    throw new InternalError();
+  }
+  ObjectStreamClass desc=readClassDesc(false);
+  if (!desc.isEnum()) {
+    throw new InvalidClassException("non-enum class: " + desc);
+  }
+  int enumHandle=handles.assign(unshared ? unsharedMarker : null);
+  ClassNotFoundException resolveEx=desc.getResolveException();
+  if (resolveEx != null) {
+    handles.markException(enumHandle,resolveEx);
+  }
+  String name=readString(false);
+  Enum en=null;
   Class cl=desc.forClass();
-  Class[] ifaces=cl.getInterfaces();
-  bout.writeInt(ifaces.length);
-  for (int i=0; i < ifaces.length; i++) {
-    bout.writeUTF(ifaces[i].getName());
+  if (cl != null) {
+    try {
+      en=Enum.valueOf(cl,name);
+    }
+ catch (    IllegalArgumentException ex) {
+      throw (IOException)new InvalidObjectException("enum constant " + name + " does not exist in "+ cl).initCause(ex);
+    }
+    if (!unshared) {
+      handles.setObject(enumHandle,en);
+    }
   }
-  bout.setBlockDataMode(true);
-  if (isCustomSubclass()) {
-    ReflectUtil.checkPackageAccess(cl);
-  }
-  annotateProxyClass(cl);
-  bout.setBlockDataMode(false);
-  bout.writeByte(TC_ENDBLOCKDATA);
-  writeClassDesc(desc.getSuperDesc(),false);
+  handles.finish(enumHandle);
+  passHandle=enumHandle;
+  return en;
 }

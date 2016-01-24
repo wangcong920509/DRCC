@@ -1,0 +1,26 @@
+/** 
+ * Called by superclass constructors and pseudoconstructors (clone, readObject) before any entries are inserted into the map.  Initializes the chain.
+ */
+@Override void init(){
+  header=new Entry<>(-1,null,null,null);
+  header.before=header.after=header;
+}
+
+/** 
+ * Removes all of the mappings from this map. The map will be empty after this call returns.
+ */
+public void clear(){
+  super.clear();
+  header.before=header.after=header;
+}
+
+-->
+void init_clear(int combFlag){
+  if (combFlag == 1) {
+    header=new Entry<>(-1,null,null,null);
+  }
+ else {
+    super.clear();
+  }
+  header.before=header.after=header;
+}

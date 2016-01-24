@@ -7,8 +7,8 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(decodeGradient1(rect));
   g.fill(rect);
 }
-private void paintBackgroundEnabledAndMouseOver(Graphics2D g){
+private void paintBackgroundDisabled(Graphics2D g){
   rect=decodeRect2();
-  g.setPaint(decodeGradient3(rect));
+  g.setPaint(decodeGradient2(rect));
   g.fill(rect);
 }

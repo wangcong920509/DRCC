@@ -1,0 +1,62 @@
+/** 
+ * Returns the end index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
+ */
+public final int getParenEnd(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return end0;
+case 1:
+    return end1;
+case 2:
+  return end2;
+default :
+if (endn == null) {
+  allocParens();
+}
+return endn[which];
+}
+}
+return -1;
+}
+
+/** 
+ * Returns the length of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return Number of characters in the parenthesized subexpression
+ */
+public final int getParenLength(int which){
+  if (which < parenCount) {
+    return getParenEnd(which) - getParenStart(which);
+  }
+  return -1;
+}
+
+-->
+void getParenEnd_getParenLength(int which,int which,int combFlag){
+  if (combFlag == 1) {
+    if (which < parenCount) {
+switch (which) {
+case 0:
+        return end0;
+case 1:
+      return end1;
+case 2:
+    return end2;
+default :
+  if (endn == null) {
+    allocParens();
+  }
+return endn[which];
+}
+}
+}
+ else {
+if (which < parenCount) {
+return getParenEnd(which) - getParenStart(which);
+}
+}
+return -1;
+}

@@ -13,14 +13,17 @@ private void painticonMouseOverAndSelected(Graphics2D g){
   g.setPaint(color28);
   g.fill(path);
 }
-private void painticonDisabledAndSelected(Graphics2D g){
+private void painticonMouseOverAndSelectedAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color12);
+  g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient15(roundRect));
+  g.setPaint(decodeGradient13(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient16(roundRect));
+  g.setPaint(decodeGradient14(roundRect));
   g.fill(roundRect);
   path=decodePath1();
-  g.setPaint(color45);
+  g.setPaint(color28);
   g.fill(path);
 }

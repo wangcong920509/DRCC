@@ -1,46 +1,101 @@
-jdk_src\javax\swing\plaf\basic\BasicTextUI.java
-private void installDefaults2(){
-  editor.addMouseListener(dragListener);
-  editor.addMouseMotionListener(dragListener);
-  String prefix=getPropertyPrefix();
-  Caret caret=editor.getCaret();
-  if (caret == null || caret instanceof UIResource) {
-    caret=createCaret();
-    editor.setCaret(caret);
-    int rate=DefaultLookup.getInt(getComponent(),this,prefix + ".caretBlinkRate",500);
-    caret.setBlinkRate(rate);
+jdk_src\javax\swing\plaf\basic\BasicTabbedPaneUI.java
+private void calculateBaseline(){
+  int tabCount=tabPane.getTabCount();
+  int tabPlacement=tabPane.getTabPlacement();
+  maxTabHeight=calculateMaxTabHeight(tabPlacement);
+  baseline=getBaseline(0);
+  if (isHorizontalTabPlacement()) {
+    for (int i=1; i < tabCount; i++) {
+      if (getBaseline(i) != baseline) {
+        baseline=-1;
+        break;
+      }
+    }
   }
-  Highlighter highlighter=editor.getHighlighter();
-  if (highlighter == null || highlighter instanceof UIResource) {
-    editor.setHighlighter(createHighlighter());
-  }
-  TransferHandler th=editor.getTransferHandler();
-  if (th == null || th instanceof UIResource) {
-    editor.setTransferHandler(getTransferHandler());
+ else {
+    FontMetrics fontMetrics=getFontMetrics();
+    int fontHeight=fontMetrics.getHeight();
+    int height=calculateTabHeight(tabPlacement,0,fontHeight);
+    for (int i=1; i < tabCount; i++) {
+      int newHeight=calculateTabHeight(tabPlacement,i,fontHeight);
+      if (height != newHeight) {
+        baseline=-1;
+        break;
+      }
+    }
   }
 }
-/** 
- * Paints the interface safely with a guarantee that the model won't change from the view of this thread. This does the following things, rendering from back to front. <ol> <li> If the component is marked as opaque, the background is painted in the current background color of the component. <li> The highlights (if any) are painted. <li> The view hierarchy is painted. <li> The caret is painted. </ol>
- * @param g the graphics context
- */
-protected void paintSafely(Graphics g){
-  painted=true;
-  Highlighter highlighter=editor.getHighlighter();
-  Caret caret=editor.getCaret();
-  if (editor.isOpaque()) {
-    paintBackground(g);
+protected void navigateSelectedTab(int direction){
+  int tabPlacement=tabPane.getTabPlacement();
+  int current=DefaultLookup.getBoolean(tabPane,this,"TabbedPane.selectionFollowsFocus",true) ? tabPane.getSelectedIndex() : getFocusIndex();
+  int tabCount=tabPane.getTabCount();
+  boolean leftToRight=BasicGraphicsUtils.isLeftToRight(tabPane);
+  if (tabCount <= 0) {
+    return;
   }
-  if (highlighter != null) {
-    highlighter.paint(g);
-  }
-  Rectangle alloc=getVisibleEditorRect();
-  if (alloc != null) {
-    rootView.paint(g,alloc);
-  }
-  if (caret != null) {
-    caret.paint(g);
-  }
-  if (dropCaret != null) {
-    dropCaret.paint(g);
-  }
+  int offset;
+switch (tabPlacement) {
+case LEFT:
+case RIGHT:
+switch (direction) {
+case NEXT:
+      selectNextTab(current);
+    break;
+case PREVIOUS:
+  selectPreviousTab(current);
+break;
+case NORTH:
+selectPreviousTabInRun(current);
+break;
+case SOUTH:
+selectNextTabInRun(current);
+break;
+case WEST:
+offset=getTabRunOffset(tabPlacement,tabCount,current,false);
+selectAdjacentRunTab(tabPlacement,current,offset);
+break;
+case EAST:
+offset=getTabRunOffset(tabPlacement,tabCount,current,true);
+selectAdjacentRunTab(tabPlacement,current,offset);
+break;
+default :
+}
+break;
+case BOTTOM:
+case TOP:
+default :
+switch (direction) {
+case NEXT:
+selectNextTab(current);
+break;
+case PREVIOUS:
+selectPreviousTab(current);
+break;
+case NORTH:
+offset=getTabRunOffset(tabPlacement,tabCount,current,false);
+selectAdjacentRunTab(tabPlacement,current,offset);
+break;
+case SOUTH:
+offset=getTabRunOffset(tabPlacement,tabCount,current,true);
+selectAdjacentRunTab(tabPlacement,current,offset);
+break;
+case EAST:
+if (leftToRight) {
+selectNextTabInRun(current);
+}
+ else {
+selectPreviousTabInRun(current);
+}
+break;
+case WEST:
+if (leftToRight) {
+selectPreviousTabInRun(current);
+}
+ else {
+selectNextTabInRun(current);
+}
+break;
+default :
+}
+}
 }

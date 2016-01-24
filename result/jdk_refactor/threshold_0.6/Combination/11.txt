@@ -1,0 +1,47 @@
+/** 
+ * Returns an input stream for reading the specified resource. <p> The search order is described in the documentation for  {@link #getResource(String)}.  </p>
+ * @param name The resource name
+ * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
+ * @since  1.1
+ */
+public InputStream getResourceAsStream(String name){
+  URL url=getResource(name);
+  try {
+    return url != null ? url.openStream() : null;
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}
+
+/** 
+ * Open for reading, a resource of the specified name from the search path used to load classes.  This method locates the resource through the system class loader (see  {@link #getSystemClassLoader()}).  </p>
+ * @param name The resource name
+ * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
+ * @since  1.1
+ */
+public static InputStream getSystemResourceAsStream(String name){
+  URL url=getSystemResource(name);
+  try {
+    return url != null ? url.openStream() : null;
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}
+
+-->
+void getResourceAsStream_getSystemResourceAsStream(String name,String name,int combFlag){
+  if (combFlag == 1) {
+    URL url=getResource(name);
+  }
+ else {
+    URL url=getSystemResource(name);
+  }
+  try {
+    return url != null ? url.openStream() : null;
+  }
+ catch (  IOException e) {
+    return null;
+  }
+}

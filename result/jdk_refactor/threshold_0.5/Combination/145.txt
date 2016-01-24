@@ -1,0 +1,28 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public Node getNextSibling(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
+ */
+public Node getPreviousSibling(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
+}
+
+-->
+void getNextSibling_getPreviousSibling(int combFlag){
+  if (combFlag == 1) {
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  }
+ else {
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  }
+  return null;
+}

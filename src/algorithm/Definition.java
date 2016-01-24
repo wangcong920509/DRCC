@@ -6,14 +6,14 @@
  */
 package algorithm;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
 import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.WhileStatement;
+
+import main.FileOperation;
+
 import org.eclipse.jdt.core.dom.ForStatement;
 import org.eclipse.jdt.core.dom.DoStatement;
 import org.eclipse.jdt.core.dom.IfStatement;
@@ -24,7 +24,7 @@ public class Definition {
 	
 	private String srcName = "";
 	private int number = 1;
-	public double threshold = 0.6;
+	public static double threshold = 0.5;
 	private static CountNodes mVisit = new CountNodes();
 	private final static String BASIC_ADDR = "result\\jdk_fold_match\\";
 	
@@ -41,7 +41,7 @@ public class Definition {
 	/* Method isSame : judge the sameness of two objects
 	 * return the bool result - whether stmt1 and stmt2 are the same
 	 */
-	public Boolean isSame(Object stmt1, Object stmt2){
+	public static Boolean isSame(Object stmt1, Object stmt2){
 		if(stmt1 == null || stmt2 == null)
 			return false;
 		if(stmt1.toString().compareTo(stmt2.toString()) == 0)
@@ -124,7 +124,7 @@ public class Definition {
 		if(bc.list.size() != 0)
 			same = bc.bestChoice(0);
 		if(!mFlag){
-			writeToFile(BASIC_ADDR + number + ".txt", srcName + "\n" + md1.toString() + md2.toString());
+			FileOperation.writeToFile(BASIC_ADDR + number + ".txt", srcName + "\n" + md1.toString() + md2.toString());
 			number += 1;
 		}
 		return same / total > threshold;
@@ -134,7 +134,7 @@ public class Definition {
 	 * return the bool result - whether bk1 and bk2 are the similar
 	 */
 	@SuppressWarnings("unchecked")
-	public Boolean Similarity(Block bk1, Block bk2){
+	public static Boolean Similarity(Block bk1, Block bk2){
 		mVisit = new CountNodes();
 		if(bk1 == null || bk2 == null)
 			return false;
@@ -168,21 +168,5 @@ public class Definition {
 		if(bc.list.size() != 0)
 			same = bc.bestChoice(0);
 		return same / total > threshold;
-	}
-	
-	/* Method writeToFile : write the content to the file
-	 * fileName : name of the file
-	 * content : a String written to file
-	 */
-	public void writeToFile(String fileName, String content) {
-		Writer writer;
-		try {
-			writer = new FileWriter(fileName);
-			writer.write(content);  
-	        writer.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
 	}
 }

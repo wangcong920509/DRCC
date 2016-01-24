@@ -14,14 +14,13 @@ void writeComment(String string) throws IOException {
   writeLineSeparator();
   indentSmart();
 }
-void writeStyleEndTag() throws IOException {
-  decrIndent();
+void writeStyleStartTag() throws IOException {
   indentSmart();
-  write("-->");
-  writeLineSeparator();
-  decrIndent();
-  indentSmart();
-  write("</style>");
+  write("<style type=\"text/css\">");
+  incrIndent();
   writeLineSeparator();
   indentSmart();
+  write("<!--");
+  incrIndent();
+  writeLineSeparator();
 }

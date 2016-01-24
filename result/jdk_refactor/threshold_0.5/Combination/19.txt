@@ -1,0 +1,30 @@
+/** 
+ * Checks if a <CODE>set</CODE> operation can be performed. If the operation can not be performed, the method should emit a <CODE>SnmpStatusException</CODE>.
+ * @param inRequest The SnmpMibRequest object holding the list of variables tobe set. This list is composed of <CODE>SnmpVarBind</CODE> objects.
+ * @exception SnmpStatusException The <CODE>set</CODE> operationcannot be performed.
+ */
+public void check(SnmpMibRequest inRequest) throws SnmpStatusException {
+  SNMP_ADAPTOR_LOGGER.logp(Level.FINEST,SnmpErrorHandlerAgent.class.getName(),"check","Check in Exception");
+  throw new SnmpStatusException(SnmpDefinitions.snmpRspNotWritable);
+}
+
+/** 
+ * Processes a <CODE>set</CODE> operation. Should never be called (check previously called having failed).
+ * @param inRequest The SnmpMibRequest object holding the list of variable to be set.
+ * @exception SnmpStatusException An error occured during the operation.
+ */
+public void set(SnmpMibRequest inRequest) throws SnmpStatusException {
+  SNMP_ADAPTOR_LOGGER.logp(Level.FINEST,SnmpErrorHandlerAgent.class.getName(),"set","Set in Exception, CANNOT be called");
+  throw new SnmpStatusException(SnmpDefinitions.snmpRspNotWritable);
+}
+
+-->
+void check_set(SnmpMibRequest inRequest,SnmpMibRequest inRequest,int combFlag){
+  if (combFlag == 1) {
+    SNMP_ADAPTOR_LOGGER.logp(Level.FINEST,SnmpErrorHandlerAgent.class.getName(),"check","Check in Exception");
+  }
+ else {
+    SNMP_ADAPTOR_LOGGER.logp(Level.FINEST,SnmpErrorHandlerAgent.class.getName(),"set","Set in Exception, CANNOT be called");
+  }
+  throw new SnmpStatusException(SnmpDefinitions.snmpRspNotWritable);
+}

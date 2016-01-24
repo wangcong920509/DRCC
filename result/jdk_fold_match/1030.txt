@@ -10,9 +10,9 @@ private void paintBackgroundMouseOver(Graphics2D g){
   g.setPaint(decodeGradient7(roundRect));
   g.fill(roundRect);
 }
-private void paintBackgroundPressedAndFocused(Graphics2D g){
-  roundRect=decodeRoundRect4();
-  g.setPaint(color16);
+private void paintBackgroundPressed(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color22);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
   g.setPaint(decodeGradient8(roundRect));

@@ -7,9 +7,9 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(path));
   g.fill(path);
 }
-private void paintBackgroundFocused(Graphics2D g){
-  path=decodePath4();
-  g.setPaint(color13);
+private void paintBackgroundEnabled(Graphics2D g){
+  path=decodePath3();
+  g.setPaint(color6);
   g.fill(path);
   path=decodePath1();
   g.setPaint(decodeGradient3(path));

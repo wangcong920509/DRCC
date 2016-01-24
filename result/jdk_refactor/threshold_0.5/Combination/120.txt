@@ -1,0 +1,26 @@
+/** 
+ * @see XSLOutputAttributes#getEncoding()
+ */
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
+}
+
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}
+
+-->
+void getEncoding_getStandalone(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return null;
+}

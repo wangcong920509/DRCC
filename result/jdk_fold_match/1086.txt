@@ -1,7 +1,7 @@
 jdk_src\javax\swing\plaf\nimbus\ToolBarButtonPainter.java
-private void paintBackgroundMouseOverAndFocused(Graphics2D g){
-  roundRect=decodeRoundRect4();
-  g.setPaint(color1);
+private void paintBackgroundMouseOver(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color2);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
   g.setPaint(decodeGradient1(roundRect));
@@ -10,9 +10,9 @@ private void paintBackgroundMouseOverAndFocused(Graphics2D g){
   g.setPaint(decodeGradient2(roundRect));
   g.fill(roundRect);
 }
-private void paintBackgroundPressed(Graphics2D g){
-  roundRect=decodeRoundRect1();
-  g.setPaint(color2);
+private void paintBackgroundPressedAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color1);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
   g.setPaint(decodeGradient1(roundRect));

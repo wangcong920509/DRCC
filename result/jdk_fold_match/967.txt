@@ -10,7 +10,7 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(decodeGradient2(rect));
   g.fill(rect);
 }
-private void paintBackgroundPressed(Graphics2D g){
+private void paintBackgroundMouseOver(Graphics2D g){
   rect=decodeRect1();
   g.setPaint(color1);
   g.fill(rect);
@@ -18,6 +18,6 @@ private void paintBackgroundPressed(Graphics2D g){
   g.setPaint(decodeGradient1(rect));
   g.fill(rect);
   rect=decodeRect3();
-  g.setPaint(decodeGradient4(rect));
+  g.setPaint(decodeGradient3(rect));
   g.fill(rect);
 }

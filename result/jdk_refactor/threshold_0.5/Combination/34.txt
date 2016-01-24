@@ -1,0 +1,28 @@
+/** 
+ * Adds a child node to this syntax tree node.
+ * @param element is the new child node.
+ */
+protected final void addElement(SyntaxTreeNode element){
+  _contents.addElement(element);
+  element.setParent(this);
+}
+
+/** 
+ * Inserts the first child node of this syntax tree node. The existing children are shifted back one position.
+ * @param element is the new child node.
+ */
+protected final void setFirstElement(SyntaxTreeNode element){
+  _contents.insertElementAt(element,0);
+  element.setParent(this);
+}
+
+-->
+void addElement_setFirstElement(SyntaxTreeNode element,SyntaxTreeNode element,int combFlag){
+  if (combFlag == 1) {
+    _contents.addElement(element);
+  }
+ else {
+    _contents.insertElementAt(element,0);
+  }
+  element.setParent(this);
+}

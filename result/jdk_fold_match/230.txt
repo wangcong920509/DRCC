@@ -1,26 +1,158 @@
-jdk_src\javax\swing\plaf\metal\MetalUtils.java
-/** 
- * This draws a variant "Flush 3D Border" It is used for things like pressed buttons.
- */
-static void drawPressed3DBorder(Graphics g,int x,int y,int w,int h){
+jdk_src\javax\swing\plaf\metal\MetalTabbedPaneUI.java
+protected void paintBottomTabBorder(int tabIndex,Graphics g,int x,int y,int w,int h,int btm,int rght,boolean isSelected){
+  int tabCount=tabPane.getTabCount();
+  int currentRun=getRunForTab(tabCount,tabIndex);
+  int lastIndex=lastTabInRun(tabCount,currentRun);
+  int firstIndex=tabRuns[currentRun];
+  boolean leftToRight=MetalUtils.isLeftToRight(tabPane);
+  int bottom=h - 1;
+  int right=w - 1;
+  if (shouldFillGap(currentRun,tabIndex,x,y)) {
+    g.translate(x,y);
+    if (leftToRight) {
+      g.setColor(getColorForGap(currentRun,x,y));
+      g.fillRect(1,bottom - 4,3,5);
+      g.fillRect(4,bottom - 1,2,2);
+    }
+ else {
+      g.setColor(getColorForGap(currentRun,x + w - 1,y));
+      g.fillRect(right - 3,bottom - 3,3,4);
+      g.fillRect(right - 5,bottom - 1,2,2);
+      g.drawLine(right - 1,bottom - 4,right - 1,bottom - 4);
+    }
+    g.translate(-x,-y);
+  }
   g.translate(x,y);
-  drawFlush3DBorder(g,0,0,w,h);
-  g.setColor(MetalLookAndFeel.getControlShadow());
-  g.drawLine(1,1,1,h - 2);
-  g.drawLine(1,1,w - 2,1);
+  if (ocean && isSelected) {
+    g.setColor(oceanSelectedBorderColor);
+  }
+ else {
+    g.setColor(darkShadow);
+  }
+  if (leftToRight) {
+    g.drawLine(1,bottom - 5,6,bottom);
+    g.drawLine(6,bottom,right,bottom);
+    if (tabIndex == lastIndex) {
+      g.drawLine(right,0,right,bottom);
+    }
+    if (ocean && isSelected) {
+      g.drawLine(0,0,0,bottom - 6);
+      if ((currentRun == 0 && tabIndex != 0) || (currentRun > 0 && tabIndex != tabRuns[currentRun - 1])) {
+        g.setColor(darkShadow);
+        g.drawLine(0,bottom - 5,0,bottom);
+      }
+    }
+ else {
+      if (ocean && tabIndex == tabPane.getSelectedIndex() + 1) {
+        g.setColor(oceanSelectedBorderColor);
+      }
+      if (tabIndex != tabRuns[runCount - 1]) {
+        g.drawLine(0,0,0,bottom);
+      }
+ else {
+        g.drawLine(0,0,0,bottom - 6);
+      }
+    }
+  }
+ else {
+    g.drawLine(right - 1,bottom - 5,right - 6,bottom);
+    g.drawLine(right - 6,bottom,0,bottom);
+    if (tabIndex == lastIndex) {
+      g.drawLine(0,0,0,bottom);
+    }
+    if (ocean && tabIndex == tabPane.getSelectedIndex() + 1) {
+      g.setColor(oceanSelectedBorderColor);
+      g.drawLine(right,0,right,bottom);
+    }
+ else     if (ocean && isSelected) {
+      g.drawLine(right,0,right,bottom - 6);
+      if (tabIndex != firstIndex) {
+        g.setColor(darkShadow);
+        g.drawLine(right,bottom - 5,right,bottom);
+      }
+    }
+ else     if (tabIndex != tabRuns[runCount - 1]) {
+      g.drawLine(right,0,right,bottom);
+    }
+ else {
+      g.drawLine(right,0,right,bottom - 6);
+    }
+  }
+  g.setColor(isSelected ? selectHighlight : highlight);
+  if (leftToRight) {
+    g.drawLine(1,bottom - 6,6,bottom - 1);
+    g.drawLine(1,0,1,bottom - 6);
+    if (tabIndex == firstIndex && tabIndex != tabRuns[runCount - 1]) {
+      if (tabPane.getSelectedIndex() == tabRuns[currentRun + 1]) {
+        g.setColor(selectHighlight);
+      }
+ else {
+        g.setColor(highlight);
+      }
+      g.drawLine(1,bottom - 4,1,bottom);
+    }
+  }
+ else {
+    if (tabIndex == lastIndex) {
+      g.drawLine(1,0,1,bottom - 1);
+    }
+ else {
+      g.drawLine(0,0,0,bottom - 1);
+    }
+  }
   g.translate(-x,-y);
 }
-/** 
- * This draws a variant "Flush 3D Border" It is used for things like active toggle buttons. This is used rarely.
- */
-static void drawDark3DBorder(Graphics g,int x,int y,int w,int h){
+protected void paintRightTabBorder(int tabIndex,Graphics g,int x,int y,int w,int h,int btm,int rght,boolean isSelected){
+  int tabCount=tabPane.getTabCount();
+  int currentRun=getRunForTab(tabCount,tabIndex);
+  int lastIndex=lastTabInRun(tabCount,currentRun);
+  int firstIndex=tabRuns[currentRun];
   g.translate(x,y);
-  drawFlush3DBorder(g,0,0,w,h);
-  g.setColor(MetalLookAndFeel.getControl());
-  g.drawLine(1,1,1,h - 2);
-  g.drawLine(1,1,w - 2,1);
-  g.setColor(MetalLookAndFeel.getControlShadow());
-  g.drawLine(1,h - 2,1,h - 2);
-  g.drawLine(w - 2,1,w - 2,1);
+  int bottom=h - 1;
+  int right=w - 1;
+  if (tabIndex != firstIndex && tabsOpaque) {
+    g.setColor(tabPane.getSelectedIndex() == tabIndex - 1 ? selectColor : getUnselectedBackgroundAt(tabIndex - 1));
+    g.fillRect(right - 5,0,5,3);
+    g.fillRect(right - 2,3,2,2);
+  }
+  g.setColor(isSelected ? selectHighlight : highlight);
+  g.drawLine(right - 6,1,right - 1,6);
+  g.drawLine(0,1,right - 6,1);
+  if (!isSelected) {
+    g.drawLine(0,1,0,bottom);
+  }
+  if (ocean && isSelected) {
+    g.setColor(oceanSelectedBorderColor);
+  }
+ else {
+    g.setColor(darkShadow);
+  }
+  if (tabIndex == lastIndex) {
+    g.drawLine(0,bottom,right,bottom);
+  }
+  if (ocean && tabPane.getSelectedIndex() == tabIndex - 1) {
+    g.setColor(oceanSelectedBorderColor);
+  }
+  g.drawLine(right - 6,0,right,6);
+  g.drawLine(0,0,right - 6,0);
+  if (ocean && isSelected) {
+    g.drawLine(right,6,right,bottom);
+    if (tabIndex != firstIndex) {
+      g.setColor(darkShadow);
+      g.drawLine(right,0,right,5);
+    }
+  }
+ else   if (ocean && tabPane.getSelectedIndex() == tabIndex - 1) {
+    g.setColor(oceanSelectedBorderColor);
+    g.drawLine(right,0,right,6);
+    g.setColor(darkShadow);
+    g.drawLine(right,6,right,bottom);
+  }
+ else   if (tabIndex != firstIndex) {
+    g.drawLine(right,0,right,bottom);
+  }
+ else {
+    g.drawLine(right,6,right,bottom);
+  }
   g.translate(-x,-y);
 }

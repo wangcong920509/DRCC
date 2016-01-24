@@ -1,0 +1,64 @@
+/** 
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
+ */
+public static Element selectDsNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
+  return null;
+}
+
+/** 
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
+ */
+public static Element selectXencNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
+  return null;
+}
+
+-->
+void selectDsNode_selectXencNode(Node sibling,String nodeName,int number,Node sibling,String nodeName,int number,int combFlag){
+  if (combFlag == 1) {
+    while (sibling != null) {
+      if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+        if (number == 0) {
+          return (Element)sibling;
+        }
+        number--;
+      }
+      sibling=sibling.getNextSibling();
+    }
+  }
+ else {
+    while (sibling != null) {
+      if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+        if (number == 0) {
+          return (Element)sibling;
+        }
+        number--;
+      }
+      sibling=sibling.getNextSibling();
+    }
+  }
+  return null;
+}

@@ -1,24 +1,95 @@
-jdk_src\javax\swing\JTextPane.java
+jdk_src\javax\swing\JTable.java
 /** 
- * Inserts a component into the document as a replacement for the currently selected content.  If there is no selection the component is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content. <p> The component given is the actual component used by the JTextPane.  Since components cannot be a child of more than one container, this method should not be used in situations where the model is shared by text components. <p> The component is placed relative to the text baseline according to the value returned by <code>Component.getAlignmentY</code>.  For Swing components this value can be conveniently set using the method <code>JComponent.setAlignmentY</code>.  For example, setting a value of <code>0.75</code> will cause 75 percent of the component to be above the baseline, and 25 percent of the component to be below the baseline.
- * @param c    the component to insert
+ * Called to get the block increment for upward scrolling in cases of horizontal scrolling, or for vertical scrolling of a table with variable row heights.
  */
-public void insertComponent(Component c){
-  MutableAttributeSet inputAttributes=getInputAttributes();
-  inputAttributes.removeAttributes(inputAttributes);
-  StyleConstants.setComponent(inputAttributes,c);
-  replaceSelection(" ",false);
-  inputAttributes.removeAttributes(inputAttributes);
+private int getPreviousBlockIncrement(Rectangle visibleRect,int orientation){
+  int row;
+  int col;
+  int newEdge;
+  Point newCellLoc;
+  int visibleLeadingEdge=leadingEdge(visibleRect,orientation);
+  boolean leftToRight=getComponentOrientation().isLeftToRight();
+  int newLeadingEdge;
+  if (orientation == SwingConstants.VERTICAL) {
+    newEdge=visibleLeadingEdge - visibleRect.height;
+    int x=visibleRect.x + (leftToRight ? 0 : visibleRect.width);
+    newCellLoc=new Point(x,newEdge);
+  }
+ else   if (leftToRight) {
+    newEdge=visibleLeadingEdge - visibleRect.width;
+    newCellLoc=new Point(newEdge,visibleRect.y);
+  }
+ else {
+    newEdge=visibleLeadingEdge + visibleRect.width;
+    newCellLoc=new Point(newEdge - 1,visibleRect.y);
+  }
+  row=rowAtPoint(newCellLoc);
+  col=columnAtPoint(newCellLoc);
+  if (orientation == SwingConstants.VERTICAL & row < 0) {
+    newLeadingEdge=0;
+  }
+ else   if (orientation == SwingConstants.HORIZONTAL & col < 0) {
+    if (leftToRight) {
+      newLeadingEdge=0;
+    }
+ else {
+      newLeadingEdge=getWidth();
+    }
+  }
+ else {
+    Rectangle newCellRect=getCellRect(row,col,true);
+    int newCellLeadingEdge=leadingEdge(newCellRect,orientation);
+    int newCellTrailingEdge=trailingEdge(newCellRect,orientation);
+    if ((orientation == SwingConstants.VERTICAL || leftToRight) && (newCellTrailingEdge >= visibleLeadingEdge)) {
+      newLeadingEdge=newCellLeadingEdge;
+    }
+ else     if (orientation == SwingConstants.HORIZONTAL && !leftToRight && newCellTrailingEdge <= visibleLeadingEdge) {
+      newLeadingEdge=newCellLeadingEdge;
+    }
+ else     if (newEdge == newCellLeadingEdge) {
+      newLeadingEdge=newCellLeadingEdge;
+    }
+ else {
+      newLeadingEdge=newCellTrailingEdge;
+    }
+  }
+  return Math.abs(visibleLeadingEdge - newLeadingEdge);
 }
 /** 
- * Inserts an icon into the document as a replacement for the currently selected content.  If there is no selection the icon is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content.
- * @param g    the icon to insert
- * @see Icon
+ * Called to get the block increment for downward scrolling in cases of horizontal scrolling, or for vertical scrolling of a table with variable row heights.
  */
-public void insertIcon(Icon g){
-  MutableAttributeSet inputAttributes=getInputAttributes();
-  inputAttributes.removeAttributes(inputAttributes);
-  StyleConstants.setIcon(inputAttributes,g);
-  replaceSelection(" ",false);
-  inputAttributes.removeAttributes(inputAttributes);
+private int getNextBlockIncrement(Rectangle visibleRect,int orientation){
+  int trailingRow=getTrailingRow(visibleRect);
+  int trailingCol=getTrailingCol(visibleRect);
+  Rectangle cellRect;
+  boolean cellFillsVis;
+  int cellLeadingEdge;
+  int cellTrailingEdge;
+  int newLeadingEdge;
+  int visibleLeadingEdge=leadingEdge(visibleRect,orientation);
+  if (orientation == SwingConstants.VERTICAL && trailingRow < 0) {
+    return visibleRect.height;
+  }
+ else   if (orientation == SwingConstants.HORIZONTAL && trailingCol < 0) {
+    return visibleRect.width;
+  }
+  cellRect=getCellRect(trailingRow,trailingCol,true);
+  cellLeadingEdge=leadingEdge(cellRect,orientation);
+  cellTrailingEdge=trailingEdge(cellRect,orientation);
+  if (orientation == SwingConstants.VERTICAL || getComponentOrientation().isLeftToRight()) {
+    cellFillsVis=cellLeadingEdge <= visibleLeadingEdge;
+  }
+ else {
+    cellFillsVis=cellLeadingEdge >= visibleLeadingEdge;
+  }
+  if (cellFillsVis) {
+    newLeadingEdge=cellTrailingEdge;
+  }
+ else   if (cellTrailingEdge == trailingEdge(visibleRect,orientation)) {
+    newLeadingEdge=cellTrailingEdge;
+  }
+ else {
+    newLeadingEdge=cellLeadingEdge;
+  }
+  return Math.abs(newLeadingEdge - visibleLeadingEdge);
 }

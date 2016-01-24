@@ -30,10 +30,10 @@ public void setOffset(int newOffset){
 }
 /** 
  * Set a new string over which to iterate.
- * @param source  the new source text.
+ * @param source  the new source text
  * @since 1.2
  */
-public void setText(CharacterIterator source){
+public void setText(String source){
   buffer=null;
   swapOrder=0;
   expIndex=0;

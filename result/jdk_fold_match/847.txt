@@ -1,23 +1,23 @@
-jdk_src\javax\swing\plaf\nimbus\SliderTrackPainter.java
-private void paintBackgroundDisabled(Graphics2D g){
-  roundRect=decodeRoundRect1();
-  g.setPaint(color1);
-  g.fill(roundRect);
-  roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient1(roundRect));
-  g.fill(roundRect);
-  roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient2(roundRect));
-  g.fill(roundRect);
+jdk_src\javax\swing\plaf\nimbus\SliderThumbPainter.java
+private void paintBackgroundFocusedAndMouseOverAndArrowShape(Graphics2D g){
+  path=decodePath4();
+  g.setPaint(color12);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient13(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient14(path));
+  g.fill(path);
 }
-private void paintBackgroundEnabled(Graphics2D g){
-  roundRect=decodeRoundRect4();
-  g.setPaint(color6);
-  g.fill(roundRect);
-  roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient3(roundRect));
-  g.fill(roundRect);
-  roundRect=decodeRoundRect5();
-  g.setPaint(decodeGradient4(roundRect));
-  g.fill(roundRect);
+private void paintBackgroundFocusedAndPressedAndArrowShape(Graphics2D g){
+  path=decodePath4();
+  g.setPaint(color12);
+  g.fill(path);
+  path=decodePath2();
+  g.setPaint(decodeGradient15(path));
+  g.fill(path);
+  path=decodePath3();
+  g.setPaint(decodeGradient16(path));
+  g.fill(path);
 }

@@ -1,0 +1,20 @@
+private Rectangle2D decodeRect4(){
+  rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
+  return rect;
+}
+
+private Rectangle2D decodeRect39(){
+  rect.setRect(decodeX(0.8f),decodeY(1.6666667f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.8333333f) - decodeY(1.6666667f));
+  return rect;
+}
+
+-->
+void decodeRect4_decodeRect39(int combFlag){
+  if (combFlag == 1) {
+    rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
+  }
+ else {
+    rect.setRect(decodeX(0.8f),decodeY(1.6666667f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.8333333f) - decodeY(1.6666667f));
+  }
+  return rect;
+}

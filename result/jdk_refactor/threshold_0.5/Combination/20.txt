@@ -1,0 +1,20 @@
+public void addRequest(SnmpInformRequest reqc){
+  newq.addRequest(reqc);
+  return;
+}
+
+public void addWaiting(SnmpInformRequest reqc){
+  waitq.addWaiting(reqc);
+  return;
+}
+
+-->
+void addRequest_addWaiting(SnmpInformRequest reqc,SnmpInformRequest reqc,int combFlag){
+  if (combFlag == 1) {
+    newq.addRequest(reqc);
+  }
+ else {
+    waitq.addWaiting(reqc);
+  }
+  return;
+}

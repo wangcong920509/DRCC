@@ -1,0 +1,32 @@
+/** 
+ * Tell if the character argument that is from an attribute value should have special treatment.
+ * @param value the value of a character that is in an attribute value
+ * @return true if the character should have any special treatment,such as when writing out attribute values, or entity references.
+ * @xsl.usage internal
+ */
+final boolean isSpecialAttrChar(int value){
+  if (value < ASCII_MAX)   return isSpecialAttrASCII[value];
+  return get(value);
+}
+
+/** 
+ * Tell if the character argument that is from a text node should have special treatment.
+ * @param value the value of a character that is in a text node
+ * @return true if the character should have any special treatment,such as when writing out attribute values, or entity references.
+ * @xsl.usage internal
+ */
+final boolean isSpecialTextChar(int value){
+  if (value < ASCII_MAX)   return isSpecialTextASCII[value];
+  return get(value);
+}
+
+-->
+void isSpecialAttrChar_isSpecialTextChar(int value,int value,int combFlag){
+  if (combFlag == 1) {
+    if (value < ASCII_MAX)     return isSpecialAttrASCII[value];
+  }
+ else {
+    if (value < ASCII_MAX)     return isSpecialTextASCII[value];
+  }
+  return get(value);
+}

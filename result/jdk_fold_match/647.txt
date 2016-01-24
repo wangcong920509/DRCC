@@ -13,21 +13,21 @@ private void paintBackgroundEnabledAndWindowNotFocused(Graphics2D g){
   g.setPaint(color72);
   g.fill(path);
 }
-private void paintBackgroundPressedAndWindowNotFocused(Graphics2D g){
+private void paintBackgroundMouseOverAndWindowNotFocused(Graphics2D g){
   roundRect=decodeRoundRect3();
-  g.setPaint(color69);
+  g.setPaint(color66);
   g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient8(roundRect));
+  g.setPaint(decodeGradient6(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient15(roundRect));
+  g.setPaint(decodeGradient14(roundRect));
   g.fill(roundRect);
   rect=decodeRect1();
   g.setPaint(color4);
   g.fill(rect);
   path=decodePath3();
-  g.setPaint(color71);
+  g.setPaint(color68);
   g.fill(path);
   path=decodePath4();
   g.setPaint(color65);

@@ -7,15 +7,15 @@ private void painticonDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(roundRect));
   g.fill(roundRect);
 }
-private void painticonMouseOverAndSelected(Graphics2D g){
-  roundRect=decodeRoundRect3();
-  g.setPaint(color6);
+private void painticonPressedAndSelectedAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color12);
   g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient13(roundRect));
+  g.setPaint(decodeGradient11(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient14(roundRect));
+  g.setPaint(decodeGradient12(roundRect));
   g.fill(roundRect);
   path=decodePath1();
   g.setPaint(color28);

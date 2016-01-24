@@ -1,43 +1,92 @@
-jdk_src\javax\swing\text\GlyphPainter1.java
+jdk_src\javax\swing\text\GapContent.java
 /** 
- * Paints the glyphs representing the given range.
+ * Returns a Vector containing instances of UndoPosRef for the Positions in the range <code>offset</code> to <code>offset</code> + <code>length</code>. If <code>v</code> is not null the matching Positions are placed in there. The vector with the resulting Positions are returned.
+ * @param v the Vector to use, with a new one created on null
+ * @param offset the starting offset >= 0
+ * @param length the length >= 0
+ * @return the set of instances
  */
-public void paint(GlyphView v,Graphics g,Shape a,int p0,int p1){
-  sync(v);
-  Segment text;
-  TabExpander expander=v.getTabExpander();
-  Rectangle alloc=(a instanceof Rectangle) ? (Rectangle)a : a.getBounds();
-  int x=alloc.x;
-  int p=v.getStartOffset();
-  int[] justificationData=getJustificationData(v);
-  if (p != p0) {
-    text=v.getText(p,p0);
-    int width=Utilities.getTabbedTextWidth(v,text,metrics,x,expander,p,justificationData);
-    x+=width;
-    SegmentCache.releaseSharedSegment(text);
+protected Vector getPositionsInRange(Vector v,int offset,int length){
+  int endOffset=offset + length;
+  int startIndex;
+  int endIndex;
+  int g0=getGapStart();
+  int g1=getGapEnd();
+  if (offset < g0) {
+    if (offset == 0) {
+      startIndex=0;
+    }
+ else {
+      startIndex=findMarkAdjustIndex(offset);
+    }
+    if (endOffset >= g0) {
+      endIndex=findMarkAdjustIndex(endOffset + (g1 - g0) + 1);
+    }
+ else {
+      endIndex=findMarkAdjustIndex(endOffset + 1);
+    }
   }
-  int y=alloc.y + metrics.getHeight() - metrics.getDescent();
-  text=v.getText(p0,p1);
-  g.setFont(metrics.getFont());
-  Utilities.drawTabbedText(v,text,x,y,g,expander,p0,justificationData);
-  SegmentCache.releaseSharedSegment(text);
+ else {
+    startIndex=findMarkAdjustIndex(offset + (g1 - g0));
+    endIndex=findMarkAdjustIndex(endOffset + (g1 - g0) + 1);
+  }
+  Vector placeIn=(v == null) ? new Vector(Math.max(1,endIndex - startIndex)) : v;
+  for (int counter=startIndex; counter < endIndex; counter++) {
+    placeIn.addElement(new UndoPosRef(marks.elementAt(counter)));
+  }
+  return placeIn;
 }
-public Shape modelToView(GlyphView v,int pos,Position.Bias bias,Shape a) throws BadLocationException {
-  sync(v);
-  Rectangle alloc=(a instanceof Rectangle) ? (Rectangle)a : a.getBounds();
-  int p0=v.getStartOffset();
-  int p1=v.getEndOffset();
-  TabExpander expander=v.getTabExpander();
-  Segment text;
-  if (pos == p1) {
-    return new Rectangle(alloc.x + alloc.width,alloc.y,0,metrics.getHeight());
+/** 
+ * Resets the location for all the UndoPosRef instances in <code>positions</code>. <p> This is meant for internal usage, and is generally not of interest to subclasses.
+ * @param positions the UndoPosRef instances to reset
+ */
+protected void updateUndoPositions(Vector positions,int offset,int length){
+  int endOffset=offset + length;
+  int g1=getGapEnd();
+  int startIndex;
+  int endIndex=findMarkAdjustIndex(g1 + 1);
+  if (offset != 0) {
+    startIndex=findMarkAdjustIndex(g1);
   }
-  if ((pos >= p0) && (pos <= p1)) {
-    text=v.getText(p0,pos);
-    int[] justificationData=getJustificationData(v);
-    int width=Utilities.getTabbedTextWidth(v,text,metrics,alloc.x,expander,p0,justificationData);
-    SegmentCache.releaseSharedSegment(text);
-    return new Rectangle(alloc.x + width,alloc.y,0,metrics.getHeight());
+ else {
+    startIndex=0;
   }
-  throw new BadLocationException("modelToView - can't convert",p1);
+  for (int counter=positions.size() - 1; counter >= 0; counter--) {
+    UndoPosRef ref=(UndoPosRef)positions.elementAt(counter);
+    ref.resetLocation(endOffset,g1);
+  }
+  if (startIndex < endIndex) {
+    Object[] sorted=new Object[endIndex - startIndex];
+    int addIndex=0;
+    int counter;
+    if (offset == 0) {
+      for (counter=startIndex; counter < endIndex; counter++) {
+        MarkData mark=marks.elementAt(counter);
+        if (mark.index == 0) {
+          sorted[addIndex++]=mark;
+        }
+      }
+      for (counter=startIndex; counter < endIndex; counter++) {
+        MarkData mark=marks.elementAt(counter);
+        if (mark.index != 0) {
+          sorted[addIndex++]=mark;
+        }
+      }
+    }
+ else {
+      for (counter=startIndex; counter < endIndex; counter++) {
+        MarkData mark=marks.elementAt(counter);
+        if (mark.index != g1) {
+          sorted[addIndex++]=mark;
+        }
+      }
+      for (counter=startIndex; counter < endIndex; counter++) {
+        MarkData mark=marks.elementAt(counter);
+        if (mark.index == g1) {
+          sorted[addIndex++]=mark;
+        }
+      }
+    }
+    marks.replaceRange(startIndex,endIndex,sorted);
+  }
 }

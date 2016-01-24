@@ -1,0 +1,20 @@
+protected void setDefaultValues(){
+  Map map=new FieldMap(entries,true);
+  setFields(map);
+}
+
+public void setTestValues(){
+  Map map=new FieldMap(entries,false);
+  setFields(map);
+}
+
+-->
+void setDefaultValues_setTestValues(int combFlag){
+  if (combFlag == 1) {
+    Map map=new FieldMap(entries,true);
+  }
+ else {
+    Map map=new FieldMap(entries,false);
+  }
+  setFields(map);
+}

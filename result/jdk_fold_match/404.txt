@@ -1,29 +1,29 @@
 jdk_src\javax\swing\plaf\nimbus\ComboBoxArrowButtonPainter.java
-private void paintBackgroundEnabledAndEditable(Graphics2D g){
+private void paintBackgroundDisabledAndEditable(Graphics2D g){
   path=decodePath1();
-  g.setPaint(color9);
+  g.setPaint(color1);
   g.fill(path);
   path=decodePath2();
-  g.setPaint(decodeGradient3(path));
+  g.setPaint(decodeGradient1(path));
   g.fill(path);
   path=decodePath3();
   g.setPaint(color4);
   g.fill(path);
   path=decodePath4();
-  g.setPaint(decodeGradient4(path));
+  g.setPaint(decodeGradient2(path));
   g.fill(path);
 }
-private void paintBackgroundMouseOverAndEditable(Graphics2D g){
+private void paintBackgroundSelectedAndEditable(Graphics2D g){
   path=decodePath1();
   g.setPaint(color9);
   g.fill(path);
   path=decodePath2();
-  g.setPaint(decodeGradient5(path));
+  g.setPaint(decodeGradient7(path));
   g.fill(path);
   path=decodePath3();
   g.setPaint(color4);
   g.fill(path);
   path=decodePath4();
-  g.setPaint(decodeGradient6(path));
+  g.setPaint(decodeGradient8(path));
   g.fill(path);
 }

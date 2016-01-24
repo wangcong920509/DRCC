@@ -1,23 +1,20 @@
 jdk_src\javax\swing\plaf\nimbus\TextAreaPainter.java
-private void paintBorderFocusedAndNotInScrollPane(Graphics2D g){
-  rect=decodeRect8();
-  g.setPaint(decodeGradient3(rect));
+private void paintBorderDisabledAndNotInScrollPane(Graphics2D g){
+  rect=decodeRect3();
+  g.setPaint(decodeGradient1(rect));
   g.fill(rect);
-  rect=decodeRect9();
-  g.setPaint(decodeGradient4(rect));
+  rect=decodeRect4();
+  g.setPaint(decodeGradient2(rect));
   g.fill(rect);
-  rect=decodeRect10();
-  g.setPaint(color10);
+  rect=decodeRect5();
+  g.setPaint(color6);
   g.fill(rect);
-  rect=decodeRect11();
-  g.setPaint(color10);
+  rect=decodeRect6();
+  g.setPaint(color4);
   g.fill(rect);
-  rect=decodeRect12();
-  g.setPaint(color11);
+  rect=decodeRect7();
+  g.setPaint(color4);
   g.fill(rect);
-  path=decodePath1();
-  g.setPaint(color12);
-  g.fill(path);
 }
 private void paintBorderEnabledAndNotInScrollPane(Graphics2D g){
   rect=decodeRect8();

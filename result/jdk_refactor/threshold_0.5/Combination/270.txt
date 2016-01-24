@@ -1,0 +1,36 @@
+/** 
+ * Invoked when a column is added to the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnAdded(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
+}
+
+/** 
+ * Invoked when a column is removed from the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnRemoved(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
+}
+
+-->
+void columnAdded_columnRemoved(TableColumnModelEvent e,TableColumnModelEvent e,int combFlag){
+  if (combFlag == 1) {
+    if (isEditing()) {
+      removeEditor();
+    }
+  }
+ else {
+    if (isEditing()) {
+      removeEditor();
+    }
+  }
+  resizeAndRepaint();
+}

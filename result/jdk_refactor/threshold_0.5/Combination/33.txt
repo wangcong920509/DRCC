@@ -1,0 +1,20 @@
+public void setImportingStylesheet(Stylesheet parent){
+  _importedFrom=parent;
+  parent.addIncludedStylesheet(this);
+}
+
+public void setIncludingStylesheet(Stylesheet parent){
+  _includedFrom=parent;
+  parent.addIncludedStylesheet(this);
+}
+
+-->
+void setImportingStylesheet_setIncludingStylesheet(Stylesheet parent,Stylesheet parent,int combFlag){
+  if (combFlag == 1) {
+    _importedFrom=parent;
+  }
+ else {
+    _includedFrom=parent;
+  }
+  parent.addIncludedStylesheet(this);
+}

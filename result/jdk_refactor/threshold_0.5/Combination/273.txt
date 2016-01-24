@@ -1,0 +1,48 @@
+private static MenuElement nextEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i <= toIndex; i++) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
+}
+
+private static MenuElement previousEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i >= toIndex; i--) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
+}
+
+-->
+void nextEnabledChild_previousEnabledChild(MenuElement e[],int fromIndex,int toIndex,MenuElement e[],int fromIndex,int toIndex,int combFlag){
+  if (combFlag == 1) {
+    for (int i=fromIndex; i <= toIndex; i++) {
+      if (e[i] != null) {
+        Component comp=e[i].getComponent();
+        if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+          return e[i];
+        }
+      }
+    }
+  }
+ else {
+    for (int i=fromIndex; i >= toIndex; i--) {
+      if (e[i] != null) {
+        Component comp=e[i].getComponent();
+        if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+          return e[i];
+        }
+      }
+    }
+  }
+  return null;
+}

@@ -1,0 +1,30 @@
+protected boolean initializeComponentsFromAny(){
+  try {
+    components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+  }
+ catch (  InconsistentTypeCode ictc) {
+    return false;
+  }
+  return true;
+}
+
+protected boolean initializeAnyFromComponents(){
+  any=getAny(components[0]);
+  return true;
+}
+
+-->
+void initializeComponentsFromAny_initializeAnyFromComponents(int combFlag){
+  if (combFlag == 1) {
+    try {
+      components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+    }
+ catch (    InconsistentTypeCode ictc) {
+      return false;
+    }
+  }
+ else {
+    any=getAny(components[0]);
+  }
+  return true;
+}

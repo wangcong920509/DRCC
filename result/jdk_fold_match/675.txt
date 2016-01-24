@@ -25,20 +25,20 @@ private void paintinformationIconEnabled(Graphics2D g){
   g.setPaint(color6);
   g.fill(ellipse);
 }
-private void paintwarningIconEnabled(Graphics2D g){
-  rect=decodeRect1();
-  g.setPaint(color8);
-  g.fill(rect);
-  path=decodePath7();
-  g.setPaint(decodeGradient8(path));
+private void paintquestionIconEnabled(Graphics2D g){
+  ellipse=decodeEllipse3();
+  g.setPaint(decodeGradient5(ellipse));
+  g.fill(ellipse);
+  ellipse=decodeEllipse4();
+  g.setPaint(decodeGradient6(ellipse));
+  g.fill(ellipse);
+  ellipse=decodeEllipse5();
+  g.setPaint(decodeGradient7(ellipse));
+  g.fill(ellipse);
+  path=decodePath6();
+  g.setPaint(color27);
   g.fill(path);
-  path=decodePath8();
-  g.setPaint(decodeGradient9(path));
-  g.fill(path);
-  path=decodePath9();
-  g.setPaint(decodeGradient10(path));
-  g.fill(path);
-  ellipse=decodeEllipse7();
-  g.setPaint(color37);
+  ellipse=decodeEllipse1();
+  g.setPaint(color27);
   g.fill(ellipse);
 }

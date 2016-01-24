@@ -10,14 +10,14 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(roundRect));
   g.fill(roundRect);
 }
-private void paintBackgroundFocused(Graphics2D g){
-  roundRect=decodeRoundRect4();
-  g.setPaint(color16);
+private void paintBackgroundEnabled(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color9);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
   g.setPaint(decodeGradient3(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient5(roundRect));
+  g.setPaint(decodeGradient4(roundRect));
   g.fill(roundRect);
 }

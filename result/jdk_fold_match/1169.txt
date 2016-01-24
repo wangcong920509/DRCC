@@ -1,92 +1,90 @@
-jdk_src\javax\swing\text\GapContent.java
+jdk_src\javax\swing\text\BoxView.java
 /** 
- * Returns a Vector containing instances of UndoPosRef for the Positions in the range <code>offset</code> to <code>offset</code> + <code>length</code>. If <code>v</code> is not null the matching Positions are placed in there. The vector with the resulting Positions are returned.
- * @param v the Vector to use, with a new one created on null
- * @param offset the starting offset >= 0
- * @param length the length >= 0
- * @return the set of instances
+ * Calculates the size requirements for the major axis <code>axis</code>.
+ * @param axis the axis being studied
+ * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
+ * @return the newly initialized <code>SizeRequirements</code> object
+ * @see javax.swing.SizeRequirements
  */
-protected Vector getPositionsInRange(Vector v,int offset,int length){
-  int endOffset=offset + length;
-  int startIndex;
-  int endIndex;
-  int g0=getGapStart();
-  int g1=getGapEnd();
-  if (offset < g0) {
-    if (offset == 0) {
-      startIndex=0;
-    }
- else {
-      startIndex=findMarkAdjustIndex(offset);
-    }
-    if (endOffset >= g0) {
-      endIndex=findMarkAdjustIndex(endOffset + (g1 - g0) + 1);
-    }
- else {
-      endIndex=findMarkAdjustIndex(endOffset + 1);
-    }
+protected SizeRequirements calculateMajorAxisRequirements(int axis,SizeRequirements r){
+  float min=0;
+  float pref=0;
+  float max=0;
+  int n=getViewCount();
+  for (int i=0; i < n; i++) {
+    View v=getView(i);
+    min+=v.getMinimumSpan(axis);
+    pref+=v.getPreferredSpan(axis);
+    max+=v.getMaximumSpan(axis);
   }
- else {
-    startIndex=findMarkAdjustIndex(offset + (g1 - g0));
-    endIndex=findMarkAdjustIndex(endOffset + (g1 - g0) + 1);
+  if (r == null) {
+    r=new SizeRequirements();
   }
-  Vector placeIn=(v == null) ? new Vector(Math.max(1,endIndex - startIndex)) : v;
-  for (int counter=startIndex; counter < endIndex; counter++) {
-    placeIn.addElement(new UndoPosRef(marks.elementAt(counter)));
-  }
-  return placeIn;
+  r.alignment=0.5f;
+  r.minimum=(int)min;
+  r.preferred=(int)pref;
+  r.maximum=(int)max;
+  return r;
 }
 /** 
- * Resets the location for all the UndoPosRef instances in <code>positions</code>. <p> This is meant for internal usage, and is generally not of interest to subclasses.
- * @param positions the UndoPosRef instances to reset
+ * Calculates the size requirements for this <code>BoxView</code> by examining the size of each child view.
+ * @param axis the axis being studied
+ * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
+ * @return the newly initialized <code>SizeRequirements</code> object
  */
-protected void updateUndoPositions(Vector positions,int offset,int length){
-  int endOffset=offset + length;
-  int g1=getGapEnd();
-  int startIndex;
-  int endIndex=findMarkAdjustIndex(g1 + 1);
-  if (offset != 0) {
-    startIndex=findMarkAdjustIndex(g1);
+protected SizeRequirements baselineRequirements(int axis,SizeRequirements r){
+  SizeRequirements totalAscent=new SizeRequirements();
+  SizeRequirements totalDescent=new SizeRequirements();
+  if (r == null) {
+    r=new SizeRequirements();
   }
- else {
-    startIndex=0;
-  }
-  for (int counter=positions.size() - 1; counter >= 0; counter--) {
-    UndoPosRef ref=(UndoPosRef)positions.elementAt(counter);
-    ref.resetLocation(endOffset,g1);
-  }
-  if (startIndex < endIndex) {
-    Object[] sorted=new Object[endIndex - startIndex];
-    int addIndex=0;
-    int counter;
-    if (offset == 0) {
-      for (counter=startIndex; counter < endIndex; counter++) {
-        MarkData mark=marks.elementAt(counter);
-        if (mark.index == 0) {
-          sorted[addIndex++]=mark;
-        }
-      }
-      for (counter=startIndex; counter < endIndex; counter++) {
-        MarkData mark=marks.elementAt(counter);
-        if (mark.index != 0) {
-          sorted[addIndex++]=mark;
-        }
-      }
+  r.alignment=0.5f;
+  int n=getViewCount();
+  for (int i=0; i < n; i++) {
+    View v=getView(i);
+    float align=v.getAlignment(axis);
+    float span;
+    int ascent;
+    int descent;
+    span=v.getPreferredSpan(axis);
+    ascent=(int)(align * span);
+    descent=(int)(span - ascent);
+    totalAscent.preferred=Math.max(ascent,totalAscent.preferred);
+    totalDescent.preferred=Math.max(descent,totalDescent.preferred);
+    if (v.getResizeWeight(axis) > 0) {
+      span=v.getMinimumSpan(axis);
+      ascent=(int)(align * span);
+      descent=(int)(span - ascent);
+      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
+      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
+      span=v.getMaximumSpan(axis);
+      ascent=(int)(align * span);
+      descent=(int)(span - ascent);
+      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
+      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
     }
  else {
-      for (counter=startIndex; counter < endIndex; counter++) {
-        MarkData mark=marks.elementAt(counter);
-        if (mark.index != g1) {
-          sorted[addIndex++]=mark;
-        }
-      }
-      for (counter=startIndex; counter < endIndex; counter++) {
-        MarkData mark=marks.elementAt(counter);
-        if (mark.index == g1) {
-          sorted[addIndex++]=mark;
-        }
-      }
+      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
+      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
+      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
+      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
     }
-    marks.replaceRange(startIndex,endIndex,sorted);
   }
+  r.preferred=(int)Math.min((long)totalAscent.preferred + (long)totalDescent.preferred,Integer.MAX_VALUE);
+  if (r.preferred > 0) {
+    r.alignment=(float)totalAscent.preferred / r.preferred;
+  }
+  if (r.alignment == 0.0f) {
+    r.minimum=totalDescent.minimum;
+    r.maximum=totalDescent.maximum;
+  }
+ else   if (r.alignment == 1.0f) {
+    r.minimum=totalAscent.minimum;
+    r.maximum=totalAscent.maximum;
+  }
+ else {
+    r.minimum=Math.round(Math.max(totalAscent.minimum / r.alignment,totalDescent.minimum / (1.0f - r.alignment)));
+    r.maximum=Math.round(Math.min(totalAscent.maximum / r.alignment,totalDescent.maximum / (1.0f - r.alignment)));
+  }
+  return r;
 }

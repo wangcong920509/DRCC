@@ -1,35 +1,26 @@
-jdk_src\javax\swing\plaf\nimbus\SpinnerPanelSpinnerFormattedTextFieldPainter.java
-private void paintBackgroundDisabled(Graphics2D g){
+jdk_src\javax\swing\plaf\nimbus\SpinnerNextButtonPainter.java
+private void paintBackgroundMouseOver(Graphics2D g){
+  path=decodePath3();
+  g.setPaint(decodeGradient6(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient10(path));
+  g.fill(path);
   rect=decodeRect1();
-  g.setPaint(color1);
-  g.fill(rect);
-  rect=decodeRect2();
-  g.setPaint(decodeGradient1(rect));
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(decodeGradient2(rect));
-  g.fill(rect);
-  rect=decodeRect4();
-  g.setPaint(color6);
-  g.fill(rect);
-  rect=decodeRect5();
-  g.setPaint(color7);
+  g.setPaint(color18);
   g.fill(rect);
 }
-private void paintBackgroundEnabled(Graphics2D g){
+private void paintBackgroundPressed(Graphics2D g){
+  path=decodePath6();
+  g.setPaint(decodeGradient8(path));
+  g.fill(path);
+  path=decodePath4();
+  g.setPaint(decodeGradient11(path));
+  g.fill(path);
   rect=decodeRect1();
-  g.setPaint(color1);
+  g.setPaint(color24);
   g.fill(rect);
   rect=decodeRect2();
-  g.setPaint(decodeGradient3(rect));
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(decodeGradient4(rect));
-  g.fill(rect);
-  rect=decodeRect4();
-  g.setPaint(color12);
-  g.fill(rect);
-  rect=decodeRect5();
-  g.setPaint(color13);
+  g.setPaint(color25);
   g.fill(rect);
 }

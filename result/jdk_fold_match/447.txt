@@ -16,7 +16,7 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(color7);
   g.fill(rect);
 }
-private void paintBackgroundSelected(Graphics2D g){
+private void paintBackgroundEnabled(Graphics2D g){
   rect=decodeRect1();
   g.setPaint(color1);
   g.fill(rect);

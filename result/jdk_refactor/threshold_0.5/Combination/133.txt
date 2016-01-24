@@ -1,0 +1,28 @@
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return false
+ */
+public boolean hasChildNodes(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return false;
+}
+
+/** 
+ * Unimplemented. See org.w3c.dom.Node
+ * @return False
+ */
+public boolean getSpecified(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return false;
+}
+
+-->
+void hasChildNodes_getSpecified(int combFlag){
+  if (combFlag == 1) {
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  }
+ else {
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  }
+  return false;
+}

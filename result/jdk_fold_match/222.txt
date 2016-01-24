@@ -1,101 +1,49 @@
-jdk_src\javax\swing\plaf\basic\BasicTabbedPaneUI.java
-private void calculateBaseline(){
-  int tabCount=tabPane.getTabCount();
-  int tabPlacement=tabPane.getTabPlacement();
-  maxTabHeight=calculateMaxTabHeight(tabPlacement);
-  baseline=getBaseline(0);
-  if (isHorizontalTabPlacement()) {
-    for (int i=1; i < tabCount; i++) {
-      if (getBaseline(i) != baseline) {
-        baseline=-1;
-        break;
-      }
-    }
+jdk_src\javax\swing\plaf\basic\BasicLabelUI.java
+private String layout(JLabel label,FontMetrics fm,int width,int height){
+  Insets insets=label.getInsets(null);
+  String text=label.getText();
+  Icon icon=(label.isEnabled()) ? label.getIcon() : label.getDisabledIcon();
+  Rectangle paintViewR=new Rectangle();
+  paintViewR.x=insets.left;
+  paintViewR.y=insets.top;
+  paintViewR.width=width - (insets.left + insets.right);
+  paintViewR.height=height - (insets.top + insets.bottom);
+  paintIconR.x=paintIconR.y=paintIconR.width=paintIconR.height=0;
+  paintTextR.x=paintTextR.y=paintTextR.width=paintTextR.height=0;
+  return layoutCL(label,fm,text,icon,paintViewR,paintIconR,paintTextR);
+}
+public Dimension getPreferredSize(JComponent c){
+  JLabel label=(JLabel)c;
+  String text=label.getText();
+  Icon icon=(label.isEnabled()) ? label.getIcon() : label.getDisabledIcon();
+  Insets insets=label.getInsets(null);
+  Font font=label.getFont();
+  int dx=insets.left + insets.right;
+  int dy=insets.top + insets.bottom;
+  if ((icon == null) && ((text == null) || ((text != null) && (font == null)))) {
+    return new Dimension(dx,dy);
+  }
+ else   if ((text == null) || ((icon != null) && (font == null))) {
+    return new Dimension(icon.getIconWidth() + dx,icon.getIconHeight() + dy);
   }
  else {
-    FontMetrics fontMetrics=getFontMetrics();
-    int fontHeight=fontMetrics.getHeight();
-    int height=calculateTabHeight(tabPlacement,0,fontHeight);
-    for (int i=1; i < tabCount; i++) {
-      int newHeight=calculateTabHeight(tabPlacement,i,fontHeight);
-      if (height != newHeight) {
-        baseline=-1;
-        break;
-      }
-    }
+    FontMetrics fm=label.getFontMetrics(font);
+    Rectangle iconR=new Rectangle();
+    Rectangle textR=new Rectangle();
+    Rectangle viewR=new Rectangle();
+    iconR.x=iconR.y=iconR.width=iconR.height=0;
+    textR.x=textR.y=textR.width=textR.height=0;
+    viewR.x=dx;
+    viewR.y=dy;
+    viewR.width=viewR.height=Short.MAX_VALUE;
+    layoutCL(label,fm,text,icon,viewR,iconR,textR);
+    int x1=Math.min(iconR.x,textR.x);
+    int x2=Math.max(iconR.x + iconR.width,textR.x + textR.width);
+    int y1=Math.min(iconR.y,textR.y);
+    int y2=Math.max(iconR.y + iconR.height,textR.y + textR.height);
+    Dimension rv=new Dimension(x2 - x1,y2 - y1);
+    rv.width+=dx;
+    rv.height+=dy;
+    return rv;
   }
-}
-protected void navigateSelectedTab(int direction){
-  int tabPlacement=tabPane.getTabPlacement();
-  int current=DefaultLookup.getBoolean(tabPane,this,"TabbedPane.selectionFollowsFocus",true) ? tabPane.getSelectedIndex() : getFocusIndex();
-  int tabCount=tabPane.getTabCount();
-  boolean leftToRight=BasicGraphicsUtils.isLeftToRight(tabPane);
-  if (tabCount <= 0) {
-    return;
-  }
-  int offset;
-switch (tabPlacement) {
-case LEFT:
-case RIGHT:
-switch (direction) {
-case NEXT:
-      selectNextTab(current);
-    break;
-case PREVIOUS:
-  selectPreviousTab(current);
-break;
-case NORTH:
-selectPreviousTabInRun(current);
-break;
-case SOUTH:
-selectNextTabInRun(current);
-break;
-case WEST:
-offset=getTabRunOffset(tabPlacement,tabCount,current,false);
-selectAdjacentRunTab(tabPlacement,current,offset);
-break;
-case EAST:
-offset=getTabRunOffset(tabPlacement,tabCount,current,true);
-selectAdjacentRunTab(tabPlacement,current,offset);
-break;
-default :
-}
-break;
-case BOTTOM:
-case TOP:
-default :
-switch (direction) {
-case NEXT:
-selectNextTab(current);
-break;
-case PREVIOUS:
-selectPreviousTab(current);
-break;
-case NORTH:
-offset=getTabRunOffset(tabPlacement,tabCount,current,false);
-selectAdjacentRunTab(tabPlacement,current,offset);
-break;
-case SOUTH:
-offset=getTabRunOffset(tabPlacement,tabCount,current,true);
-selectAdjacentRunTab(tabPlacement,current,offset);
-break;
-case EAST:
-if (leftToRight) {
-selectNextTabInRun(current);
-}
- else {
-selectPreviousTabInRun(current);
-}
-break;
-case WEST:
-if (leftToRight) {
-selectPreviousTabInRun(current);
-}
- else {
-selectNextTabInRun(current);
-}
-break;
-default :
-}
-}
 }

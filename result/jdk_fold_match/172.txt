@@ -1,39 +1,34 @@
-jdk_src\java\security\spec\ECFieldF2m.java
+jdk_src\java\security\SignedObject.java
 /** 
- * Creates an elliptic curve characteristic 2 finite field which has 2^<code>m</code> elements with normal basis.
- * @param m with 2^<code>m</code> being the number of elements.
- * @exception IllegalArgumentException if <code>m</code>is not positive.
+ * Constructs a SignedObject from any Serializable object. The given object is signed with the given signing key, using the designated signature engine.
+ * @param object the object to be signed.
+ * @param signingKey the private key for signing.
+ * @param signingEngine the signature signing engine.
+ * @exception IOException if an error occurs during serialization
+ * @exception InvalidKeyException if the key is invalid.
+ * @exception SignatureException if signing fails.
  */
-public ECFieldF2m(int m){
-  if (m <= 0) {
-    throw new IllegalArgumentException("m is not positive");
-  }
-  this.m=m;
-  this.ks=null;
-  this.rp=null;
+public SignedObject(Serializable object,PrivateKey signingKey,Signature signingEngine) throws IOException, InvalidKeyException, SignatureException {
+  ByteArrayOutputStream b=new ByteArrayOutputStream();
+  ObjectOutput a=new ObjectOutputStream(b);
+  a.writeObject(object);
+  a.flush();
+  a.close();
+  this.content=b.toByteArray();
+  b.close();
+  this.sign(signingKey,signingEngine);
 }
 /** 
- * Creates an elliptic curve characteristic 2 finite field which has 2^<code>m</code> elements with polynomial basis. The reduction polynomial for this field is based on <code>rp</code> whose i-th bit correspondes to the i-th coefficient of the reduction polynomial.<p> Note: A valid reduction polynomial is either a trinomial (X^<code>m</code> + X^<code>k</code> + 1 with <code>m</code> > <code>k</code> >= 1) or a pentanomial (X^<code>m</code> + X^<code>k3</code> + X^<code>k2</code> + X^<code>k1</code> + 1 with <code>m</code> > <code>k3</code> > <code>k2</code> > <code>k1</code> >= 1).
- * @param m with 2^<code>m</code> being the number of elements.
- * @param rp the BigInteger whose i-th bit corresponds tothe i-th coefficient of the reduction polynomial.
- * @exception NullPointerException if <code>rp</code> is null.
- * @exception IllegalArgumentException if <code>m</code>is not positive, or <code>rp</code> does not represent a valid reduction polynomial.
+ * Retrieves the encapsulated object. The encapsulated object is de-serialized before it is returned.
+ * @return the encapsulated object.
+ * @exception IOException if an error occurs during de-serialization
+ * @exception ClassNotFoundException if an error occurs duringde-serialization
  */
-public ECFieldF2m(int m,BigInteger rp){
-  this.m=m;
-  this.rp=rp;
-  if (m <= 0) {
-    throw new IllegalArgumentException("m is not positive");
-  }
-  int bitCount=this.rp.bitCount();
-  if (!this.rp.testBit(0) || !this.rp.testBit(m) || ((bitCount != 3) && (bitCount != 5))) {
-    throw new IllegalArgumentException("rp does not represent a valid reduction polynomial");
-  }
-  BigInteger temp=this.rp.clearBit(0).clearBit(m);
-  this.ks=new int[bitCount - 2];
-  for (int i=this.ks.length - 1; i >= 0; i--) {
-    int index=temp.getLowestSetBit();
-    this.ks[i]=index;
-    temp=temp.clearBit(index);
-  }
+public Object getObject() throws IOException, ClassNotFoundException {
+  ByteArrayInputStream b=new ByteArrayInputStream(this.content);
+  ObjectInput a=new ObjectInputStream(b);
+  Object obj=a.readObject();
+  b.close();
+  a.close();
+  return obj;
 }

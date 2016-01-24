@@ -1,0 +1,44 @@
+public MemberName asSpecial(){
+switch (getReferenceKind()) {
+case REF_invokeSpecial:
+    return this;
+case REF_invokeVirtual:
+  return clone().changeReferenceKind(REF_invokeSpecial,REF_invokeVirtual);
+case REF_newInvokeSpecial:
+return clone().changeReferenceKind(REF_invokeSpecial,REF_newInvokeSpecial);
+}
+throw new IllegalArgumentException(this.toString());
+}
+
+public MemberName asConstructor(){
+switch (getReferenceKind()) {
+case REF_invokeSpecial:
+    return clone().changeReferenceKind(REF_newInvokeSpecial,REF_invokeSpecial);
+case REF_newInvokeSpecial:
+  return this;
+}
+throw new IllegalArgumentException(this.toString());
+}
+
+-->
+void asSpecial_asConstructor(int combFlag){
+  if (combFlag == 1) {
+switch (getReferenceKind()) {
+case REF_invokeSpecial:
+      return this;
+case REF_invokeVirtual:
+    return clone().changeReferenceKind(REF_invokeSpecial,REF_invokeVirtual);
+case REF_newInvokeSpecial:
+  return clone().changeReferenceKind(REF_invokeSpecial,REF_newInvokeSpecial);
+}
+}
+ else {
+switch (getReferenceKind()) {
+case REF_invokeSpecial:
+return clone().changeReferenceKind(REF_newInvokeSpecial,REF_invokeSpecial);
+case REF_newInvokeSpecial:
+return this;
+}
+}
+throw new IllegalArgumentException(this.toString());
+}

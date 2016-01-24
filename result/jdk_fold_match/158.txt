@@ -14,23 +14,22 @@ public void writeFields() throws IOException {
   bout.setBlockDataMode(true);
 }
 /** 
- * Writes class descriptor representing a standard (i.e., not a dynamic proxy) class to stream.
+ * Writes class descriptor representing a dynamic proxy class to stream.
  */
-private void writeNonProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
-  bout.writeByte(TC_CLASSDESC);
+private void writeProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
+  bout.writeByte(TC_PROXYCLASSDESC);
   handles.assign(unshared ? null : desc);
-  if (protocol == PROTOCOL_VERSION_1) {
-    desc.writeNonProxy(this);
-  }
- else {
-    writeClassDescriptor(desc);
-  }
   Class cl=desc.forClass();
+  Class[] ifaces=cl.getInterfaces();
+  bout.writeInt(ifaces.length);
+  for (int i=0; i < ifaces.length; i++) {
+    bout.writeUTF(ifaces[i].getName());
+  }
   bout.setBlockDataMode(true);
   if (isCustomSubclass()) {
     ReflectUtil.checkPackageAccess(cl);
   }
-  annotateClass(cl);
+  annotateProxyClass(cl);
   bout.setBlockDataMode(false);
   bout.writeByte(TC_ENDBLOCKDATA);
   writeClassDesc(desc.getSuperDesc(),false);

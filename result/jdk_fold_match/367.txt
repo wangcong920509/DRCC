@@ -10,15 +10,15 @@ private void painticonPressed(Graphics2D g){
   g.setPaint(decodeGradient8(roundRect));
   g.fill(roundRect);
 }
-private void painticonPressedAndSelected(Graphics2D g){
-  roundRect=decodeRoundRect3();
-  g.setPaint(color29);
+private void painticonSelectedAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color12);
   g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient11(roundRect));
+  g.setPaint(decodeGradient9(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient12(roundRect));
+  g.setPaint(decodeGradient10(roundRect));
   g.fill(roundRect);
   path=decodePath1();
   g.setPaint(color28);

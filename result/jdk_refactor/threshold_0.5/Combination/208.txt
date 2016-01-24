@@ -1,0 +1,32 @@
+/** 
+ * Inserts the specified element at the front of this deque.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Deque#offerFirst})
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
+}
+
+/** 
+ * Inserts the specified element at the end of this deque.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Deque#offerLast})
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
+}
+
+-->
+void offerFirst_offerLast(E e,E e,int combFlag){
+  if (combFlag == 1) {
+    addFirst(e);
+  }
+ else {
+    addLast(e);
+  }
+  return true;
+}

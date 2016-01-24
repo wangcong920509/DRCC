@@ -1,51 +1,32 @@
-jdk_src\java\util\concurrent\LinkedBlockingQueue.java
+jdk_src\java\util\concurrent\ForkJoinWorkerThread.java
 /** 
- * Inserts the specified element at the tail of this queue, waiting if necessary for space to become available.
- * @throws InterruptedException {@inheritDoc}
- * @throws NullPointerException {@inheritDoc}
+ * Tries to take a task from the base of the queue, failing if empty or contended. Note: Specializations of this code appear in locallyDeqTask and elsewhere.
+ * @return a task, or null if none or contended
  */
-public void put(E e) throws InterruptedException {
-  if (e == null)   throw new NullPointerException();
-  int c=-1;
-  Node<E> node=new Node(e);
-  final ReentrantLock putLock=this.putLock;
-  final AtomicInteger count=this.count;
-  putLock.lockInterruptibly();
-  try {
-    while (count.get() == capacity) {
-      notFull.await();
-    }
-    enqueue(node);
-    c=count.getAndIncrement();
-    if (c + 1 < capacity)     notFull.signal();
+final ForkJoinTask<?> deqTask(){
+  ForkJoinTask<?> t;
+  ForkJoinTask<?>[] q;
+  int b, i;
+  if (queueTop != (b=queueBase) && (q=queue) != null && (i=(q.length - 1) & b) >= 0 && (t=q[i]) != null && queueBase == b && UNSAFE.compareAndSwapObject(q,(i << ASHIFT) + ABASE,t,null)) {
+    queueBase=b + 1;
+    return t;
   }
-  finally {
-    putLock.unlock();
-  }
-  if (c == 0)   signalNotEmpty();
+  return null;
 }
 /** 
- * Inserts the specified element at the tail of this queue if it is possible to do so immediately without exceeding the queue's capacity, returning  {@code true} upon success and {@code false} if this queueis full. When using a capacity-restricted queue, this method is generally preferable to method  {@link BlockingQueue#add add}, which can fail to insert an element only by throwing an exception.
- * @throws NullPointerException if the specified element is null
+ * If present, pops and executes the given task, or any other cancelled task
+ * @return false if any other non-cancelled task exists in local queue
  */
-public boolean offer(E e){
-  if (e == null)   throw new NullPointerException();
-  final AtomicInteger count=this.count;
-  if (count.get() == capacity)   return false;
-  int c=-1;
-  Node<E> node=new Node(e);
-  final ReentrantLock putLock=this.putLock;
-  putLock.lock();
-  try {
-    if (count.get() < capacity) {
-      enqueue(node);
-      c=count.getAndIncrement();
-      if (c + 1 < capacity)       notFull.signal();
+private boolean localHelpJoinTask(ForkJoinTask<?> joinMe){
+  int s, i;
+  ForkJoinTask<?>[] q;
+  ForkJoinTask<?> t;
+  if ((s=queueTop) != queueBase && (q=queue) != null && (i=(q.length - 1) & --s) >= 0 && (t=q[i]) != null) {
+    if (t != joinMe && t.status >= 0)     return false;
+    if (UNSAFE.compareAndSwapObject(q,(i << ASHIFT) + ABASE,t,null)) {
+      queueTop=s;
+      t.doExec();
     }
   }
-  finally {
-    putLock.unlock();
-  }
-  if (c == 0)   signalNotEmpty();
-  return c >= 0;
+  return true;
 }

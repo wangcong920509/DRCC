@@ -1,58 +1,24 @@
-jdk_src\javax\swing\JTree.java
+jdk_src\javax\swing\JTextPane.java
 /** 
- * Returns an instance of <code>JTree</code> which displays the root node -- the tree is created using the specified data model.
- * @param newModel  the <code>TreeModel</code> to use as the data model
+ * Inserts a component into the document as a replacement for the currently selected content.  If there is no selection the component is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content. <p> The component given is the actual component used by the JTextPane.  Since components cannot be a child of more than one container, this method should not be used in situations where the model is shared by text components. <p> The component is placed relative to the text baseline according to the value returned by <code>Component.getAlignmentY</code>.  For Swing components this value can be conveniently set using the method <code>JComponent.setAlignmentY</code>.  For example, setting a value of <code>0.75</code> will cause 75 percent of the component to be above the baseline, and 25 percent of the component to be below the baseline.
+ * @param c    the component to insert
  */
-@ConstructorProperties({"model"}) public JTree(TreeModel newModel){
-  super();
-  expandedStack=new Stack<Stack<TreePath>>();
-  toggleClickCount=2;
-  expandedState=new Hashtable<TreePath,Boolean>();
-  setLayout(null);
-  rowHeight=16;
-  visibleRowCount=20;
-  rootVisible=true;
-  selectionModel=new DefaultTreeSelectionModel();
-  cellRenderer=null;
-  scrollsOnExpand=true;
-  setOpaque(true);
-  expandsSelectedPaths=true;
-  updateUI();
-  setModel(newModel);
+public void insertComponent(Component c){
+  MutableAttributeSet inputAttributes=getInputAttributes();
+  inputAttributes.removeAttributes(inputAttributes);
+  StyleConstants.setComponent(inputAttributes,c);
+  replaceSelection(" ",false);
+  inputAttributes.removeAttributes(inputAttributes);
 }
-private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-  s.defaultReadObject();
-  expandedState=new Hashtable<TreePath,Boolean>();
-  expandedStack=new Stack<Stack<TreePath>>();
-  Vector values=(Vector)s.readObject();
-  int indexCounter=0;
-  int maxCounter=values.size();
-  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("cellRenderer")) {
-    cellRenderer=(TreeCellRenderer)values.elementAt(++indexCounter);
-    indexCounter++;
-  }
-  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("cellEditor")) {
-    cellEditor=(TreeCellEditor)values.elementAt(++indexCounter);
-    indexCounter++;
-  }
-  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("treeModel")) {
-    treeModel=(TreeModel)values.elementAt(++indexCounter);
-    indexCounter++;
-  }
-  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("selectionModel")) {
-    selectionModel=(TreeSelectionModel)values.elementAt(++indexCounter);
-    indexCounter++;
-  }
-  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("expandedState")) {
-    unarchiveExpandedState(values.elementAt(++indexCounter));
-    indexCounter++;
-  }
-  if (listenerList.getListenerCount(TreeSelectionListener.class) != 0) {
-    selectionRedirector=new TreeSelectionRedirector();
-    selectionModel.addTreeSelectionListener(selectionRedirector);
-  }
-  if (treeModel != null) {
-    treeModelListener=createTreeModelListener();
-    if (treeModelListener != null)     treeModel.addTreeModelListener(treeModelListener);
-  }
+/** 
+ * Inserts an icon into the document as a replacement for the currently selected content.  If there is no selection the icon is effectively inserted at the current position of the caret.  This is represented in the associated document as an attribute of one character of content.
+ * @param g    the icon to insert
+ * @see Icon
+ */
+public void insertIcon(Icon g){
+  MutableAttributeSet inputAttributes=getInputAttributes();
+  inputAttributes.removeAttributes(inputAttributes);
+  StyleConstants.setIcon(inputAttributes,g);
+  replaceSelection(" ",false);
+  inputAttributes.removeAttributes(inputAttributes);
 }

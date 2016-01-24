@@ -1,7 +1,7 @@
 jdk_src\javax\swing\plaf\nimbus\ToolBarToggleButtonPainter.java
-private void paintBackgroundMouseOverAndSelectedAndFocused(Graphics2D g){
-  roundRect=decodeRoundRect8();
-  g.setPaint(color1);
+private void paintBackgroundMouseOverAndSelected(Graphics2D g){
+  roundRect=decodeRoundRect5();
+  g.setPaint(color9);
   g.fill(roundRect);
   roundRect=decodeRoundRect6();
   g.setPaint(decodeGradient3(roundRect));

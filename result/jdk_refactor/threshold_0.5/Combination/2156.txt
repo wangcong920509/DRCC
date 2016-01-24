@@ -1,0 +1,20 @@
+public void writeLineBreak() throws IOException {
+  writeRawString("\n");
+  afterKeyword=false;
+}
+
+public void writeBegingroup() throws IOException {
+  outputStream.write('{');
+  afterKeyword=false;
+}
+
+-->
+void writeLineBreak_writeBegingroup(int combFlag){
+  if (combFlag == 1) {
+    writeRawString("\n");
+  }
+ else {
+    outputStream.write('{');
+  }
+  afterKeyword=false;
+}

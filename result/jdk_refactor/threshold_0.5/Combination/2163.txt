@@ -1,0 +1,98 @@
+private static String getSystemProperty(final String name){
+  String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
+    public java.lang.Object run(){
+      return System.getProperty(name);
+    }
+  }
+);
+  return propValue;
+}
+
+private static String getPropertyFromFile(final String name){
+  String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
+    private Properties getFileProperties(    String fileName){
+      try {
+        File propFile=new File(fileName);
+        if (!propFile.exists())         return null;
+        Properties props=new Properties();
+        FileInputStream fis=new FileInputStream(propFile);
+        try {
+          props.load(fis);
+        }
+  finally {
+          fis.close();
+        }
+        return props;
+      }
+ catch (      Exception exc) {
+        return null;
+      }
+    }
+    public java.lang.Object run(){
+      String userHome=System.getProperty("user.home");
+      String fileName=userHome + File.separator + "orb.properties";
+      Properties props=getFileProperties(fileName);
+      if (props != null) {
+        String value=props.getProperty(name);
+        if (value != null)         return value;
+      }
+      String javaHome=System.getProperty("java.home");
+      fileName=javaHome + File.separator + "lib"+ File.separator+ "orb.properties";
+      props=getFileProperties(fileName);
+      if (props == null)       return null;
+ else       return props.getProperty(name);
+    }
+  }
+);
+  return propValue;
+}
+
+-->
+void getSystemProperty_getPropertyFromFile(final String name,final String name,int combFlag){
+  if (combFlag == 1) {
+    String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
+      public java.lang.Object run(){
+        return System.getProperty(name);
+      }
+    }
+);
+  }
+ else {
+    String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
+      private Properties getFileProperties(      String fileName){
+        try {
+          File propFile=new File(fileName);
+          if (!propFile.exists())           return null;
+          Properties props=new Properties();
+          FileInputStream fis=new FileInputStream(propFile);
+          try {
+            props.load(fis);
+          }
+  finally {
+            fis.close();
+          }
+          return props;
+        }
+ catch (        Exception exc) {
+          return null;
+        }
+      }
+      public java.lang.Object run(){
+        String userHome=System.getProperty("user.home");
+        String fileName=userHome + File.separator + "orb.properties";
+        Properties props=getFileProperties(fileName);
+        if (props != null) {
+          String value=props.getProperty(name);
+          if (value != null)           return value;
+        }
+        String javaHome=System.getProperty("java.home");
+        fileName=javaHome + File.separator + "lib"+ File.separator+ "orb.properties";
+        props=getFileProperties(fileName);
+        if (props == null)         return null;
+ else         return props.getProperty(name);
+      }
+    }
+);
+  }
+  return propValue;
+}

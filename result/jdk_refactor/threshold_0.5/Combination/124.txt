@@ -1,0 +1,26 @@
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
+}
+
+/** 
+ * @see XSLOutputAttributes#getVersion()
+ */
+public String getVersion(){
+  aMethodIsCalled();
+  return null;
+}
+
+-->
+void getMediaType_getVersion(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return null;
+}

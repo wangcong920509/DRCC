@@ -1,0 +1,20 @@
+@ForceInline static Object checkBase(Object obj){
+  obj.getClass();
+  return obj;
+}
+
+@ForceInline static Object nullCheck(Object obj){
+  obj.getClass();
+  return obj;
+}
+
+-->
+void checkBase_nullCheck(Object obj,Object obj,int combFlag){
+  if (combFlag == 1) {
+    obj.getClass();
+  }
+ else {
+    obj.getClass();
+  }
+  return obj;
+}

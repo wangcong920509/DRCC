@@ -1,95 +1,77 @@
-jdk_src\javax\swing\JTable.java
+jdk_src\javax\swing\DefaultDesktopManager.java
 /** 
- * Called to get the block increment for upward scrolling in cases of horizontal scrolling, or for vertical scrolling of a table with variable row heights.
+ * Removes the frame, and, if necessary, the <code>desktopIcon</code>, from its parent.
+ * @param f the <code>JInternalFrame</code> to be removed
  */
-private int getPreviousBlockIncrement(Rectangle visibleRect,int orientation){
-  int row;
-  int col;
-  int newEdge;
-  Point newCellLoc;
-  int visibleLeadingEdge=leadingEdge(visibleRect,orientation);
-  boolean leftToRight=getComponentOrientation().isLeftToRight();
-  int newLeadingEdge;
-  if (orientation == SwingConstants.VERTICAL) {
-    newEdge=visibleLeadingEdge - visibleRect.height;
-    int x=visibleRect.x + (leftToRight ? 0 : visibleRect.width);
-    newCellLoc=new Point(x,newEdge);
+public void closeFrame(JInternalFrame f){
+  JDesktopPane d=f.getDesktopPane();
+  if (d == null) {
+    return;
   }
- else   if (leftToRight) {
-    newEdge=visibleLeadingEdge - visibleRect.width;
-    newCellLoc=new Point(newEdge,visibleRect.y);
-  }
- else {
-    newEdge=visibleLeadingEdge + visibleRect.width;
-    newCellLoc=new Point(newEdge - 1,visibleRect.y);
-  }
-  row=rowAtPoint(newCellLoc);
-  col=columnAtPoint(newCellLoc);
-  if (orientation == SwingConstants.VERTICAL & row < 0) {
-    newLeadingEdge=0;
-  }
- else   if (orientation == SwingConstants.HORIZONTAL & col < 0) {
-    if (leftToRight) {
-      newLeadingEdge=0;
+  boolean findNext=f.isSelected();
+  Container c=f.getParent();
+  JInternalFrame nextFrame=null;
+  if (findNext) {
+    nextFrame=d.getNextFrame(f);
+    try {
+      f.setSelected(false);
     }
- else {
-      newLeadingEdge=getWidth();
+ catch (    PropertyVetoException e2) {
     }
   }
- else {
-    Rectangle newCellRect=getCellRect(row,col,true);
-    int newCellLeadingEdge=leadingEdge(newCellRect,orientation);
-    int newCellTrailingEdge=trailingEdge(newCellRect,orientation);
-    if ((orientation == SwingConstants.VERTICAL || leftToRight) && (newCellTrailingEdge >= visibleLeadingEdge)) {
-      newLeadingEdge=newCellLeadingEdge;
+  if (c != null) {
+    c.remove(f);
+    c.repaint(f.getX(),f.getY(),f.getWidth(),f.getHeight());
+  }
+  removeIconFor(f);
+  if (f.getNormalBounds() != null)   f.setNormalBounds(null);
+  if (wasIcon(f))   setWasIcon(f,null);
+  if (nextFrame != null) {
+    try {
+      nextFrame.setSelected(true);
     }
- else     if (orientation == SwingConstants.HORIZONTAL && !leftToRight && newCellTrailingEdge <= visibleLeadingEdge) {
-      newLeadingEdge=newCellLeadingEdge;
-    }
- else     if (newEdge == newCellLeadingEdge) {
-      newLeadingEdge=newCellLeadingEdge;
-    }
- else {
-      newLeadingEdge=newCellTrailingEdge;
+ catch (    PropertyVetoException e2) {
     }
   }
-  return Math.abs(visibleLeadingEdge - newLeadingEdge);
+ else   if (findNext && d.getComponentCount() == 0) {
+    d.requestFocus();
+  }
 }
 /** 
- * Called to get the block increment for downward scrolling in cases of horizontal scrolling, or for vertical scrolling of a table with variable row heights.
+ * Removes the frame from its parent and adds its <code>desktopIcon</code> to the parent.
+ * @param f the <code>JInternalFrame</code> to be iconified
  */
-private int getNextBlockIncrement(Rectangle visibleRect,int orientation){
-  int trailingRow=getTrailingRow(visibleRect);
-  int trailingCol=getTrailingCol(visibleRect);
-  Rectangle cellRect;
-  boolean cellFillsVis;
-  int cellLeadingEdge;
-  int cellTrailingEdge;
-  int newLeadingEdge;
-  int visibleLeadingEdge=leadingEdge(visibleRect,orientation);
-  if (orientation == SwingConstants.VERTICAL && trailingRow < 0) {
-    return visibleRect.height;
+public void iconifyFrame(JInternalFrame f){
+  JInternalFrame.JDesktopIcon desktopIcon;
+  Container c=f.getParent();
+  JDesktopPane d=f.getDesktopPane();
+  boolean findNext=f.isSelected();
+  desktopIcon=f.getDesktopIcon();
+  if (!wasIcon(f)) {
+    Rectangle r=getBoundsForIconOf(f);
+    desktopIcon.setBounds(r.x,r.y,r.width,r.height);
+    desktopIcon.revalidate();
+    setWasIcon(f,Boolean.TRUE);
   }
- else   if (orientation == SwingConstants.HORIZONTAL && trailingCol < 0) {
-    return visibleRect.width;
+  if (c == null || d == null) {
+    return;
   }
-  cellRect=getCellRect(trailingRow,trailingCol,true);
-  cellLeadingEdge=leadingEdge(cellRect,orientation);
-  cellTrailingEdge=trailingEdge(cellRect,orientation);
-  if (orientation == SwingConstants.VERTICAL || getComponentOrientation().isLeftToRight()) {
-    cellFillsVis=cellLeadingEdge <= visibleLeadingEdge;
+  if (c instanceof JLayeredPane) {
+    JLayeredPane lp=(JLayeredPane)c;
+    int layer=lp.getLayer(f);
+    lp.putLayer(desktopIcon,layer);
   }
- else {
-    cellFillsVis=cellLeadingEdge >= visibleLeadingEdge;
+  if (!f.isMaximum()) {
+    f.setNormalBounds(f.getBounds());
   }
-  if (cellFillsVis) {
-    newLeadingEdge=cellTrailingEdge;
+  d.setComponentOrderCheckingEnabled(false);
+  c.remove(f);
+  c.add(desktopIcon);
+  d.setComponentOrderCheckingEnabled(true);
+  c.repaint(f.getX(),f.getY(),f.getWidth(),f.getHeight());
+  if (findNext) {
+    if (d.selectFrame(true) == null) {
+      f.restoreSubcomponentFocus();
+    }
   }
- else   if (cellTrailingEdge == trailingEdge(visibleRect,orientation)) {
-    newLeadingEdge=cellTrailingEdge;
-  }
- else {
-    newLeadingEdge=cellLeadingEdge;
-  }
-  return Math.abs(newLeadingEdge - visibleLeadingEdge);
 }

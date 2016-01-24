@@ -1,0 +1,55 @@
+/** 
+ * Creates a message from the specified key and replacement arguments, localized to the given locale.
+ * @param msgKey The key for the message text.
+ * @param args The arguments to be used as replacement text in the messagecreated.
+ * @return The formatted message string.
+ */
+public static final String createXPATHMessage(String msgKey,Object args[]){
+  if (XPATHBundle == null) {
+    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
+  }
+  if (XPATHBundle != null) {
+    return createXPATHMsg(XPATHBundle,msgKey,args);
+  }
+ else {
+    return "Could not load any resource bundles.";
+  }
+}
+
+/** 
+ * Creates a message from the specified key and replacement arguments, localized to the given locale.
+ * @param msgKey The key for the message text.
+ * @param args The arguments to be used as replacement text in the messagecreated.
+ * @return The formatted warning string.
+ */
+public static final String createXPATHWarning(String msgKey,Object args[]){
+  if (XPATHBundle == null) {
+    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
+  }
+  if (XPATHBundle != null) {
+    return createXPATHMsg(XPATHBundle,msgKey,args);
+  }
+ else {
+    return "Could not load any resource bundles.";
+  }
+}
+
+-->
+void createXPATHMessage_createXPATHWarning(String msgKey,Object args[],String msgKey,Object args[],int combFlag){
+  if (combFlag == 1) {
+    if (XPATHBundle == null) {
+      XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
+    }
+  }
+ else {
+    if (XPATHBundle == null) {
+      XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
+    }
+  }
+  if (XPATHBundle != null) {
+    return createXPATHMsg(XPATHBundle,msgKey,args);
+  }
+ else {
+    return "Could not load any resource bundles.";
+  }
+}

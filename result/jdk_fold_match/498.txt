@@ -35,18 +35,24 @@ private Path2D decodePath9(){
   path.closePath();
   return path;
 }
-private Path2D decodePath13(){
+private Path2D decodePath12(){
   path.reset();
-  path.moveTo(decodeX(0.2f),decodeY(2.8f));
-  path.lineTo(decodeX(0.2f),decodeY(0.8f));
-  path.lineTo(decodeX(0.4f),decodeY(0.8f));
-  path.lineTo(decodeX(0.6f),decodeY(0.6f));
-  path.lineTo(decodeX(0.6f),decodeY(0.4f));
-  path.lineTo(decodeX(1.3333334f),decodeY(0.4f));
-  path.lineTo(decodeX(1.3333334f),decodeY(0.6f));
-  path.lineTo(decodeX(1.5f),decodeY(0.6f));
-  path.lineTo(decodeX(1.5f),decodeY(2.8f));
-  path.lineTo(decodeX(0.2f),decodeY(2.8f));
+  path.moveTo(decodeX(0.0f),decodeY(2.8f));
+  path.lineTo(decodeX(0.2f),decodeY(3.0f));
+  path.lineTo(decodeX(2.6f),decodeY(3.0f));
+  path.lineTo(decodeX(2.8f),decodeY(2.8f));
+  path.lineTo(decodeX(2.8f),decodeY(1.8333333f));
+  path.lineTo(decodeX(3.0f),decodeY(1.3333334f));
+  path.lineTo(decodeX(3.0f),decodeY(1.0f));
+  path.lineTo(decodeX(1.5f),decodeY(1.0f));
+  path.lineTo(decodeX(1.5f),decodeY(0.4f));
+  path.lineTo(decodeX(1.3333334f),decodeY(0.2f));
+  path.lineTo(decodeX(0.6f),decodeY(0.2f));
+  path.lineTo(decodeX(0.4f),decodeY(0.4f));
+  path.lineTo(decodeX(0.4f),decodeY(0.6f));
+  path.lineTo(decodeX(0.2f),decodeY(0.6f));
+  path.lineTo(decodeX(0.0f),decodeY(0.8f));
+  path.lineTo(decodeX(0.0f),decodeY(2.8f));
   path.closePath();
   return path;
 }

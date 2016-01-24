@@ -1,4 +1,68 @@
 jdk_src\javax\swing\text\Utilities.java
+static final int drawTabbedText(View view,Segment s,int x,int y,Graphics g,TabExpander e,int startOffset,int[] justificationData){
+  JComponent component=getJComponent(view);
+  FontMetrics metrics=SwingUtilities2.getFontMetrics(component,g);
+  int nextX=x;
+  char[] txt=s.array;
+  int txtOffset=s.offset;
+  int flushLen=0;
+  int flushIndex=s.offset;
+  int spaceAddon=0;
+  int spaceAddonLeftoverEnd=-1;
+  int startJustifiableContent=0;
+  int endJustifiableContent=0;
+  if (justificationData != null) {
+    int offset=-startOffset + txtOffset;
+    View parent=null;
+    if (view != null && (parent=view.getParent()) != null) {
+      offset+=parent.getStartOffset();
+    }
+    spaceAddon=justificationData[Row.SPACE_ADDON];
+    spaceAddonLeftoverEnd=justificationData[Row.SPACE_ADDON_LEFTOVER_END] + offset;
+    startJustifiableContent=justificationData[Row.START_JUSTIFIABLE] + offset;
+    endJustifiableContent=justificationData[Row.END_JUSTIFIABLE] + offset;
+  }
+  int n=s.offset + s.count;
+  for (int i=txtOffset; i < n; i++) {
+    if (txt[i] == '\t' || ((spaceAddon != 0 || i <= spaceAddonLeftoverEnd) && (txt[i] == ' ') && startJustifiableContent <= i && i <= endJustifiableContent)) {
+      if (flushLen > 0) {
+        nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
+        flushLen=0;
+      }
+      flushIndex=i + 1;
+      if (txt[i] == '\t') {
+        if (e != null) {
+          nextX=(int)e.nextTabStop((float)nextX,startOffset + i - txtOffset);
+        }
+ else {
+          nextX+=metrics.charWidth(' ');
+        }
+      }
+ else       if (txt[i] == ' ') {
+        nextX+=metrics.charWidth(' ') + spaceAddon;
+        if (i <= spaceAddonLeftoverEnd) {
+          nextX++;
+        }
+      }
+      x=nextX;
+    }
+ else     if ((txt[i] == '\n') || (txt[i] == '\r')) {
+      if (flushLen > 0) {
+        nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
+        flushLen=0;
+      }
+      flushIndex=i + 1;
+      x=nextX;
+    }
+ else {
+      flushLen+=1;
+    }
+  }
+  if (flushLen > 0) {
+    nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
+  }
+  return nextX;
+}
 static final int getTabbedTextWidth(View view,Segment s,FontMetrics metrics,int x,TabExpander e,int startOffset,int[] justificationData){
   int nextX=x;
   char[] txt=s.array;
@@ -49,79 +113,4 @@ static final int getTabbedTextWidth(View view,Segment s,FontMetrics metrics,int 
   }
   nextX+=metrics.charsWidth(txt,n - charCount,charCount);
   return nextX - x;
-}
-static final int getTabbedTextOffset(View view,Segment s,FontMetrics metrics,int x0,int x,TabExpander e,int startOffset,boolean round,int[] justificationData){
-  if (x0 >= x) {
-    return 0;
-  }
-  int nextX=x0;
-  char[] txt=s.array;
-  int txtOffset=s.offset;
-  int txtCount=s.count;
-  int spaceAddon=0;
-  int spaceAddonLeftoverEnd=-1;
-  int startJustifiableContent=0;
-  int endJustifiableContent=0;
-  if (justificationData != null) {
-    int offset=-startOffset + txtOffset;
-    View parent=null;
-    if (view != null && (parent=view.getParent()) != null) {
-      offset+=parent.getStartOffset();
-    }
-    spaceAddon=justificationData[Row.SPACE_ADDON];
-    spaceAddonLeftoverEnd=justificationData[Row.SPACE_ADDON_LEFTOVER_END] + offset;
-    startJustifiableContent=justificationData[Row.START_JUSTIFIABLE] + offset;
-    endJustifiableContent=justificationData[Row.END_JUSTIFIABLE] + offset;
-  }
-  int n=s.offset + s.count;
-  for (int i=s.offset; i < n; i++) {
-    if (txt[i] == '\t' || ((spaceAddon != 0 || i <= spaceAddonLeftoverEnd) && (txt[i] == ' ') && startJustifiableContent <= i && i <= endJustifiableContent)) {
-      if (txt[i] == '\t') {
-        if (e != null) {
-          nextX=(int)e.nextTabStop((float)nextX,startOffset + i - txtOffset);
-        }
- else {
-          nextX+=metrics.charWidth(' ');
-        }
-      }
- else       if (txt[i] == ' ') {
-        nextX+=metrics.charWidth(' ') + spaceAddon;
-        if (i <= spaceAddonLeftoverEnd) {
-          nextX++;
-        }
-      }
-    }
- else {
-      nextX+=metrics.charWidth(txt[i]);
-    }
-    if (x < nextX) {
-      int offset;
-      if (round) {
-        offset=i + 1 - txtOffset;
-        int width=metrics.charsWidth(txt,txtOffset,offset);
-        int span=x - x0;
-        if (span < width) {
-          while (offset > 0) {
-            int nextWidth=offset > 1 ? metrics.charsWidth(txt,txtOffset,offset - 1) : 0;
-            if (span >= nextWidth) {
-              if (span - nextWidth < width - span) {
-                offset--;
-              }
-              break;
-            }
-            width=nextWidth;
-            offset--;
-          }
-        }
-      }
- else {
-        offset=i - txtOffset;
-        while (offset > 0 && metrics.charsWidth(txt,txtOffset,offset) > (x - x0)) {
-          offset--;
-        }
-      }
-      return offset;
-    }
-  }
-  return txtCount;
 }

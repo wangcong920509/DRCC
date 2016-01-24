@@ -1,0 +1,26 @@
+/** 
+ * Returns the minimum size for the passed in component, This is passed off to the current layoutmanager.
+ */
+public Dimension getMinimumSize(JComponent jc){
+  if (splitPane != null)   return layoutManager.minimumLayoutSize(splitPane);
+  return new Dimension(0,0);
+}
+
+/** 
+ * Returns the maximum size for the passed in component, This is passed off to the current layoutmanager.
+ */
+public Dimension getMaximumSize(JComponent jc){
+  if (splitPane != null)   return layoutManager.maximumLayoutSize(splitPane);
+  return new Dimension(0,0);
+}
+
+-->
+void getMinimumSize_getMaximumSize(JComponent jc,JComponent jc,int combFlag){
+  if (combFlag == 1) {
+    if (splitPane != null)     return layoutManager.minimumLayoutSize(splitPane);
+  }
+ else {
+    if (splitPane != null)     return layoutManager.maximumLayoutSize(splitPane);
+  }
+  return new Dimension(0,0);
+}

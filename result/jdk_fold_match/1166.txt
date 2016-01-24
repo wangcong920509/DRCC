@@ -1,51 +1,39 @@
-jdk_src\javax\swing\plaf\synth\SynthTreeUI.java
-private void updateStyle(JTree tree){
-  SynthContext context=getContext(tree,ENABLED);
+jdk_src\javax\swing\plaf\synth\SynthToolBarUI.java
+private void updateStyle(JToolBar c){
+  SynthContext context=getContext(c,Region.TOOL_BAR_CONTENT,null,ENABLED);
+  contentStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(c,Region.TOOL_BAR_DRAG_WINDOW,null,ENABLED);
+  dragWindowStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(c,ENABLED);
   SynthStyle oldStyle=style;
   style=SynthLookAndFeel.updateStyle(context,this);
-  if (style != oldStyle) {
-    Object value;
-    setExpandedIcon(style.getIcon(context,"Tree.expandedIcon"));
-    setCollapsedIcon(style.getIcon(context,"Tree.collapsedIcon"));
-    setLeftChildIndent(style.getInt(context,"Tree.leftChildIndent",0));
-    setRightChildIndent(style.getInt(context,"Tree.rightChildIndent",0));
-    drawHorizontalLines=style.getBoolean(context,"Tree.drawHorizontalLines",true);
-    drawVerticalLines=style.getBoolean(context,"Tree.drawVerticalLines",true);
-    linesStyle=style.get(context,"Tree.linesStyle");
-    value=style.get(context,"Tree.rowHeight");
-    if (value != null) {
-      LookAndFeel.installProperty(tree,"rowHeight",value);
-    }
-    value=style.get(context,"Tree.scrollsOnExpand");
-    LookAndFeel.installProperty(tree,"scrollsOnExpand",value != null ? value : Boolean.TRUE);
-    padding=style.getInt(context,"Tree.padding",0);
-    largeModel=(tree.isLargeModel() && tree.getRowHeight() > 0);
-    useTreeColors=style.getBoolean(context,"Tree.rendererUseTreeColors",true);
-    Boolean showsRootHandles=style.getBoolean(context,"Tree.showsRootHandles",Boolean.TRUE);
-    LookAndFeel.installProperty(tree,JTree.SHOWS_ROOT_HANDLES_PROPERTY,showsRootHandles);
+  if (oldStyle != style) {
+    handleIcon=style.getIcon(context,"ToolBar.handleIcon");
     if (oldStyle != null) {
       uninstallKeyboardActions();
       installKeyboardActions();
     }
   }
   context.dispose();
-  context=getContext(tree,Region.TREE_CELL,ENABLED);
-  cellStyle=SynthLookAndFeel.updateStyle(context,this);
-  context.dispose();
 }
 /** 
  * @inheritDoc
  */
 @Override protected void uninstallDefaults(){
-  SynthContext context=getContext(tree,ENABLED);
+  SynthContext context=getContext(toolBar,ENABLED);
   style.uninstallDefaults(context);
   context.dispose();
   style=null;
-  context=getContext(tree,Region.TREE_CELL,ENABLED);
-  cellStyle.uninstallDefaults(context);
+  handleIcon=null;
+  context=getContext(toolBar,Region.TOOL_BAR_CONTENT,contentStyle,ENABLED);
+  contentStyle.uninstallDefaults(context);
   context.dispose();
-  cellStyle=null;
-  if (tree.getTransferHandler() instanceof UIResource) {
-    tree.setTransferHandler(null);
-  }
+  contentStyle=null;
+  context=getContext(toolBar,Region.TOOL_BAR_DRAG_WINDOW,dragWindowStyle,ENABLED);
+  dragWindowStyle.uninstallDefaults(context);
+  context.dispose();
+  dragWindowStyle=null;
+  toolBar.setLayout(null);
 }

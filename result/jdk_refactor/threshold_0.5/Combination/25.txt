@@ -1,0 +1,30 @@
+/** 
+ * Search for given Instruction reference, start at beginning of list.
+ * @param i instruction to search for
+ * @return instruction found on success, null otherwise
+ */
+private InstructionHandle findInstruction1(Instruction i){
+  for (InstructionHandle ih=start; ih != null; ih=ih.next)   if (ih.instruction == i)   return ih;
+  return null;
+}
+
+/** 
+ * Search for given Instruction reference, start at end of list
+ * @param i instruction to search for
+ * @return instruction found on success, null otherwise
+ */
+private InstructionHandle findInstruction2(Instruction i){
+  for (InstructionHandle ih=end; ih != null; ih=ih.prev)   if (ih.instruction == i)   return ih;
+  return null;
+}
+
+-->
+void findInstruction1_findInstruction2(Instruction i,Instruction i,int combFlag){
+  if (combFlag == 1) {
+    for (InstructionHandle ih=start; ih != null; ih=ih.next)     if (ih.instruction == i)     return ih;
+  }
+ else {
+    for (InstructionHandle ih=end; ih != null; ih=ih.prev)     if (ih.instruction == i)     return ih;
+  }
+  return null;
+}

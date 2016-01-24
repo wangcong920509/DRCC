@@ -1,0 +1,26 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypeSystem()
+ */
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
+}
+
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
+}
+
+-->
+void getDoctypeSystem_getMediaType(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return null;
+}

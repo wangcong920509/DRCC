@@ -1,23 +1,23 @@
-jdk_src\javax\swing\plaf\nimbus\TableHeaderRendererPainter.java
-private void paintBackgroundDisabled(Graphics2D g){
-  rect=decodeRect1();
-  g.setPaint(color1);
-  g.fill(rect);
-  rect=decodeRect2();
-  g.setPaint(decodeGradient1(rect));
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(decodeGradient2(rect));
-  g.fill(rect);
+jdk_src\javax\swing\plaf\nimbus\TabbedPaneTabPainter.java
+private void paintBackgroundSelectedAndMouseOverAndFocused(Graphics2D g){
+  path=decodePath12();
+  g.setPaint(decodeGradient11(path));
+  g.fill(path);
+  path=decodePath13();
+  g.setPaint(decodeGradient12(path));
+  g.fill(path);
+  path=decodePath14();
+  g.setPaint(color37);
+  g.fill(path);
 }
-private void paintBackgroundEnabled(Graphics2D g){
-  rect=decodeRect1();
-  g.setPaint(color1);
-  g.fill(rect);
-  rect=decodeRect2();
-  g.setPaint(decodeGradient1(rect));
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(decodeGradient2(rect));
-  g.fill(rect);
+private void paintBackgroundSelectedAndPressedAndFocused(Graphics2D g){
+  path=decodePath12();
+  g.setPaint(decodeGradient13(path));
+  g.fill(path);
+  path=decodePath13();
+  g.setPaint(decodeGradient14(path));
+  g.fill(path);
+  path=decodePath14();
+  g.setPaint(color37);
+  g.fill(path);
 }

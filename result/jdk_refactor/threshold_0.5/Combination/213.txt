@@ -1,0 +1,32 @@
+public E peekFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
+}
+
+public E peekLast(){
+  for (Node<E> p=last(); p != null; p=pred(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
+}
+
+-->
+void peekFirst_peekLast(int combFlag){
+  if (combFlag == 1) {
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null)       return item;
+    }
+  }
+ else {
+    for (Node<E> p=last(); p != null; p=pred(p)) {
+      E item=p.item;
+      if (item != null)       return item;
+    }
+  }
+  return null;
+}

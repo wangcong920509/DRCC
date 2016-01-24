@@ -1,0 +1,26 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_short(){
+  checkExtractBadOperation(TCKind._tk_short);
+  return (short)value;
+}
+
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_ushort(){
+  checkExtractBadOperation(TCKind._tk_ushort);
+  return (short)value;
+}
+
+-->
+void extract_short_extract_ushort(int combFlag){
+  if (combFlag == 1) {
+    checkExtractBadOperation(TCKind._tk_short);
+  }
+ else {
+    checkExtractBadOperation(TCKind._tk_ushort);
+  }
+  return (short)value;
+}

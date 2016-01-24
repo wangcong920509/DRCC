@@ -7,9 +7,9 @@ private void painticonDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(ellipse));
   g.fill(ellipse);
 }
-private void painticonMouseOverAndSelectedAndFocused(Graphics2D g){
-  ellipse=decodeEllipse4();
-  g.setPaint(color12);
+private void painticonMouseOverAndSelected(Graphics2D g){
+  ellipse=decodeEllipse3();
+  g.setPaint(color7);
   g.fill(ellipse);
   ellipse=decodeEllipse1();
   g.setPaint(decodeGradient15(ellipse));

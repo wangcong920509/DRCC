@@ -10,9 +10,9 @@ private void painticonPressedAndFocused(Graphics2D g){
   g.setPaint(decodeGradient8(ellipse));
   g.fill(ellipse);
 }
-private void painticonPressedAndSelectedAndFocused(Graphics2D g){
-  ellipse=decodeEllipse4();
-  g.setPaint(color12);
+private void painticonPressedAndSelected(Graphics2D g){
+  ellipse=decodeEllipse3();
+  g.setPaint(color19);
   g.fill(ellipse);
   ellipse=decodeEllipse1();
   g.setPaint(decodeGradient12(ellipse));

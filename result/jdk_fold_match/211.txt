@@ -1,41 +1,47 @@
-jdk_src\javax\swing\border\BevelBorder.java
-protected void paintRaisedBevel(Component c,Graphics g,int x,int y,int width,int height){
-  Color oldColor=g.getColor();
-  int h=height;
-  int w=width;
-  g.translate(x,y);
-  g.setColor(getHighlightOuterColor(c));
-  g.drawLine(0,0,0,h - 2);
-  g.drawLine(1,0,w - 2,0);
-  g.setColor(getHighlightInnerColor(c));
-  g.drawLine(1,1,1,h - 3);
-  g.drawLine(2,1,w - 3,1);
-  g.setColor(getShadowOuterColor(c));
-  g.drawLine(0,h - 1,w - 1,h - 1);
-  g.drawLine(w - 1,0,w - 1,h - 2);
-  g.setColor(getShadowInnerColor(c));
-  g.drawLine(1,h - 2,w - 2,h - 2);
-  g.drawLine(w - 2,1,w - 2,h - 3);
-  g.translate(-x,-y);
-  g.setColor(oldColor);
+jdk_src\javax\imageio\metadata\IIOMetadataFormatImpl.java
+/** 
+ * Constructs a blank <code>IIOMetadataFormatImpl</code> instance, with a given root element name and child policy (other than <code>CHILD_POLICY_REPEAT</code>).  Additional elements, and their attributes and <code>Object</code> reference information may be added using the various <code>add</code> methods.
+ * @param rootName the name of the root element.
+ * @param childPolicy one of the <code>CHILD_POLICY_*</code> constants,other than <code>CHILD_POLICY_REPEAT</code>.
+ * @exception IllegalArgumentException if <code>rootName</code> is<code>null</code>.
+ * @exception IllegalArgumentException if <code>childPolicy</code> isnot one of the predefined constants.
+ */
+public IIOMetadataFormatImpl(String rootName,int childPolicy){
+  if (rootName == null) {
+    throw new IllegalArgumentException("rootName == null!");
+  }
+  if (childPolicy < CHILD_POLICY_EMPTY || childPolicy > CHILD_POLICY_MAX || childPolicy == CHILD_POLICY_REPEAT) {
+    throw new IllegalArgumentException("Invalid value for childPolicy!");
+  }
+  this.rootName=rootName;
+  Element root=new Element();
+  root.elementName=rootName;
+  root.childPolicy=childPolicy;
+  elementMap.put(rootName,root);
 }
-protected void paintLoweredBevel(Component c,Graphics g,int x,int y,int width,int height){
-  Color oldColor=g.getColor();
-  int h=height;
-  int w=width;
-  g.translate(x,y);
-  g.setColor(getShadowInnerColor(c));
-  g.drawLine(0,0,0,h - 1);
-  g.drawLine(1,0,w - 1,0);
-  g.setColor(getShadowOuterColor(c));
-  g.drawLine(1,1,1,h - 2);
-  g.drawLine(2,1,w - 2,1);
-  g.setColor(getHighlightOuterColor(c));
-  g.drawLine(1,h - 1,w - 1,h - 1);
-  g.drawLine(w - 1,1,w - 1,h - 2);
-  g.setColor(getHighlightInnerColor(c));
-  g.drawLine(2,h - 2,w - 2,h - 2);
-  g.drawLine(w - 2,2,w - 2,h - 3);
-  g.translate(-x,-y);
-  g.setColor(oldColor);
+/** 
+ * Constructs a blank <code>IIOMetadataFormatImpl</code> instance, with a given root element name and a child policy of <code>CHILD_POLICY_REPEAT</code>.  Additional elements, and their attributes and <code>Object</code> reference information may be added using the various <code>add</code> methods.
+ * @param rootName the name of the root element.
+ * @param minChildren the minimum number of children of the node.
+ * @param maxChildren the maximum number of children of the node.
+ * @exception IllegalArgumentException if <code>rootName</code> is<code>null</code>.
+ * @exception IllegalArgumentException if <code>minChildren</code>is negative or larger than <code>maxChildren</code>.
+ */
+public IIOMetadataFormatImpl(String rootName,int minChildren,int maxChildren){
+  if (rootName == null) {
+    throw new IllegalArgumentException("rootName == null!");
+  }
+  if (minChildren < 0) {
+    throw new IllegalArgumentException("minChildren < 0!");
+  }
+  if (minChildren > maxChildren) {
+    throw new IllegalArgumentException("minChildren > maxChildren!");
+  }
+  Element root=new Element();
+  root.elementName=rootName;
+  root.childPolicy=CHILD_POLICY_REPEAT;
+  root.minChildren=minChildren;
+  root.maxChildren=maxChildren;
+  this.rootName=rootName;
+  elementMap.put(rootName,root);
 }

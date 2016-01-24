@@ -1,0 +1,88 @@
+private Operation makeIORToSocketInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iorToSocketInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IORToSocketInfo.class.isAssignableFrom(iorToSocketInfoClass)) {
+          return iorToSocketInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIorToSocketInfoType(iorToSocketInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIorToSocketInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}
+
+private Operation makeIIOPPrimaryToContactInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iiopPrimaryToContactInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IIOPPrimaryToContactInfo.class.isAssignableFrom(iiopPrimaryToContactInfoClass)) {
+          return iiopPrimaryToContactInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIiopPrimaryToContactInfoType(iiopPrimaryToContactInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIiopPrimaryToContactInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
+}
+
+-->
+void makeIORToSocketInfoOperation_makeIIOPPrimaryToContactInfoOperation(int combFlag){
+  if (combFlag == 1) {
+    Operation op=new Operation(){
+      public Object operate(      Object value){
+        String param=(String)value;
+        try {
+          Class<?> iorToSocketInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+          if (IORToSocketInfo.class.isAssignableFrom(iorToSocketInfoClass)) {
+            return iorToSocketInfoClass.newInstance();
+          }
+ else {
+            throw wrapper.illegalIorToSocketInfoType(iorToSocketInfoClass.toString());
+          }
+        }
+ catch (        Exception ex) {
+          throw wrapper.badCustomIorToSocketInfo(ex,param);
+        }
+      }
+    }
+;
+  }
+ else {
+    Operation op=new Operation(){
+      public Object operate(      Object value){
+        String param=(String)value;
+        try {
+          Class<?> iiopPrimaryToContactInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+          if (IIOPPrimaryToContactInfo.class.isAssignableFrom(iiopPrimaryToContactInfoClass)) {
+            return iiopPrimaryToContactInfoClass.newInstance();
+          }
+ else {
+            throw wrapper.illegalIiopPrimaryToContactInfoType(iiopPrimaryToContactInfoClass.toString());
+          }
+        }
+ catch (        Exception ex) {
+          throw wrapper.badCustomIiopPrimaryToContactInfo(ex,param);
+        }
+      }
+    }
+;
+  }
+  return op;
+}

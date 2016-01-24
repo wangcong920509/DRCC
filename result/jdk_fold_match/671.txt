@@ -1,44 +1,35 @@
-jdk_src\javax\swing\plaf\nimbus\OptionPanePainter.java
-private void painterrorIconEnabled(Graphics2D g){
-  path=decodePath1();
+jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMenuButtonPainter.java
+private void painticonMouseOverAndWindowNotFocused(Graphics2D g){
+  roundRect=decodeRoundRect1();
   g.setPaint(color1);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient5(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient6(roundRect));
+  g.fill(roundRect);
+  path=decodePath1();
+  g.setPaint(decodeGradient7(path));
   g.fill(path);
   path=decodePath2();
-  g.setPaint(decodeGradient1(path));
-  g.fill(path);
-  path=decodePath3();
-  g.setPaint(color6);
-  g.fill(path);
-  ellipse=decodeEllipse1();
-  g.setPaint(color6);
-  g.fill(ellipse);
-  path=decodePath4();
-  g.setPaint(color7);
+  g.setPaint(color10);
   g.fill(path);
 }
-private void paintinformationIconEnabled(Graphics2D g){
-  ellipse=decodeEllipse2();
-  g.setPaint(color8);
-  g.fill(ellipse);
-  ellipse=decodeEllipse2();
-  g.setPaint(color8);
-  g.fill(ellipse);
-  ellipse=decodeEllipse2();
-  g.setPaint(color8);
-  g.fill(ellipse);
-  ellipse=decodeEllipse3();
-  g.setPaint(decodeGradient2(ellipse));
-  g.fill(ellipse);
-  ellipse=decodeEllipse4();
-  g.setPaint(decodeGradient3(ellipse));
-  g.fill(ellipse);
-  ellipse=decodeEllipse5();
-  g.setPaint(decodeGradient4(ellipse));
-  g.fill(ellipse);
-  path=decodePath5();
-  g.setPaint(color6);
+private void painticonPressedAndWindowNotFocused(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color1);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient8(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect3();
+  g.setPaint(decodeGradient9(roundRect));
+  g.fill(roundRect);
+  path=decodePath1();
+  g.setPaint(decodeGradient10(path));
   g.fill(path);
-  ellipse=decodeEllipse6();
-  g.setPaint(color6);
-  g.fill(ellipse);
+  path=decodePath2();
+  g.setPaint(color10);
+  g.fill(path);
 }

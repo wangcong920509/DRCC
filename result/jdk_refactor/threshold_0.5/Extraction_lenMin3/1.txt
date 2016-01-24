@@ -1,0 +1,5 @@
+{
+  InputMap km=new InputMap();
+  setInputMap(condition,km);
+  return km;
+}

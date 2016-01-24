@@ -1,0 +1,38 @@
+/** 
+ * Implements CharacterIterator.first() for String.
+ * @see CharacterIterator#first
+ */
+public char first(){
+  pos=begin;
+  return current();
+}
+
+/** 
+ * Implements CharacterIterator.last() for String.
+ * @see CharacterIterator#last
+ */
+public char last(){
+  if (end != begin) {
+    pos=end - 1;
+  }
+ else {
+    pos=end;
+  }
+  return current();
+}
+
+-->
+void first_last(int combFlag){
+  if (combFlag == 1) {
+    pos=begin;
+  }
+ else {
+    if (end != begin) {
+      pos=end - 1;
+    }
+ else {
+      pos=end;
+    }
+  }
+  return current();
+}

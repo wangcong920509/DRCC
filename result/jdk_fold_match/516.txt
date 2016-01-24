@@ -1,29 +1,31 @@
-jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneCloseButtonPainter.java
-private void paintBackgroundDisabled(Graphics2D g){
-  roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient1(roundRect));
-  g.fill(roundRect);
-  path=decodePath1();
-  g.setPaint(color3);
-  g.fill(path);
-  path=decodePath2();
-  g.setPaint(color4);
-  g.fill(path);
+jdk_src\javax\swing\plaf\nimbus\InternalFramePainter.java
+private Path2D decodePath8(){
+  path.reset();
+  path.moveTo(decodeX(2.3333333f),decodeY(0.96f));
+  path.lineTo(decodeX(2.1666667f),decodeY(0.96f));
+  path.lineTo(decodeX(2.1666667f),decodeY(2.1666667f));
+  path.lineTo(decodeX(0.8333333f),decodeY(2.1666667f));
+  path.lineTo(decodeX(0.8333333f),decodeY(0.96f));
+  path.lineTo(decodeX(0.6666667f),decodeY(0.96f));
+  path.lineTo(decodeX(0.6666667f),decodeY(2.3333333f));
+  path.lineTo(decodeX(2.3333333f),decodeY(2.3333333f));
+  path.lineTo(decodeX(2.3333333f),decodeY(0.96f));
+  path.closePath();
+  return path;
 }
-private void paintBackgroundEnabled(Graphics2D g){
-  roundRect=decodeRoundRect2();
-  g.setPaint(color5);
-  g.fill(roundRect);
-  roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient2(roundRect));
-  g.fill(roundRect);
-  roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient3(roundRect));
-  g.fill(roundRect);
-  path=decodePath1();
-  g.setPaint(color12);
-  g.fill(path);
-  path=decodePath2();
-  g.setPaint(color13);
-  g.fill(path);
+private Path2D decodePath9(){
+  path.reset();
+  path.moveTo(decodeX(0.8333333f),decodeY(1.0f));
+  path.lineTo(decodeX(0.8333333f),decodeY(2.1666667f));
+  path.lineTo(decodeX(2.1666667f),decodeY(2.1666667f));
+  path.lineTo(decodeX(2.1666667f),decodeY(0.96f));
+  path.lineTo(decodeX(0.8333333f),decodeY(0.96f));
+  path.lineTo(decodeX(0.8333333f),decodeY(1.0f));
+  path.lineTo(decodeX(2.0f),decodeY(1.0f));
+  path.lineTo(decodeX(2.0f),decodeY(2.0f));
+  path.lineTo(decodeX(1.0f),decodeY(2.0f));
+  path.lineTo(decodeX(1.0f),decodeY(1.0f));
+  path.lineTo(decodeX(0.8333333f),decodeY(1.0f));
+  path.closePath();
+  return path;
 }

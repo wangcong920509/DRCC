@@ -1,32 +1,33 @@
-jdk_src\javax\swing\plaf\basic\BasicGraphicsUtils.java
-public static void drawEtchedRect(Graphics g,int x,int y,int w,int h,Color shadow,Color darkShadow,Color highlight,Color lightHighlight){
-  Color oldColor=g.getColor();
-  g.translate(x,y);
-  g.setColor(shadow);
-  g.drawLine(0,0,w - 1,0);
-  g.drawLine(0,1,0,h - 2);
-  g.setColor(darkShadow);
-  g.drawLine(1,1,w - 3,1);
-  g.drawLine(1,2,1,h - 3);
-  g.setColor(lightHighlight);
-  g.drawLine(w - 1,0,w - 1,h - 1);
-  g.drawLine(0,h - 1,w - 1,h - 1);
-  g.setColor(highlight);
-  g.drawLine(w - 2,1,w - 2,h - 3);
-  g.drawLine(1,h - 2,w - 2,h - 2);
-  g.translate(-x,-y);
-  g.setColor(oldColor);
+jdk_src\javax\swing\JTree.java
+/** 
+ * Sets the value of the <code>showsRootHandles</code> property, which specifies whether the node handles should be displayed. The default value of this property depends on the constructor used to create the <code>JTree</code>. Some look and feels might not support handles; they will ignore this property. <p> This is a bound property.
+ * @param newValue <code>true</code> if root handles should be displayed;otherwise, <code>false</code>
+ * @see #showsRootHandles
+ * @see #getShowsRootHandles
+ * @beaninfo bound: true description: Whether the node handles are to be displayed.
+ */
+public void setShowsRootHandles(boolean newValue){
+  boolean oldValue=showsRootHandles;
+  TreeModel model=getModel();
+  showsRootHandles=newValue;
+  showsRootHandlesSet=true;
+  firePropertyChange(SHOWS_ROOT_HANDLES_PROPERTY,oldValue,showsRootHandles);
+  if (accessibleContext != null) {
+    ((AccessibleJTree)accessibleContext).fireVisibleDataPropertyChange();
+  }
+  invalidate();
 }
-public static void drawGroove(Graphics g,int x,int y,int w,int h,Color shadow,Color highlight){
-  Color oldColor=g.getColor();
-  g.translate(x,y);
-  g.setColor(shadow);
-  g.drawRect(0,0,w - 2,h - 2);
-  g.setColor(highlight);
-  g.drawLine(1,h - 3,1,1);
-  g.drawLine(1,1,w - 3,1);
-  g.drawLine(0,h - 1,w - 1,h - 1);
-  g.drawLine(w - 1,h - 1,w - 1,0);
-  g.translate(-x,-y);
-  g.setColor(oldColor);
+/** 
+ * Sets the number of rows that are to be displayed. This will only work if the tree is contained in a <code>JScrollPane</code>, and will adjust the preferred size and size of that scrollpane. <p> This is a bound property.
+ * @param newCount the number of rows to display
+ * @beaninfo bound: true description: The number of rows that are to be displayed.
+ */
+public void setVisibleRowCount(int newCount){
+  int oldCount=visibleRowCount;
+  visibleRowCount=newCount;
+  firePropertyChange(VISIBLE_ROW_COUNT_PROPERTY,oldCount,visibleRowCount);
+  invalidate();
+  if (accessibleContext != null) {
+    ((AccessibleJTree)accessibleContext).fireVisibleDataPropertyChange();
+  }
 }

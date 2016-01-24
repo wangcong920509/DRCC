@@ -1,17 +1,68 @@
-jdk_src\java\nio\Buffer.java
+jdk_src\java\net\URLClassLoader.java
 /** 
- * Clears this buffer.  The position is set to zero, the limit is set to the capacity, and the mark is discarded. <p> Invoke this method before using a sequence of channel-read or <i>put</i> operations to fill this buffer.  For example: <blockquote><pre> buf.clear();     // Prepare buffer for reading in.read(buf);    // Read data</pre></blockquote> <p> This method does not actually erase the data in the buffer, but it is named as if it did because it will most often be used in situations in which that might as well be the case. </p>
- * @return  This buffer
+ * Defines a new package by name in this ClassLoader. The attributes contained in the specified Manifest will be used to obtain package version and sealing information. For sealed packages, the additional URL specifies the code source URL from which the package was loaded.
+ * @param name  the package name
+ * @param man   the Manifest containing package version and sealinginformation
+ * @param url   the code source url for the package, or null if none
+ * @exception IllegalArgumentException if the package name duplicatesan existing package either in this class loader or one of its ancestors
+ * @return the newly defined Package object
  */
-public final Buffer clear(){
-  position=0;
-  limit=capacity;
-  mark=-1;
-  return this;
+protected Package definePackage(String name,Manifest man,URL url) throws IllegalArgumentException {
+  String path=name.replace('.','/').concat("/");
+  String specTitle=null, specVersion=null, specVendor=null;
+  String implTitle=null, implVersion=null, implVendor=null;
+  String sealed=null;
+  URL sealBase=null;
+  Attributes attr=man.getAttributes(path);
+  if (attr != null) {
+    specTitle=attr.getValue(Name.SPECIFICATION_TITLE);
+    specVersion=attr.getValue(Name.SPECIFICATION_VERSION);
+    specVendor=attr.getValue(Name.SPECIFICATION_VENDOR);
+    implTitle=attr.getValue(Name.IMPLEMENTATION_TITLE);
+    implVersion=attr.getValue(Name.IMPLEMENTATION_VERSION);
+    implVendor=attr.getValue(Name.IMPLEMENTATION_VENDOR);
+    sealed=attr.getValue(Name.SEALED);
+  }
+  attr=man.getMainAttributes();
+  if (attr != null) {
+    if (specTitle == null) {
+      specTitle=attr.getValue(Name.SPECIFICATION_TITLE);
+    }
+    if (specVersion == null) {
+      specVersion=attr.getValue(Name.SPECIFICATION_VERSION);
+    }
+    if (specVendor == null) {
+      specVendor=attr.getValue(Name.SPECIFICATION_VENDOR);
+    }
+    if (implTitle == null) {
+      implTitle=attr.getValue(Name.IMPLEMENTATION_TITLE);
+    }
+    if (implVersion == null) {
+      implVersion=attr.getValue(Name.IMPLEMENTATION_VERSION);
+    }
+    if (implVendor == null) {
+      implVendor=attr.getValue(Name.IMPLEMENTATION_VENDOR);
+    }
+    if (sealed == null) {
+      sealed=attr.getValue(Name.SEALED);
+    }
+  }
+  if ("true".equalsIgnoreCase(sealed)) {
+    sealBase=url;
+  }
+  return definePackage(name,specTitle,specVersion,specVendor,implTitle,implVersion,implVendor,sealBase);
 }
-final void truncate(){
-  mark=-1;
-  position=0;
-  limit=0;
-  capacity=0;
+private boolean isSealed(String name,Manifest man){
+  String path=name.replace('.','/').concat("/");
+  Attributes attr=man.getAttributes(path);
+  String sealed=null;
+  if (attr != null) {
+    sealed=attr.getValue(Name.SEALED);
+  }
+  if (sealed == null) {
+    if ((attr=man.getMainAttributes()) != null) {
+      sealed=attr.getValue(Name.SEALED);
+    }
+  }
+  return "true".equalsIgnoreCase(sealed);
 }

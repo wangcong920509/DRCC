@@ -1,0 +1,26 @@
+/** 
+ * @see XSLOutputAttributes#getDoctypePublic()
+ */
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
+}
+
+/** 
+ * @see XSLOutputAttributes#getStandalone()
+ */
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
+}
+
+-->
+void getDoctypePublic_getStandalone(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return null;
+}

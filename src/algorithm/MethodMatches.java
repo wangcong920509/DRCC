@@ -1,3 +1,9 @@
+/* Cong Wang
+ * School Of Software
+ * Tsinghua University, Beijing, China
+ * wangcong15@mails.tsinghua.edu.cn
+ * 2016.01.21
+ */
 package algorithm;
 
 import org.eclipse.jdt.core.dom.MethodDeclaration;

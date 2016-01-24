@@ -1,0 +1,23 @@
+/** 
+ * The following methods are for dealing with Connection cleaning for better scalability of servers in high network load conditions.
+ */
+public void sendCloseConnection(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createCloseConnection(giopVersion);
+  sendHelper(giopVersion,msg);
+}
+
+public void sendMessageError(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createMessageError(giopVersion);
+  sendHelper(giopVersion,msg);
+}
+
+-->
+void sendCloseConnection_sendMessageError(GIOPVersion giopVersion,GIOPVersion giopVersion,int combFlag){
+  if (combFlag == 1) {
+    Message msg=MessageBase.createCloseConnection(giopVersion);
+  }
+ else {
+    Message msg=MessageBase.createMessageError(giopVersion);
+  }
+  sendHelper(giopVersion,msg);
+}

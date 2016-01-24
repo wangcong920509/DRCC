@@ -16,20 +16,14 @@ private void painticonEnabled(Graphics2D g){
   g.setPaint(color10);
   g.fill(path);
 }
-private void painticonMouseOver(Graphics2D g){
+private void painticonDisabled(Graphics2D g){
   roundRect=decodeRoundRect1();
-  g.setPaint(color1);
+  g.setPaint(color11);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient5(roundRect));
+  g.setPaint(decodeGradient4(roundRect));
   g.fill(roundRect);
-  roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient6(roundRect));
-  g.fill(roundRect);
-  path=decodePath1();
-  g.setPaint(decodeGradient7(path));
-  g.fill(path);
   path=decodePath2();
-  g.setPaint(color10);
+  g.setPaint(color15);
   g.fill(path);
 }

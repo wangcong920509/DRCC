@@ -1,0 +1,28 @@
+public int getLineNumber(){
+  if (fLocator != null) {
+    return fLocator.getLineNumber();
+  }
+  return -1;
+}
+
+public int getColumnNumber(){
+  if (fLocator != null) {
+    return fLocator.getColumnNumber();
+  }
+  return -1;
+}
+
+-->
+void getLineNumber_getColumnNumber(int combFlag){
+  if (combFlag == 1) {
+    if (fLocator != null) {
+      return fLocator.getLineNumber();
+    }
+  }
+ else {
+    if (fLocator != null) {
+      return fLocator.getColumnNumber();
+    }
+  }
+  return -1;
+}

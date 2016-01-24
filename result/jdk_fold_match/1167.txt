@@ -1,72 +1,51 @@
-jdk_src\javax\swing\RepaintManager.java
-/** 
- * Return a volatile offscreen buffer that should be used as a double buffer with the specified component <code>c</code>. The image returned will be an instance of VolatileImage, or null if a VolatileImage object could not be instantiated. This buffer might be smaller than <code>(proposedWidth,proposedHeight)</code>. This happens when the maximum double buffer size has been set for this repaint manager.
- * @see java.awt.image.VolatileImage
- * @since 1.4
- */
-public Image getVolatileOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
-  RepaintManager delegate=getDelegate(c);
-  if (delegate != null) {
-    return delegate.getVolatileOffscreenBuffer(c,proposedWidth,proposedHeight);
-  }
-  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
-  if (!w.isOpaque()) {
-    Toolkit tk=Toolkit.getDefaultToolkit();
-    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
-      return null;
+jdk_src\javax\swing\plaf\synth\SynthTreeUI.java
+private void updateStyle(JTree tree){
+  SynthContext context=getContext(tree,ENABLED);
+  SynthStyle oldStyle=style;
+  style=SynthLookAndFeel.updateStyle(context,this);
+  if (style != oldStyle) {
+    Object value;
+    setExpandedIcon(style.getIcon(context,"Tree.expandedIcon"));
+    setCollapsedIcon(style.getIcon(context,"Tree.collapsedIcon"));
+    setLeftChildIndent(style.getInt(context,"Tree.leftChildIndent",0));
+    setRightChildIndent(style.getInt(context,"Tree.rightChildIndent",0));
+    drawHorizontalLines=style.getBoolean(context,"Tree.drawHorizontalLines",true);
+    drawVerticalLines=style.getBoolean(context,"Tree.drawVerticalLines",true);
+    linesStyle=style.get(context,"Tree.linesStyle");
+    value=style.get(context,"Tree.rowHeight");
+    if (value != null) {
+      LookAndFeel.installProperty(tree,"rowHeight",value);
+    }
+    value=style.get(context,"Tree.scrollsOnExpand");
+    LookAndFeel.installProperty(tree,"scrollsOnExpand",value != null ? value : Boolean.TRUE);
+    padding=style.getInt(context,"Tree.padding",0);
+    largeModel=(tree.isLargeModel() && tree.getRowHeight() > 0);
+    useTreeColors=style.getBoolean(context,"Tree.rendererUseTreeColors",true);
+    Boolean showsRootHandles=style.getBoolean(context,"Tree.showsRootHandles",Boolean.TRUE);
+    LookAndFeel.installProperty(tree,JTree.SHOWS_ROOT_HANDLES_PROPERTY,showsRootHandles);
+    if (oldStyle != null) {
+      uninstallKeyboardActions();
+      installKeyboardActions();
     }
   }
-  GraphicsConfiguration config=c.getGraphicsConfiguration();
-  if (config == null) {
-    config=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
-  }
-  Dimension maxSize=getDoubleBufferMaximumSize();
-  int width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
-  int height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
-  VolatileImage image=volatileMap.get(config);
-  if (image == null || image.getWidth() < width || image.getHeight() < height) {
-    if (image != null) {
-      image.flush();
-    }
-    image=config.createCompatibleVolatileImage(width,height,volatileBufferType);
-    volatileMap.put(config,image);
-  }
-  return image;
+  context.dispose();
+  context=getContext(tree,Region.TREE_CELL,ENABLED);
+  cellStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
 }
-private Image _getOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
-  Dimension maxSize=getDoubleBufferMaximumSize();
-  DoubleBufferInfo doubleBuffer;
-  int width, height;
-  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
-  if (!w.isOpaque()) {
-    Toolkit tk=Toolkit.getDefaultToolkit();
-    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
-      return null;
-    }
+/** 
+ * @inheritDoc
+ */
+@Override protected void uninstallDefaults(){
+  SynthContext context=getContext(tree,ENABLED);
+  style.uninstallDefaults(context);
+  context.dispose();
+  style=null;
+  context=getContext(tree,Region.TREE_CELL,ENABLED);
+  cellStyle.uninstallDefaults(context);
+  context.dispose();
+  cellStyle=null;
+  if (tree.getTransferHandler() instanceof UIResource) {
+    tree.setTransferHandler(null);
   }
-  if (standardDoubleBuffer == null) {
-    standardDoubleBuffer=new DoubleBufferInfo();
-  }
-  doubleBuffer=standardDoubleBuffer;
-  width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
-  height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
-  if (doubleBuffer.needsReset || (doubleBuffer.image != null && (doubleBuffer.size.width < width || doubleBuffer.size.height < height))) {
-    doubleBuffer.needsReset=false;
-    if (doubleBuffer.image != null) {
-      doubleBuffer.image.flush();
-      doubleBuffer.image=null;
-    }
-    width=Math.max(doubleBuffer.size.width,width);
-    height=Math.max(doubleBuffer.size.height,height);
-  }
-  Image result=doubleBuffer.image;
-  if (doubleBuffer.image == null) {
-    result=c.createImage(width,height);
-    doubleBuffer.size=new Dimension(width,height);
-    if (c instanceof JComponent) {
-      ((JComponent)c).setCreatedDoubleBuffer(true);
-      doubleBuffer.image=result;
-    }
-  }
-  return result;
 }

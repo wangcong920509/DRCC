@@ -1,0 +1,28 @@
+/** 
+ * Checks the current position against the limit, throwing a  {@link BufferUnderflowException} if it is not smaller than the limit, and thenincrements the position. </p>
+ * @return  The current position value, before it is incremented
+ */
+final int nextGetIndex(){
+  if (position >= limit)   throw new BufferUnderflowException();
+  return position++;
+}
+
+/** 
+ * Checks the current position against the limit, throwing a  {@link BufferOverflowException} if it is not smaller than the limit, and thenincrements the position. </p>
+ * @return  The current position value, before it is incremented
+ */
+final int nextPutIndex(){
+  if (position >= limit)   throw new BufferOverflowException();
+  return position++;
+}
+
+-->
+void nextGetIndex_nextPutIndex(int combFlag){
+  if (combFlag == 1) {
+    if (position >= limit)     throw new BufferUnderflowException();
+  }
+ else {
+    if (position >= limit)     throw new BufferOverflowException();
+  }
+  return position++;
+}

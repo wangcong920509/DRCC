@@ -1,0 +1,28 @@
+public String getEncoding(){
+  if (fLocator2 != null) {
+    return fLocator2.getEncoding();
+  }
+  return null;
+}
+
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
+  }
+  return null;
+}
+
+-->
+void getEncoding_getXMLVersion(int combFlag){
+  if (combFlag == 1) {
+    if (fLocator2 != null) {
+      return fLocator2.getEncoding();
+    }
+  }
+ else {
+    if (fLocator2 != null) {
+      return fLocator2.getXMLVersion();
+    }
+  }
+  return null;
+}

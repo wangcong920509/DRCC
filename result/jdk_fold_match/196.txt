@@ -27,19 +27,21 @@ public boolean offer(E e,long timeout,TimeUnit unit) throws InterruptedException
   if (c == 0)   signalNotEmpty();
   return true;
 }
-public E poll(){
-  final AtomicInteger count=this.count;
-  if (count.get() == 0)   return null;
+public E poll(long timeout,TimeUnit unit) throws InterruptedException {
   E x=null;
   int c=-1;
+  long nanos=unit.toNanos(timeout);
+  final AtomicInteger count=this.count;
   final ReentrantLock takeLock=this.takeLock;
-  takeLock.lock();
+  takeLock.lockInterruptibly();
   try {
-    if (count.get() > 0) {
-      x=dequeue();
-      c=count.getAndDecrement();
-      if (c > 1)       notEmpty.signal();
+    while (count.get() == 0) {
+      if (nanos <= 0)       return null;
+      nanos=notEmpty.awaitNanos(nanos);
     }
+    x=dequeue();
+    c=count.getAndDecrement();
+    if (c > 1)     notEmpty.signal();
   }
   finally {
     takeLock.unlock();

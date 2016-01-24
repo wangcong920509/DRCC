@@ -1,32 +1,51 @@
-jdk_src\java\util\StringTokenizer.java
+jdk_src\java\util\SimpleTimeZone.java
 /** 
- * Constructs a string tokenizer for the specified string. All characters in the <code>delim</code> argument are the delimiters for separating tokens. <p> If the <code>returnDelims</code> flag is <code>true</code>, then the delimiter characters are also returned as tokens. Each delimiter is returned as a string of length one. If the flag is <code>false</code>, the delimiter characters are skipped and only serve as separators between tokens. <p> Note that if <tt>delim</tt> is <tt>null</tt>, this constructor does not throw an exception. However, trying to invoke other methods on the resulting <tt>StringTokenizer</tt> may result in a <tt>NullPointerException</tt>.
- * @param str            a string to be parsed.
- * @param delim          the delimiters.
- * @param returnDelims   flag indicating whether to return the delimitersas tokens.
- * @exception NullPointerException if str is <CODE>null</CODE>
+ * Constructs a SimpleTimeZone with the given base time zone offset from GMT and time zone ID with no daylight saving time schedule.
+ * @param rawOffset  The base time zone offset in milliseconds to GMT.
+ * @param ID         The time zone name that is given to this instance.
  */
-public StringTokenizer(String str,String delim,boolean returnDelims){
-  currentPosition=0;
-  newPosition=-1;
-  delimsChanged=false;
-  this.str=str;
-  maxPosition=str.length();
-  delimiters=delim;
-  retDelims=returnDelims;
-  setMaxDelimCodePoint();
+public SimpleTimeZone(int rawOffset,String ID){
+  this.rawOffset=rawOffset;
+  setID(ID);
+  dstSavings=millisPerHour;
 }
 /** 
- * Returns the next token from this string tokenizer.
- * @return     the next token from this string tokenizer.
- * @exception NoSuchElementException  if there are no more tokens in thistokenizer's string.
+ * Constructs a SimpleTimeZone with the given base time zone offset from GMT, time zone ID, and rules for starting and ending the daylight time. This constructor takes the full set of the start and end rules parameters, including modes of <code>startTime</code> and <code>endTime</code>. The mode specifies either  {@link #WALL_TIME walltime} or {@link #STANDARD_TIME standard time} or {@link #UTC_TIME UTCtime}.
+ * @param rawOffset       The given base time zone offset from GMT.
+ * @param ID              The time zone ID which is given to this object.
+ * @param startMonth      The daylight saving time starting month. Month isa  {@link Calendar#MONTH MONTH} fieldvalue (0-based. e.g., 0 for January).
+ * @param startDay        The day of the month on which the daylight saving time starts.See the class description for the special cases of this parameter.
+ * @param startDayOfWeek  The daylight saving time starting day-of-week.See the class description for the special cases of this parameter.
+ * @param startTime       The daylight saving time starting time in the time modespecified by <code>startTimeMode</code>.
+ * @param startTimeMode   The mode of the start time specified by startTime.
+ * @param endMonth        The daylight saving time ending month. Month isa  {@link Calendar#MONTH MONTH} fieldvalue (0-based. e.g., 9 for October).
+ * @param endDay          The day of the month on which the daylight saving time ends.See the class description for the special cases of this parameter.
+ * @param endDayOfWeek    The daylight saving time ending day-of-week.See the class description for the special cases of this parameter.
+ * @param endTime         The daylight saving ending time in time time modespecified by <code>endTimeMode</code>.
+ * @param endTimeMode     The mode of the end time specified by endTime
+ * @param dstSavings      The amount of time in milliseconds saved duringdaylight saving time.
+ * @exception IllegalArgumentException if the month, day, dayOfWeek, time more, ortime parameters are out of range for the start or end rule, or if a time mode value is invalid.
+ * @see #WALL_TIME
+ * @see #STANDARD_TIME
+ * @see #UTC_TIME
+ * @since 1.4
  */
-public String nextToken(){
-  currentPosition=(newPosition >= 0 && !delimsChanged) ? newPosition : skipDelimiters(currentPosition);
-  delimsChanged=false;
-  newPosition=-1;
-  if (currentPosition >= maxPosition)   throw new NoSuchElementException();
-  int start=currentPosition;
-  currentPosition=scanToken(currentPosition);
-  return str.substring(start,currentPosition);
+public SimpleTimeZone(int rawOffset,String ID,int startMonth,int startDay,int startDayOfWeek,int startTime,int startTimeMode,int endMonth,int endDay,int endDayOfWeek,int endTime,int endTimeMode,int dstSavings){
+  setID(ID);
+  this.rawOffset=rawOffset;
+  this.startMonth=startMonth;
+  this.startDay=startDay;
+  this.startDayOfWeek=startDayOfWeek;
+  this.startTime=startTime;
+  this.startTimeMode=startTimeMode;
+  this.endMonth=endMonth;
+  this.endDay=endDay;
+  this.endDayOfWeek=endDayOfWeek;
+  this.endTime=endTime;
+  this.endTimeMode=endTimeMode;
+  this.dstSavings=dstSavings;
+  decodeRules();
+  if (dstSavings <= 0) {
+    throw new IllegalArgumentException("Illegal daylight saving value: " + dstSavings);
+  }
 }

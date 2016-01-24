@@ -14,12 +14,10 @@ jdk_src\java\util\concurrent\ConcurrentHashMap.java
 }
 /** 
  * {@inheritDoc}
- * @return the previous value associated with the specified key,or <tt>null</tt> if there was no mapping for the key
- * @throws NullPointerException if the specified key or value is null
+ * @throws NullPointerException if the specified key is null
  */
-public V replace(K key,V value){
+public boolean remove(Object key,Object value){
   int hash=hash(key);
-  if (value == null)   throw new NullPointerException();
-  Segment<K,V> s=segmentForHash(hash);
-  return s == null ? null : s.replace(key,hash,value);
+  Segment<K,V> s;
+  return value != null && (s=segmentForHash(hash)) != null && s.remove(key,hash,value) != null;
 }

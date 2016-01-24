@@ -1,13 +1,10 @@
 jdk_src\java\util\AbstractList.java
-public boolean addAll(int index,Collection<? extends E> c){
+public void add(int index,E element){
   rangeCheckForAdd(index);
-  int cSize=c.size();
-  if (cSize == 0)   return false;
   checkForComodification();
-  l.addAll(offset + index,c);
+  l.add(index + offset,element);
   this.modCount=l.modCount;
-  size+=cSize;
-  return true;
+  size++;
 }
 public ListIterator<E> listIterator(final int index){
   checkForComodification();

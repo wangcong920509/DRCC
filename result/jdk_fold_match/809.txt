@@ -7,14 +7,14 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(ellipse));
   g.fill(ellipse);
 }
-private void paintBackgroundMouseOver(Graphics2D g){
-  ellipse=decodeEllipse3();
-  g.setPaint(color6);
+private void paintBackgroundFocusedAndPressed(Graphics2D g){
+  ellipse=decodeEllipse4();
+  g.setPaint(color12);
   g.fill(ellipse);
   ellipse=decodeEllipse1();
-  g.setPaint(decodeGradient5(ellipse));
+  g.setPaint(decodeGradient7(ellipse));
   g.fill(ellipse);
   ellipse=decodeEllipse2();
-  g.setPaint(decodeGradient6(ellipse));
+  g.setPaint(decodeGradient8(ellipse));
   g.fill(ellipse);
 }

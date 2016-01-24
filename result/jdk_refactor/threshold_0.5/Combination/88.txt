@@ -1,0 +1,68 @@
+/** 
+ * Given a node identity, get the index of the node's first attribute.
+ * @param identity int identity of the node.
+ * @return Identity of first attribute, or DTM.NULL to indicate none exists.
+ */
+protected int getFirstAttributeIdentity(int identity){
+  int type=_type(identity);
+  if (DTM.ELEMENT_NODE == type) {
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      type=_type(identity);
+      if (type == DTM.ATTRIBUTE_NODE) {
+        return identity;
+      }
+ else       if (DTM.NAMESPACE_NODE != type) {
+        break;
+      }
+    }
+  }
+  return DTM.NULL;
+}
+
+/** 
+ * Given a node identity for an attribute, advance to the next attribute.
+ * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
+ * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
+ */
+protected int getNextAttributeIdentity(int identity){
+  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+    int type=_type(identity);
+    if (type == DTM.ATTRIBUTE_NODE) {
+      return identity;
+    }
+ else     if (type != DTM.NAMESPACE_NODE) {
+      break;
+    }
+  }
+  return DTM.NULL;
+}
+
+-->
+void getFirstAttributeIdentity_getNextAttributeIdentity(int identity,int identity,int combFlag){
+  if (combFlag == 1) {
+    int type=_type(identity);
+    if (DTM.ELEMENT_NODE == type) {
+      while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+        type=_type(identity);
+        if (type == DTM.ATTRIBUTE_NODE) {
+          return identity;
+        }
+ else         if (DTM.NAMESPACE_NODE != type) {
+          break;
+        }
+      }
+    }
+  }
+ else {
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      int type=_type(identity);
+      if (type == DTM.ATTRIBUTE_NODE) {
+        return identity;
+      }
+ else       if (type != DTM.NAMESPACE_NODE) {
+        break;
+      }
+    }
+  }
+  return DTM.NULL;
+}

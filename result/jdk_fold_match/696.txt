@@ -10,11 +10,14 @@ private void paintForegroundEnabled(Graphics2D g){
   g.setPaint(decodeGradient6(rect));
   g.fill(rect);
 }
-private void paintForegroundDisabledAndIndeterminate(Graphics2D g){
-  rect=decodeRect5();
-  g.setPaint(decodeGradient11(rect));
-  g.fill(rect);
-  path=decodePath5();
-  g.setPaint(decodeGradient12(path));
+private void paintForegroundDisabledAndFinished(Graphics2D g){
+  path=decodePath4();
+  g.setPaint(color33);
   g.fill(path);
+  rect=decodeRect1();
+  g.setPaint(decodeGradient9(rect));
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(decodeGradient10(rect));
+  g.fill(rect);
 }

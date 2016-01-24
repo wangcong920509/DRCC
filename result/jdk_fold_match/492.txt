@@ -15,14 +15,17 @@ private Path2D decodePath5(){
   path.closePath();
   return path;
 }
-private Path2D decodePath31(){
+private Path2D decodePath23(){
   path.reset();
-  path.moveTo(decodeX(0.6f),decodeY(1.5f));
+  path.moveTo(decodeX(0.4f),decodeY(2.2f));
+  path.lineTo(decodeX(0.4f),decodeY(2.8f));
+  path.lineTo(decodeX(0.6f),decodeY(2.8f));
   path.lineTo(decodeX(0.6f),decodeY(2.6f));
   path.lineTo(decodeX(2.4f),decodeY(2.6f));
-  path.lineTo(decodeX(2.4f),decodeY(1.5f));
-  path.lineTo(decodeX(1.5f),decodeY(0.8f));
-  path.lineTo(decodeX(0.6f),decodeY(1.5f));
+  path.lineTo(decodeX(2.4f),decodeY(2.8f));
+  path.lineTo(decodeX(2.6f),decodeY(2.8f));
+  path.lineTo(decodeX(2.6f),decodeY(2.2f));
+  path.lineTo(decodeX(0.4f),decodeY(2.2f));
   path.closePath();
   return path;
 }

@@ -1,112 +1,22 @@
-jdk_src\javax\swing\text\rtf\RTFGenerator.java
-public void writeRTFHeader() throws IOException {
-  int index;
-  writeBegingroup();
-  writeControlWord("rtf",1);
-  writeControlWord("ansi");
-  outputConversion=outputConversionForName("ansi");
-  writeLineBreak();
-  String[] sortedFontTable=new String[fontCount];
-  Enumeration<String> fonts=fontTable.keys();
-  String font;
-  while (fonts.hasMoreElements()) {
-    font=fonts.nextElement();
-    Integer num=fontTable.get(font);
-    sortedFontTable[num.intValue()]=font;
-  }
-  writeBegingroup();
-  writeControlWord("fonttbl");
-  for (index=0; index < fontCount; index++) {
-    writeControlWord("f",index);
-    writeControlWord("fnil");
-    writeText(sortedFontTable[index]);
-    writeText(";");
-  }
-  writeEndgroup();
-  writeLineBreak();
-  if (colorCount > 1) {
-    Color[] sortedColorTable=new Color[colorCount];
-    Enumeration colors=colorTable.keys();
-    Color color;
-    while (colors.hasMoreElements()) {
-      color=(Color)colors.nextElement();
-      Integer num=colorTable.get(color);
-      sortedColorTable[num.intValue()]=color;
-    }
-    writeBegingroup();
-    writeControlWord("colortbl");
-    for (index=0; index < colorCount; index++) {
-      color=sortedColorTable[index];
-      if (color != null) {
-        writeControlWord("red",color.getRed());
-        writeControlWord("green",color.getGreen());
-        writeControlWord("blue",color.getBlue());
-      }
-      writeRawString(";");
-    }
-    writeEndgroup();
-    writeLineBreak();
-  }
-  if (styleCount > 1) {
-    writeBegingroup();
-    writeControlWord("stylesheet");
-    Enumeration<AttributeSet> styles=styleTable.keys();
-    while (styles.hasMoreElements()) {
-      Style style=(Style)styles.nextElement();
-      int styleNumber=styleTable.get(style).intValue();
-      writeBegingroup();
-      String styleType=(String)style.getAttribute(Constants.StyleType);
-      if (styleType == null)       styleType=Constants.STParagraph;
-      if (styleType.equals(Constants.STCharacter)) {
-        writeControlWord("*");
-        writeControlWord("cs",styleNumber);
-      }
- else       if (styleType.equals(Constants.STSection)) {
-        writeControlWord("*");
-        writeControlWord("ds",styleNumber);
-      }
- else {
-        writeControlWord("s",styleNumber);
-      }
-      AttributeSet basis=style.getResolveParent();
-      MutableAttributeSet goat;
-      if (basis == null) {
-        goat=new SimpleAttributeSet();
-      }
- else {
-        goat=new SimpleAttributeSet(basis);
-      }
-      updateSectionAttributes(goat,style,false);
-      updateParagraphAttributes(goat,style,false);
-      updateCharacterAttributes(goat,style,false);
-      basis=style.getResolveParent();
-      if (basis != null && basis instanceof Style) {
-        Integer basedOn=styleTable.get(basis);
-        if (basedOn != null) {
-          writeControlWord("sbasedon",basedOn.intValue());
-        }
-      }
-      Style nextStyle=(Style)style.getAttribute(Constants.StyleNext);
-      if (nextStyle != null) {
-        Integer nextNum=styleTable.get(nextStyle);
-        if (nextNum != null) {
-          writeControlWord("snext",nextNum.intValue());
-        }
-      }
-      Boolean hidden=(Boolean)style.getAttribute(Constants.StyleHidden);
-      if (hidden != null && hidden.booleanValue())       writeControlWord("shidden");
-      Boolean additive=(Boolean)style.getAttribute(Constants.StyleAdditive);
-      if (additive != null && additive.booleanValue())       writeControlWord("additive");
-      writeText(style.getName());
-      writeText(";");
-      writeEndgroup();
-    }
-    writeEndgroup();
-    writeLineBreak();
-  }
-  outputAttributes=new SimpleAttributeSet();
+jdk_src\javax\swing\text\html\HTMLWriter.java
+void writeStyleStartTag() throws IOException {
+  indentSmart();
+  write("<style type=\"text/css\">");
+  incrIndent();
+  writeLineSeparator();
+  indentSmart();
+  write("<!--");
+  incrIndent();
+  writeLineSeparator();
 }
-public void writeRTFTrailer() throws IOException {
-  writeEndgroup();
-  writeLineBreak();
+void writeStyleEndTag() throws IOException {
+  decrIndent();
+  indentSmart();
+  write("-->");
+  writeLineSeparator();
+  decrIndent();
+  indentSmart();
+  write("</style>");
+  writeLineSeparator();
+  indentSmart();
 }

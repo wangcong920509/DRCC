@@ -1,35 +1,44 @@
-jdk_src\java\awt\Window.java
-private void init(GraphicsConfiguration gc){
-  GraphicsEnvironment.checkHeadless();
-  syncLWRequests=systemSyncLWRequests;
-  weakThis=new WeakReference<Window>(this);
-  addToWindowList();
-  setWarningString();
-  this.cursor=Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
-  this.visible=false;
-  gc=initGC(gc);
-  if (gc.getDevice().getType() != GraphicsDevice.TYPE_RASTER_SCREEN) {
-    throw new IllegalArgumentException("not a screen device");
+jdk_src\java\awt\TextComponent.java
+/** 
+ * Sets the position of the text insertion caret. The caret position is constrained to be between 0 and the last character of the text, inclusive. If the passed-in value is greater than this range, the value is set to the last character (or 0 if the <code>TextComponent</code> contains no text) and no error is returned.  If the passed-in value is less than 0, an <code>IllegalArgumentException</code> is thrown.
+ * @param position the position of the text insertion caret
+ * @exception IllegalArgumentException if <code>position</code>is less than zero
+ * @since        JDK1.1
+ */
+public synchronized void setCaretPosition(int position){
+  if (position < 0) {
+    throw new IllegalArgumentException("position less than zero.");
   }
-  setLayout(new BorderLayout());
-  Rectangle screenBounds=gc.getBounds();
-  Insets screenInsets=getToolkit().getScreenInsets(gc);
-  int x=getX() + screenBounds.x + screenInsets.left;
-  int y=getY() + screenBounds.y + screenInsets.top;
-  if (x != this.x || y != this.y) {
-    setLocation(x,y);
-    setLocationByPlatform(locationByPlatformProp);
+  int maxposition=getText().length();
+  if (position > maxposition) {
+    position=maxposition;
   }
-  modalExclusionType=Dialog.ModalExclusionType.NO_EXCLUDE;
-  SunToolkit.checkAndSetPolicy(this);
+  TextComponentPeer peer=(TextComponentPeer)this.peer;
+  if (peer != null) {
+    peer.setCaretPosition(position);
+  }
+ else {
+    select(position,position);
+  }
 }
-private void initDeserializedWindow(){
-  setWarningString();
-  inputContextLock=new Object();
-  visible=false;
-  weakThis=new WeakReference(this);
-  anchor=new Object();
-  sun.java2d.Disposer.addRecord(anchor,new WindowDisposerRecord(appContext,this));
-  addToWindowList();
-  initGC(null);
+/** 
+ * Returns the position of the text insertion caret. The caret position is constrained to be between 0 and the last character of the text, inclusive. If the text or caret have not been set, the default caret position is 0.
+ * @return       the position of the text insertion caret
+ * @see #setCaretPosition(int)
+ * @since        JDK1.1
+ */
+public synchronized int getCaretPosition(){
+  TextComponentPeer peer=(TextComponentPeer)this.peer;
+  int position=0;
+  if (peer != null) {
+    position=peer.getCaretPosition();
+  }
+ else {
+    position=selectionStart;
+  }
+  int maxposition=getText().length();
+  if (position > maxposition) {
+    position=maxposition;
+  }
+  return position;
 }

@@ -1,80 +1,51 @@
-jdk_src\java\net\IDN.java
-private static String toASCIIInternal(String label,int flag){
-  boolean isASCII=isAllASCII(label);
-  StringBuffer dest;
-  if (!isASCII) {
-    UCharacterIterator iter=UCharacterIterator.getInstance(label);
-    try {
-      dest=namePrep.prepare(iter,flag);
-    }
- catch (    java.text.ParseException e) {
-      throw new IllegalArgumentException(e);
-    }
+jdk_src\java\math\MutableBigInteger.java
+/** 
+ * Right shift this MutableBigInteger n bits. The MutableBigInteger is left in normal form.
+ */
+void rightShift(int n){
+  if (intLen == 0)   return;
+  int nInts=n >>> 5;
+  int nBits=n & 0x1F;
+  this.intLen-=nInts;
+  if (nBits == 0)   return;
+  int bitsInHighWord=BigInteger.bitLengthForInt(value[offset]);
+  if (nBits >= bitsInHighWord) {
+    this.primitiveLeftShift(32 - nBits);
+    this.intLen--;
   }
  else {
-    dest=new StringBuffer(label);
+    primitiveRightShift(nBits);
   }
-  boolean useSTD3ASCIIRules=((flag & USE_STD3_ASCII_RULES) != 0);
-  if (useSTD3ASCIIRules) {
-    for (int i=0; i < dest.length(); i++) {
-      int c=dest.charAt(i);
-      if (!isLDHChar(c)) {
-        throw new IllegalArgumentException("Contains non-LDH characters");
-      }
-    }
-    if (dest.charAt(0) == '-' || dest.charAt(dest.length() - 1) == '-') {
-      throw new IllegalArgumentException("Has leading or trailing hyphen");
-    }
-  }
-  if (!isASCII) {
-    if (!isAllASCII(dest.toString())) {
-      if (!startsWithACEPrefix(dest)) {
-        try {
-          dest=Punycode.encode(dest,null);
-        }
- catch (        java.text.ParseException e) {
-          throw new IllegalArgumentException(e);
-        }
-        dest=toASCIILower(dest);
-        dest.insert(0,ACE_PREFIX);
-      }
- else {
-        throw new IllegalArgumentException("The input starts with the ACE Prefix");
-      }
-    }
-  }
-  if (dest.length() > MAX_LABEL_LENGTH) {
-    throw new IllegalArgumentException("The label in the input is too long");
-  }
-  return dest.toString();
 }
-private static String toUnicodeInternal(String label,int flag){
-  boolean[] caseFlags=null;
-  StringBuffer dest;
-  boolean isASCII=isAllASCII(label);
-  if (!isASCII) {
-    try {
-      UCharacterIterator iter=UCharacterIterator.getInstance(label);
-      dest=namePrep.prepare(iter,flag);
-    }
- catch (    Exception e) {
-      return label;
-    }
+/** 
+ * Left shift this MutableBigInteger n bits.
+ */
+void leftShift(int n){
+  if (intLen == 0)   return;
+  int nInts=n >>> 5;
+  int nBits=n & 0x1F;
+  int bitsInHighWord=BigInteger.bitLengthForInt(value[offset]);
+  if (n <= (32 - bitsInHighWord)) {
+    primitiveLeftShift(nBits);
+    return;
+  }
+  int newLen=intLen + nInts + 1;
+  if (nBits <= (32 - bitsInHighWord))   newLen--;
+  if (value.length < newLen) {
+    int[] result=new int[newLen];
+    for (int i=0; i < intLen; i++)     result[i]=value[offset + i];
+    setValue(result,newLen);
+  }
+ else   if (value.length - offset >= newLen) {
+    for (int i=0; i < newLen - intLen; i++)     value[offset + intLen + i]=0;
   }
  else {
-    dest=new StringBuffer(label);
+    for (int i=0; i < intLen; i++)     value[i]=value[offset + i];
+    for (int i=intLen; i < newLen; i++)     value[i]=0;
+    offset=0;
   }
-  if (startsWithACEPrefix(dest)) {
-    String temp=dest.substring(ACE_PREFIX_LENGTH,dest.length());
-    try {
-      StringBuffer decodeOut=Punycode.decode(new StringBuffer(temp),null);
-      String toASCIIOut=toASCII(decodeOut.toString(),flag);
-      if (toASCIIOut.equalsIgnoreCase(dest.toString())) {
-        return decodeOut.toString();
-      }
-    }
- catch (    Exception ignored) {
-    }
-  }
-  return label;
+  intLen=newLen;
+  if (nBits == 0)   return;
+  if (nBits <= (32 - bitsInHighWord))   primitiveLeftShift(nBits);
+ else   primitiveRightShift(32 - nBits);
 }

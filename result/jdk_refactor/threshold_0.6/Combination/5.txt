@@ -1,0 +1,26 @@
+/** 
+ * @see org.w3c.dom.Node
+ */
+public final Node getOwnerNode(){
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+}
+
+/** 
+ * @see org.w3c.dom.Node
+ */
+@Override public final Node getPreviousSibling(){
+  int newnode=dtm.getPreviousSibling(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+}
+
+-->
+void getOwnerNode_getPreviousSibling(int combFlag){
+  if (combFlag == 1) {
+    int newnode=dtm.getParent(node);
+  }
+ else {
+    int newnode=dtm.getPreviousSibling(node);
+  }
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+}

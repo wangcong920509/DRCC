@@ -7,14 +7,14 @@ private void paintBackgroundDisabledAndArrowShape(Graphics2D g){
   g.setPaint(decodeGradient12(path));
   g.fill(path);
 }
-private void paintBackgroundPressedAndArrowShape(Graphics2D g){
+private void paintBackgroundMouseOverAndArrowShape(Graphics2D g){
   path=decodePath1();
   g.setPaint(color24);
   g.fill(path);
   path=decodePath2();
-  g.setPaint(decodeGradient15(path));
+  g.setPaint(decodeGradient13(path));
   g.fill(path);
   path=decodePath3();
-  g.setPaint(decodeGradient16(path));
+  g.setPaint(decodeGradient14(path));
   g.fill(path);
 }

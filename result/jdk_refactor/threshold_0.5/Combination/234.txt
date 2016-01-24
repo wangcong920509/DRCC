@@ -1,0 +1,31 @@
+/** 
+ * Appends the specified element to the end of this list. <p>This method is equivalent to  {@link #addLast}.
+ * @param e element to be appended to this list
+ * @return {@code true} (as specified by {@link Collection#add})
+ */
+public boolean add(E e){
+  linkLast(e);
+  return true;
+}
+
+/** 
+ * Inserts the specified element at the end of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerLast})
+ * @since 1.6
+ */
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
+}
+
+-->
+void add_offerLast(E e,E e,int combFlag){
+  if (combFlag == 1) {
+    linkLast(e);
+  }
+ else {
+    addLast(e);
+  }
+  return true;
+}

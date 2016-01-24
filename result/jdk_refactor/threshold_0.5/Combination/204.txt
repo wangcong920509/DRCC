@@ -1,0 +1,28 @@
+public synchronized int waitFor() throws InterruptedException {
+  while (!hasExited) {
+    wait();
+  }
+  return exitcode;
+}
+
+public synchronized int exitValue(){
+  if (!hasExited) {
+    throw new IllegalThreadStateException("process hasn't exited");
+  }
+  return exitcode;
+}
+
+-->
+void waitFor_exitValue(int combFlag){
+  if (combFlag == 1) {
+    while (!hasExited) {
+      wait();
+    }
+  }
+ else {
+    if (!hasExited) {
+      throw new IllegalThreadStateException("process hasn't exited");
+    }
+  }
+  return exitcode;
+}

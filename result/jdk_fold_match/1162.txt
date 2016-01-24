@@ -1,56 +1,70 @@
-jdk_src\javax\swing\plaf\synth\SynthSliderUI.java
-/** 
- * Uninstalls default setting. This method is called when a {@code LookAndFeel} is uninstalled.
- */
-protected void uninstallDefaults(JSlider slider){
-  SynthContext context=getContext(slider,ENABLED);
-  style.uninstallDefaults(context);
-  context.dispose();
-  style=null;
-  context=getContext(slider,Region.SLIDER_TRACK,ENABLED);
-  sliderTrackStyle.uninstallDefaults(context);
-  context.dispose();
-  sliderTrackStyle=null;
-  context=getContext(slider,Region.SLIDER_THUMB,ENABLED);
-  sliderThumbStyle.uninstallDefaults(context);
-  context.dispose();
-  sliderThumbStyle=null;
-}
-private void updateStyle(JSlider c){
-  SynthContext context=getContext(c,ENABLED);
+jdk_src\javax\swing\plaf\synth\SynthScrollBarUI.java
+private void updateStyle(JScrollBar c){
   SynthStyle oldStyle=style;
+  SynthContext context=getContext(c,ENABLED);
   style=SynthLookAndFeel.updateStyle(context,this);
   if (style != oldStyle) {
-    thumbWidth=style.getInt(context,"Slider.thumbWidth",30);
-    thumbHeight=style.getInt(context,"Slider.thumbHeight",14);
-    String scaleKey=(String)slider.getClientProperty("JComponent.sizeVariant");
+    scrollBarWidth=style.getInt(context,"ScrollBar.thumbHeight",14);
+    minimumThumbSize=(Dimension)style.get(context,"ScrollBar.minimumThumbSize");
+    if (minimumThumbSize == null) {
+      minimumThumbSize=new Dimension();
+      validMinimumThumbSize=false;
+    }
+ else {
+      validMinimumThumbSize=true;
+    }
+    maximumThumbSize=(Dimension)style.get(context,"ScrollBar.maximumThumbSize");
+    if (maximumThumbSize == null) {
+      maximumThumbSize=new Dimension(4096,4097);
+    }
+    incrGap=style.getInt(context,"ScrollBar.incrementButtonGap",0);
+    decrGap=style.getInt(context,"ScrollBar.decrementButtonGap",0);
+    String scaleKey=(String)scrollbar.getClientProperty("JComponent.sizeVariant");
     if (scaleKey != null) {
       if ("large".equals(scaleKey)) {
-        thumbWidth*=1.15;
-        thumbHeight*=1.15;
+        scrollBarWidth*=1.15;
+        incrGap*=1.15;
+        decrGap*=1.15;
       }
  else       if ("small".equals(scaleKey)) {
-        thumbWidth*=0.857;
-        thumbHeight*=0.857;
+        scrollBarWidth*=0.857;
+        incrGap*=0.857;
+        decrGap*=0.857;
       }
  else       if ("mini".equals(scaleKey)) {
-        thumbWidth*=0.784;
-        thumbHeight*=0.784;
+        scrollBarWidth*=0.714;
+        incrGap*=0.714;
+        decrGap*=0.714;
       }
     }
-    trackBorder=style.getInt(context,"Slider.trackBorder",1);
-    trackHeight=thumbHeight + trackBorder * 2;
-    paintValue=style.getBoolean(context,"Slider.paintValue",true);
     if (oldStyle != null) {
-      uninstallKeyboardActions(c);
-      installKeyboardActions(c);
+      uninstallKeyboardActions();
+      installKeyboardActions();
     }
   }
   context.dispose();
-  context=getContext(c,Region.SLIDER_TRACK,ENABLED);
-  sliderTrackStyle=SynthLookAndFeel.updateStyle(context,this);
+  context=getContext(c,Region.SCROLL_BAR_TRACK,ENABLED);
+  trackStyle=SynthLookAndFeel.updateStyle(context,this);
   context.dispose();
-  context=getContext(c,Region.SLIDER_THUMB,ENABLED);
-  sliderThumbStyle=SynthLookAndFeel.updateStyle(context,this);
+  context=getContext(c,Region.SCROLL_BAR_THUMB,ENABLED);
+  thumbStyle=SynthLookAndFeel.updateStyle(context,this);
   context.dispose();
+}
+/** 
+ * @inheritDoc
+ */
+@Override protected void uninstallDefaults(){
+  SynthContext context=getContext(scrollbar,ENABLED);
+  style.uninstallDefaults(context);
+  context.dispose();
+  style=null;
+  context=getContext(scrollbar,Region.SCROLL_BAR_TRACK,ENABLED);
+  trackStyle.uninstallDefaults(context);
+  context.dispose();
+  trackStyle=null;
+  context=getContext(scrollbar,Region.SCROLL_BAR_THUMB,ENABLED);
+  thumbStyle.uninstallDefaults(context);
+  context.dispose();
+  thumbStyle=null;
+  super.uninstallDefaults();
 }

@@ -1,38 +1,50 @@
-jdk_src\javax\swing\text\html\HTMLWriter.java
+jdk_src\javax\swing\text\html\HTMLDocument.java
 /** 
- * Writes out the content of the Option form element.
- * @param option  an Option
- * @exception IOException on any I/O error
+ * This is used by <code>removeElementsAtEnd</code>, it removes <code>count</code> elements starting at <code>start</code> from <code>e</code>.  If <code>remove</code> is true text of length <code>start - 1</code> to <code>end - 1</code> is removed.  If <code>create</code> is true a new leaf is created of length 1.
  */
-protected void writeOption(Option option) throws IOException {
-  indentSmart();
-  write('<');
-  write("option");
-  Object value=option.getAttributes().getAttribute(HTML.Attribute.VALUE);
-  if (value != null) {
-    write(" value=" + value);
+private void replace(DefaultDocumentEvent dde,Element e,int index,int count,int start,int end,boolean remove,boolean create) throws BadLocationException {
+  Element[] added;
+  AttributeSet attrs=e.getElement(index).getAttributes();
+  Element[] removed=new Element[count];
+  for (int counter=0; counter < count; counter++) {
+    removed[counter]=e.getElement(counter + index);
   }
-  if (option.isSelected()) {
-    write(" selected");
+  if (remove) {
+    UndoableEdit u=getContent().remove(start - 1,end - start);
+    if (u != null) {
+      dde.addEdit(u);
+    }
   }
-  write('>');
-  if (option.getLabel() != null) {
-    write(option.getLabel());
+  if (create) {
+    added=new Element[1];
+    added[0]=createLeafElement(e,attrs,start - 1,start);
   }
-  writeLineSeparator();
+ else {
+    added=new Element[0];
+  }
+  dde.addEdit(new ElementEdit(e,index,removed,added));
+  ((AbstractDocument.BranchElement)e).replace(index,removed.length,added);
 }
 /** 
- * Writes out comment string.
- * @param string   the comment
- * @exception IOException on any I/O error
- * @exception BadLocationException if pos represents an invalidlocation within the document.
+ * Called to remove child Elements when the end is not touched.
  */
-void writeComment(String string) throws IOException {
-  write("<!--");
-  if (string != null) {
-    write(string);
+private void removeElements(Element e,int index,int count,int start,int end) throws BadLocationException {
+  Element[] removed=new Element[count];
+  Element[] added=new Element[0];
+  for (int counter=0; counter < count; counter++) {
+    removed[counter]=e.getElement(counter + index);
   }
-  write("-->");
-  writeLineSeparator();
-  indentSmart();
+  DefaultDocumentEvent dde=new DefaultDocumentEvent(start,end - start,DocumentEvent.EventType.REMOVE);
+  ((AbstractDocument.BranchElement)e).replace(index,removed.length,added);
+  dde.addEdit(new ElementEdit(e,index,removed,added));
+  UndoableEdit u=getContent().remove(start,end - start);
+  if (u != null) {
+    dde.addEdit(u);
+  }
+  postRemoveUpdate(dde);
+  dde.end();
+  fireRemoveUpdate(dde);
+  if (u != null) {
+    fireUndoableEditUpdate(new UndoableEditEvent(this,dde));
+  }
 }

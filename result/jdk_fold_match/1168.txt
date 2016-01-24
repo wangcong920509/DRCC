@@ -1,90 +1,72 @@
-jdk_src\javax\swing\text\BoxView.java
+jdk_src\javax\swing\RepaintManager.java
 /** 
- * Calculates the size requirements for the major axis <code>axis</code>.
- * @param axis the axis being studied
- * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
- * @return the newly initialized <code>SizeRequirements</code> object
- * @see javax.swing.SizeRequirements
+ * Return a volatile offscreen buffer that should be used as a double buffer with the specified component <code>c</code>. The image returned will be an instance of VolatileImage, or null if a VolatileImage object could not be instantiated. This buffer might be smaller than <code>(proposedWidth,proposedHeight)</code>. This happens when the maximum double buffer size has been set for this repaint manager.
+ * @see java.awt.image.VolatileImage
+ * @since 1.4
  */
-protected SizeRequirements calculateMajorAxisRequirements(int axis,SizeRequirements r){
-  float min=0;
-  float pref=0;
-  float max=0;
-  int n=getViewCount();
-  for (int i=0; i < n; i++) {
-    View v=getView(i);
-    min+=v.getMinimumSpan(axis);
-    pref+=v.getPreferredSpan(axis);
-    max+=v.getMaximumSpan(axis);
+public Image getVolatileOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
+  RepaintManager delegate=getDelegate(c);
+  if (delegate != null) {
+    return delegate.getVolatileOffscreenBuffer(c,proposedWidth,proposedHeight);
   }
-  if (r == null) {
-    r=new SizeRequirements();
+  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
+  if (!w.isOpaque()) {
+    Toolkit tk=Toolkit.getDefaultToolkit();
+    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
+      return null;
+    }
   }
-  r.alignment=0.5f;
-  r.minimum=(int)min;
-  r.preferred=(int)pref;
-  r.maximum=(int)max;
-  return r;
+  GraphicsConfiguration config=c.getGraphicsConfiguration();
+  if (config == null) {
+    config=GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().getDefaultConfiguration();
+  }
+  Dimension maxSize=getDoubleBufferMaximumSize();
+  int width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
+  int height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
+  VolatileImage image=volatileMap.get(config);
+  if (image == null || image.getWidth() < width || image.getHeight() < height) {
+    if (image != null) {
+      image.flush();
+    }
+    image=config.createCompatibleVolatileImage(width,height,volatileBufferType);
+    volatileMap.put(config,image);
+  }
+  return image;
 }
-/** 
- * Calculates the size requirements for this <code>BoxView</code> by examining the size of each child view.
- * @param axis the axis being studied
- * @param r the <code>SizeRequirements</code> object;if <code>null</code> one will be created
- * @return the newly initialized <code>SizeRequirements</code> object
- */
-protected SizeRequirements baselineRequirements(int axis,SizeRequirements r){
-  SizeRequirements totalAscent=new SizeRequirements();
-  SizeRequirements totalDescent=new SizeRequirements();
-  if (r == null) {
-    r=new SizeRequirements();
-  }
-  r.alignment=0.5f;
-  int n=getViewCount();
-  for (int i=0; i < n; i++) {
-    View v=getView(i);
-    float align=v.getAlignment(axis);
-    float span;
-    int ascent;
-    int descent;
-    span=v.getPreferredSpan(axis);
-    ascent=(int)(align * span);
-    descent=(int)(span - ascent);
-    totalAscent.preferred=Math.max(ascent,totalAscent.preferred);
-    totalDescent.preferred=Math.max(descent,totalDescent.preferred);
-    if (v.getResizeWeight(axis) > 0) {
-      span=v.getMinimumSpan(axis);
-      ascent=(int)(align * span);
-      descent=(int)(span - ascent);
-      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
-      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
-      span=v.getMaximumSpan(axis);
-      ascent=(int)(align * span);
-      descent=(int)(span - ascent);
-      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
-      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
-    }
- else {
-      totalAscent.minimum=Math.max(ascent,totalAscent.minimum);
-      totalDescent.minimum=Math.max(descent,totalDescent.minimum);
-      totalAscent.maximum=Math.max(ascent,totalAscent.maximum);
-      totalDescent.maximum=Math.max(descent,totalDescent.maximum);
+private Image _getOffscreenBuffer(Component c,int proposedWidth,int proposedHeight){
+  Dimension maxSize=getDoubleBufferMaximumSize();
+  DoubleBufferInfo doubleBuffer;
+  int width, height;
+  Window w=(c instanceof Window) ? (Window)c : SwingUtilities.getWindowAncestor(c);
+  if (!w.isOpaque()) {
+    Toolkit tk=Toolkit.getDefaultToolkit();
+    if ((tk instanceof SunToolkit) && (((SunToolkit)tk).needUpdateWindow())) {
+      return null;
     }
   }
-  r.preferred=(int)Math.min((long)totalAscent.preferred + (long)totalDescent.preferred,Integer.MAX_VALUE);
-  if (r.preferred > 0) {
-    r.alignment=(float)totalAscent.preferred / r.preferred;
+  if (standardDoubleBuffer == null) {
+    standardDoubleBuffer=new DoubleBufferInfo();
   }
-  if (r.alignment == 0.0f) {
-    r.minimum=totalDescent.minimum;
-    r.maximum=totalDescent.maximum;
+  doubleBuffer=standardDoubleBuffer;
+  width=proposedWidth < 1 ? 1 : (proposedWidth > maxSize.width ? maxSize.width : proposedWidth);
+  height=proposedHeight < 1 ? 1 : (proposedHeight > maxSize.height ? maxSize.height : proposedHeight);
+  if (doubleBuffer.needsReset || (doubleBuffer.image != null && (doubleBuffer.size.width < width || doubleBuffer.size.height < height))) {
+    doubleBuffer.needsReset=false;
+    if (doubleBuffer.image != null) {
+      doubleBuffer.image.flush();
+      doubleBuffer.image=null;
+    }
+    width=Math.max(doubleBuffer.size.width,width);
+    height=Math.max(doubleBuffer.size.height,height);
   }
- else   if (r.alignment == 1.0f) {
-    r.minimum=totalAscent.minimum;
-    r.maximum=totalAscent.maximum;
+  Image result=doubleBuffer.image;
+  if (doubleBuffer.image == null) {
+    result=c.createImage(width,height);
+    doubleBuffer.size=new Dimension(width,height);
+    if (c instanceof JComponent) {
+      ((JComponent)c).setCreatedDoubleBuffer(true);
+      doubleBuffer.image=result;
+    }
   }
- else {
-    r.minimum=Math.round(Math.max(totalAscent.minimum / r.alignment,totalDescent.minimum / (1.0f - r.alignment)));
-    r.maximum=Math.round(Math.min(totalAscent.maximum / r.alignment,totalDescent.maximum / (1.0f - r.alignment)));
-  }
-  return r;
+  return result;
 }

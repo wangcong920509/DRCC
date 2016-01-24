@@ -1,0 +1,21 @@
+/** 
+ * {@inheritDoc}
+ */
+public void modelStructureChanged(){
+  allChanged();
+  modelRowCount=getModelWrapper().getRowCount();
+}
+
+/** 
+ * {@inheritDoc}
+ */
+public void allRowsChanged(){
+  modelRowCount=getModelWrapper().getRowCount();
+  sort();
+}
+
+-->
+void modelStructureChanged_allRowsChanged(int combFlag){
+  allChanged();
+  modelRowCount=getModelWrapper().getRowCount();
+}

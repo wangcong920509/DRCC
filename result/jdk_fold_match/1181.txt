@@ -1,116 +1,112 @@
-jdk_src\javax\swing\text\Utilities.java
-static final int drawTabbedText(View view,Segment s,int x,int y,Graphics g,TabExpander e,int startOffset,int[] justificationData){
-  JComponent component=getJComponent(view);
-  FontMetrics metrics=SwingUtilities2.getFontMetrics(component,g);
-  int nextX=x;
-  char[] txt=s.array;
-  int txtOffset=s.offset;
-  int flushLen=0;
-  int flushIndex=s.offset;
-  int spaceAddon=0;
-  int spaceAddonLeftoverEnd=-1;
-  int startJustifiableContent=0;
-  int endJustifiableContent=0;
-  if (justificationData != null) {
-    int offset=-startOffset + txtOffset;
-    View parent=null;
-    if (view != null && (parent=view.getParent()) != null) {
-      offset+=parent.getStartOffset();
-    }
-    spaceAddon=justificationData[Row.SPACE_ADDON];
-    spaceAddonLeftoverEnd=justificationData[Row.SPACE_ADDON_LEFTOVER_END] + offset;
-    startJustifiableContent=justificationData[Row.START_JUSTIFIABLE] + offset;
-    endJustifiableContent=justificationData[Row.END_JUSTIFIABLE] + offset;
+jdk_src\javax\swing\text\rtf\RTFGenerator.java
+public void writeRTFHeader() throws IOException {
+  int index;
+  writeBegingroup();
+  writeControlWord("rtf",1);
+  writeControlWord("ansi");
+  outputConversion=outputConversionForName("ansi");
+  writeLineBreak();
+  String[] sortedFontTable=new String[fontCount];
+  Enumeration<String> fonts=fontTable.keys();
+  String font;
+  while (fonts.hasMoreElements()) {
+    font=fonts.nextElement();
+    Integer num=fontTable.get(font);
+    sortedFontTable[num.intValue()]=font;
   }
-  int n=s.offset + s.count;
-  for (int i=txtOffset; i < n; i++) {
-    if (txt[i] == '\t' || ((spaceAddon != 0 || i <= spaceAddonLeftoverEnd) && (txt[i] == ' ') && startJustifiableContent <= i && i <= endJustifiableContent)) {
-      if (flushLen > 0) {
-        nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
-        flushLen=0;
+  writeBegingroup();
+  writeControlWord("fonttbl");
+  for (index=0; index < fontCount; index++) {
+    writeControlWord("f",index);
+    writeControlWord("fnil");
+    writeText(sortedFontTable[index]);
+    writeText(";");
+  }
+  writeEndgroup();
+  writeLineBreak();
+  if (colorCount > 1) {
+    Color[] sortedColorTable=new Color[colorCount];
+    Enumeration colors=colorTable.keys();
+    Color color;
+    while (colors.hasMoreElements()) {
+      color=(Color)colors.nextElement();
+      Integer num=colorTable.get(color);
+      sortedColorTable[num.intValue()]=color;
+    }
+    writeBegingroup();
+    writeControlWord("colortbl");
+    for (index=0; index < colorCount; index++) {
+      color=sortedColorTable[index];
+      if (color != null) {
+        writeControlWord("red",color.getRed());
+        writeControlWord("green",color.getGreen());
+        writeControlWord("blue",color.getBlue());
       }
-      flushIndex=i + 1;
-      if (txt[i] == '\t') {
-        if (e != null) {
-          nextX=(int)e.nextTabStop((float)nextX,startOffset + i - txtOffset);
-        }
+      writeRawString(";");
+    }
+    writeEndgroup();
+    writeLineBreak();
+  }
+  if (styleCount > 1) {
+    writeBegingroup();
+    writeControlWord("stylesheet");
+    Enumeration<AttributeSet> styles=styleTable.keys();
+    while (styles.hasMoreElements()) {
+      Style style=(Style)styles.nextElement();
+      int styleNumber=styleTable.get(style).intValue();
+      writeBegingroup();
+      String styleType=(String)style.getAttribute(Constants.StyleType);
+      if (styleType == null)       styleType=Constants.STParagraph;
+      if (styleType.equals(Constants.STCharacter)) {
+        writeControlWord("*");
+        writeControlWord("cs",styleNumber);
+      }
+ else       if (styleType.equals(Constants.STSection)) {
+        writeControlWord("*");
+        writeControlWord("ds",styleNumber);
+      }
  else {
-          nextX+=metrics.charWidth(' ');
-        }
+        writeControlWord("s",styleNumber);
       }
- else       if (txt[i] == ' ') {
-        nextX+=metrics.charWidth(' ') + spaceAddon;
-        if (i <= spaceAddonLeftoverEnd) {
-          nextX++;
-        }
+      AttributeSet basis=style.getResolveParent();
+      MutableAttributeSet goat;
+      if (basis == null) {
+        goat=new SimpleAttributeSet();
       }
-      x=nextX;
-    }
- else     if ((txt[i] == '\n') || (txt[i] == '\r')) {
-      if (flushLen > 0) {
-        nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
-        flushLen=0;
-      }
-      flushIndex=i + 1;
-      x=nextX;
-    }
  else {
-      flushLen+=1;
+        goat=new SimpleAttributeSet(basis);
+      }
+      updateSectionAttributes(goat,style,false);
+      updateParagraphAttributes(goat,style,false);
+      updateCharacterAttributes(goat,style,false);
+      basis=style.getResolveParent();
+      if (basis != null && basis instanceof Style) {
+        Integer basedOn=styleTable.get(basis);
+        if (basedOn != null) {
+          writeControlWord("sbasedon",basedOn.intValue());
+        }
+      }
+      Style nextStyle=(Style)style.getAttribute(Constants.StyleNext);
+      if (nextStyle != null) {
+        Integer nextNum=styleTable.get(nextStyle);
+        if (nextNum != null) {
+          writeControlWord("snext",nextNum.intValue());
+        }
+      }
+      Boolean hidden=(Boolean)style.getAttribute(Constants.StyleHidden);
+      if (hidden != null && hidden.booleanValue())       writeControlWord("shidden");
+      Boolean additive=(Boolean)style.getAttribute(Constants.StyleAdditive);
+      if (additive != null && additive.booleanValue())       writeControlWord("additive");
+      writeText(style.getName());
+      writeText(";");
+      writeEndgroup();
     }
+    writeEndgroup();
+    writeLineBreak();
   }
-  if (flushLen > 0) {
-    nextX=SwingUtilities2.drawChars(component,g,txt,flushIndex,flushLen,x,y);
-  }
-  return nextX;
+  outputAttributes=new SimpleAttributeSet();
 }
-static final int getTabbedTextWidth(View view,Segment s,FontMetrics metrics,int x,TabExpander e,int startOffset,int[] justificationData){
-  int nextX=x;
-  char[] txt=s.array;
-  int txtOffset=s.offset;
-  int n=s.offset + s.count;
-  int charCount=0;
-  int spaceAddon=0;
-  int spaceAddonLeftoverEnd=-1;
-  int startJustifiableContent=0;
-  int endJustifiableContent=0;
-  if (justificationData != null) {
-    int offset=-startOffset + txtOffset;
-    View parent=null;
-    if (view != null && (parent=view.getParent()) != null) {
-      offset+=parent.getStartOffset();
-    }
-    spaceAddon=justificationData[Row.SPACE_ADDON];
-    spaceAddonLeftoverEnd=justificationData[Row.SPACE_ADDON_LEFTOVER_END] + offset;
-    startJustifiableContent=justificationData[Row.START_JUSTIFIABLE] + offset;
-    endJustifiableContent=justificationData[Row.END_JUSTIFIABLE] + offset;
-  }
-  for (int i=txtOffset; i < n; i++) {
-    if (txt[i] == '\t' || ((spaceAddon != 0 || i <= spaceAddonLeftoverEnd) && (txt[i] == ' ') && startJustifiableContent <= i && i <= endJustifiableContent)) {
-      nextX+=metrics.charsWidth(txt,i - charCount,charCount);
-      charCount=0;
-      if (txt[i] == '\t') {
-        if (e != null) {
-          nextX=(int)e.nextTabStop((float)nextX,startOffset + i - txtOffset);
-        }
- else {
-          nextX+=metrics.charWidth(' ');
-        }
-      }
- else       if (txt[i] == ' ') {
-        nextX+=metrics.charWidth(' ') + spaceAddon;
-        if (i <= spaceAddonLeftoverEnd) {
-          nextX++;
-        }
-      }
-    }
- else     if (txt[i] == '\n') {
-      nextX+=metrics.charsWidth(txt,i - charCount,charCount);
-      charCount=0;
-    }
- else {
-      charCount++;
-    }
-  }
-  nextX+=metrics.charsWidth(txt,n - charCount,charCount);
-  return nextX - x;
+public void writeRTFTrailer() throws IOException {
+  writeEndgroup();
+  writeLineBreak();
 }

@@ -1,13 +1,18 @@
 jdk_src\javax\swing\text\html\HTMLWriter.java
-void writeStyleStartTag() throws IOException {
-  indentSmart();
-  write("<style type=\"text/css\">");
-  incrIndent();
-  writeLineSeparator();
-  indentSmart();
+/** 
+ * Writes out comment string.
+ * @param string   the comment
+ * @exception IOException on any I/O error
+ * @exception BadLocationException if pos represents an invalidlocation within the document.
+ */
+void writeComment(String string) throws IOException {
   write("<!--");
-  incrIndent();
+  if (string != null) {
+    write(string);
+  }
+  write("-->");
   writeLineSeparator();
+  indentSmart();
 }
 void writeStyleEndTag() throws IOException {
   decrIndent();

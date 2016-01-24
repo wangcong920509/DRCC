@@ -13,7 +13,7 @@ private void paintBackgroundMouseOverAndEditable(Graphics2D g){
   g.setPaint(decodeGradient6(path));
   g.fill(path);
 }
-private void paintBackgroundSelectedAndEditable(Graphics2D g){
+private void paintBackgroundPressedAndEditable(Graphics2D g){
   path=decodePath1();
   g.setPaint(color9);
   g.fill(path);

@@ -16,21 +16,21 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(color8);
   g.fill(rect);
 }
-private void paintBackgroundMouseOver(Graphics2D g){
+private void paintBackgroundDisabled(Graphics2D g){
   roundRect=decodeRoundRect1();
   g.setPaint(color1);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient5(roundRect));
+  g.setPaint(decodeGradient3(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient6(roundRect));
+  g.setPaint(decodeGradient4(roundRect));
   g.fill(roundRect);
   rect=decodeRect1();
-  g.setPaint(color23);
+  g.setPaint(color14);
   g.fill(rect);
   rect=decodeRect2();
-  g.setPaint(color8);
+  g.setPaint(color15);
   g.fill(rect);
   rect=decodeRect3();
   g.setPaint(color16);

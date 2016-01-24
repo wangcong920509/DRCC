@@ -1,0 +1,64 @@
+/** 
+ * Append an instruction to the end of this list.
+ * @param ih instruction to append
+ */
+private void append(InstructionHandle ih){
+  if (isEmpty()) {
+    start=end=ih;
+    ih.next=ih.prev=null;
+  }
+ else {
+    end.next=ih;
+    ih.prev=end;
+    ih.next=null;
+    end=ih;
+  }
+  length++;
+}
+
+/** 
+ * Insert an instruction at start of this list.
+ * @param ih instruction to insert
+ */
+private void insert(InstructionHandle ih){
+  if (isEmpty()) {
+    start=end=ih;
+    ih.next=ih.prev=null;
+  }
+ else {
+    start.prev=ih;
+    ih.next=start;
+    ih.prev=null;
+    start=ih;
+  }
+  length++;
+}
+
+-->
+void append_insert(InstructionHandle ih,InstructionHandle ih,int combFlag){
+  if (combFlag == 1) {
+    if (isEmpty()) {
+      start=end=ih;
+      ih.next=ih.prev=null;
+    }
+ else {
+      end.next=ih;
+      ih.prev=end;
+      ih.next=null;
+      end=ih;
+    }
+  }
+ else {
+    if (isEmpty()) {
+      start=end=ih;
+      ih.next=ih.prev=null;
+    }
+ else {
+      start.prev=ih;
+      ih.next=start;
+      ih.prev=null;
+      start=ih;
+    }
+  }
+  length++;
+}

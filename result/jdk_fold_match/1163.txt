@@ -1,52 +1,56 @@
-jdk_src\javax\swing\plaf\synth\SynthSplitPaneUI.java
-private void updateStyle(JSplitPane splitPane){
-  SynthContext context=getContext(splitPane,Region.SPLIT_PANE_DIVIDER,ENABLED);
-  SynthStyle oldDividerStyle=dividerStyle;
-  dividerStyle=SynthLookAndFeel.updateStyle(context,this);
-  context.dispose();
-  context=getContext(splitPane,ENABLED);
-  SynthStyle oldStyle=style;
-  style=SynthLookAndFeel.updateStyle(context,this);
-  if (style != oldStyle) {
-    Object value=style.get(context,"SplitPane.size");
-    if (value == null) {
-      value=Integer.valueOf(6);
-    }
-    LookAndFeel.installProperty(splitPane,"dividerSize",value);
-    value=style.get(context,"SplitPane.oneTouchExpandable");
-    if (value != null) {
-      LookAndFeel.installProperty(splitPane,"oneTouchExpandable",value);
-    }
-    if (divider != null) {
-      splitPane.remove(divider);
-      divider.setDividerSize(splitPane.getDividerSize());
-    }
-    if (oldStyle != null) {
-      uninstallKeyboardActions();
-      installKeyboardActions();
-    }
-  }
-  if (style != oldStyle || dividerStyle != oldDividerStyle) {
-    if (divider != null) {
-      splitPane.remove(divider);
-    }
-    divider=createDefaultDivider();
-    divider.setBasicSplitPaneUI(this);
-    splitPane.add(divider,JSplitPane.DIVIDER);
-  }
-  context.dispose();
-}
+jdk_src\javax\swing\plaf\synth\SynthSliderUI.java
 /** 
- * Uninstalls the UI defaults.
+ * Uninstalls default setting. This method is called when a {@code LookAndFeel} is uninstalled.
  */
-@Override protected void uninstallDefaults(){
-  SynthContext context=getContext(splitPane,ENABLED);
+protected void uninstallDefaults(JSlider slider){
+  SynthContext context=getContext(slider,ENABLED);
   style.uninstallDefaults(context);
   context.dispose();
   style=null;
-  context=getContext(splitPane,Region.SPLIT_PANE_DIVIDER,ENABLED);
-  dividerStyle.uninstallDefaults(context);
+  context=getContext(slider,Region.SLIDER_TRACK,ENABLED);
+  sliderTrackStyle.uninstallDefaults(context);
   context.dispose();
-  dividerStyle=null;
-  super.uninstallDefaults();
+  sliderTrackStyle=null;
+  context=getContext(slider,Region.SLIDER_THUMB,ENABLED);
+  sliderThumbStyle.uninstallDefaults(context);
+  context.dispose();
+  sliderThumbStyle=null;
+}
+private void updateStyle(JSlider c){
+  SynthContext context=getContext(c,ENABLED);
+  SynthStyle oldStyle=style;
+  style=SynthLookAndFeel.updateStyle(context,this);
+  if (style != oldStyle) {
+    thumbWidth=style.getInt(context,"Slider.thumbWidth",30);
+    thumbHeight=style.getInt(context,"Slider.thumbHeight",14);
+    String scaleKey=(String)slider.getClientProperty("JComponent.sizeVariant");
+    if (scaleKey != null) {
+      if ("large".equals(scaleKey)) {
+        thumbWidth*=1.15;
+        thumbHeight*=1.15;
+      }
+ else       if ("small".equals(scaleKey)) {
+        thumbWidth*=0.857;
+        thumbHeight*=0.857;
+      }
+ else       if ("mini".equals(scaleKey)) {
+        thumbWidth*=0.784;
+        thumbHeight*=0.784;
+      }
+    }
+    trackBorder=style.getInt(context,"Slider.trackBorder",1);
+    trackHeight=thumbHeight + trackBorder * 2;
+    paintValue=style.getBoolean(context,"Slider.paintValue",true);
+    if (oldStyle != null) {
+      uninstallKeyboardActions(c);
+      installKeyboardActions(c);
+    }
+  }
+  context.dispose();
+  context=getContext(c,Region.SLIDER_TRACK,ENABLED);
+  sliderTrackStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
+  context=getContext(c,Region.SLIDER_THUMB,ENABLED);
+  sliderThumbStyle=SynthLookAndFeel.updateStyle(context,this);
+  context.dispose();
 }

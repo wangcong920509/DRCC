@@ -10,7 +10,7 @@ private void paintBackgroundEnabledAndSorted(Graphics2D g){
   g.setPaint(decodeGradient5(rect));
   g.fill(rect);
 }
-private void paintBackgroundDisabledAndSorted(Graphics2D g){
+private void paintBackgroundEnabledAndFocusedAndSorted(Graphics2D g){
   rect=decodeRect1();
   g.setPaint(color1);
   g.fill(rect);
@@ -18,6 +18,9 @@ private void paintBackgroundDisabledAndSorted(Graphics2D g){
   g.setPaint(decodeGradient1(rect));
   g.fill(rect);
   rect=decodeRect3();
-  g.setPaint(decodeGradient2(rect));
+  g.setPaint(decodeGradient6(rect));
   g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color10);
+  g.fill(path);
 }

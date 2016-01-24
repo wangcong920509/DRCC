@@ -24,23 +24,28 @@ public void put(E e) throws InterruptedException {
   }
   if (c == 0)   signalNotEmpty();
 }
-public E poll(){
+/** 
+ * Inserts the specified element at the tail of this queue if it is possible to do so immediately without exceeding the queue's capacity, returning  {@code true} upon success and {@code false} if this queueis full. When using a capacity-restricted queue, this method is generally preferable to method  {@link BlockingQueue#add add}, which can fail to insert an element only by throwing an exception.
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean offer(E e){
+  if (e == null)   throw new NullPointerException();
   final AtomicInteger count=this.count;
-  if (count.get() == 0)   return null;
-  E x=null;
+  if (count.get() == capacity)   return false;
   int c=-1;
-  final ReentrantLock takeLock=this.takeLock;
-  takeLock.lock();
+  Node<E> node=new Node(e);
+  final ReentrantLock putLock=this.putLock;
+  putLock.lock();
   try {
-    if (count.get() > 0) {
-      x=dequeue();
-      c=count.getAndDecrement();
-      if (c > 1)       notEmpty.signal();
+    if (count.get() < capacity) {
+      enqueue(node);
+      c=count.getAndIncrement();
+      if (c + 1 < capacity)       notFull.signal();
     }
   }
   finally {
-    takeLock.unlock();
+    putLock.unlock();
   }
-  if (c == capacity)   signalNotFull();
-  return x;
+  if (c == 0)   signalNotEmpty();
+  return c >= 0;
 }

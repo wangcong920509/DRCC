@@ -1,0 +1,30 @@
+/** 
+ * @param key the key
+ * @throws ClassCastException {@inheritDoc}
+ * @throws NullPointerException if the specified key is null
+ */
+public K floorKey(K key){
+  Node<K,V> n=findNear(key,LT | EQ);
+  return (n == null) ? null : n.key;
+}
+
+/** 
+ * @param key the key
+ * @throws ClassCastException {@inheritDoc}
+ * @throws NullPointerException if the specified key is null
+ */
+public K higherKey(K key){
+  Node<K,V> n=findNear(key,GT);
+  return (n == null) ? null : n.key;
+}
+
+-->
+void floorKey_higherKey(K key,K key,int combFlag){
+  if (combFlag == 1) {
+    Node<K,V> n=findNear(key,LT | EQ);
+  }
+ else {
+    Node<K,V> n=findNear(key,GT);
+  }
+  return (n == null) ? null : n.key;
+}

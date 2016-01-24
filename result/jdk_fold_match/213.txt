@@ -1,77 +1,65 @@
-jdk_src\javax\swing\DefaultDesktopManager.java
-/** 
- * Removes the frame, and, if necessary, the <code>desktopIcon</code>, from its parent.
- * @param f the <code>JInternalFrame</code> to be removed
- */
-public void closeFrame(JInternalFrame f){
-  JDesktopPane d=f.getDesktopPane();
-  if (d == null) {
-    return;
+jdk_src\javax\swing\colorchooser\DefaultPreviewPanel.java
+private int paintText(Graphics g,int offsetX){
+  g.setFont(getFont());
+  JComponent host=getColorChooser();
+  if (host == null) {
+    host=this;
   }
-  boolean findNext=f.isSelected();
-  Container c=f.getParent();
-  JInternalFrame nextFrame=null;
-  if (findNext) {
-    nextFrame=d.getNextFrame(f);
-    try {
-      f.setSelected(false);
-    }
- catch (    PropertyVetoException e2) {
-    }
-  }
-  if (c != null) {
-    c.remove(f);
-    c.repaint(f.getX(),f.getY(),f.getWidth(),f.getHeight());
-  }
-  removeIconFor(f);
-  if (f.getNormalBounds() != null)   f.setNormalBounds(null);
-  if (wasIcon(f))   setWasIcon(f,null);
-  if (nextFrame != null) {
-    try {
-      nextFrame.setSelected(true);
-    }
- catch (    PropertyVetoException e2) {
-    }
-  }
- else   if (findNext && d.getComponentCount() == 0) {
-    d.requestFocus();
-  }
+  FontMetrics fm=SwingUtilities2.getFontMetrics(host,g);
+  int ascent=fm.getAscent();
+  int height=fm.getHeight();
+  int width=SwingUtilities2.stringWidth(host,fm,getSampleText());
+  int textXOffset=offsetX + textGap;
+  Color color=getForeground();
+  g.setColor(color);
+  SwingUtilities2.drawString(host,g,getSampleText(),textXOffset + (textGap / 2),ascent + 2);
+  g.fillRect(textXOffset,(height) + textGap,width + (textGap),height + 2);
+  g.setColor(Color.black);
+  SwingUtilities2.drawString(host,g,getSampleText(),textXOffset + (textGap / 2),height + ascent + textGap+ 2);
+  g.setColor(Color.white);
+  g.fillRect(textXOffset,(height + textGap) * 2,width + (textGap),height + 2);
+  g.setColor(color);
+  SwingUtilities2.drawString(host,g,getSampleText(),textXOffset + (textGap / 2),((height + textGap) * 2) + ascent + 2);
+  return width + textGap * 3;
 }
-/** 
- * Removes the frame from its parent and adds its <code>desktopIcon</code> to the parent.
- * @param f the <code>JInternalFrame</code> to be iconified
- */
-public void iconifyFrame(JInternalFrame f){
-  JInternalFrame.JDesktopIcon desktopIcon;
-  Container c=f.getParent();
-  JDesktopPane d=f.getDesktopPane();
-  boolean findNext=f.isSelected();
-  desktopIcon=f.getDesktopIcon();
-  if (!wasIcon(f)) {
-    Rectangle r=getBoundsForIconOf(f);
-    desktopIcon.setBounds(r.x,r.y,r.width,r.height);
-    desktopIcon.revalidate();
-    setWasIcon(f,Boolean.TRUE);
-  }
-  if (c == null || d == null) {
-    return;
-  }
-  if (c instanceof JLayeredPane) {
-    JLayeredPane lp=(JLayeredPane)c;
-    int layer=lp.getLayer(f);
-    lp.putLayer(desktopIcon,layer);
-  }
-  if (!f.isMaximum()) {
-    f.setNormalBounds(f.getBounds());
-  }
-  d.setComponentOrderCheckingEnabled(false);
-  c.remove(f);
-  c.add(desktopIcon);
-  d.setComponentOrderCheckingEnabled(true);
-  c.repaint(f.getX(),f.getY(),f.getWidth(),f.getHeight());
-  if (findNext) {
-    if (d.selectFrame(true) == null) {
-      f.restoreSubcomponentFocus();
-    }
-  }
+private int paintSquares(Graphics g,int offsetX){
+  int squareXOffset=offsetX;
+  Color color=getForeground();
+  g.setColor(Color.white);
+  g.fillRect(squareXOffset,0,squareSize,squareSize);
+  g.setColor(color);
+  g.fillRect(squareXOffset + innerGap,innerGap,squareSize - (innerGap * 2),squareSize - (innerGap * 2));
+  g.setColor(Color.white);
+  g.fillRect(squareXOffset + innerGap * 2,innerGap * 2,squareSize - (innerGap * 4),squareSize - (innerGap * 4));
+  g.setColor(color);
+  g.fillRect(squareXOffset,squareSize + squareGap,squareSize,squareSize);
+  g.translate(squareSize + squareGap,0);
+  g.setColor(Color.black);
+  g.fillRect(squareXOffset,0,squareSize,squareSize);
+  g.setColor(color);
+  g.fillRect(squareXOffset + innerGap,innerGap,squareSize - (innerGap * 2),squareSize - (innerGap * 2));
+  g.setColor(Color.white);
+  g.fillRect(squareXOffset + innerGap * 2,innerGap * 2,squareSize - (innerGap * 4),squareSize - (innerGap * 4));
+  g.translate(-(squareSize + squareGap),0);
+  g.translate(squareSize + squareGap,squareSize + squareGap);
+  g.setColor(Color.white);
+  g.fillRect(squareXOffset,0,squareSize,squareSize);
+  g.setColor(color);
+  g.fillRect(squareXOffset + innerGap,innerGap,squareSize - (innerGap * 2),squareSize - (innerGap * 2));
+  g.translate(-(squareSize + squareGap),-(squareSize + squareGap));
+  g.translate((squareSize + squareGap) * 2,0);
+  g.setColor(Color.white);
+  g.fillRect(squareXOffset,0,squareSize,squareSize);
+  g.setColor(color);
+  g.fillRect(squareXOffset + innerGap,innerGap,squareSize - (innerGap * 2),squareSize - (innerGap * 2));
+  g.setColor(Color.black);
+  g.fillRect(squareXOffset + innerGap * 2,innerGap * 2,squareSize - (innerGap * 4),squareSize - (innerGap * 4));
+  g.translate(-((squareSize + squareGap) * 2),0);
+  g.translate((squareSize + squareGap) * 2,(squareSize + squareGap));
+  g.setColor(Color.black);
+  g.fillRect(squareXOffset,0,squareSize,squareSize);
+  g.setColor(color);
+  g.fillRect(squareXOffset + innerGap,innerGap,squareSize - (innerGap * 2),squareSize - (innerGap * 2));
+  g.translate(-((squareSize + squareGap) * 2),-(squareSize + squareGap));
+  return (squareSize * 3 + squareGap * 2);
 }

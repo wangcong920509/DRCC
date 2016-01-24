@@ -1,0 +1,28 @@
+public String getPublicId(){
+  if (fLocator != null) {
+    return fLocator.getPublicId();
+  }
+  return null;
+}
+
+public String getLiteralSystemId(){
+  if (fLocator != null) {
+    return fLocator.getSystemId();
+  }
+  return null;
+}
+
+-->
+void getPublicId_getLiteralSystemId(int combFlag){
+  if (combFlag == 1) {
+    if (fLocator != null) {
+      return fLocator.getPublicId();
+    }
+  }
+ else {
+    if (fLocator != null) {
+      return fLocator.getSystemId();
+    }
+  }
+  return null;
+}

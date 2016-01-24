@@ -1,20 +1,32 @@
-jdk_src\javax\swing\plaf\nimbus\SliderThumbPainter.java
-private void paintBackgroundDisabled(Graphics2D g){
-  ellipse=decodeEllipse1();
-  g.setPaint(decodeGradient1(ellipse));
-  g.fill(ellipse);
-  ellipse=decodeEllipse2();
-  g.setPaint(decodeGradient2(ellipse));
-  g.fill(ellipse);
+jdk_src\javax\swing\plaf\nimbus\ScrollPanePainter.java
+private void paintBorderEnabledAndFocused(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color1);
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color2);
+  g.fill(path);
 }
-private void paintBackgroundEnabled(Graphics2D g){
-  ellipse=decodeEllipse3();
-  g.setPaint(color6);
-  g.fill(ellipse);
-  ellipse=decodeEllipse1();
-  g.setPaint(decodeGradient3(ellipse));
-  g.fill(ellipse);
-  ellipse=decodeEllipse2();
-  g.setPaint(decodeGradient4(ellipse));
-  g.fill(ellipse);
+private void paintBorderEnabled(Graphics2D g){
+  rect=decodeRect1();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect2();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect3();
+  g.setPaint(color1);
+  g.fill(rect);
+  rect=decodeRect4();
+  g.setPaint(color1);
+  g.fill(rect);
 }

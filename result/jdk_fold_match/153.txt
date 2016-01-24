@@ -1,54 +1,35 @@
-jdk_src\java\beans\EventSetDescriptor.java
-/** 
- * This constructor creates an EventSetDescriptor from scratch using string names.
- * @param sourceClass  The class firing the event.
- * @param eventSetName The programmatic name of the event set.Note that this should normally start with a lower-case character.
- * @param listenerType  The Class of the target interface that eventswill get delivered to.
- * @param listenerMethodNames The names of the methods that will get calledwhen the event gets delivered to its target listener interface.
- * @param addListenerMethodName  The name of the method on the event sourcethat can be used to register an event listener object.
- * @param removeListenerMethodName  The name of the method on the event sourcethat can be used to de-register an event listener object.
- * @param getListenerMethodName The method on the event source thatcan be used to access the array of event listener objects.
- * @exception IntrospectionException if an exception occurs duringintrospection.
- * @since 1.4
- */
-public EventSetDescriptor(Class<?> sourceClass,String eventSetName,Class<?> listenerType,String listenerMethodNames[],String addListenerMethodName,String removeListenerMethodName,String getListenerMethodName) throws IntrospectionException {
-  if (sourceClass == null || eventSetName == null || listenerType == null) {
-    throw new NullPointerException();
+jdk_src\java\awt\Window.java
+private void init(GraphicsConfiguration gc){
+  GraphicsEnvironment.checkHeadless();
+  syncLWRequests=systemSyncLWRequests;
+  weakThis=new WeakReference<Window>(this);
+  addToWindowList();
+  setWarningString();
+  this.cursor=Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR);
+  this.visible=false;
+  gc=initGC(gc);
+  if (gc.getDevice().getType() != GraphicsDevice.TYPE_RASTER_SCREEN) {
+    throw new IllegalArgumentException("not a screen device");
   }
-  setName(eventSetName);
-  setClass0(sourceClass);
-  setListenerType(listenerType);
-  Method[] listenerMethods=new Method[listenerMethodNames.length];
-  for (int i=0; i < listenerMethodNames.length; i++) {
-    if (listenerMethodNames[i] == null) {
-      throw new NullPointerException();
-    }
-    listenerMethods[i]=getMethod(listenerType,listenerMethodNames[i],1);
+  setLayout(new BorderLayout());
+  Rectangle screenBounds=gc.getBounds();
+  Insets screenInsets=getToolkit().getScreenInsets(gc);
+  int x=getX() + screenBounds.x + screenInsets.left;
+  int y=getY() + screenBounds.y + screenInsets.top;
+  if (x != this.x || y != this.y) {
+    setLocation(x,y);
+    setLocationByPlatform(locationByPlatformProp);
   }
-  setListenerMethods(listenerMethods);
-  setAddListenerMethod(getMethod(sourceClass,addListenerMethodName,1));
-  setRemoveListenerMethod(getMethod(sourceClass,removeListenerMethodName,1));
-  Method method=Introspector.findMethod(sourceClass,getListenerMethodName,0);
-  if (method != null) {
-    setGetListenerMethod(method);
-  }
+  modalExclusionType=Dialog.ModalExclusionType.NO_EXCLUDE;
+  SunToolkit.checkAndSetPolicy(this);
 }
-/** 
- * This constructor creates an EventSetDescriptor from scratch using java.lang.reflect.Method and java.lang.Class objects.
- * @param eventSetName The programmatic name of the event set.
- * @param listenerType The Class for the listener interface.
- * @param listenerMethods  An array of Method objects describing eachof the event handling methods in the target listener.
- * @param addListenerMethod  The method on the event sourcethat can be used to register an event listener object.
- * @param removeListenerMethod  The method on the event sourcethat can be used to de-register an event listener object.
- * @param getListenerMethod The method on the event sourcethat can be used to access the array of event listener objects.
- * @exception IntrospectionException if an exception occurs duringintrospection.
- * @since 1.4
- */
-public EventSetDescriptor(String eventSetName,Class<?> listenerType,Method listenerMethods[],Method addListenerMethod,Method removeListenerMethod,Method getListenerMethod) throws IntrospectionException {
-  setName(eventSetName);
-  setListenerMethods(listenerMethods);
-  setAddListenerMethod(addListenerMethod);
-  setRemoveListenerMethod(removeListenerMethod);
-  setGetListenerMethod(getListenerMethod);
-  setListenerType(listenerType);
+private void initDeserializedWindow(){
+  setWarningString();
+  inputContextLock=new Object();
+  visible=false;
+  weakThis=new WeakReference(this);
+  anchor=new Object();
+  sun.java2d.Disposer.addRecord(anchor,new WindowDisposerRecord(appContext,this));
+  addToWindowList();
+  initGC(null);
 }

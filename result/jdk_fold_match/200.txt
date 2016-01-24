@@ -1,15 +1,13 @@
 jdk_src\java\util\concurrent\LinkedBlockingQueue.java
-public E poll(long timeout,TimeUnit unit) throws InterruptedException {
-  E x=null;
+public E take() throws InterruptedException {
+  E x;
   int c=-1;
-  long nanos=unit.toNanos(timeout);
   final AtomicInteger count=this.count;
   final ReentrantLock takeLock=this.takeLock;
   takeLock.lockInterruptibly();
   try {
     while (count.get() == 0) {
-      if (nanos <= 0)       return null;
-      nanos=notEmpty.awaitNanos(nanos);
+      notEmpty.await();
     }
     x=dequeue();
     c=count.getAndDecrement();

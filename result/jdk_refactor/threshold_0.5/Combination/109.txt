@@ -1,0 +1,26 @@
+/** 
+ * @see SerializationHandler#reset()
+ */
+public boolean reset(){
+  aMethodIsCalled();
+  return false;
+}
+
+/** 
+ * @see XSLOutputAttributes#getOmitXMLDeclaration()
+ */
+public boolean getOmitXMLDeclaration(){
+  aMethodIsCalled();
+  return false;
+}
+
+-->
+void reset_getOmitXMLDeclaration(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return false;
+}

@@ -1,0 +1,42 @@
+protected boolean initializeComponentsFromAny(){
+  try {
+    components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+  }
+ catch (  InconsistentTypeCode ictc) {
+    return false;
+  }
+  return true;
+}
+
+protected boolean initializeComponentsFromTypeCode(){
+  try {
+    any=DynAnyUtil.createDefaultAnyOfType(any.type(),orb);
+    components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+  }
+ catch (  InconsistentTypeCode ictc) {
+    return false;
+  }
+  return true;
+}
+
+-->
+void initializeComponentsFromAny_initializeComponentsFromTypeCode(int combFlag){
+  if (combFlag == 1) {
+    try {
+      components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+    }
+ catch (    InconsistentTypeCode ictc) {
+      return false;
+    }
+  }
+ else {
+    try {
+      any=DynAnyUtil.createDefaultAnyOfType(any.type(),orb);
+      components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+    }
+ catch (    InconsistentTypeCode ictc) {
+      return false;
+    }
+  }
+  return true;
+}

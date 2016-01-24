@@ -1,0 +1,20 @@
+static int simplifyMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask&=~NEW_MASK;
+  return mask;
+}
+
+static int impliedMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask|=NEW_MASK;
+  return mask;
+}
+
+-->
+void simplifyMask_impliedMask(int mask,int mask,int combFlag){
+  if (combFlag == 1) {
+    if ((mask & CREATE_MASK) != 0)     mask&=~NEW_MASK;
+  }
+ else {
+    if ((mask & CREATE_MASK) != 0)     mask|=NEW_MASK;
+  }
+  return mask;
+}

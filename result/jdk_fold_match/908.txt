@@ -7,11 +7,11 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(decodeGradient2(path));
   g.fill(path);
 }
-private void paintBackgroundSelectedAndMouseOver(Graphics2D g){
-  path=decodePath8();
-  g.setPaint(decodeGradient11(path));
+private void paintBackgroundSelected(Graphics2D g){
+  path=decodePath7();
+  g.setPaint(decodeGradient10(path));
   g.fill(path);
-  path=decodePath9();
-  g.setPaint(decodeGradient12(path));
+  path=decodePath2();
+  g.setPaint(decodeGradient9(path));
   g.fill(path);
 }

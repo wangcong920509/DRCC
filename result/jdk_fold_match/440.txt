@@ -1,8 +1,8 @@
 jdk_src\javax\swing\plaf\nimbus\ComboBoxPainter.java
-private void paintBackgroundMouseOver(Graphics2D g){
-  path=decodePath1();
-  g.setPaint(color14);
-  g.fill(path);
+private void paintBackgroundMouseOverAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(color26);
+  g.fill(roundRect);
   path=decodePath2();
   g.setPaint(decodeGradient9(path));
   g.fill(path);
@@ -16,10 +16,10 @@ private void paintBackgroundMouseOver(Graphics2D g){
   g.setPaint(decodeGradient8(path));
   g.fill(path);
 }
-private void paintBackgroundPressedAndFocused(Graphics2D g){
-  roundRect=decodeRoundRect1();
-  g.setPaint(color26);
-  g.fill(roundRect);
+private void paintBackgroundEnabledAndSelected(Graphics2D g){
+  path=decodePath1();
+  g.setPaint(color52);
+  g.fill(path);
   path=decodePath2();
   g.setPaint(decodeGradient11(path));
   g.fill(path);

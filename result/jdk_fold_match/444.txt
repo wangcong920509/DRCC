@@ -16,9 +16,9 @@ private void paintBackgroundPressedAndFocused(Graphics2D g){
   g.setPaint(decodeGradient8(path));
   g.fill(path);
 }
-private void paintBackgroundEnabledAndSelected(Graphics2D g){
+private void paintBackgroundPressed(Graphics2D g){
   path=decodePath1();
-  g.setPaint(color52);
+  g.setPaint(color51);
   g.fill(path);
   path=decodePath2();
   g.setPaint(decodeGradient11(path));

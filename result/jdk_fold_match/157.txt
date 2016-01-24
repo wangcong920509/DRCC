@@ -1,35 +1,36 @@
 jdk_src\java\io\ObjectOutputStream.java
 /** 
- * Write the buffered fields to the stream.
- * @throws IOException if I/O errors occur while writing to the underlyingstream
- * @throws NotActiveException Called when a classes writeObject method wasnot called to write the state of the object.
- * @since 1.2
+ * Write the non-static and non-transient fields of the current class to this stream.  This may only be called from the writeObject method of the class being serialized. It will throw the NotActiveException if it is called otherwise.
+ * @throws IOException if I/O errors occur while writing to the underlying<code>OutputStream</code>
  */
-public void writeFields() throws IOException {
-  if (curPut == null) {
-    throw new NotActiveException("no current PutField object");
+public void defaultWriteObject() throws IOException {
+  if (curContext == null) {
+    throw new NotActiveException("not in call to writeObject");
   }
+  Object curObj=curContext.getObj();
+  ObjectStreamClass curDesc=curContext.getDesc();
   bout.setBlockDataMode(false);
-  curPut.writeFields();
+  defaultWriteFields(curObj,curDesc);
   bout.setBlockDataMode(true);
 }
 /** 
- * Writes class descriptor representing a dynamic proxy class to stream.
+ * Writes class descriptor representing a standard (i.e., not a dynamic proxy) class to stream.
  */
-private void writeProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
-  bout.writeByte(TC_PROXYCLASSDESC);
+private void writeNonProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
+  bout.writeByte(TC_CLASSDESC);
   handles.assign(unshared ? null : desc);
-  Class cl=desc.forClass();
-  Class[] ifaces=cl.getInterfaces();
-  bout.writeInt(ifaces.length);
-  for (int i=0; i < ifaces.length; i++) {
-    bout.writeUTF(ifaces[i].getName());
+  if (protocol == PROTOCOL_VERSION_1) {
+    desc.writeNonProxy(this);
   }
+ else {
+    writeClassDescriptor(desc);
+  }
+  Class cl=desc.forClass();
   bout.setBlockDataMode(true);
   if (isCustomSubclass()) {
     ReflectUtil.checkPackageAccess(cl);
   }
-  annotateProxyClass(cl);
+  annotateClass(cl);
   bout.setBlockDataMode(false);
   bout.writeByte(TC_ENDBLOCKDATA);
   writeClassDesc(desc.getSuperDesc(),false);

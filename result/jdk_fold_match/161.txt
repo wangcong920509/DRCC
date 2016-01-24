@@ -1,81 +1,36 @@
-jdk_src\java\math\BigDecimal.java
+jdk_src\java\io\ObjectOutputStream.java
 /** 
- * Returns a  {@code BigDecimal} whose value is {@code (this + augend)}, with rounding according to the context settings. If either number is zero and the precision setting is nonzero then the other number, rounded if necessary, is used as the result.
- * @param augend value to be added to this {@code BigDecimal}.
- * @param mc the context to use.
- * @return {@code this + augend}, rounded as necessary.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @since  1.5
+ * Reset will disregard the state of any objects already written to the stream.  The state is reset to be the same as a new ObjectOutputStream. The current point in the stream is marked as reset so the corresponding ObjectInputStream will be reset at the same point.  Objects previously written to the stream will not be refered to as already being in the stream.  They will be written to the stream again.
+ * @throws IOException if reset() is invoked while serializing an object.
  */
-public BigDecimal add(BigDecimal augend,MathContext mc){
-  if (mc.precision == 0)   return add(augend);
-  BigDecimal lhs=this;
-  this.inflate();
-  augend.inflate();
-{
-    boolean lhsIsZero=lhs.signum() == 0;
-    boolean augendIsZero=augend.signum() == 0;
-    if (lhsIsZero || augendIsZero) {
-      int preferredScale=Math.max(lhs.scale(),augend.scale());
-      BigDecimal result;
-      if (lhsIsZero && augendIsZero)       return new BigDecimal(BigInteger.ZERO,0,preferredScale,0);
-      result=lhsIsZero ? doRound(augend,mc) : doRound(lhs,mc);
-      if (result.scale() == preferredScale)       return result;
- else       if (result.scale() > preferredScale) {
-        BigDecimal scaledResult=new BigDecimal(result.intVal,result.intCompact,result.scale,0);
-        scaledResult.stripZerosToMatchScale(preferredScale);
-        return scaledResult;
-      }
- else {
-        int precisionDiff=mc.precision - result.precision();
-        int scaleDiff=preferredScale - result.scale();
-        if (precisionDiff >= scaleDiff)         return result.setScale(preferredScale);
- else         return result.setScale(result.scale() + precisionDiff);
-      }
-    }
+public void reset() throws IOException {
+  if (depth != 0) {
+    throw new IOException("stream active");
   }
-  long padding=(long)lhs.scale - augend.scale;
-  if (padding != 0) {
-    BigDecimal arg[]=preAlign(lhs,augend,padding,mc);
-    matchScale(arg);
-    lhs=arg[0];
-    augend=arg[1];
-  }
-  BigDecimal d=new BigDecimal(lhs.inflate().add(augend.inflate()),lhs.scale);
-  return doRound(d,mc);
+  bout.setBlockDataMode(false);
+  bout.writeByte(TC_RESET);
+  clear();
+  bout.setBlockDataMode(true);
 }
 /** 
- * Returns a  {@code BigDecimal} whose value is<tt>(this<sup>n</sup>)</tt>.  The current implementation uses the core algorithm defined in ANSI standard X3.274-1996 with rounding according to the context settings.  In general, the returned numerical value is within two ulps of the exact numerical value for the chosen precision.  Note that future releases may use a different algorithm with a decreased allowable error bound and increased allowable exponent range. <p>The X3.274-1996 algorithm is: <ul> <li> An  {@code ArithmeticException} exception is thrown if<ul> <li> {@code abs(n) > 999999999}<li> {@code mc.precision == 0} and {@code n < 0}<li> {@code mc.precision > 0} and {@code n} has more than{@code mc.precision} decimal digits</ul> <li> if  {@code n} is zero, {@link #ONE} is returned even if{@code this} is zero, otherwise<ul> <li> if  {@code n} is positive, the result is calculated viathe repeated squaring technique into a single accumulator. The individual multiplications with the accumulator use the same math context settings as in  {@code mc} except for aprecision increased to  {@code mc.precision + elength + 1}where  {@code elength} is the number of decimal digits in{@code n}. <li> if  {@code n} is negative, the result is calculated as if{@code n} were positive; this value is then divided into oneusing the working precision specified above. <li> The final value from either the positive or negative case is then rounded to the destination precision. </ul> </ul>
- * @param n power to raise this {@code BigDecimal} to.
- * @param mc the context to use.
- * @return <tt>this<sup>n</sup></tt> using the ANSI standard X3.274-1996algorithm
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}, or  {@code n} is outof range.
- * @since  1.5
+ * Writes class descriptor representing a standard (i.e., not a dynamic proxy) class to stream.
  */
-public BigDecimal pow(int n,MathContext mc){
-  if (mc.precision == 0)   return pow(n);
-  if (n < -999999999 || n > 999999999)   throw new ArithmeticException("Invalid operation");
-  if (n == 0)   return ONE;
-  this.inflate();
-  BigDecimal lhs=this;
-  MathContext workmc=mc;
-  int mag=Math.abs(n);
-  if (mc.precision > 0) {
-    int elength=longDigitLength(mag);
-    if (elength > mc.precision)     throw new ArithmeticException("Invalid operation");
-    workmc=new MathContext(mc.precision + elength + 1,mc.roundingMode);
+private void writeNonProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOException {
+  bout.writeByte(TC_CLASSDESC);
+  handles.assign(unshared ? null : desc);
+  if (protocol == PROTOCOL_VERSION_1) {
+    desc.writeNonProxy(this);
   }
-  BigDecimal acc=ONE;
-  boolean seenbit=false;
-  for (int i=1; ; i++) {
-    mag+=mag;
-    if (mag < 0) {
-      seenbit=true;
-      acc=acc.multiply(lhs,workmc);
-    }
-    if (i == 31)     break;
-    if (seenbit)     acc=acc.multiply(acc,workmc);
+ else {
+    writeClassDescriptor(desc);
   }
-  if (n < 0)   acc=ONE.divide(acc,workmc);
-  return doRound(acc,mc);
+  Class cl=desc.forClass();
+  bout.setBlockDataMode(true);
+  if (isCustomSubclass()) {
+    ReflectUtil.checkPackageAccess(cl);
+  }
+  annotateClass(cl);
+  bout.setBlockDataMode(false);
+  bout.writeByte(TC_ENDBLOCKDATA);
+  writeClassDesc(desc.getSuperDesc(),false);
 }

@@ -1,0 +1,34 @@
+/** 
+ * Returns the target
+ */
+public String getNodeName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return target;
+}
+
+/** 
+ * A PI's "target" states what processor channel the PI's data should be directed to. It is defined differently in HTML and XML. <p> In XML, a PI's "target" is the first (whitespace-delimited) token following the "<?" token that begins the PI. <p> In HTML, target is always null. <p> Note that getNodeName is aliased to getTarget.
+ */
+public String getTarget(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return target;
+}
+
+-->
+void getNodeName_getTarget(int combFlag){
+  if (combFlag == 1) {
+    if (needsSyncData()) {
+      synchronizeData();
+    }
+  }
+ else {
+    if (needsSyncData()) {
+      synchronizeData();
+    }
+  }
+  return target;
+}

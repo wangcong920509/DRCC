@@ -1,0 +1,30 @@
+/** 
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never return  {@code false}.
+ * @return {@code true} (as specified by {@link Queue#offer})
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean offer(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
+}
+
+/** 
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
+ * @return {@code true} (as specified by {@link Collection#add})
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean add(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
+}
+
+-->
+void offer_add(E e,E e,int combFlag){
+  if (combFlag == 1) {
+    xfer(e,true,ASYNC,0);
+  }
+ else {
+    xfer(e,true,ASYNC,0);
+  }
+  return true;
+}

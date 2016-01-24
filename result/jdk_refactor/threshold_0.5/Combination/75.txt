@@ -1,0 +1,28 @@
+public String getLiteralSystemId(){
+  if (fLocator != null) {
+    return fLocator.getSystemId();
+  }
+  return null;
+}
+
+public String getEncoding(){
+  if (fLocator2 != null) {
+    return fLocator2.getEncoding();
+  }
+  return null;
+}
+
+-->
+void getLiteralSystemId_getEncoding(int combFlag){
+  if (combFlag == 1) {
+    if (fLocator != null) {
+      return fLocator.getSystemId();
+    }
+  }
+ else {
+    if (fLocator2 != null) {
+      return fLocator2.getEncoding();
+    }
+  }
+  return null;
+}

@@ -1,0 +1,20 @@
+private RoundRectangle2D decodeRoundRect2(){
+  roundRect.setRoundRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.4f) - decodeY(0.4f),12.0f,12.0f);
+  return roundRect;
+}
+
+private RoundRectangle2D decodeRoundRect8(){
+  roundRect.setRoundRect(decodeX(0.120000005f),decodeY(0.120000005f),decodeX(2.8800004f) - decodeX(0.120000005f),decodeY(2.6799998f) - decodeY(0.120000005f),13.0f,13.0f);
+  return roundRect;
+}
+
+-->
+void decodeRoundRect2_decodeRoundRect8(int combFlag){
+  if (combFlag == 1) {
+    roundRect.setRoundRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.4f) - decodeY(0.4f),12.0f,12.0f);
+  }
+ else {
+    roundRect.setRoundRect(decodeX(0.120000005f),decodeY(0.120000005f),decodeX(2.8800004f) - decodeX(0.120000005f),decodeY(2.6799998f) - decodeY(0.120000005f),13.0f,13.0f);
+  }
+  return roundRect;
+}

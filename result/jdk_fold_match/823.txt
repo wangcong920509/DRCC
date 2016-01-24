@@ -1,23 +1,23 @@
 jdk_src\javax\swing\plaf\nimbus\SliderThumbPainter.java
-private void paintBackgroundFocusedAndPressed(Graphics2D g){
+private void paintBackgroundFocusedAndMouseOver(Graphics2D g){
   ellipse=decodeEllipse4();
   g.setPaint(color12);
-  g.fill(ellipse);
-  ellipse=decodeEllipse1();
-  g.setPaint(decodeGradient7(ellipse));
-  g.fill(ellipse);
-  ellipse=decodeEllipse2();
-  g.setPaint(decodeGradient8(ellipse));
-  g.fill(ellipse);
-}
-private void paintBackgroundMouseOver(Graphics2D g){
-  ellipse=decodeEllipse3();
-  g.setPaint(color6);
   g.fill(ellipse);
   ellipse=decodeEllipse1();
   g.setPaint(decodeGradient5(ellipse));
   g.fill(ellipse);
   ellipse=decodeEllipse2();
   g.setPaint(decodeGradient6(ellipse));
+  g.fill(ellipse);
+}
+private void paintBackgroundPressed(Graphics2D g){
+  ellipse=decodeEllipse3();
+  g.setPaint(color23);
+  g.fill(ellipse);
+  ellipse=decodeEllipse1();
+  g.setPaint(decodeGradient7(ellipse));
+  g.fill(ellipse);
+  ellipse=decodeEllipse2();
+  g.setPaint(decodeGradient8(ellipse));
   g.fill(ellipse);
 }

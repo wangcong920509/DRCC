@@ -1,0 +1,46 @@
+/** 
+ * @see org.w3c.dom.TypeInfo#getTypeName()
+ */
+public String getTypeName(){
+  if (type != null) {
+    if (type instanceof XSSimpleTypeDecl) {
+      return ((XSSimpleTypeDecl)type).getName();
+    }
+    return (String)type;
+  }
+  return null;
+}
+
+/** 
+ * @see org.w3c.dom.TypeInfo#getTypeNamespace()
+ */
+public String getTypeNamespace(){
+  if (type != null) {
+    if (type instanceof XSSimpleTypeDecl) {
+      return ((XSSimpleTypeDecl)type).getNamespace();
+    }
+    return DTD_URI;
+  }
+  return null;
+}
+
+-->
+void getTypeName_getTypeNamespace(int combFlag){
+  if (combFlag == 1) {
+    if (type != null) {
+      if (type instanceof XSSimpleTypeDecl) {
+        return ((XSSimpleTypeDecl)type).getName();
+      }
+      return (String)type;
+    }
+  }
+ else {
+    if (type != null) {
+      if (type instanceof XSSimpleTypeDecl) {
+        return ((XSSimpleTypeDecl)type).getNamespace();
+      }
+      return DTD_URI;
+    }
+  }
+  return null;
+}

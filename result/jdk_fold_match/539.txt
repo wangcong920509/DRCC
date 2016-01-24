@@ -16,18 +16,18 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(color8);
   g.fill(rect);
 }
-private void paintBackgroundPressed(Graphics2D g){
+private void paintBackgroundMouseOver(Graphics2D g){
   roundRect=decodeRoundRect1();
   g.setPaint(color1);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient7(roundRect));
+  g.setPaint(decodeGradient5(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient8(roundRect));
+  g.setPaint(decodeGradient6(roundRect));
   g.fill(roundRect);
-  rect=decodeRect4();
-  g.setPaint(color30);
+  rect=decodeRect1();
+  g.setPaint(color23);
   g.fill(rect);
   rect=decodeRect2();
   g.setPaint(color8);

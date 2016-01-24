@@ -1,0 +1,26 @@
+/** 
+ * @see SerializationHandler#reset()
+ */
+public boolean reset(){
+  aMethodIsCalled();
+  return false;
+}
+
+/** 
+ * @see XSLOutputAttributes#getIndent()
+ */
+public boolean getIndent(){
+  aMethodIsCalled();
+  return false;
+}
+
+-->
+void reset_getIndent(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return false;
+}

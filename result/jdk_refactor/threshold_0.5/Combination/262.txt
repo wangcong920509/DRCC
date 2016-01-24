@@ -1,0 +1,38 @@
+/** 
+ * Obtains the first data byte in the message.
+ * @return the value of the <code>data1</code> field
+ * @see #setMessage(int,int,int)
+ */
+public int getData1(){
+  if (length > 1) {
+    return (data[1] & 0xFF);
+  }
+  return 0;
+}
+
+/** 
+ * Obtains the second data byte in the message.
+ * @return the value of the <code>data2</code> field
+ * @see #setMessage(int,int,int)
+ */
+public int getData2(){
+  if (length > 2) {
+    return (data[2] & 0xFF);
+  }
+  return 0;
+}
+
+-->
+void getData1_getData2(int combFlag){
+  if (combFlag == 1) {
+    if (length > 1) {
+      return (data[1] & 0xFF);
+    }
+  }
+ else {
+    if (length > 2) {
+      return (data[2] & 0xFF);
+    }
+  }
+  return 0;
+}

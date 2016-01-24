@@ -1,0 +1,48 @@
+/** 
+ * Removes the first occurrence of the argument from this vector. If the object is found in this vector, each component in the vector with an index greater or equal to the object's index is shifted downward to have an index one smaller than the value it had previously.
+ * @param s Int to remove from array
+ * @return True if the int was removed, false if it was not found
+ */
+public final boolean removeElement(int s){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == s) {
+      if ((i + 1) < m_firstFree)       System.arraycopy(m_map,i + 1,m_map,i - 1,m_firstFree - i);
+ else       m_map[i]=java.lang.Integer.MIN_VALUE;
+      m_firstFree--;
+      return true;
+    }
+  }
+  return false;
+}
+
+/** 
+ * Tell if the table contains the given node.
+ * @param s object to look for
+ * @return true if the object is in the list
+ */
+public final boolean contains(int s){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == s)     return true;
+  }
+  return false;
+}
+
+-->
+void removeElement_contains(int s,int s,int combFlag){
+  if (combFlag == 1) {
+    for (int i=0; i < m_firstFree; i++) {
+      if (m_map[i] == s) {
+        if ((i + 1) < m_firstFree)         System.arraycopy(m_map,i + 1,m_map,i - 1,m_firstFree - i);
+ else         m_map[i]=java.lang.Integer.MIN_VALUE;
+        m_firstFree--;
+        return true;
+      }
+    }
+  }
+ else {
+    for (int i=0; i < m_firstFree; i++) {
+      if (m_map[i] == s)       return true;
+    }
+  }
+  return false;
+}

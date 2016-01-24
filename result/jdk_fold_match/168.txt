@@ -1,37 +1,16 @@
-jdk_src\java\security\cert\TrustAnchor.java
+jdk_src\java\nio\Buffer.java
 /** 
- * Creates an instance of <code>TrustAnchor</code> where the most-trusted CA is specified as an X500Principal and public key. Name constraints are an optional parameter, and are intended to be used as additional constraints when validating an X.509 certification path. <p> The name constraints are specified as a byte array. This byte array contains the DER encoded form of the name constraints, as they would appear in the NameConstraints structure defined in RFC 3280 and X.509. The ASN.1 notation for this structure is supplied in the documentation for {@link #TrustAnchor(X509Certificate,byte[]) TrustAnchor(X509Certificate trustedCert, byte[] nameConstraints) }. <p> Note that the name constraints byte array supplied here is cloned to protect against subsequent modifications.
- * @param caPrincipal the name of the most-trusted CA as X500Principal
- * @param pubKey the public key of the most-trusted CA
- * @param nameConstraints a byte array containing the ASN.1 DER encoding ofa NameConstraints extension to be used for checking name constraints. Only the value of the extension is included, not the OID or criticality flag. Specify <code>null</code> to omit the parameter.
- * @throws NullPointerException if the specified <code>caPrincipal</code> or<code>pubKey</code> parameter is <code>null</code>
- * @since 1.5
+ * Rewinds this buffer.  The position is set to zero and the mark is discarded. <p> Invoke this method before a sequence of channel-write or <i>get</i> operations, assuming that the limit has already been set appropriately.  For example: <blockquote><pre> out.write(buf);    // Write remaining data buf.rewind();      // Rewind buffer buf.get(array);    // Copy data into array</pre></blockquote>
+ * @return  This buffer
  */
-public TrustAnchor(X500Principal caPrincipal,PublicKey pubKey,byte[] nameConstraints){
-  if ((caPrincipal == null) || (pubKey == null)) {
-    throw new NullPointerException();
-  }
-  this.trustedCert=null;
-  this.caPrincipal=caPrincipal;
-  this.caName=caPrincipal.getName();
-  this.pubKey=pubKey;
-  setNameConstraints(nameConstraints);
+public final Buffer rewind(){
+  position=0;
+  mark=-1;
+  return this;
 }
-/** 
- * Creates an instance of <code>TrustAnchor</code> where the most-trusted CA is specified as a distinguished name and public key. Name constraints are an optional parameter, and are intended to be used as additional constraints when validating an X.509 certification path. <p> The name constraints are specified as a byte array. This byte array contains the DER encoded form of the name constraints, as they would appear in the NameConstraints structure defined in RFC 3280 and X.509. The ASN.1 notation for this structure is supplied in the documentation for {@link #TrustAnchor(X509Certificate,byte[]) TrustAnchor(X509Certificate trustedCert, byte[] nameConstraints) }. <p> Note that the name constraints byte array supplied here is cloned to protect against subsequent modifications.
- * @param caName the X.500 distinguished name of the most-trusted CA in<a href="http://www.ietf.org/rfc/rfc2253.txt">RFC 2253</a> <code>String</code> format
- * @param pubKey the public key of the most-trusted CA
- * @param nameConstraints a byte array containing the ASN.1 DER encoding ofa NameConstraints extension to be used for checking name constraints. Only the value of the extension is included, not the OID or criticality flag. Specify <code>null</code> to omit the parameter.
- * @throws IllegalArgumentException if the specified <code>caName</code> parameter is empty <code>(caName.length() == 0)</code> or incorrectly formatted or the name constraints cannot be decoded
- * @throws NullPointerException if the specified <code>caName</code> or<code>pubKey</code> parameter is <code>null</code>
- */
-public TrustAnchor(String caName,PublicKey pubKey,byte[] nameConstraints){
-  if (pubKey == null)   throw new NullPointerException("the pubKey parameter must be " + "non-null");
-  if (caName == null)   throw new NullPointerException("the caName parameter must be " + "non-null");
-  if (caName.length() == 0)   throw new IllegalArgumentException("the caName " + "parameter must be a non-empty String");
-  this.caPrincipal=new X500Principal(caName);
-  this.pubKey=pubKey;
-  this.caName=caName;
-  this.trustedCert=null;
-  setNameConstraints(nameConstraints);
+final void truncate(){
+  mark=-1;
+  position=0;
+  limit=0;
+  capacity=0;
 }

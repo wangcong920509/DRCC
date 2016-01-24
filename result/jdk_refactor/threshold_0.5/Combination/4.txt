@@ -1,0 +1,26 @@
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_char(){
+  checkExtractBadOperation(TCKind._tk_char);
+  return (char)value;
+}
+
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_wchar(){
+  checkExtractBadOperation(TCKind._tk_wchar);
+  return (char)value;
+}
+
+-->
+void extract_char_extract_wchar(int combFlag){
+  if (combFlag == 1) {
+    checkExtractBadOperation(TCKind._tk_char);
+  }
+ else {
+    checkExtractBadOperation(TCKind._tk_wchar);
+  }
+  return (char)value;
+}

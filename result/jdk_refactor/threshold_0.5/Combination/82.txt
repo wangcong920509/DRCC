@@ -1,0 +1,28 @@
+public int getColumnNumber(){
+  if (fLocation != null) {
+    return fLocation.getColumnNumber();
+  }
+  return -1;
+}
+
+public int getCharacterOffset(){
+  if (fLocation != null) {
+    return fLocation.getCharacterOffset();
+  }
+  return -1;
+}
+
+-->
+void getColumnNumber_getCharacterOffset(int combFlag){
+  if (combFlag == 1) {
+    if (fLocation != null) {
+      return fLocation.getColumnNumber();
+    }
+  }
+ else {
+    if (fLocation != null) {
+      return fLocation.getCharacterOffset();
+    }
+  }
+  return -1;
+}

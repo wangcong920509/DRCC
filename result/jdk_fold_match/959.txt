@@ -10,7 +10,7 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(rect));
   g.fill(rect);
 }
-private void paintBackgroundEnabledAndFocused(Graphics2D g){
+private void paintBackgroundEnabled(Graphics2D g){
   rect=decodeRect1();
   g.setPaint(color1);
   g.fill(rect);
@@ -20,7 +20,4 @@ private void paintBackgroundEnabledAndFocused(Graphics2D g){
   rect=decodeRect3();
   g.setPaint(decodeGradient2(rect));
   g.fill(rect);
-  path=decodePath1();
-  g.setPaint(color10);
-  g.fill(path);
 }

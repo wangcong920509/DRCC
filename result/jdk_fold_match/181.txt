@@ -1,53 +1,27 @@
 jdk_src\java\util\BitSet.java
 /** 
- * Sets each bit from the specified  {@code fromIndex} (inclusive) to thespecified  {@code toIndex} (exclusive) to the complement of its currentvalue.
- * @param fromIndex index of the first bit to flip
- * @param toIndex index after the last bit to flip
- * @throws IndexOutOfBoundsException if {@code fromIndex} is negative,or  {@code toIndex} is negative, or {@code fromIndex} islarger than  {@code toIndex}
+ * Sets the bit at the specified index to the complement of its current value.
+ * @param bitIndex the index of the bit to flip
+ * @throws IndexOutOfBoundsException if the specified index is negative
  * @since  1.4
  */
-public void flip(int fromIndex,int toIndex){
-  checkRange(fromIndex,toIndex);
-  if (fromIndex == toIndex)   return;
-  int startWordIndex=wordIndex(fromIndex);
-  int endWordIndex=wordIndex(toIndex - 1);
-  expandTo(endWordIndex);
-  long firstWordMask=WORD_MASK << fromIndex;
-  long lastWordMask=WORD_MASK >>> -toIndex;
-  if (startWordIndex == endWordIndex) {
-    words[startWordIndex]^=(firstWordMask & lastWordMask);
-  }
- else {
-    words[startWordIndex]^=firstWordMask;
-    for (int i=startWordIndex + 1; i < endWordIndex; i++)     words[i]^=WORD_MASK;
-    words[endWordIndex]^=lastWordMask;
-  }
+public void flip(int bitIndex){
+  if (bitIndex < 0)   throw new IndexOutOfBoundsException("bitIndex < 0: " + bitIndex);
+  int wordIndex=wordIndex(bitIndex);
+  expandTo(wordIndex);
+  words[wordIndex]^=(1L << bitIndex);
   recalculateWordsInUse();
   checkInvariants();
 }
 /** 
- * Returns a new  {@code BitSet} composed of bits from this {@code BitSet}from  {@code fromIndex} (inclusive) to {@code toIndex} (exclusive).
- * @param fromIndex index of the first bit to include
- * @param toIndex index after the last bit to include
- * @return a new {@code BitSet} from a range of this {@code BitSet}
- * @throws IndexOutOfBoundsException if {@code fromIndex} is negative,or  {@code toIndex} is negative, or {@code fromIndex} islarger than  {@code toIndex}
- * @since  1.4
+ * Returns the value of the bit with the specified index. The value is  {@code true} if the bit with the index {@code bitIndex}is currently set in this  {@code BitSet}; otherwise, the result is  {@code false}.
+ * @param bitIndex   the bit index
+ * @return the value of the bit with the specified index
+ * @throws IndexOutOfBoundsException if the specified index is negative
  */
-public BitSet get(int fromIndex,int toIndex){
-  checkRange(fromIndex,toIndex);
+public boolean get(int bitIndex){
+  if (bitIndex < 0)   throw new IndexOutOfBoundsException("bitIndex < 0: " + bitIndex);
   checkInvariants();
-  int len=length();
-  if (len <= fromIndex || fromIndex == toIndex)   return new BitSet(0);
-  if (toIndex > len)   toIndex=len;
-  BitSet result=new BitSet(toIndex - fromIndex);
-  int targetWords=wordIndex(toIndex - fromIndex - 1) + 1;
-  int sourceIndex=wordIndex(fromIndex);
-  boolean wordAligned=((fromIndex & BIT_INDEX_MASK) == 0);
-  for (int i=0; i < targetWords - 1; i++, sourceIndex++)   result.words[i]=wordAligned ? words[sourceIndex] : (words[sourceIndex] >>> fromIndex) | (words[sourceIndex + 1] << -fromIndex);
-  long lastWordMask=WORD_MASK >>> -toIndex;
-  result.words[targetWords - 1]=((toIndex - 1) & BIT_INDEX_MASK) < (fromIndex & BIT_INDEX_MASK) ? ((words[sourceIndex] >>> fromIndex) | (words[sourceIndex + 1] & lastWordMask) << -fromIndex) : ((words[sourceIndex] & lastWordMask) >>> fromIndex);
-  result.wordsInUse=targetWords;
-  result.recalculateWordsInUse();
-  result.checkInvariants();
-  return result;
+  int wordIndex=wordIndex(bitIndex);
+  return (wordIndex < wordsInUse) && ((words[wordIndex] & (1L << bitIndex)) != 0);
 }

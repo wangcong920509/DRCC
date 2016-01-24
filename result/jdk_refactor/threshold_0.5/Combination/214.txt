@@ -1,0 +1,38 @@
+public E peekFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
+}
+
+public E pollFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null && p.casItem(item,null)) {
+      unlink(p);
+      return item;
+    }
+  }
+  return null;
+}
+
+-->
+void peekFirst_pollFirst(int combFlag){
+  if (combFlag == 1) {
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null)       return item;
+    }
+  }
+ else {
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null && p.casItem(item,null)) {
+        unlink(p);
+        return item;
+      }
+    }
+  }
+  return null;
+}

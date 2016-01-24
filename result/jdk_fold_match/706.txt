@@ -1,12 +1,12 @@
 jdk_src\javax\swing\plaf\nimbus\ProgressBarPainter.java
-private void paintForegroundDisabledAndFinished(Graphics2D g){
-  path=decodePath4();
+private void paintForegroundDisabled(Graphics2D g){
+  path=decodePath1();
   g.setPaint(color33);
   g.fill(path);
-  rect=decodeRect1();
+  rect=decodeRect3();
   g.setPaint(decodeGradient9(rect));
   g.fill(rect);
-  rect=decodeRect2();
+  rect=decodeRect4();
   g.setPaint(decodeGradient10(rect));
   g.fill(rect);
 }

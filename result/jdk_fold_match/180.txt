@@ -1,27 +1,52 @@
-jdk_src\java\util\BitSet.java
-/** 
- * Sets the bit at the specified index to the complement of its current value.
- * @param bitIndex the index of the bit to flip
- * @throws IndexOutOfBoundsException if the specified index is negative
- * @since  1.4
- */
-public void flip(int bitIndex){
-  if (bitIndex < 0)   throw new IndexOutOfBoundsException("bitIndex < 0: " + bitIndex);
-  int wordIndex=wordIndex(bitIndex);
-  expandTo(wordIndex);
-  words[wordIndex]^=(1L << bitIndex);
-  recalculateWordsInUse();
-  checkInvariants();
+jdk_src\java\util\AbstractList.java
+public boolean addAll(int index,Collection<? extends E> c){
+  rangeCheckForAdd(index);
+  int cSize=c.size();
+  if (cSize == 0)   return false;
+  checkForComodification();
+  l.addAll(offset + index,c);
+  this.modCount=l.modCount;
+  size+=cSize;
+  return true;
 }
-/** 
- * Returns the value of the bit with the specified index. The value is  {@code true} if the bit with the index {@code bitIndex}is currently set in this  {@code BitSet}; otherwise, the result is  {@code false}.
- * @param bitIndex   the bit index
- * @return the value of the bit with the specified index
- * @throws IndexOutOfBoundsException if the specified index is negative
- */
-public boolean get(int bitIndex){
-  if (bitIndex < 0)   throw new IndexOutOfBoundsException("bitIndex < 0: " + bitIndex);
-  checkInvariants();
-  int wordIndex=wordIndex(bitIndex);
-  return (wordIndex < wordsInUse) && ((words[wordIndex] & (1L << bitIndex)) != 0);
+public ListIterator<E> listIterator(final int index){
+  checkForComodification();
+  rangeCheckForAdd(index);
+  return new ListIterator<E>(){
+    private final ListIterator<E> i=l.listIterator(index + offset);
+    public boolean hasNext(){
+      return nextIndex() < size;
+    }
+    public E next(){
+      if (hasNext())       return i.next();
+ else       throw new NoSuchElementException();
+    }
+    public boolean hasPrevious(){
+      return previousIndex() >= 0;
+    }
+    public E previous(){
+      if (hasPrevious())       return i.previous();
+ else       throw new NoSuchElementException();
+    }
+    public int nextIndex(){
+      return i.nextIndex() - offset;
+    }
+    public int previousIndex(){
+      return i.previousIndex() - offset;
+    }
+    public void remove(){
+      i.remove();
+      SubList.this.modCount=l.modCount;
+      size--;
+    }
+    public void set(    E e){
+      i.set(e);
+    }
+    public void add(    E e){
+      i.add(e);
+      SubList.this.modCount=l.modCount;
+      size++;
+    }
+  }
+;
 }

@@ -1,0 +1,80 @@
+/** 
+ * Return the line number where the current document event ends. <p> <strong>Warning:</strong> The return value from the method is intended only as an approximation for the sake of error reporting; it is not intended to provide sufficient information to edit the character content of the original XML document. <p> The return value is an approximation of the line number in the document entity or external parsed entity where the markup triggering the event appears. <p> If possible, the SAX driver should provide the line position of the first character after the text associated with the document event.  The first line in the document is line 1.
+ * @return The line number, or -1 if none is available.
+ */
+public int getLineNumber(){
+  if (fCurrentEntity != null) {
+    if (fCurrentEntity.isExternal()) {
+      return fCurrentEntity.lineNumber;
+    }
+ else {
+      int size=fEntityStack.size();
+      for (int i=size - 1; i > 0; i--) {
+        Entity.ScannedEntity firstExternalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+        if (firstExternalEntity.isExternal()) {
+          return firstExternalEntity.lineNumber;
+        }
+      }
+    }
+  }
+  return -1;
+}
+
+/** 
+ * Return the column number where the current document event ends. <p> <strong>Warning:</strong> The return value from the method is intended only as an approximation for the sake of error reporting; it is not intended to provide sufficient information to edit the character content of the original XML document. <p> The return value is an approximation of the column number in the document entity or external parsed entity where the markup triggering the event appears. <p> If possible, the SAX driver should provide the line position of the first character after the text associated with the document event. <p> If possible, the SAX driver should provide the line position of the first character after the text associated with the document event.  The first column in each line is column 1.
+ * @return The column number, or -1 if none is available.
+ */
+public int getColumnNumber(){
+  if (fCurrentEntity != null) {
+    if (fCurrentEntity.isExternal()) {
+      return fCurrentEntity.columnNumber;
+    }
+ else {
+      int size=fEntityStack.size();
+      for (int i=size - 1; i > 0; i--) {
+        Entity.ScannedEntity firstExternalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+        if (firstExternalEntity.isExternal()) {
+          return firstExternalEntity.columnNumber;
+        }
+      }
+    }
+  }
+  return -1;
+}
+
+-->
+void getLineNumber_getColumnNumber(int combFlag){
+  if (combFlag == 1) {
+    if (fCurrentEntity != null) {
+      if (fCurrentEntity.isExternal()) {
+        return fCurrentEntity.lineNumber;
+      }
+ else {
+        int size=fEntityStack.size();
+        for (int i=size - 1; i > 0; i--) {
+          Entity.ScannedEntity firstExternalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+          if (firstExternalEntity.isExternal()) {
+            return firstExternalEntity.lineNumber;
+          }
+        }
+      }
+    }
+  }
+ else {
+    if (fCurrentEntity != null) {
+      if (fCurrentEntity.isExternal()) {
+        return fCurrentEntity.columnNumber;
+      }
+ else {
+        int size=fEntityStack.size();
+        for (int i=size - 1; i > 0; i--) {
+          Entity.ScannedEntity firstExternalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+          if (firstExternalEntity.isExternal()) {
+            return firstExternalEntity.columnNumber;
+          }
+        }
+      }
+    }
+  }
+  return -1;
+}

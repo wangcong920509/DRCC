@@ -1,40 +1,40 @@
 jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneMaximizeButtonPainter.java
-private void paintBackgroundPressedAndWindowNotFocusedAndWindowMaximized(Graphics2D g){
+private void paintBackgroundMouseOverAndWindowNotFocusedAndWindowMaximized(Graphics2D g){
   roundRect=decodeRoundRect3();
   g.setPaint(color13);
   g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient8(roundRect));
+  g.setPaint(decodeGradient6(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient9(roundRect));
+  g.setPaint(decodeGradient7(roundRect));
   g.fill(roundRect);
   rect=decodeRect1();
   g.setPaint(color4);
   g.fill(rect);
   rect=decodeRect2();
-  g.setPaint(color40);
+  g.setPaint(color28);
   g.fill(rect);
   rect=decodeRect3();
-  g.setPaint(color41);
+  g.setPaint(color29);
   g.fill(rect);
   rect=decodeRect4();
-  g.setPaint(color42);
+  g.setPaint(color30);
   g.fill(rect);
   rect=decodeRect5();
-  g.setPaint(color43);
+  g.setPaint(color31);
   g.fill(rect);
-  rect=decodeRect6();
-  g.setPaint(color44);
+  rect=decodeRect9();
+  g.setPaint(color32);
   g.fill(rect);
   rect=decodeRect7();
-  g.setPaint(color45);
+  g.setPaint(color33);
   g.fill(rect);
   rect=decodeRect10();
-  g.setPaint(color46);
+  g.setPaint(color34);
   g.fill(rect);
   rect=decodeRect8();
-  g.setPaint(color47);
+  g.setPaint(color31);
   g.fill(rect);
   path=decodePath1();
   g.setPaint(color20);
@@ -43,20 +43,23 @@ private void paintBackgroundPressedAndWindowNotFocusedAndWindowMaximized(Graphic
   g.setPaint(color21);
   g.fill(path);
 }
-private void paintBackgroundDisabled(Graphics2D g){
+private void paintBackgroundPressedAndWindowNotFocused(Graphics2D g){
+  roundRect=decodeRoundRect3();
+  g.setPaint(color69);
+  g.fill(roundRect);
   roundRect=decodeRoundRect1();
-  g.setPaint(decodeGradient1(roundRect));
+  g.setPaint(decodeGradient8(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient12(roundRect));
+  g.setPaint(decodeGradient15(roundRect));
   g.fill(roundRect);
   rect=decodeRect1();
   g.setPaint(color4);
   g.fill(rect);
   path=decodePath3();
-  g.setPaint(color61);
+  g.setPaint(color71);
   g.fill(path);
   path=decodePath4();
-  g.setPaint(decodeGradient13(path));
+  g.setPaint(color65);
   g.fill(path);
 }

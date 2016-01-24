@@ -1,15 +1,19 @@
 jdk_src\java\util\WeakHashMap.java
 /** 
- * Returns the entry associated with the specified key in this map. Returns null if the map contains no mapping for this key.
+ * Returns the value to which the specified key is mapped, or  {@code null} if this map contains no mapping for the key.<p>More formally, if this map contains a mapping from a key {@code k} to a value {@code v} such that {@code (key==null ? k==null :key.equals(k))}, then this method returns  {@code v}; otherwise it returns  {@code null}.  (There can be at most one such mapping.) <p>A return value of  {@code null} does not <i>necessarily</i>indicate that the map contains no mapping for the key; it's also possible that the map explicitly maps the key to  {@code null}. The  {@link #containsKey containsKey} operation may be used todistinguish these two cases.
+ * @see #put(Object,Object)
  */
-Entry<K,V> getEntry(Object key){
+public V get(Object key){
   Object k=maskNull(key);
   int h=hash(k);
   Entry<K,V>[] tab=getTable();
   int index=indexFor(h,tab.length);
   Entry<K,V> e=tab[index];
-  while (e != null && !(e.hash == h && eq(k,e.get())))   e=e.next;
-  return e;
+  while (e != null) {
+    if (e.hash == h && eq(k,e.get()))     return e.value;
+    e=e.next;
+  }
+  return null;
 }
 /** 
  * Special version of remove needed by Entry set 

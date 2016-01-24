@@ -17,17 +17,16 @@ public static void drawEtchedRect(Graphics g,int x,int y,int w,int h,Color shado
   g.translate(-x,-y);
   g.setColor(oldColor);
 }
-public static void drawLoweredBezel(Graphics g,int x,int y,int w,int h,Color shadow,Color darkShadow,Color highlight,Color lightHighlight){
-  g.setColor(darkShadow);
-  g.drawLine(0,0,0,h - 1);
-  g.drawLine(1,0,w - 2,0);
+public static void drawGroove(Graphics g,int x,int y,int w,int h,Color shadow,Color highlight){
+  Color oldColor=g.getColor();
+  g.translate(x,y);
   g.setColor(shadow);
-  g.drawLine(1,1,1,h - 2);
+  g.drawRect(0,0,w - 2,h - 2);
+  g.setColor(highlight);
+  g.drawLine(1,h - 3,1,1);
   g.drawLine(1,1,w - 3,1);
-  g.setColor(lightHighlight);
   g.drawLine(0,h - 1,w - 1,h - 1);
   g.drawLine(w - 1,h - 1,w - 1,0);
-  g.setColor(highlight);
-  g.drawLine(1,h - 2,w - 2,h - 2);
-  g.drawLine(w - 2,h - 2,w - 2,1);
+  g.translate(-x,-y);
+  g.setColor(oldColor);
 }

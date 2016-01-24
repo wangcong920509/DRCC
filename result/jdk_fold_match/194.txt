@@ -1,23 +1,21 @@
 jdk_src\java\util\concurrent\LinkedBlockingQueue.java
 /** 
- * Inserts the specified element at the tail of this queue, waiting if necessary up to the specified wait time for space to become available.
- * @return {@code true} if successful, or {@code false} ifthe specified waiting time elapses before space is available.
+ * Inserts the specified element at the tail of this queue, waiting if necessary for space to become available.
  * @throws InterruptedException {@inheritDoc}
  * @throws NullPointerException {@inheritDoc}
  */
-public boolean offer(E e,long timeout,TimeUnit unit) throws InterruptedException {
+public void put(E e) throws InterruptedException {
   if (e == null)   throw new NullPointerException();
-  long nanos=unit.toNanos(timeout);
   int c=-1;
+  Node<E> node=new Node(e);
   final ReentrantLock putLock=this.putLock;
   final AtomicInteger count=this.count;
   putLock.lockInterruptibly();
   try {
     while (count.get() == capacity) {
-      if (nanos <= 0)       return false;
-      nanos=notFull.awaitNanos(nanos);
+      notFull.await();
     }
-    enqueue(new Node<E>(e));
+    enqueue(node);
     c=count.getAndIncrement();
     if (c + 1 < capacity)     notFull.signal();
   }
@@ -25,30 +23,24 @@ public boolean offer(E e,long timeout,TimeUnit unit) throws InterruptedException
     putLock.unlock();
   }
   if (c == 0)   signalNotEmpty();
-  return true;
 }
-/** 
- * Inserts the specified element at the tail of this queue if it is possible to do so immediately without exceeding the queue's capacity, returning  {@code true} upon success and {@code false} if this queueis full. When using a capacity-restricted queue, this method is generally preferable to method  {@link BlockingQueue#add add}, which can fail to insert an element only by throwing an exception.
- * @throws NullPointerException if the specified element is null
- */
-public boolean offer(E e){
-  if (e == null)   throw new NullPointerException();
+public E poll(){
   final AtomicInteger count=this.count;
-  if (count.get() == capacity)   return false;
+  if (count.get() == 0)   return null;
+  E x=null;
   int c=-1;
-  Node<E> node=new Node(e);
-  final ReentrantLock putLock=this.putLock;
-  putLock.lock();
+  final ReentrantLock takeLock=this.takeLock;
+  takeLock.lock();
   try {
-    if (count.get() < capacity) {
-      enqueue(node);
-      c=count.getAndIncrement();
-      if (c + 1 < capacity)       notFull.signal();
+    if (count.get() > 0) {
+      x=dequeue();
+      c=count.getAndDecrement();
+      if (c > 1)       notEmpty.signal();
     }
   }
   finally {
-    putLock.unlock();
+    takeLock.unlock();
   }
-  if (c == 0)   signalNotEmpty();
-  return c >= 0;
+  if (c == capacity)   signalNotFull();
+  return x;
 }

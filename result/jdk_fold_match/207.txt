@@ -1,28 +1,26 @@
 jdk_src\java\util\WeakHashMap.java
 /** 
- * Removes the mapping for a key from this weak hash map if it is present. More formally, if this map contains a mapping from key <tt>k</tt> to value <tt>v</tt> such that <code>(key==null ?  k==null : key.equals(k))</code>, that mapping is removed.  (The map can contain at most one such mapping.) <p>Returns the value to which this map previously associated the key, or <tt>null</tt> if the map contained no mapping for the key.  A return value of <tt>null</tt> does not <i>necessarily</i> indicate that the map contained no mapping for the key; it's also possible that the map explicitly mapped the key to <tt>null</tt>. <p>The map will not contain a mapping for the specified key once the call returns.
- * @param key key whose mapping is to be removed from the map
- * @return the previous value associated with <tt>key</tt>, or<tt>null</tt> if there was no mapping for <tt>key</tt>
+ * Associates the specified value with the specified key in this map. If the map previously contained a mapping for this key, the old value is replaced.
+ * @param key key with which the specified value is to be associated.
+ * @param value value to be associated with the specified key.
+ * @return the previous value associated with <tt>key</tt>, or<tt>null</tt> if there was no mapping for <tt>key</tt>. (A <tt>null</tt> return can also indicate that the map previously associated <tt>null</tt> with <tt>key</tt>.)
  */
-public V remove(Object key){
+public V put(K key,V value){
   Object k=maskNull(key);
   int h=hash(k);
   Entry<K,V>[] tab=getTable();
   int i=indexFor(h,tab.length);
-  Entry<K,V> prev=tab[i];
-  Entry<K,V> e=prev;
-  while (e != null) {
-    Entry<K,V> next=e.next;
+  for (Entry<K,V> e=tab[i]; e != null; e=e.next) {
     if (h == e.hash && eq(k,e.get())) {
-      modCount++;
-      size--;
-      if (prev == e)       tab[i]=next;
- else       prev.next=next;
-      return e.value;
+      V oldValue=e.value;
+      if (value != oldValue)       e.value=value;
+      return oldValue;
     }
-    prev=e;
-    e=next;
   }
+  modCount++;
+  Entry<K,V> e=tab[i];
+  tab[i]=new Entry<>(k,value,queue,h,e);
+  if (++size >= threshold)   resize(tab.length * 2);
   return null;
 }
 /** 

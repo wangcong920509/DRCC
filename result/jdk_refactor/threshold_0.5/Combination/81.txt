@@ -1,0 +1,28 @@
+public int getLineNumber(){
+  if (fLocation != null) {
+    return fLocation.getLineNumber();
+  }
+  return -1;
+}
+
+public int getCharacterOffset(){
+  if (fLocation != null) {
+    return fLocation.getCharacterOffset();
+  }
+  return -1;
+}
+
+-->
+void getLineNumber_getCharacterOffset(int combFlag){
+  if (combFlag == 1) {
+    if (fLocation != null) {
+      return fLocation.getLineNumber();
+    }
+  }
+ else {
+    if (fLocation != null) {
+      return fLocation.getCharacterOffset();
+    }
+  }
+  return -1;
+}

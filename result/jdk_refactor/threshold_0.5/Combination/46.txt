@@ -1,0 +1,66 @@
+/** 
+ * Utility method for traversing a single node when we know a-priori that the node if fully selected.
+ * @param n      The node to be traversed.
+ * @param how    Specifies what type of traversal is beingrequested (extract, clone, or delete). Legal values for this argument are: <ol> <li><code>EXTRACT_CONTENTS</code> - will simply return the original node. <li><code>CLONE_CONTENTS</code> - will leave the context tree of the range undisturbed, but will return a cloned node. <li><code>DELETE_CONTENTS</code> - will delete the node from it's parent, but will return null. </ol>
+ * @return Returns a node that is the result of visiting the node.If the traversal operation is <code>DELETE_CONTENTS</code> the return value is null.
+ */
+private Node traverseFullySelected(Node n,int how){
+switch (how) {
+case CLONE_CONTENTS:
+    return n.cloneNode(true);
+case EXTRACT_CONTENTS:
+  if (n.getNodeType() == Node.DOCUMENT_TYPE_NODE) {
+    throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,"HIERARCHY_REQUEST_ERR",null));
+  }
+return n;
+case DELETE_CONTENTS:
+n.getParentNode().removeChild(n);
+return null;
+}
+return null;
+}
+
+/** 
+ * Utility method for traversing a single node when we know a-priori that the node if partially selected and is not a text node.
+ * @param n      The node to be traversed.
+ * @param how    Specifies what type of traversal is beingrequested (extract, clone, or delete). Legal values for this argument are: <ol> <li><code>EXTRACT_CONTENTS</code> - will simply return the original node. <li><code>CLONE_CONTENTS</code> - will leave the context tree of the range undisturbed, but will return a cloned node. <li><code>DELETE_CONTENTS</code> - will delete the node from it's parent, but will return null. </ol>
+ * @return Returns a node that is the result of visiting the node.If the traversal operation is <code>DELETE_CONTENTS</code> the return value is null.
+ */
+private Node traversePartiallySelected(Node n,int how){
+switch (how) {
+case DELETE_CONTENTS:
+    return null;
+case CLONE_CONTENTS:
+case EXTRACT_CONTENTS:
+  return n.cloneNode(false);
+}
+return null;
+}
+
+-->
+void traverseFullySelected_traversePartiallySelected(Node n,int how,Node n,int how,int combFlag){
+  if (combFlag == 1) {
+switch (how) {
+case CLONE_CONTENTS:
+      return n.cloneNode(true);
+case EXTRACT_CONTENTS:
+    if (n.getNodeType() == Node.DOCUMENT_TYPE_NODE) {
+      throw new DOMException(DOMException.HIERARCHY_REQUEST_ERR,DOMMessageFormatter.formatMessage(DOMMessageFormatter.DOM_DOMAIN,"HIERARCHY_REQUEST_ERR",null));
+    }
+  return n;
+case DELETE_CONTENTS:
+n.getParentNode().removeChild(n);
+return null;
+}
+}
+ else {
+switch (how) {
+case DELETE_CONTENTS:
+return null;
+case CLONE_CONTENTS:
+case EXTRACT_CONTENTS:
+return n.cloneNode(false);
+}
+}
+return null;
+}

@@ -27,25 +27,28 @@ public boolean offer(E e,long timeout,TimeUnit unit) throws InterruptedException
   if (c == 0)   signalNotEmpty();
   return true;
 }
-public E poll(long timeout,TimeUnit unit) throws InterruptedException {
-  E x=null;
-  int c=-1;
-  long nanos=unit.toNanos(timeout);
+/** 
+ * Inserts the specified element at the tail of this queue if it is possible to do so immediately without exceeding the queue's capacity, returning  {@code true} upon success and {@code false} if this queueis full. When using a capacity-restricted queue, this method is generally preferable to method  {@link BlockingQueue#add add}, which can fail to insert an element only by throwing an exception.
+ * @throws NullPointerException if the specified element is null
+ */
+public boolean offer(E e){
+  if (e == null)   throw new NullPointerException();
   final AtomicInteger count=this.count;
-  final ReentrantLock takeLock=this.takeLock;
-  takeLock.lockInterruptibly();
+  if (count.get() == capacity)   return false;
+  int c=-1;
+  Node<E> node=new Node(e);
+  final ReentrantLock putLock=this.putLock;
+  putLock.lock();
   try {
-    while (count.get() == 0) {
-      if (nanos <= 0)       return null;
-      nanos=notEmpty.awaitNanos(nanos);
+    if (count.get() < capacity) {
+      enqueue(node);
+      c=count.getAndIncrement();
+      if (c + 1 < capacity)       notFull.signal();
     }
-    x=dequeue();
-    c=count.getAndDecrement();
-    if (c > 1)     notEmpty.signal();
   }
   finally {
-    takeLock.unlock();
+    putLock.unlock();
   }
-  if (c == capacity)   signalNotFull();
-  return x;
+  if (c == 0)   signalNotEmpty();
+  return c >= 0;
 }

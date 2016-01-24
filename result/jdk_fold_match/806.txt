@@ -7,9 +7,9 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient2(ellipse));
   g.fill(ellipse);
 }
-private void paintBackgroundFocused(Graphics2D g){
-  ellipse=decodeEllipse4();
-  g.setPaint(color12);
+private void paintBackgroundEnabled(Graphics2D g){
+  ellipse=decodeEllipse3();
+  g.setPaint(color6);
   g.fill(ellipse);
   ellipse=decodeEllipse1();
   g.setPaint(decodeGradient3(ellipse));

@@ -1,0 +1,9 @@
+{
+  fPublicId=locator.getPublicId();
+  fLiteralSystemId=locator.getLiteralSystemId();
+  fExpandedSystemId=locator.getExpandedSystemId();
+  fBaseSystemId=locator.getBaseSystemId();
+  fLineNumber=locator.getLineNumber();
+  fColumnNumber=locator.getColumnNumber();
+  fCharacterOffset=locator.getCharacterOffset();
+}

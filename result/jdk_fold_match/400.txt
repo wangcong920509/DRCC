@@ -1,29 +1,26 @@
-jdk_src\javax\swing\plaf\nimbus\ComboBoxArrowButtonPainter.java
-private void paintBackgroundDisabledAndEditable(Graphics2D g){
+jdk_src\javax\swing\plaf\nimbus\CheckBoxPainter.java
+private void painticonMouseOverAndSelectedAndFocused(Graphics2D g){
+  roundRect=decodeRoundRect4();
+  g.setPaint(color12);
+  g.fill(roundRect);
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient13(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient14(roundRect));
+  g.fill(roundRect);
   path=decodePath1();
-  g.setPaint(color1);
-  g.fill(path);
-  path=decodePath2();
-  g.setPaint(decodeGradient1(path));
-  g.fill(path);
-  path=decodePath3();
-  g.setPaint(color4);
-  g.fill(path);
-  path=decodePath4();
-  g.setPaint(decodeGradient2(path));
+  g.setPaint(color28);
   g.fill(path);
 }
-private void paintBackgroundEnabledAndEditable(Graphics2D g){
+private void painticonDisabledAndSelected(Graphics2D g){
+  roundRect=decodeRoundRect1();
+  g.setPaint(decodeGradient15(roundRect));
+  g.fill(roundRect);
+  roundRect=decodeRoundRect2();
+  g.setPaint(decodeGradient16(roundRect));
+  g.fill(roundRect);
   path=decodePath1();
-  g.setPaint(color9);
-  g.fill(path);
-  path=decodePath2();
-  g.setPaint(decodeGradient3(path));
-  g.fill(path);
-  path=decodePath3();
-  g.setPaint(color4);
-  g.fill(path);
-  path=decodePath4();
-  g.setPaint(decodeGradient4(path));
+  g.setPaint(color45);
   g.fill(path);
 }

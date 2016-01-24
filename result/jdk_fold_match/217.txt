@@ -1,33 +1,58 @@
 jdk_src\javax\swing\JTree.java
 /** 
- * Sets the value of the <code>showsRootHandles</code> property, which specifies whether the node handles should be displayed. The default value of this property depends on the constructor used to create the <code>JTree</code>. Some look and feels might not support handles; they will ignore this property. <p> This is a bound property.
- * @param newValue <code>true</code> if root handles should be displayed;otherwise, <code>false</code>
- * @see #showsRootHandles
- * @see #getShowsRootHandles
- * @beaninfo bound: true description: Whether the node handles are to be displayed.
+ * Returns an instance of <code>JTree</code> which displays the root node -- the tree is created using the specified data model.
+ * @param newModel  the <code>TreeModel</code> to use as the data model
  */
-public void setShowsRootHandles(boolean newValue){
-  boolean oldValue=showsRootHandles;
-  TreeModel model=getModel();
-  showsRootHandles=newValue;
-  showsRootHandlesSet=true;
-  firePropertyChange(SHOWS_ROOT_HANDLES_PROPERTY,oldValue,showsRootHandles);
-  if (accessibleContext != null) {
-    ((AccessibleJTree)accessibleContext).fireVisibleDataPropertyChange();
-  }
-  invalidate();
+@ConstructorProperties({"model"}) public JTree(TreeModel newModel){
+  super();
+  expandedStack=new Stack<Stack<TreePath>>();
+  toggleClickCount=2;
+  expandedState=new Hashtable<TreePath,Boolean>();
+  setLayout(null);
+  rowHeight=16;
+  visibleRowCount=20;
+  rootVisible=true;
+  selectionModel=new DefaultTreeSelectionModel();
+  cellRenderer=null;
+  scrollsOnExpand=true;
+  setOpaque(true);
+  expandsSelectedPaths=true;
+  updateUI();
+  setModel(newModel);
 }
-/** 
- * Sets the number of rows that are to be displayed. This will only work if the tree is contained in a <code>JScrollPane</code>, and will adjust the preferred size and size of that scrollpane. <p> This is a bound property.
- * @param newCount the number of rows to display
- * @beaninfo bound: true description: The number of rows that are to be displayed.
- */
-public void setVisibleRowCount(int newCount){
-  int oldCount=visibleRowCount;
-  visibleRowCount=newCount;
-  firePropertyChange(VISIBLE_ROW_COUNT_PROPERTY,oldCount,visibleRowCount);
-  invalidate();
-  if (accessibleContext != null) {
-    ((AccessibleJTree)accessibleContext).fireVisibleDataPropertyChange();
+private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
+  s.defaultReadObject();
+  expandedState=new Hashtable<TreePath,Boolean>();
+  expandedStack=new Stack<Stack<TreePath>>();
+  Vector values=(Vector)s.readObject();
+  int indexCounter=0;
+  int maxCounter=values.size();
+  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("cellRenderer")) {
+    cellRenderer=(TreeCellRenderer)values.elementAt(++indexCounter);
+    indexCounter++;
+  }
+  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("cellEditor")) {
+    cellEditor=(TreeCellEditor)values.elementAt(++indexCounter);
+    indexCounter++;
+  }
+  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("treeModel")) {
+    treeModel=(TreeModel)values.elementAt(++indexCounter);
+    indexCounter++;
+  }
+  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("selectionModel")) {
+    selectionModel=(TreeSelectionModel)values.elementAt(++indexCounter);
+    indexCounter++;
+  }
+  if (indexCounter < maxCounter && values.elementAt(indexCounter).equals("expandedState")) {
+    unarchiveExpandedState(values.elementAt(++indexCounter));
+    indexCounter++;
+  }
+  if (listenerList.getListenerCount(TreeSelectionListener.class) != 0) {
+    selectionRedirector=new TreeSelectionRedirector();
+    selectionModel.addTreeSelectionListener(selectionRedirector);
+  }
+  if (treeModel != null) {
+    treeModelListener=createTreeModelListener();
+    if (treeModelListener != null)     treeModel.addTreeModelListener(treeModelListener);
   }
 }

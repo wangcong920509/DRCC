@@ -1,52 +1,54 @@
-jdk_src\java\io\ObjectInputStream.java
+jdk_src\java\beans\EventSetDescriptor.java
 /** 
- * Reads in and returns class object.  Sets passHandle to class object's assigned handle.  Returns null if class is unresolvable (in which case a ClassNotFoundException will be associated with the class' handle in the handle table).
+ * This constructor creates an EventSetDescriptor from scratch using string names.
+ * @param sourceClass  The class firing the event.
+ * @param eventSetName The programmatic name of the event set.Note that this should normally start with a lower-case character.
+ * @param listenerType  The Class of the target interface that eventswill get delivered to.
+ * @param listenerMethodNames The names of the methods that will get calledwhen the event gets delivered to its target listener interface.
+ * @param addListenerMethodName  The name of the method on the event sourcethat can be used to register an event listener object.
+ * @param removeListenerMethodName  The name of the method on the event sourcethat can be used to de-register an event listener object.
+ * @param getListenerMethodName The method on the event source thatcan be used to access the array of event listener objects.
+ * @exception IntrospectionException if an exception occurs duringintrospection.
+ * @since 1.4
  */
-private Class readClass(boolean unshared) throws IOException {
-  if (bin.readByte() != TC_CLASS) {
-    throw new InternalError();
+public EventSetDescriptor(Class<?> sourceClass,String eventSetName,Class<?> listenerType,String listenerMethodNames[],String addListenerMethodName,String removeListenerMethodName,String getListenerMethodName) throws IntrospectionException {
+  if (sourceClass == null || eventSetName == null || listenerType == null) {
+    throw new NullPointerException();
   }
-  ObjectStreamClass desc=readClassDesc(false);
-  Class cl=desc.forClass();
-  passHandle=handles.assign(unshared ? unsharedMarker : cl);
-  ClassNotFoundException resolveEx=desc.getResolveException();
-  if (resolveEx != null) {
-    handles.markException(passHandle,resolveEx);
+  setName(eventSetName);
+  setClass0(sourceClass);
+  setListenerType(listenerType);
+  Method[] listenerMethods=new Method[listenerMethodNames.length];
+  for (int i=0; i < listenerMethodNames.length; i++) {
+    if (listenerMethodNames[i] == null) {
+      throw new NullPointerException();
+    }
+    listenerMethods[i]=getMethod(listenerType,listenerMethodNames[i],1);
   }
-  handles.finish(passHandle);
-  return cl;
+  setListenerMethods(listenerMethods);
+  setAddListenerMethod(getMethod(sourceClass,addListenerMethodName,1));
+  setRemoveListenerMethod(getMethod(sourceClass,removeListenerMethodName,1));
+  Method method=Introspector.findMethod(sourceClass,getListenerMethodName,0);
+  if (method != null) {
+    setGetListenerMethod(method);
+  }
 }
 /** 
- * Reads in and returns enum constant, or null if enum type is unresolvable.  Sets passHandle to enum constant's assigned handle.
+ * This constructor creates an EventSetDescriptor from scratch using java.lang.reflect.Method and java.lang.Class objects.
+ * @param eventSetName The programmatic name of the event set.
+ * @param listenerType The Class for the listener interface.
+ * @param listenerMethods  An array of Method objects describing eachof the event handling methods in the target listener.
+ * @param addListenerMethod  The method on the event sourcethat can be used to register an event listener object.
+ * @param removeListenerMethod  The method on the event sourcethat can be used to de-register an event listener object.
+ * @param getListenerMethod The method on the event sourcethat can be used to access the array of event listener objects.
+ * @exception IntrospectionException if an exception occurs duringintrospection.
+ * @since 1.4
  */
-private Enum readEnum(boolean unshared) throws IOException {
-  if (bin.readByte() != TC_ENUM) {
-    throw new InternalError();
-  }
-  ObjectStreamClass desc=readClassDesc(false);
-  if (!desc.isEnum()) {
-    throw new InvalidClassException("non-enum class: " + desc);
-  }
-  int enumHandle=handles.assign(unshared ? unsharedMarker : null);
-  ClassNotFoundException resolveEx=desc.getResolveException();
-  if (resolveEx != null) {
-    handles.markException(enumHandle,resolveEx);
-  }
-  String name=readString(false);
-  Enum en=null;
-  Class cl=desc.forClass();
-  if (cl != null) {
-    try {
-      en=Enum.valueOf(cl,name);
-    }
- catch (    IllegalArgumentException ex) {
-      throw (IOException)new InvalidObjectException("enum constant " + name + " does not exist in "+ cl).initCause(ex);
-    }
-    if (!unshared) {
-      handles.setObject(enumHandle,en);
-    }
-  }
-  handles.finish(enumHandle);
-  passHandle=enumHandle;
-  return en;
+public EventSetDescriptor(String eventSetName,Class<?> listenerType,Method listenerMethods[],Method addListenerMethod,Method removeListenerMethod,Method getListenerMethod) throws IntrospectionException {
+  setName(eventSetName);
+  setListenerMethods(listenerMethods);
+  setAddListenerMethod(addListenerMethod);
+  setRemoveListenerMethod(removeListenerMethod);
+  setGetListenerMethod(getListenerMethod);
+  setListenerType(listenerType);
 }

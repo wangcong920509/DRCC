@@ -1,0 +1,20 @@
+public org.omg.CORBA.portable.OutputStream createReply(){
+  getProtocolHandler().createResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
+}
+
+public org.omg.CORBA.portable.OutputStream createExceptionReply(){
+  getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
+}
+
+-->
+void createReply_createExceptionReply(int combFlag){
+  if (combFlag == 1) {
+    getProtocolHandler().createResponse(this,(ServiceContexts)null);
+  }
+ else {
+    getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
+  }
+  return (OutputStream)getOutputObject();
+}

@@ -1,19 +1,19 @@
 jdk_src\javax\swing\plaf\nimbus\InternalFrameTitlePaneIconifyButtonPainter.java
-private void paintBackgroundEnabledAndWindowNotFocused(Graphics2D g){
+private void paintBackgroundPressed(Graphics2D g){
   roundRect=decodeRoundRect1();
   g.setPaint(color1);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient9(roundRect));
+  g.setPaint(decodeGradient7(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient10(roundRect));
+  g.setPaint(decodeGradient8(roundRect));
   g.fill(roundRect);
-  rect=decodeRect1();
-  g.setPaint(color14);
+  rect=decodeRect4();
+  g.setPaint(color30);
   g.fill(rect);
   rect=decodeRect2();
-  g.setPaint(color37);
+  g.setPaint(color8);
   g.fill(rect);
   rect=decodeRect3();
   g.setPaint(color16);
@@ -37,18 +37,18 @@ private void paintBackgroundEnabledAndWindowNotFocused(Graphics2D g){
   g.setPaint(color16);
   g.fill(rect);
 }
-private void paintBackgroundMouseOverAndWindowNotFocused(Graphics2D g){
+private void paintBackgroundPressedAndWindowNotFocused(Graphics2D g){
   roundRect=decodeRoundRect1();
   g.setPaint(color1);
   g.fill(roundRect);
   roundRect=decodeRoundRect2();
-  g.setPaint(decodeGradient5(roundRect));
+  g.setPaint(decodeGradient7(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect3();
-  g.setPaint(decodeGradient6(roundRect));
+  g.setPaint(decodeGradient8(roundRect));
   g.fill(roundRect);
-  rect=decodeRect1();
-  g.setPaint(color23);
+  rect=decodeRect4();
+  g.setPaint(color30);
   g.fill(rect);
   rect=decodeRect2();
   g.setPaint(color8);

@@ -1,0 +1,26 @@
+/** 
+ * @see XSLOutputAttributes#getIndent()
+ */
+public boolean getIndent(){
+  aMethodIsCalled();
+  return false;
+}
+
+/** 
+ * @see XSLOutputAttributes#getOmitXMLDeclaration()
+ */
+public boolean getOmitXMLDeclaration(){
+  aMethodIsCalled();
+  return false;
+}
+
+-->
+void getIndent_getOmitXMLDeclaration(int combFlag){
+  if (combFlag == 1) {
+    aMethodIsCalled();
+  }
+ else {
+    aMethodIsCalled();
+  }
+  return false;
+}

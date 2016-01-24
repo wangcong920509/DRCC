@@ -1,0 +1,34 @@
+/** 
+ * Returns the attribute name
+ */
+public String getNodeName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}
+
+/** 
+ * In Attributes, NodeName is considered a synonym for the attribute's Name
+ */
+public String getName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
+}
+
+-->
+void getNodeName_getName(int combFlag){
+  if (combFlag == 1) {
+    if (needsSyncData()) {
+      synchronizeData();
+    }
+  }
+ else {
+    if (needsSyncData()) {
+      synchronizeData();
+    }
+  }
+  return name;
+}

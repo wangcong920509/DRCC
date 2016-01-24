@@ -1,65 +1,38 @@
-jdk_src\javax\swing\plaf\nimbus\InternalFramePainter.java
-private void paintBackgroundEnabled(Graphics2D g){
-  roundRect=decodeRoundRect1();
-  g.setPaint(color1);
-  g.fill(roundRect);
-  path=decodePath1();
-  g.setPaint(decodeGradient1(path));
-  g.fill(path);
-  path=decodePath2();
-  g.setPaint(color3);
-  g.fill(path);
-  path=decodePath3();
-  g.setPaint(color4);
-  g.fill(path);
-  path=decodePath4();
-  g.setPaint(color5);
-  g.fill(path);
-  rect=decodeRect1();
-  g.setPaint(color6);
-  g.fill(rect);
-  rect=decodeRect2();
-  g.setPaint(color7);
-  g.fill(rect);
-}
-private void paintBackgroundEnabledAndWindowFocused(Graphics2D g){
-  roundRect=decodeRoundRect2();
-  g.setPaint(color8);
-  g.fill(roundRect);
-  path=decodePath5();
-  g.setPaint(color9);
-  g.fill(path);
-  path=decodePath1();
-  g.setPaint(decodeGradient2(path));
-  g.fill(path);
-  path=decodePath6();
-  g.setPaint(color12);
-  g.fill(path);
-  path=decodePath7();
-  g.setPaint(color13);
-  g.fill(path);
-  path=decodePath8();
-  g.setPaint(color14);
-  g.fill(path);
-  path=decodePath9();
-  g.setPaint(color15);
-  g.fill(path);
-  rect=decodeRect1();
-  g.setPaint(color6);
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(color9);
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(color9);
-  g.fill(rect);
-  rect=decodeRect3();
-  g.setPaint(color9);
-  g.fill(rect);
-  rect=decodeRect4();
+jdk_src\javax\swing\plaf\nimbus\FormattedTextFieldPainter.java
+private void paintBorderFocused(Graphics2D g){
+  rect=decodeRect7();
   g.setPaint(decodeGradient3(rect));
   g.fill(rect);
-  rect=decodeRect2();
-  g.setPaint(color18);
+  rect=decodeRect8();
+  g.setPaint(decodeGradient4(rect));
+  g.fill(rect);
+  rect=decodeRect9();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect10();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect11();
+  g.setPaint(color11);
+  g.fill(rect);
+  path=decodePath1();
+  g.setPaint(color12);
+  g.fill(path);
+}
+private void paintBorderEnabled(Graphics2D g){
+  rect=decodeRect7();
+  g.setPaint(decodeGradient5(rect));
+  g.fill(rect);
+  rect=decodeRect8();
+  g.setPaint(decodeGradient4(rect));
+  g.fill(rect);
+  rect=decodeRect9();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect10();
+  g.setPaint(color10);
+  g.fill(rect);
+  rect=decodeRect11();
+  g.setPaint(color11);
   g.fill(rect);
 }

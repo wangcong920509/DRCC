@@ -1,0 +1,26 @@
+/** 
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
+ */
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
+}
+
+/** 
+ * Advance the cursor by one, and peek the next character, ignoring the COMMENTS setting
+ */
+private int nextEscaped(){
+  int ch=temp[++cursor];
+  return ch;
+}
+
+-->
+void readEscaped_nextEscaped(int combFlag){
+  if (combFlag == 1) {
+    int ch=temp[cursor++];
+  }
+ else {
+    int ch=temp[++cursor];
+  }
+  return ch;
+}

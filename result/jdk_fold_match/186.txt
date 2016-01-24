@@ -1,25 +1,57 @@
-jdk_src\java\util\concurrent\ConcurrentHashMap.java
+jdk_src\java\util\BitSet.java
 /** 
- * Maps the specified key to the specified value in this table. Neither the key nor the value can be null. <p> The value can be retrieved by calling the <tt>get</tt> method with a key that is equal to the original key.
- * @param key key with which the specified value is to be associated
- * @param value value to be associated with the specified key
- * @return the previous value associated with <tt>key</tt>, or<tt>null</tt> if there was no mapping for <tt>key</tt>
- * @throws NullPointerException if the specified key or value is null
+ * Sets the bits from the specified  {@code fromIndex} (inclusive) to thespecified  {@code toIndex} (exclusive) to {@code false}.
+ * @param fromIndex index of the first bit to be cleared
+ * @param toIndex index after the last bit to be cleared
+ * @throws IndexOutOfBoundsException if {@code fromIndex} is negative,or  {@code toIndex} is negative, or {@code fromIndex} islarger than  {@code toIndex}
+ * @since  1.4
  */
-@SuppressWarnings("unchecked") public V put(K key,V value){
-  Segment<K,V> s;
-  if (value == null)   throw new NullPointerException();
-  int hash=hash(key);
-  int j=(hash >>> segmentShift) & segmentMask;
-  if ((s=(Segment<K,V>)UNSAFE.getObject(segments,(j << SSHIFT) + SBASE)) == null)   s=ensureSegment(j);
-  return s.put(key,hash,value,false);
+public void clear(int fromIndex,int toIndex){
+  checkRange(fromIndex,toIndex);
+  if (fromIndex == toIndex)   return;
+  int startWordIndex=wordIndex(fromIndex);
+  if (startWordIndex >= wordsInUse)   return;
+  int endWordIndex=wordIndex(toIndex - 1);
+  if (endWordIndex >= wordsInUse) {
+    toIndex=length();
+    endWordIndex=wordsInUse - 1;
+  }
+  long firstWordMask=WORD_MASK << fromIndex;
+  long lastWordMask=WORD_MASK >>> -toIndex;
+  if (startWordIndex == endWordIndex) {
+    words[startWordIndex]&=~(firstWordMask & lastWordMask);
+  }
+ else {
+    words[startWordIndex]&=~firstWordMask;
+    for (int i=startWordIndex + 1; i < endWordIndex; i++)     words[i]=0;
+    words[endWordIndex]&=~lastWordMask;
+  }
+  recalculateWordsInUse();
+  checkInvariants();
 }
 /** 
- * {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Returns a new  {@code BitSet} composed of bits from this {@code BitSet}from  {@code fromIndex} (inclusive) to {@code toIndex} (exclusive).
+ * @param fromIndex index of the first bit to include
+ * @param toIndex index after the last bit to include
+ * @return a new {@code BitSet} from a range of this {@code BitSet}
+ * @throws IndexOutOfBoundsException if {@code fromIndex} is negative,or  {@code toIndex} is negative, or {@code fromIndex} islarger than  {@code toIndex}
+ * @since  1.4
  */
-public boolean remove(Object key,Object value){
-  int hash=hash(key);
-  Segment<K,V> s;
-  return value != null && (s=segmentForHash(hash)) != null && s.remove(key,hash,value) != null;
+public BitSet get(int fromIndex,int toIndex){
+  checkRange(fromIndex,toIndex);
+  checkInvariants();
+  int len=length();
+  if (len <= fromIndex || fromIndex == toIndex)   return new BitSet(0);
+  if (toIndex > len)   toIndex=len;
+  BitSet result=new BitSet(toIndex - fromIndex);
+  int targetWords=wordIndex(toIndex - fromIndex - 1) + 1;
+  int sourceIndex=wordIndex(fromIndex);
+  boolean wordAligned=((fromIndex & BIT_INDEX_MASK) == 0);
+  for (int i=0; i < targetWords - 1; i++, sourceIndex++)   result.words[i]=wordAligned ? words[sourceIndex] : (words[sourceIndex] >>> fromIndex) | (words[sourceIndex + 1] << -fromIndex);
+  long lastWordMask=WORD_MASK >>> -toIndex;
+  result.words[targetWords - 1]=((toIndex - 1) & BIT_INDEX_MASK) < (fromIndex & BIT_INDEX_MASK) ? ((words[sourceIndex] >>> fromIndex) | (words[sourceIndex + 1] & lastWordMask) << -fromIndex) : ((words[sourceIndex] & lastWordMask) >>> fromIndex);
+  result.wordsInUse=targetWords;
+  result.recalculateWordsInUse();
+  result.checkInvariants();
+  return result;
 }

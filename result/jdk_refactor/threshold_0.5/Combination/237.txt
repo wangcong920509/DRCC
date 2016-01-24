@@ -1,0 +1,30 @@
+/** 
+ * Retrieves and removes the head (first element) of this list.
+ * @return the head of this list, or {@code null} if this list is empty
+ * @since 1.5
+ */
+public E poll(){
+  final Node<E> f=first;
+  return (f == null) ? null : unlinkFirst(f);
+}
+
+/** 
+ * Retrieves and removes the first element of this list, or returns  {@code null} if this list is empty.
+ * @return the first element of this list, or {@code null} ifthis list is empty
+ * @since 1.6
+ */
+public E pollFirst(){
+  final Node<E> f=first;
+  return (f == null) ? null : unlinkFirst(f);
+}
+
+-->
+void poll_pollFirst(int combFlag){
+  if (combFlag == 1) {
+    final Node<E> f=first;
+  }
+ else {
+    final Node<E> f=first;
+  }
+  return (f == null) ? null : unlinkFirst(f);
+}

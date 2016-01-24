@@ -1,7 +1,7 @@
 jdk_src\javax\swing\plaf\nimbus\ToolBarToggleButtonPainter.java
-private void paintBackgroundPressedAndFocused(Graphics2D g){
-  roundRect=decodeRoundRect8();
-  g.setPaint(color1);
+private void paintBackgroundPressed(Graphics2D g){
+  roundRect=decodeRoundRect5();
+  g.setPaint(color9);
   g.fill(roundRect);
   roundRect=decodeRoundRect6();
   g.setPaint(decodeGradient3(roundRect));
@@ -10,14 +10,14 @@ private void paintBackgroundPressedAndFocused(Graphics2D g){
   g.setPaint(decodeGradient4(roundRect));
   g.fill(roundRect);
 }
-private void paintBackgroundSelected(Graphics2D g){
+private void paintBackgroundDisabledAndSelected(Graphics2D g){
   roundRect=decodeRoundRect5();
-  g.setPaint(color9);
+  g.setPaint(color25);
   g.fill(roundRect);
   roundRect=decodeRoundRect6();
-  g.setPaint(decodeGradient5(roundRect));
+  g.setPaint(decodeGradient9(roundRect));
   g.fill(roundRect);
   roundRect=decodeRoundRect7();
-  g.setPaint(decodeGradient6(roundRect));
+  g.setPaint(decodeGradient10(roundRect));
   g.fill(roundRect);
 }

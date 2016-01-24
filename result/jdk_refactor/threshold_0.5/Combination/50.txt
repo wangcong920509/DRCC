@@ -1,0 +1,28 @@
+public boolean isEntityDeclared(String name){
+  if (fEntityState != null) {
+    return fEntityState.isEntityDeclared(getSymbol(name));
+  }
+  return false;
+}
+
+public boolean isEntityUnparsed(String name){
+  if (fEntityState != null) {
+    return fEntityState.isEntityUnparsed(getSymbol(name));
+  }
+  return false;
+}
+
+-->
+void isEntityDeclared_isEntityUnparsed(String name,String name,int combFlag){
+  if (combFlag == 1) {
+    if (fEntityState != null) {
+      return fEntityState.isEntityDeclared(getSymbol(name));
+    }
+  }
+ else {
+    if (fEntityState != null) {
+      return fEntityState.isEntityUnparsed(getSymbol(name));
+    }
+  }
+  return false;
+}
