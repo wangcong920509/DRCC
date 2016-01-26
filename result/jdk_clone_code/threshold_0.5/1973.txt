@@ -1,30 +1,18 @@
 /** 
- * Returns an input stream for reading the specified resource. <p> The search order is described in the documentation for  {@link #getResource(String)}.  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Subtracts the shape of the specified <code>Area</code> from the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include areas that were contained only in this <code>Area</code> and not in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.subtract(a2); a1(before)     -         a2         =     a1(after) ################     ################ ##############         ##############     ## ############             ############     #### ##########                 ##########     ###### ########                     ########     ######## ######                         ######     ###### ####                             ####     #### ##                                 ##     ## </pre>
+ * @param rhs  the <code>Area</code> to be subtracted from thecurrent shape
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public InputStream getResourceAsStream(String name){
-  URL url=getResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public void subtract(Area rhs){
+  curves=new AreaOp.SubOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }
 /** 
- * Open for reading, a resource of the specified name from the search path used to load classes.  This method locates the resource through the system class loader (see  {@link #getSystemClassLoader()}).  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Removes all of the geometry from this <code>Area</code> and restores it to an empty area.
+ * @since 1.2
  */
-public static InputStream getSystemResourceAsStream(String name){
-  URL url=getSystemResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public void reset(){
+  curves=new Vector();
+  invalidateBounds();
 }

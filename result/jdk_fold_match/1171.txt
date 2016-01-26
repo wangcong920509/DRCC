@@ -41,3 +41,5 @@ public Shape modelToView(GlyphView v,int pos,Position.Bias bias,Shape a) throws 
   }
   throw new BadLocationException("modelToView - can't convert",p1);
 }
+-->
+61.0 / 1462 = 0.041723666210670314

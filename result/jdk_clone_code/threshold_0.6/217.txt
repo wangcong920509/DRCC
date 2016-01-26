@@ -1,15 +1,16 @@
 /** 
- * Default constructor.
+ * Method addPGPData
+ * @param pgpdata
  */
-public InvalidTargetObjectTypeException(){
-  super("InvalidTargetObjectTypeException: ");
-  exception=null;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructor from a string.
- * @param s String value that will be incorporated in the message forthis exception.
+ * Method add
+ * @param spkidata
  */
-public InvalidTargetObjectTypeException(String s){
-  super("InvalidTargetObjectTypeException: " + s);
-  exception=null;
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

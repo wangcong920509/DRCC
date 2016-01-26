@@ -1,25 +1,14 @@
 /** 
- * Creates a new object representing a hypertext link event.
- * @param source the object responsible for the event
- * @param type the event type
- * @param targetURL the affected URL
- * @param desc a description
- * @param targetFrame the Frame to display the document in
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,String desc,String targetFrame){
-  super(source,type,targetURL,desc);
-  this.targetFrame=targetFrame;
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Creates a new object representing a hypertext link event.
- * @param source the object responsible for the event
- * @param type the event type
- * @param targetURL the affected URL
- * @param desc a desription
- * @param sourceElement the element that corresponds to the sourceof the event
- * @param targetFrame the Frame to display the document in
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,String desc,Element sourceElement,String targetFrame){
-  super(source,type,targetURL,desc,sourceElement);
-  this.targetFrame=targetFrame;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }

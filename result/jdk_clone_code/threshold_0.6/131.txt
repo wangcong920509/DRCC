@@ -1,27 +1,12 @@
-/** 
- * Returns a SecureRandom object that implements the specified Random Number Generator (RNG) algorithm. <p> This method traverses the list of registered security Providers, starting with the most preferred Provider. A new SecureRandom object encapsulating the SecureRandomSpi implementation from the first Provider that supports the specified algorithm is returned. <p> Note that the list of registered providers may be retrieved via the  {@link Security#getProviders() Security.getProviders()} method.<p> The returned SecureRandom object has not been seeded.  To seed the returned object, call the <code>setSeed</code> method. If <code>setSeed</code> is not called, the first call to <code>nextBytes</code> will force the SecureRandom object to seed itself. This self-seeding will not occur if <code>setSeed</code> was previously called.
- * @param algorithm the name of the RNG algorithm.See the SecureRandom section in the <a href= " {@docRoot}/../technotes/guides/security/StandardNames.html#SecureRandom"> Java Cryptography Architecture Standard Algorithm Name Documentation</a> for information about standard RNG algorithm names.
- * @return the new SecureRandom object.
- * @exception NoSuchAlgorithmException if no Provider supports aSecureRandomSpi implementation for the specified algorithm.
- * @see Provider
- * @since 1.2
- */
-public static SecureRandom getInstance(String algorithm) throws NoSuchAlgorithmException {
-  Instance instance=GetInstance.getInstance("SecureRandom",SecureRandomSpi.class,algorithm);
-  return new SecureRandom((SecureRandomSpi)instance.impl,instance.provider,algorithm);
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
+  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }
-/** 
- * Returns a SecureRandom object that implements the specified Random Number Generator (RNG) algorithm. <p> A new SecureRandom object encapsulating the SecureRandomSpi implementation from the specified provider is returned.  The specified provider must be registered in the security provider list. <p> Note that the list of registered providers may be retrieved via the  {@link Security#getProviders() Security.getProviders()} method.<p> The returned SecureRandom object has not been seeded.  To seed the returned object, call the <code>setSeed</code> method. If <code>setSeed</code> is not called, the first call to <code>nextBytes</code> will force the SecureRandom object to seed itself. This self-seeding will not occur if <code>setSeed</code> was previously called.
- * @param algorithm the name of the RNG algorithm.See the SecureRandom section in the <a href= " {@docRoot}/../technotes/guides/security/StandardNames.html#SecureRandom"> Java Cryptography Architecture Standard Algorithm Name Documentation</a> for information about standard RNG algorithm names.
- * @param provider the name of the provider.
- * @return the new SecureRandom object.
- * @exception NoSuchAlgorithmException if a SecureRandomSpiimplementation for the specified algorithm is not available from the specified provider.
- * @exception NoSuchProviderException if the specified provider is notregistered in the security provider list.
- * @exception IllegalArgumentException if the provider name is nullor empty.
- * @see Provider
- * @since 1.2
- */
-public static SecureRandom getInstance(String algorithm,String provider) throws NoSuchAlgorithmException, NoSuchProviderException {
-  Instance instance=GetInstance.getInstance("SecureRandom",SecureRandomSpi.class,algorithm,provider);
-  return new SecureRandom((SecureRandomSpi)instance.impl,instance.provider,algorithm);
+public void addGlobalGroupDecl(XSGroupDecl decl,String location){
+  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }

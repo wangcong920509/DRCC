@@ -1,30 +1,20 @@
 /** 
- * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
- * @param item  the item to remove from this <code>Choice</code> menu
- * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
- * @since      JDK1.1
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Entity Reference name
+ * @return null
+ * @throws DOMException
  */
-public void remove(String item){
-synchronized (this) {
-    int index=pItems.indexOf(item);
-    if (index < 0) {
-      throw new IllegalArgumentException("item " + item + " not found in choice");
-    }
- else {
-      removeNoInvalidate(index);
-    }
-  }
-  invalidateIfValid();
+public EntityReference createEntityReference(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Removes an item from the choice menu at the specified position.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
- * @param position the position of the item
- * @throws IndexOutOfBoundsException if the specifiedposition is out of bounds
- * @since      JDK1.1
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public void remove(int position){
-synchronized (this) {
-    removeNoInvalidate(position);
-  }
-  invalidateIfValid();
+public Text splitText(int offset) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

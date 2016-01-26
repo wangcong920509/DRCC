@@ -44,3 +44,5 @@ protected void paintSafely(Graphics g){
     dropCaret.paint(g);
   }
 }
+-->
+84.0 / 840 = 0.1

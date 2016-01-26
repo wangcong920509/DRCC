@@ -1,20 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
+ * @param data Data for comment
  * @return null
  */
-public Element getElementById(String elementId){
+public Comment createComment(String data){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented.
- * @param offset Start offset of substring to extract.
- * @param count The length of the substring to extract.
- * @return null
+ * @param offset Offset into text to split
+ * @return null, unimplemented
  * @throws DOMException
  */
-public String substringData(int offset,int count) throws DOMException {
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

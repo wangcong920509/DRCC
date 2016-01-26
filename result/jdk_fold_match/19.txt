@@ -41,3 +41,5 @@ synchronized (UNIXToolkit.GTK_LOCK) {
     }
   }
 }
+-->
+112.0 / 894 = 0.12527964205816555

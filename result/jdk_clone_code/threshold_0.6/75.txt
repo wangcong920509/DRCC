@@ -1,30 +1,20 @@
 /** 
- * Sets a sample in the specified band for the pixel located at (x,y) in the DataBuffer using a float for input. The default implementation of this method casts the input float sample to an int and then calls the <code>setSample(int, int, int, DataBuffer)</code> method using that int value. ArrayIndexOutOfBoundsException may be thrown if the coordinates are not in bounds.
- * @param x         The X coordinate of the pixel location.
- * @param y         The Y coordinate of the pixel location.
- * @param b         The band to set.
- * @param s         The input sample as a float.
- * @param data      The DataBuffer containing the image data.
- * @see #getSample(int,int,int,DataBuffer)
- * @throws NullPointerException if data is null.
- * @throws ArrayIndexOutOfBoundsException if the coordinates orthe band index are not in bounds.
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public void setSample(int x,int y,int b,float s,DataBuffer data){
-  int sample=(int)s;
-  setSample(x,y,b,sample,data);
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Sets a sample in the specified band for the pixel located at (x,y) in the DataBuffer using a double for input. The default implementation of this method casts the input double sample to an int and then calls the <code>setSample(int, int, int, DataBuffer)</code> method using that int value. ArrayIndexOutOfBoundsException may be thrown if the coordinates are not in bounds.
- * @param x         The X coordinate of the pixel location.
- * @param y         The Y coordinate of the pixel location.
- * @param b         The band to set.
- * @param s         The input sample as a double.
- * @param data      The DataBuffer containing the image data.
- * @see #getSample(int,int,int,DataBuffer)
- * @throws NullPointerException if data is null.
- * @throws ArrayIndexOutOfBoundsException if the coordinates orthe band index are not in bounds.
+ * Look for ConstantInterfaceMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-public void setSample(int x,int y,int b,double s,DataBuffer data){
-  int sample=(int)s;
-  setSample(x,y,b,sample,data);
+public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

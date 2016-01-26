@@ -1,14 +1,13 @@
-/** 
- * Constructs a string buffer from a String. 
- */
-public XMLStringBuffer(String s){
-  this(s.length());
-  append(s);
+public boolean isDeclared(int index){
+  if (index < 0 || index >= fAttributes.getLength()) {
+    throw new ArrayIndexOutOfBoundsException(index);
+  }
+  return Boolean.TRUE.equals(fAttributes.getAugmentations(index).getItem(Constants.ATTRIBUTE_DECLARED));
 }
-/** 
- * Constructs a string buffer from the specified XMLString. 
- */
-public XMLStringBuffer(XMLString s){
-  this(s.length);
-  append(s);
+public boolean isDeclared(String uri,String localName){
+  int index=getIndex(uri,localName);
+  if (index == -1) {
+    throw new IllegalArgumentException(localName);
+  }
+  return Boolean.TRUE.equals(fAttributes.getAugmentations(index).getItem(Constants.ATTRIBUTE_DECLARED));
 }

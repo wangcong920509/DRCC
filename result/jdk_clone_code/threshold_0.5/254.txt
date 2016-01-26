@@ -1,14 +1,20 @@
 /** 
- * register one global attribute group
+ * @param inputStream
+ * @param encoding
+ * @param props
+ * @throws XMLStreamException
  */
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
-  fGlobalAttrGrpDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public XMLStreamReaderImpl(InputStream inputStream,String encoding,PropertyManager props) throws XMLStreamException {
+  init(props);
+  XMLInputSource inputSource=new XMLInputSource(null,null,null,new BufferedInputStream(inputStream),encoding);
+  setInputSource(inputSource);
 }
 /** 
- * register one global group
+ * @param inputSource
+ * @param props
+ * @throws XMLStreamException
  */
-public void addGlobalGroupDecl(XSGroupDecl decl){
-  fGlobalGroupDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
+  init(props);
+  setInputSource(inputSource);
 }

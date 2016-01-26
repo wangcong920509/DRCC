@@ -1,8 +1,14 @@
-private DynValueCommonImpl(){
-  this(null,(Any)null,false);
-  isNull=true;
+protected boolean initializeComponentsFromTypeCode(){
+  try {
+    any=DynAnyUtil.createDefaultAnyOfType(any.type(),orb);
+    components=new DynAny[]{DynAnyUtil.createMostDerivedDynAny(any,orb,false)};
+  }
+ catch (  InconsistentTypeCode ictc) {
+    return false;
+  }
+  return true;
 }
-protected DynValueCommonImpl(ORB orb,TypeCode typeCode){
-  super(orb,typeCode);
-  isNull=true;
+protected boolean initializeAnyFromComponents(){
+  any=getAny(components[0]);
+  return true;
 }

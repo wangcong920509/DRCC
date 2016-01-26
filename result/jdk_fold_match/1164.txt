@@ -50,3 +50,5 @@ private void updateStyle(JSplitPane splitPane){
   dividerStyle=null;
   super.uninstallDefaults();
 }
+-->
+215.0 / 960 = 0.22395833333333334

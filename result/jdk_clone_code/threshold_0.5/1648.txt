@@ -1,19 +1,20 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param oldChild Child to be removed
  * @return null
+ * @throws DOMException
  */
-public String getLocalName(){
+public Node removeChild(Node oldChild) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param importedNode The node to import.
- * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @param data Data for CDATA section
  * @return null
  * @throws DOMException
  */
-public Node importNode(Node importedNode,boolean deep) throws DOMException {
+public CDATASection createCDATASection(String data) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

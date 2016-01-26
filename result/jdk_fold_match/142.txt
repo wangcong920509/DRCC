@@ -72,3 +72,5 @@ public static TextLine standardCreateTextLine(FontRenderContext frc,AttributedCh
   }
   return createLineFromText(chars,styledParagraph,factory,isDirectionLTR,baselineOffsets);
 }
+-->
+278.0 / 3373 = 0.08241921138452417

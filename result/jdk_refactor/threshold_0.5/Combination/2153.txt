@@ -1,28 +1,20 @@
-public float getPreferredSpan(int axis){
-  if (isVisible) {
-    return super.getPreferredSpan(axis);
-  }
-  return 0;
+private Rectangle2D decodeRect1(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(3.0f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
 
-public float getMaximumSpan(int axis){
-  if (isVisible) {
-    return super.getMaximumSpan(axis);
-  }
-  return 0;
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(1.0f),decodeY(1.0f),decodeX(2.0f) - decodeX(1.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
 
 -->
-void getPreferredSpan_getMaximumSpan(int axis,int axis,int combFlag){
+void decodeRect1_decodeRect5(int combFlag){
   if (combFlag == 1) {
-    if (isVisible) {
-      return super.getPreferredSpan(axis);
-    }
+    rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(3.0f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
   }
  else {
-    if (isVisible) {
-      return super.getMaximumSpan(axis);
-    }
+    rect.setRect(decodeX(1.0f),decodeY(1.0f),decodeX(2.0f) - decodeX(1.0f),decodeY(2.0f) - decodeY(1.0f));
   }
-  return 0;
+  return rect;
 }

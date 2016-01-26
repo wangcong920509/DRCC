@@ -150,3 +150,5 @@ protected void ArrangeGrid(Container parent){
     }
   }
 }
+-->
+38.0 / 5092 = 0.007462686567164179

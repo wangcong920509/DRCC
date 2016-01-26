@@ -1,22 +1,20 @@
 /** 
- * Creates a call site with a permanent target.
- * @param target the target to be permanently associated with this call site
- * @throws NullPointerException if the proposed target is null
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public ConstantCallSite(MethodHandle target){
-  super(target);
-  isFrozen=true;
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Creates a call site with a permanent target, possibly bound to the call site itself. <p> During construction of the call site, the  {@code createTargetHook} is invoked toproduce the actual target, as if by a call of the form {@code (MethodHandle) createTargetHook.invoke(this)}. <p> Note that user code cannot perform such an action directly in a subclass constructor, since the target must be fixed before the  {@code ConstantCallSite} constructor returns.<p> The hook is said to bind the call site to a target method handle, and a typical action would be  {@code someTarget.bindTo(this)}. However, the hook is free to take any action whatever, including ignoring the call site and returning a constant target. <p> The result returned by the hook must be a method handle of exactly the same type as the call site. <p> While the hook is being called, the new  {@code ConstantCallSite}object is in a partially constructed state. In this state, a call to  {@code getTarget}, or any other attempt to use the target, will result in an  {@code IllegalStateException}. It is legal at all times to obtain the call site's type using the  {@code type} method.
- * @param targetType the type of the method handle to be permanently associated with this call site
- * @param createTargetHook a method handle to invoke (on the call site) to produce the call site's target
- * @throws WrongMethodTypeException if the hook cannot be invoked on the required arguments,or if the target returned by the hook is not of the given  {@code targetType}
- * @throws NullPointerException if the hook returns a null value
- * @throws ClassCastException if the hook returns something other than a {@code MethodHandle}
- * @throws Throwable anything else thrown by the the hook function
+ * Look for ConstantMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-protected ConstantCallSite(MethodType targetType,MethodHandle createTargetHook) throws Throwable {
-  super(targetType,createTargetHook);
-  isFrozen=true;
+public int lookupMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + METHODREF_DELIM + method_name+ METHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

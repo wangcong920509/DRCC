@@ -1,8 +1,8 @@
-public void set_members(org.omg.DynamicAny.NameValuePair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
-  super.set_members(value);
-  isNull=false;
+protected DynValueCommonImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  isNull=true;
 }
-public void set_members_as_dyn_any(org.omg.DynamicAny.NameDynAnyPair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
-  super.set_members_as_dyn_any(value);
-  isNull=false;
+public void set_to_null(){
+  isNull=true;
+  clearData();
 }

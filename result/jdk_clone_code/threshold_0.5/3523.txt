@@ -1,20 +1,24 @@
 /** 
- * Invoked when a column is added to the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
- * @see TableColumnModelListener
+ * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
+ * @param orig the exception to wrap.
+ * @return the wrapped exception.
  */
-public void columnAdded(TableColumnModelEvent e){
-  if (isEditing()) {
-    removeEditor();
+public static RemoteException wrapException(Throwable orig){
+  if (utilDelegate != null) {
+    return utilDelegate.wrapException(orig);
   }
-  resizeAndRepaint();
+  return null;
 }
 /** 
- * Invoked when a column is removed from the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
- * @see TableColumnModelListener
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
  */
-public void columnRemoved(TableColumnModelEvent e){
-  if (isEditing()) {
-    removeEditor();
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
   }
-  resizeAndRepaint();
+  return null;
 }

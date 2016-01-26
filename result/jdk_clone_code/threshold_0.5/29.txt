@@ -1,8 +1,8 @@
-public static POASystemException get(ORB orb,String logDomain){
-  POASystemException wrapper=(POASystemException)orb.getLogWrapper(logDomain,"POA",factory);
+public static NamingSystemException get(ORB orb,String logDomain){
+  NamingSystemException wrapper=(NamingSystemException)orb.getLogWrapper(logDomain,"NAMING",factory);
   return wrapper;
 }
-public static POASystemException get(String logDomain){
-  POASystemException wrapper=(POASystemException)ORB.staticGetLogWrapper(logDomain,"POA",factory);
+public static NamingSystemException get(String logDomain){
+  NamingSystemException wrapper=(NamingSystemException)ORB.staticGetLogWrapper(logDomain,"NAMING",factory);
   return wrapper;
 }

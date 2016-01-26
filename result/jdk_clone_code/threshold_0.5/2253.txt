@@ -1,11 +1,15 @@
-public StringBuilder append(String str){
-  super.append(str);
+/** 
+ * @since 1.5
+ */
+public synchronized StringBuffer appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }
 /** 
  * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
  */
-public StringBuilder insert(int index,char[] str,int offset,int len){
-  super.insert(index,str,offset,len);
+public synchronized StringBuffer deleteCharAt(int index){
+  super.deleteCharAt(index);
   return this;
 }

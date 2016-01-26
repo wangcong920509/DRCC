@@ -119,3 +119,5 @@ private void compileTransform(ClassGenerator classGen){
   il.append(RETURN);
   classGen.addMethod(transf);
 }
+-->
+925.0 / 21131 = 0.04377454924045242

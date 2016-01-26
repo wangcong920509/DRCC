@@ -1,24 +1,22 @@
 /** 
- * {@inheritDoc}
- * @since 1.6
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
  */
-protected void addImpl(Component comp,Object constraints,int index){
-  super.addImpl(comp,constraints,index);
-  if (componentOrderCheckingEnabled) {
-    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
-      componentOrderChanged=true;
-    }
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
   }
+  return null;
 }
 /** 
- * {@inheritDoc}
- * @since 1.6
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
  */
-public void setComponentZOrder(Component comp,int index){
-  super.setComponentZOrder(comp,index);
-  if (componentOrderCheckingEnabled) {
-    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
-      componentOrderChanged=true;
-    }
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
   }
+  return null;
 }

@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @see SerializationHandler#getWriter()
  */
-public String getDoctypePublic(){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see XSLOutputAttributes#getEncoding()
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
+public String getEncoding(){
+  aMethodIsCalled();
   return null;
 }

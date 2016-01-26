@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @see SerializationHandler#reset()
  */
-public String getEncoding(){
+public boolean reset(){
   aMethodIsCalled();
-  return null;
+  return false;
 }
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * @see XSLOutputAttributes#getOmitXMLDeclaration()
  */
-public String getVersion(){
+public boolean getOmitXMLDeclaration(){
   aMethodIsCalled();
-  return null;
+  return false;
 }

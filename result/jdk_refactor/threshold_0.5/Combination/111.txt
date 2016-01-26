@@ -1,26 +1,48 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * Method isXPointerSlash
+ * @param uri
+ * @return true if begins with xpointer
  */
-public String getDoctypePublic(){
-  aMethodIsCalled();
-  return null;
+private static boolean isXPointerSlash(String uri){
+  if (uri.equals("#xpointer(/)")) {
+    return true;
+  }
+  return false;
 }
 
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * Method isXPointerId
+ * @param uri
+ * @return it it has an xpointer id
  */
-public String getEncoding(){
-  aMethodIsCalled();
-  return null;
+private static boolean isXPointerId(String uri){
+  if (uri.startsWith(XP) && uri.endsWith("))")) {
+    String idPlusDelim=uri.substring(XP_LENGTH,uri.length() - 2);
+    int idLen=idPlusDelim.length() - 1;
+    if (((idPlusDelim.charAt(0) == '"') && (idPlusDelim.charAt(idLen) == '"')) || ((idPlusDelim.charAt(0) == '\'') && (idPlusDelim.charAt(idLen) == '\''))) {
+      if (log.isLoggable(java.util.logging.Level.FINE))       log.log(java.util.logging.Level.FINE,"Id=" + idPlusDelim.substring(1,idLen));
+      return true;
+    }
+  }
+  return false;
 }
 
 -->
-void getDoctypePublic_getEncoding(int combFlag){
+void isXPointerSlash_isXPointerId(String uri,String uri,int combFlag){
   if (combFlag == 1) {
-    aMethodIsCalled();
+    if (uri.equals("#xpointer(/)")) {
+      return true;
+    }
   }
  else {
-    aMethodIsCalled();
+    if (uri.startsWith(XP) && uri.endsWith("))")) {
+      String idPlusDelim=uri.substring(XP_LENGTH,uri.length() - 2);
+      int idLen=idPlusDelim.length() - 1;
+      if (((idPlusDelim.charAt(0) == '"') && (idPlusDelim.charAt(idLen) == '"')) || ((idPlusDelim.charAt(0) == '\'') && (idPlusDelim.charAt(idLen) == '\''))) {
+        if (log.isLoggable(java.util.logging.Level.FINE))         log.log(java.util.logging.Level.FINE,"Id=" + idPlusDelim.substring(1,idLen));
+        return true;
+      }
+    }
   }
-  return null;
+  return false;
 }

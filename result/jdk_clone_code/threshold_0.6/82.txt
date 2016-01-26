@@ -1,17 +1,19 @@
 /** 
- * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable}.
- * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
+ * Look for ConstantUtf8 in ConstantPool.
+ * @param n Utf8 string to look for
+ * @return index on success, -1 otherwise
  */
-public UndeclaredThrowableException(Throwable undeclaredThrowable){
-  super((Throwable)null);
-  this.undeclaredThrowable=undeclaredThrowable;
+public int lookupUtf8(String n){
+  Index index=(Index)utf8_table.get(n);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable} and a detail message.
- * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
- * @param s the detail message
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
  */
-public UndeclaredThrowableException(Throwable undeclaredThrowable,String s){
-  super(s,null);
-  this.undeclaredThrowable=undeclaredThrowable;
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
 }

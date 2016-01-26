@@ -1,20 +1,18 @@
 /** 
- * Method isReferenceToObject This returns true if the <CODE>Type</CODE> attribute of the <CODE>Refernce</CODE> element points to a <CODE>#Object</CODE> element
- * @return true if the Reference type indicates that this Reference points to an <code>Object</code>
+ * Constructor XMLSecurityRuntimeException
+ * @param _originalException
  */
-public boolean typeIsReferenceToObject(){
-  if (Reference.OBJECT_URI.equals(this.getType())) {
-    return true;
-  }
-  return false;
+public XMLSecurityRuntimeException(Exception _originalException){
+  super("Missing message ID to locate message string in resource bundle \"" + Constants.exceptionMessagesResourceBundleBase + "\". Original Exception was a "+ _originalException.getClass().getName()+ " and message "+ _originalException.getMessage());
+  this.originalException=_originalException;
 }
 /** 
- * Method isReferenceToManifest This returns true if the <CODE>Type</CODE> attribute of the <CODE>Refernce</CODE> element points to a <CODE>#Manifest</CODE> element
- * @return true if the Reference type indicates that this Reference points to a {@link Manifest}
+ * Constructor XMLSecurityRuntimeException
+ * @param _msgID
+ * @param _originalException
  */
-public boolean typeIsReferenceToManifest(){
-  if (Reference.MANIFEST_URI.equals(this.getType())) {
-    return true;
-  }
-  return false;
+public XMLSecurityRuntimeException(String _msgID,Exception _originalException){
+  super(I18n.getExceptionMessage(_msgID,_originalException));
+  this.msgID=_msgID;
+  this.originalException=_originalException;
 }

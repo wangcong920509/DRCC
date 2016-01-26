@@ -1,21 +1,14 @@
 /** 
- * Construct an XSNamedMap implementation for one namespace
- * @param namespace the namespace to which the components belong
- * @param map       the map from local names to components
- * @param type      the type of components
+ * register one global attribute
  */
-public XSNamedMap4Types(String namespace,SymbolHash map,short type){
-  super(namespace,map);
-  fType=type;
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
 /** 
- * Construct an XSNamedMap implementation for a list of namespaces
- * @param namespaces the namespaces to which the components belong
- * @param maps       the maps from local names to components
- * @param num        the number of namespaces
- * @param type      the type of components
+ * register one global notation
  */
-public XSNamedMap4Types(String[] namespaces,SymbolHash[] maps,int num,short type){
-  super(namespaces,maps,num);
-  fType=type;
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

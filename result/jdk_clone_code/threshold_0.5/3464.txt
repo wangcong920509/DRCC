@@ -1,32 +1,22 @@
 /** 
- * Returns the next attribute in this <code>SQLInputImpl</code> object as a stream of ASCII characters. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>,return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Adds a single component to the end of this compound name.
+ * @param comp     The non-null component to add.
+ * @return The updated CompoundName, not a new one. Cannot be null.
+ * @exception InvalidNameException If adding comp at end of the namewould violate the compound name's syntax.
  */
-public java.io.InputStream readAsciiStream() throws SQLException {
-  java.io.InputStream attrib=(java.io.InputStream)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public Name add(String comp) throws InvalidNameException {
+  impl.add(comp);
+  return this;
 }
 /** 
- * Retrieves the <code>CLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Clob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return a <code>Clob</code> object representing the SQL<code>CLOB</code> value at the head of the stream; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Adds a single component at a specified position within this compound name. Components of this compound name at or after the index of the new component are shifted up by one (away from index 0) to accommodate the new component.
+ * @param comp    The non-null component to add.
+ * @param posn    The index at which to add the new component.Must be in the range [0,size()].
+ * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * @return The updated CompoundName, not a new one. Cannot be null.
+ * @exception InvalidNameException If adding comp at the specified positionwould violate the compound name's syntax.
  */
-public Clob readClob() throws SQLException {
-  Clob attrib=(Clob)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public Name add(int posn,String comp) throws InvalidNameException {
+  impl.add(posn,comp);
+  return this;
 }

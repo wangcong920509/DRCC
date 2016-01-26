@@ -1,26 +1,14 @@
-/** 
- * Returns the default state for a feature, or null if this component does not want to report a default value for this feature.
- * @param featureId The feature identifier.
- * @since Xerces 2.2.0
- */
-@Override public Boolean getFeatureDefault(String featureId){
-  for (int i=0; i < RECOGNIZED_FEATURES.length; i++) {
-    if (RECOGNIZED_FEATURES[i].equals(featureId)) {
-      return FEATURE_DEFAULTS[i];
-    }
+public boolean isDeclared(String qName){
+  int index=getIndex(qName);
+  if (index == -1) {
+    throw new IllegalArgumentException(qName);
   }
-  return null;
+  return Boolean.TRUE.equals(fAttributes.getAugmentations(index).getItem(Constants.ATTRIBUTE_DECLARED));
 }
-/** 
- * Returns the default state for a property, or null if this component does not want to report a default value for this property.
- * @param propertyId The property identifier.
- * @since Xerces 2.2.0
- */
-@Override public Object getPropertyDefault(String propertyId){
-  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
-    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
-      return PROPERTY_DEFAULTS[i];
-    }
+public boolean isDeclared(String uri,String localName){
+  int index=getIndex(uri,localName);
+  if (index == -1) {
+    throw new IllegalArgumentException(localName);
   }
-  return null;
+  return Boolean.TRUE.equals(fAttributes.getAugmentations(index).getItem(Constants.ATTRIBUTE_DECLARED));
 }

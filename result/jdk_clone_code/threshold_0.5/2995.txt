@@ -1,8 +1,8 @@
-HeapCharBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+public ByteBuffer put(byte x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
 }
-HeapCharBufferR(char[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+public ByteBuffer putInt(int x){
+  Bits.putInt(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }

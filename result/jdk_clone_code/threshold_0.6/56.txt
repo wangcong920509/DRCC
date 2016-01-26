@@ -1,22 +1,18 @@
 /** 
- * MissingKeyResourceFailureException constructor.
- * @param _msgID
- * @param reference
- * @see #getReference
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
  */
-public MissingResourceFailureException(String _msgID,Reference reference){
-  super(_msgID);
-  this.uninitializedReference=reference;
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
 /** 
- * Constructor MissingResourceFailureException
- * @param _msgID
- * @param exArgs
- * @param _originalException
- * @param reference
- * @see #getReference
+ * Put an octet string with a specified tag.
+ * @param s The bytes to encode
+ * @param tag The tag to encode.
  */
-public MissingResourceFailureException(String _msgID,Object exArgs[],Exception _originalException,Reference reference){
-  super(_msgID,exArgs,_originalException);
-  this.uninitializedReference=reference;
+public void putOctetString(byte[] s,int tag){
+  putStringValue(s);
+  putTag(tag);
 }

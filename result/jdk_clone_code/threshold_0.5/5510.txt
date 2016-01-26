@@ -1,8 +1,8 @@
-public ForwardRequest(org.omg.CORBA.Object _forward_reference){
-  super(ForwardRequestHelper.id());
-  forward_reference=_forward_reference;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-public ForwardRequest(String $reason,org.omg.CORBA.Object _forward_reference){
-  super(ForwardRequestHelper.id() + "  " + $reason);
-  forward_reference=_forward_reference;
+private Rectangle2D decodeRect8(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

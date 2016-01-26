@@ -1,15 +1,18 @@
 /** 
- * Default constructor.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never block or return  {@code false}.
+ * @return {@code true} (as specified by{@link BlockingQueue#offer(Object,long,TimeUnit) BlockingQueue.offer})
+ * @throws NullPointerException if the specified element is null
  */
-public InvalidTargetObjectTypeException(){
-  super("InvalidTargetObjectTypeException: ");
-  exception=null;
+public boolean offer(E e,long timeout,TimeUnit unit){
+  xfer(e,true,ASYNC,0);
+  return true;
 }
 /** 
- * Constructor from a string.
- * @param s String value that will be incorporated in the message forthis exception.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
+ * @return {@code true} (as specified by {@link Collection#add})
+ * @throws NullPointerException if the specified element is null
  */
-public InvalidTargetObjectTypeException(String s){
-  super("InvalidTargetObjectTypeException: " + s);
-  exception=null;
+public boolean add(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
 }

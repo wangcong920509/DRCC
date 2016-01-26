@@ -1,15 +1,8 @@
-/** 
- * The following methods are for dealing with Connection cleaning for better scalability of servers in high network load conditions.
- */
-public void sendCloseConnection(GIOPVersion giopVersion) throws IOException {
-  Message msg=MessageBase.createCloseConnection(giopVersion);
-  sendHelper(giopVersion,msg);
+public org.omg.CORBA.portable.OutputStream createReply(){
+  getProtocolHandler().createResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }
-/** 
- * Send a CancelRequest message. This does not lock the connection, so the caller needs to ensure this method is called appropriately.
- * @exception IOException - could be due to abortive connection closure.
- */
-public void sendCancelRequest(GIOPVersion giopVersion,int requestId) throws IOException {
-  Message msg=MessageBase.createCancelRequest(giopVersion,requestId);
-  sendHelper(giopVersion,msg);
+public org.omg.CORBA.portable.OutputStream createExceptionReply(){
+  getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }

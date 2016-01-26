@@ -1,24 +1,23 @@
-/** 
- * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
- * @param orig the exception to wrap.
- * @return the wrapped exception.
- */
-public static RemoteException wrapException(Throwable orig){
-  if (utilDelegate != null) {
-    return utilDelegate.wrapException(orig);
+private void siftUpUsingComparator(int k,E x){
+  while (k > 0) {
+    int parent=(k - 1) >>> 1;
+    Object e=queue[parent];
+    if (comparator.compare(x,(E)e) >= 0)     break;
+    queue[k]=e;
+    k=parent;
   }
-  return null;
+  queue[k]=x;
 }
-/** 
- * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
- * @param obj the object to copy.
- * @param orb the ORB.
- * @return the copy or connected object.
- * @exception RemoteException if the object could not be copied or connected.
- */
-public static Object copyObject(Object obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObject(obj,orb);
+private void siftDownUsingComparator(int k,E x){
+  int half=size >>> 1;
+  while (k < half) {
+    int child=(k << 1) + 1;
+    Object c=queue[child];
+    int right=child + 1;
+    if (right < size && comparator.compare((E)c,(E)queue[right]) > 0)     c=queue[child=right];
+    if (comparator.compare(x,(E)c) <= 0)     break;
+    queue[k]=c;
+    k=child;
   }
-  return null;
+  queue[k]=x;
 }

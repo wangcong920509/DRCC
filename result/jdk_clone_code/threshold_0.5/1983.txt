@@ -1,17 +1,23 @@
 /** 
- * Constructs a InvocationTargetException with a target exception.
- * @param target the target exception
+ * Sets the requested data array element in the first (default) bank to the specified value.
+ * @param i The data array element you want to set.
+ * @param val The integer value to which you want to set the data array element.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
  */
-public InvocationTargetException(Throwable target){
-  super((Throwable)null);
-  this.target=target;
+public void setElem(int i,int val){
+  data[i + offset]=(byte)val;
+  theTrackable.markDirty();
 }
 /** 
- * Constructs a InvocationTargetException with a target exception and a detail message.
- * @param target the target exception
- * @param s      the detail message
+ * Sets the requested data array element in the specified bank from the given integer.
+ * @param bank The bank in which you want to set the data array element.
+ * @param i The data array element you want to set.
+ * @param val The integer value to which you want to set the specified data array element.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
  */
-public InvocationTargetException(Throwable target,String s){
-  super(s,null);
-  this.target=target;
+public void setElem(int bank,int i,int val){
+  bankdata[bank][i + offsets[bank]]=(byte)val;
+  theTrackable.markDirty();
 }

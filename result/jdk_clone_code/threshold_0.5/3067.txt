@@ -1,18 +1,8 @@
-/** 
- * Creates an <code>AttributedCharacterIterator</code> for the String <code>s</code>.
- * @param s String to create AttributedCharacterIterator from
- * @return AttributedCharacterIterator wrapping s
- */
-AttributedCharacterIterator createAttributedCharacterIterator(String s){
-  AttributedString as=new AttributedString(s);
-  return as.getIterator();
+public ByteBuffer putInt(int x){
+  Bits.putInt(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }
-/** 
- * Creates an <code>AttributedCharacterIterator</code> containg the concatenated contents of the passed in <code>AttributedCharacterIterator</code>s.
- * @param iterators AttributedCharacterIterators used to create resultingAttributedCharacterIterators
- * @return AttributedCharacterIterator wrapping passed inAttributedCharacterIterators
- */
-AttributedCharacterIterator createAttributedCharacterIterator(AttributedCharacterIterator[] iterators){
-  AttributedString as=new AttributedString(iterators);
-  return as.getIterator();
+public ByteBuffer putLong(long x){
+  Bits.putLong(this,ix(nextPutIndex(8)),x,bigEndian);
+  return this;
 }

@@ -1,34 +1,14 @@
-public CharBuffer get(char[] dst,int offset,int length){
-  if ((length << 1) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,dst.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferUnderflowException();
-    if (order() != ByteOrder.nativeOrder())     Bits.copyToCharArray(ix(pos),dst,offset << 1,length << 1);
- else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 1,length << 1);
-    position(pos + length);
+private ByteBuffer putShort(long a,short x){
+  if (unaligned) {
+    short y=(x);
+    unsafe.putShort(a,(nativeByteOrder ? y : Bits.swap(y)));
   }
  else {
-    super.get(dst,offset,length);
+    Bits.putShort(a,x,bigEndian);
   }
   return this;
 }
-public CharBuffer put(char[] src,int offset,int length){
-  if ((length << 1) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,src.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferOverflowException();
-    if (order() != ByteOrder.nativeOrder())     Bits.copyFromCharArray(src,offset << 1,ix(pos),length << 1);
- else     Bits.copyFromArray(src,arrayBaseOffset,offset << 1,ix(pos),length << 1);
-    position(pos + length);
-  }
- else {
-    super.put(src,offset,length);
-  }
+public ByteBuffer putInt(int x){
+  putInt(ix(nextPutIndex((1 << 2))),x);
   return this;
 }

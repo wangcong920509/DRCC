@@ -1,19 +1,14 @@
-public boolean isIDType(){
-switch (fVariety) {
-case VARIETY_ATOMIC:
-    return fValidationDV == DV_ID;
-case VARIETY_LIST:
-  return fItemType.isIDType();
-case VARIETY_UNION:
-for (int i=0; i < fMemberTypes.length; i++) {
-  if (fMemberTypes[i].isIDType())   return true;
+/** 
+ * Setter for _includeSelf flag.
+ */
+public NodeIterator includeSelf(){
+  _includeSelf=true;
+  return this;
 }
-}
-return false;
-}
-private boolean specialCardinalityCheck(){
-  if ((fBase.fValidationDV == XSSimpleTypeDecl.DV_DATE) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEARMONTH) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEAR)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTHDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTH)) {
-    return true;
-  }
-  return false;
+/** 
+ * Reset the position in this iterator.
+ */
+protected final NodeIterator resetPosition(){
+  _position=0;
+  return this;
 }

@@ -21,3 +21,5 @@ public boolean remove(Object key,Object value){
   Segment<K,V> s;
   return value != null && (s=segmentForHash(hash)) != null && s.remove(key,hash,value) != null;
 }
+-->
+32.0 / 289 = 0.11072664359861592

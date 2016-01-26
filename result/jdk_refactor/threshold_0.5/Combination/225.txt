@@ -1,29 +1,30 @@
 /** 
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the front of this deque. As the deque is unbounded, this method will never return  {@code false}.
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @throws NullPointerException if the specified element is null
  */
-public K ceilingKey(K key){
-  Node<K,V> n=findNear(key,GT | EQ);
-  return (n == null) ? null : n.key;
+public boolean offerFirst(E e){
+  linkFirst(e);
+  return true;
 }
 
 /** 
- * @param key the key
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the end of this deque. As the deque is unbounded, this method will never return  {@code false}. <p>This method is equivalent to  {@link #add}.
+ * @return {@code true} (as specified by {@link Deque#offerLast})
+ * @throws NullPointerException if the specified element is null
  */
-public K higherKey(K key){
-  Node<K,V> n=findNear(key,GT);
-  return (n == null) ? null : n.key;
+public boolean offerLast(E e){
+  linkLast(e);
+  return true;
 }
 
 -->
-void ceilingKey_higherKey(K key,K key,int combFlag){
+void offerFirst_offerLast(E e,E e,int combFlag){
   if (combFlag == 1) {
-    Node<K,V> n=findNear(key,GT | EQ);
+    linkFirst(e);
   }
  else {
-    Node<K,V> n=findNear(key,GT);
+    linkLast(e);
   }
-  return (n == null) ? null : n.key;
+  return true;
 }

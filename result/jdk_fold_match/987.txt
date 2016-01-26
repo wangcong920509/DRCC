@@ -36,3 +36,5 @@ private void paintBorderFocusedAndNotInScrollPane(Graphics2D g){
   g.setPaint(color12);
   g.fill(path);
 }
+-->
+158.0 / 1567 = 0.10082961072112316

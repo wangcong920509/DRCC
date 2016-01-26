@@ -1,21 +1,8 @@
-/** 
- * Creates a new BasicPermission with the specified name. Name is the symbolic name of the permission, such as "setFactory", "print.queueJob", or "topLevelWindow", etc.
- * @param name the name of the BasicPermission.
- * @throws NullPointerException if <code>name</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>name</code> is empty.
- */
-public BasicPermission(String name){
-  super(name);
-  init(name);
+public ByteBuffer putChar(char x){
+  Bits.putChar(this,ix(nextPutIndex(2)),x,bigEndian);
+  return this;
 }
-/** 
- * Creates a new BasicPermission object with the specified name. The name is the symbolic name of the BasicPermission, and the actions String is currently unused.
- * @param name the name of the BasicPermission.
- * @param actions ignored.
- * @throws NullPointerException if <code>name</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>name</code> is empty.
- */
-public BasicPermission(String name,String actions){
-  super(name);
-  init(name);
+public ByteBuffer putChar(int i,char x){
+  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
+  return this;
 }

@@ -38,3 +38,5 @@ public int sendNormalizedSAXcharacters(org.xml.sax.ContentHandler ch,int start,i
   }
   return stateForNextChunk;
 }
+-->
+33.0 / 579 = 0.05699481865284974

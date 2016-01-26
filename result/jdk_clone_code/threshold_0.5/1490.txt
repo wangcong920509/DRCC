@@ -1,18 +1,17 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param deep Flag indicating whether to clone deep (clone member variables)
  * @return null
  */
-public Element getOwnerElement(){
+public Node cloneNode(boolean deep){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented.
- * @param offset Offset into text to split
- * @return null, unimplemented
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Document
+ * @return null
  */
-public Text splitText(int offset) throws DOMException {
+public DocumentFragment createDocumentFragment(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

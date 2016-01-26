@@ -1,8 +1,8 @@
-public DoubleBuffer put(double x){
-  unsafe.putDouble(ix(nextPutIndex()),((x)));
+public ByteBuffer putShort(int i,short x){
+  putShort(ix(checkIndex(i,(1 << 1))),x);
   return this;
 }
-public DoubleBuffer put(int i,double x){
-  unsafe.putDouble(ix(checkIndex(i)),((x)));
+public ByteBuffer putFloat(float x){
+  putFloat(ix(nextPutIndex((1 << 2))),x);
   return this;
 }

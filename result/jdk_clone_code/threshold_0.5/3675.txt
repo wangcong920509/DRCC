@@ -1,8 +1,22 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Returns  {@code false} to indicate that the height of the viewport does notdetermine the height of the layer, unless the preferred height of the layer is smaller than the height of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
+ * @return whether the layer should track the height of the viewport
+ * @see Scrollable
+ */
+public boolean getScrollableTracksViewportHeight(){
+  if (getView() instanceof Scrollable) {
+    return ((Scrollable)getView()).getScrollableTracksViewportHeight();
+  }
+  return false;
 }
-private Rectangle2D decodeRect51(){
-  rect.setRect(decodeX(0.8f),decodeY(2.2f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(2.4f) - decodeY(2.2f));
-  return rect;
+/** 
+ * Returns  {@code false} to indicate that the width of the viewport does notdetermine the width of the layer, unless the preferred width of the layer is smaller than the width of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
+ * @return whether the layer should track the width of the viewport
+ * @see Scrollable
+ */
+public boolean getScrollableTracksViewportWidth(){
+  if (getView() instanceof Scrollable) {
+    return ((Scrollable)getView()).getScrollableTracksViewportWidth();
+  }
+  return false;
 }

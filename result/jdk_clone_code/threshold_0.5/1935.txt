@@ -1,23 +1,29 @@
 /** 
- * Sets the requested data array element in the first (default) bank to the specified value.
- * @param i The data array element you want to set.
- * @param val The integer value to which you want to set the data array element.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Obsolete as of Java 2 platform v1.1.  Please use the <code>add</code> method instead. <p> Adds an item to this <code>Choice</code> menu.
+ * @param item the item to be added
+ * @exception NullPointerException if the item's value is equal to<code>null</code>
  */
-public void setElem(int i,int val){
-  data[i + offset]=val;
-  theTrackable.markDirty();
+public void addItem(String item){
+synchronized (this) {
+    insertNoInvalidate(item,pItems.size());
+  }
+  invalidateIfValid();
 }
 /** 
- * Sets the requested data array element in the specified bank to the integer value <CODE>i</CODE>.
- * @param bank The bank in which you want to set the data array element.
- * @param i The data array element you want to set.
- * @param val The integer value to which you want to set the specified data array element.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param item  the item to remove from this <code>Choice</code> menu
+ * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
+ * @since      JDK1.1
  */
-public void setElem(int bank,int i,int val){
-  bankdata[bank][i + offsets[bank]]=(int)val;
-  theTrackable.markDirty();
+public void remove(String item){
+synchronized (this) {
+    int index=pItems.indexOf(item);
+    if (index < 0) {
+      throw new IllegalArgumentException("item " + item + " not found in choice");
+    }
+ else {
+      removeNoInvalidate(index);
+    }
+  }
+  invalidateIfValid();
 }

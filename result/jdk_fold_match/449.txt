@@ -33,3 +33,5 @@ private void paintBackgroundSelected(Graphics2D g){
   g.setPaint(color11);
   g.fill(rect);
 }
+-->
+158.0 / 1276 = 0.1238244514106583

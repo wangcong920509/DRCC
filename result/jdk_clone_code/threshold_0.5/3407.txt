@@ -1,32 +1,24 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>String</code> in the Java programming language. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <p>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no further values in the stream.
+ * Returns <code>true</code> if it is possible to replace the stream metadata already present in the output. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if replacement of stream metadata isallowed.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public String readString() throws SQLException {
-  String attrib=(String)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canReplaceStreamMetadata() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }
 /** 
- * Retrieves the <code>BLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Blob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return a <code>Blob</code> object representing the SQL<code>BLOB</code> value at the head of this stream; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns <code>true</code> if the writer supports the writing of a complete image stream consisting of a single image with undefined pixel values and associated metadata and thumbnails to the output.  The pixel values may be defined by future calls to the <code>replacePixels</code> methods.  If the output is an <code>ImageOutputStream</code>, its existing contents prior to the current seek position are not affected, and need not be readable or writable. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if the writing of complete imagestream with contents to be defined later is supported.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public Blob readBlob() throws SQLException {
-  Blob attrib=(Blob)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canWriteEmpty() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }

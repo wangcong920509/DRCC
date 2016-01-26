@@ -1,20 +1,20 @@
 /** 
- * Create an XPathException object that holds an error message, the stylesheet node that the error originated from, and another exception that caused this exception.
- * @param message The error message.
- * @param styleNode The stylesheet node that the error originated from.
- * @param e The exception that caused this exception.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Attribute name
+ * @return null
+ * @throws DOMException
  */
-public XPathException(String message,Node styleNode,Exception e){
-  super(message);
-  m_styleNode=styleNode;
-  this.m_exception=e;
+public Attr createAttribute(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Create an XPathException object that holds an error message, and another exception that caused this exception.
- * @param message The error message.
- * @param e The exception that caused this exception.
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public XPathException(String message,Exception e){
-  super(message);
-  this.m_exception=e;
+public Text splitText(int offset) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

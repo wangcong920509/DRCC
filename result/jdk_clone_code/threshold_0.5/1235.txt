@@ -1,20 +1,17 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param name Name of attribute to get
- * @return null
+ * @param name Name of an attribute
+ * @return false
  */
-public String getAttribute(String name){
+public boolean hasAttribute(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param target Target for Processing instruction
- * @param data Data for Processing instruction
- * @return null
- * @throws DOMException
+ * Unimplemented. Introduced in DOM Level 2.
+ * @return false
  */
-public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
+public boolean hasAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }

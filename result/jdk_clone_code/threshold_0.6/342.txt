@@ -1,15 +1,14 @@
 /** 
- * Create a new SAXException.
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public SAXException(){
-  super();
-  this.exception=null;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new SAXException.
- * @param message The error or warning message.
+ * @see XSLOutputAttributes#getMediaType()
  */
-public SAXException(String message){
-  super(message);
-  this.exception=null;
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
 }

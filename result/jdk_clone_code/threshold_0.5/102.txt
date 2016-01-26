@@ -1,30 +1,20 @@
 /** 
- * Checks whether or not the specified principal has the specified permission. If it does, true is returned, otherwise false is returned. More specifically, this method checks whether the passed permission is a member of the allowed permission set of the specified principal. The allowed permission set is determined by the same algorithm as is used by the getPermissions method.
- * @param user the principal, assumed to be a valid authenticated Principal.
- * @param community the community name associated with the principal.
- * @param perm the permission to be checked for.
- * @return true if the principal has the specified permission, falseotherwise.
- * @see java.security.Principal
- * @see java.security.Permission
+ * Removes the specified MIB from the SNMP protocol adaptor.
+ * @param mib The MIB to be removed.
+ * @return <CODE>true</CODE> if the specified <CODE>mib</CODE> was a MIBincluded in the SNMP MIB handler, <CODE>false</CODE> otherwise.
  */
-public boolean checkPermission(Principal user,String community,java.security.acl.Permission perm){
-  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
-    AclEntryImpl ent=(AclEntryImpl)e.nextElement();
-    if (ent.getPrincipal().equals(user))     if (ent.checkPermission(perm) && ent.checkCommunity(community))     return true;
-  }
-  return false;
+public boolean removeMib(SnmpMibAgent mib){
+  root.unregister(mib);
+  return (mibs.removeElement(mib));
 }
 /** 
- * Checks whether or not the specified community string is defined.
- * @param community the community name associated with the principal.
- * @return true if the specified community string is defined, falseotherwise.
- * @see java.security.Principal
- * @see java.security.Permission
+ * Removes the specified MIB from the SNMP protocol adaptor.
+ * @param mib The MIB to be removed.
+ * @param oids The oid the MIB was previously registered for.
+ * @return <CODE>true</CODE> if the specified <CODE>mib</CODE> wasa MIB included in the SNMP MIB handler, <CODE>false</CODE> otherwise.
+ * @since 1.5
  */
-public boolean checkCommunity(String community){
-  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
-    AclEntryImpl ent=(AclEntryImpl)e.nextElement();
-    if (ent.checkCommunity(community))     return true;
-  }
-  return false;
+public boolean removeMib(SnmpMibAgent mib,SnmpOid[] oids){
+  root.unregister(mib,oids);
+  return (mibs.removeElement(mib));
 }

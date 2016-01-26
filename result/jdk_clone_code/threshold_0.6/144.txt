@@ -1,20 +1,14 @@
 /** 
- * Retrieves and removes the head of this queue.  This method differs from  {@link #poll poll} only in that it throws an exception if thisqueue is empty. <p>This implementation returns the result of <tt>poll</tt> unless the queue is empty.
- * @return the head of this queue
- * @throws NoSuchElementException if this queue is empty
+ * register one global notation
  */
-public E remove(){
-  E x=poll();
-  if (x != null)   return x;
- else   throw new NoSuchElementException();
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
 /** 
- * Retrieves, but does not remove, the head of this queue.  This method differs from  {@link #peek peek} only in that it throws an exception ifthis queue is empty. <p>This implementation returns the result of <tt>peek</tt> unless the queue is empty.
- * @return the head of this queue
- * @throws NoSuchElementException if this queue is empty
+ * register one global complex type
  */
-public E element(){
-  E x=peek();
-  if (x != null)   return x;
- else   throw new NoSuchElementException();
+public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl){
+  fGlobalTypeDecls.put(decl.getName(),decl);
+  decl.setNamespaceItem(this);
 }

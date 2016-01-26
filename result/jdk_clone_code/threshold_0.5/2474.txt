@@ -1,26 +1,11 @@
-/** 
- * Translates a character array representation of a {@code BigDecimal} into a {@code BigDecimal}, accepting the same sequence of characters as the  {@link #BigDecimal(String)}constructor, while allowing a sub-array to be specified and with rounding according to the context settings. <p>Note that if the sequence of characters is already available within a character array, using this constructor is faster than converting the  {@code char} array to string and using the{@code BigDecimal(String)} constructor .
- * @param in {@code char} array that is the source of characters.
- * @param offset first character in the array to inspect.
- * @param len number of characters to consider..
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @throws NumberFormatException if {@code in} is not a validrepresentation of a  {@code BigDecimal} or the defined subarrayis not wholly within  {@code in}.
- * @since  1.5
- */
-public BigDecimal(char[] in,int offset,int len,MathContext mc){
-  this(in,offset,len);
-  if (mc.precision > 0)   roundThis(mc);
+public StringBuilder append(int i){
+  super.append(i);
+  return this;
 }
 /** 
- * Translates a  {@code double} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal} is the smallest value such that<tt>(10<sup>scale</sup> &times; val)</tt> is an integer. <p>The results of this constructor can be somewhat unpredictable and its use is generally not recommended; see the notes under the  {@link #BigDecimal(double)} constructor.
- * @param val {@code double} value to be converted to{@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but theRoundingMode is UNNECESSARY.
- * @throws NumberFormatException if {@code val} is infinite or NaN.
- * @since  1.5
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public BigDecimal(double val,MathContext mc){
-  this(val);
-  if (mc.precision > 0)   roundThis(mc);
+public StringBuilder insert(int offset,String str){
+  super.insert(offset,str);
+  return this;
 }

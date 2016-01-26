@@ -1,20 +1,18 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param deep Flag indicating whether to clone deep (clone member variables)
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
  * @return null
  */
-public Node cloneNode(boolean deep){
+public Attr getAttributeNodeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New child node to insert
- * @param refChild Insert in front of this child
- * @return null
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
  * @throws DOMException
  */
-public Node insertBefore(Node newChild,Node refChild) throws DOMException {
+public Node adoptNode(Node source) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

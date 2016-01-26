@@ -1,23 +1,19 @@
 /** 
- * Sets the position to getBeginIndex() and returns the character at that position.
- * @return the first character in the text, or DONE if the text is empty
- * @see getBeginIndex
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
+ * @return null
+ * @throws DOMException
  */
-public char first(){
-  pos=0;
-  return current();
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Sets the position to getEndIndex()-1 (getEndIndex() if the text is empty) and returns the character at that position.
- * @return the last character in the text, or DONE if the text is empty
- * @see getEndIndex
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
  */
-public char last(){
-  if (chars.length > 0) {
-    pos=chars.length - 1;
-  }
- else {
-    pos=0;
-  }
-  return current();
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

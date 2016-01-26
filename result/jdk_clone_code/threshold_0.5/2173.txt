@@ -1,8 +1,11 @@
-public synchronized StringBuffer append(float f){
-  super.append(f);
+public synchronized StringBuffer append(char[] str){
+  super.append(str);
   return this;
 }
-public synchronized StringBuffer append(double d){
-  super.append(d);
+/** 
+ * @since 1.5
+ */
+public synchronized StringBuffer appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }

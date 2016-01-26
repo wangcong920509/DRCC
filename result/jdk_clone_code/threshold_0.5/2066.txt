@@ -1,15 +1,18 @@
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- * @since      1.5
+ * Appends the string representation of the  {@code float}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(float)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
+ * @param f   a {@code float}.
+ * @return  a reference to this object.
  */
-public synchronized StringBuffer append(CharSequence s,int start,int end){
-  super.append(s,start,end);
+public AbstractStringBuilder append(float f){
+  new FloatingDecimal(f).appendTo(this);
   return this;
 }
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
+ * Appends the string representation of the  {@code double}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(double)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
+ * @param d   a {@code double}.
+ * @return  a reference to this object.
  */
-public synchronized StringBuffer insert(int offset,char c){
-  super.insert(offset,c);
+public AbstractStringBuilder append(double d){
+  new FloatingDecimal(d).appendTo(this);
   return this;
 }

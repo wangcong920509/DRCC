@@ -1,52 +1,28 @@
 /** 
- * Determines whether this component is showing on screen. This means that the component must be visible, and it must be in a container that is visible and showing. <p> <strong>Note:</strong> sometimes there is no way to detect whether the {@code Component} is actually visible to the user.  This can happen when:<ul> <li>the component has been added to a visible  {@code ScrollPane} butthe  {@code Component} is not currently in the scroll pane's view port.<li>the  {@code Component} is obscured by another {@code Component} or{@code Container}. </ul>
- * @return <code>true</code> if the component is showing,<code>false</code> otherwise
- * @see #setVisible
- * @since JDK1.0
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the encoding of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
  */
-public boolean isShowing(){
-  if (visible && (peer != null)) {
-    Container parent=this.parent;
-    return (parent == null) || parent.isShowing();
-  }
-  return false;
+public String getInputEncoding(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
-boolean checkWindowClosingException(){
-  if (windowClosingException != null) {
-    if (this instanceof Dialog) {
-      ((Dialog)this).interruptBlocking();
-    }
- else {
-      windowClosingException.fillInStackTrace();
-      windowClosingException.printStackTrace();
-      windowClosingException=null;
-    }
-    return true;
-  }
-  return false;
+/** 
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the version number of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
+ */
+public String getVersion(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 -->
-void isShowing_checkWindowClosingException(int combFlag){
+void getInputEncoding_getVersion(int combFlag){
   if (combFlag == 1) {
-    if (visible && (peer != null)) {
-      Container parent=this.parent;
-      return (parent == null) || parent.isShowing();
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
-    if (windowClosingException != null) {
-      if (this instanceof Dialog) {
-        ((Dialog)this).interruptBlocking();
-      }
- else {
-        windowClosingException.fillInStackTrace();
-        windowClosingException.printStackTrace();
-        windowClosingException=null;
-      }
-      return true;
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  return false;
+  return null;
 }

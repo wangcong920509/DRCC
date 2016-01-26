@@ -1,26 +1,28 @@
 /** 
- * Returns the Rectangle enclosing the label portion that the last item in path will be drawn into.  Will return null if any component in path is currently valid.
+ * Sets the designated parameter to the given <code>java.lang.BigDecimal</code> value.  The driver converts this to an SQL <code>NUMERIC</code> value when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <P> Note: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the parameter value
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
  */
-public Rectangle getPathBounds(JTree tree,TreePath path){
-  if (tree != null && treeState != null) {
-    return getPathBounds(path,tree.getInsets(),new Rectangle());
+public void setBigDecimal(int parameterIndex,java.math.BigDecimal x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setBigDecimal");
   }
-  return null;
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }
-InputMap getInputMap(int condition){
-  if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
-    return (InputMap)DefaultLookup.get(tree,this,"Tree.ancestorInputMap");
+/** 
+ * Sets the designated parameter to the given <code>java.sql.Date</code> value. The driver converts this to an SQL <code>DATE</code> value when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <P> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class. <P> Calls made to the method <code>getParams</code> after this version of <code>setDate</code> has been called will return an array with the value to be set for placeholder parameter number <i>parameterIndex</i> being the <code>Date</code> object supplied as the second parameter. Note that because the numbering of elements in an array starts at zero, the array element that corresponds to placeholder parameter number <i>parameterIndex</i> is <i>parameterIndex</i> -1.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the parameter value
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
+ */
+public void setDate(int parameterIndex,java.sql.Date x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setDate");
   }
- else   if (condition == JComponent.WHEN_FOCUSED) {
-    InputMap keyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap");
-    InputMap rtlKeyMap;
-    if (tree.getComponentOrientation().isLeftToRight() || ((rtlKeyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap.RightToLeft")) == null)) {
-      return keyMap;
-    }
- else {
-      rtlKeyMap.setParent(keyMap);
-      return rtlKeyMap;
-    }
-  }
-  return null;
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }

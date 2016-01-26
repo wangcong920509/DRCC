@@ -1,20 +1,19 @@
 /** 
- * Look for ConstantString in ConstantPool containing String `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupString(String str){
-  Index index=(Index)string_table.get(str);
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantInterfaceMethodref in ConstantPool.
- * @param class_name Where to find method
- * @param method_name Guess what
- * @param signature return and argument types
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpCounter</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified counter value. The status is updated to indicate that the value is valid.
+ * @param val The new counter value.
+ * @exception IllegalArgumentException The specified value is negative or larger than<CODE>SnmpUnsignedInt.MAX_VALUE</CODE>.
+ * @see SnmpCounter
  */
-public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
-  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
-  return (index != null) ? index.index : -1;
+final public void setSnmpCounterValue(long val) throws IllegalArgumentException {
+  clearValue();
+  this.value=new SnmpCounter(val);
+  setValueValid();
 }

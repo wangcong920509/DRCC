@@ -1,8 +1,46 @@
-public synchronized StringBuffer append(char[] str){
-  super.append(str);
-  return this;
+private void emitLoadInsn(char type,int index){
+  int opcode;
+switch (type) {
+case 'I':
+    opcode=Opcodes.ILOAD;
+  break;
+case 'J':
+opcode=Opcodes.LLOAD;
+break;
+case 'F':
+opcode=Opcodes.FLOAD;
+break;
+case 'D':
+opcode=Opcodes.DLOAD;
+break;
+case 'L':
+opcode=Opcodes.ALOAD;
+break;
+default :
+throw new InternalError("unknown type: " + type);
 }
-public synchronized StringBuffer append(int i){
-  super.append(i);
-  return this;
+mv.visitVarInsn(opcode,localsMap[index]);
+}
+private void emitStoreInsn(char type,int index){
+  int opcode;
+switch (type) {
+case 'I':
+    opcode=Opcodes.ISTORE;
+  break;
+case 'J':
+opcode=Opcodes.LSTORE;
+break;
+case 'F':
+opcode=Opcodes.FSTORE;
+break;
+case 'D':
+opcode=Opcodes.DSTORE;
+break;
+case 'L':
+opcode=Opcodes.ASTORE;
+break;
+default :
+throw new InternalError("unknown type: " + type);
+}
+mv.visitVarInsn(opcode,localsMap[index]);
 }

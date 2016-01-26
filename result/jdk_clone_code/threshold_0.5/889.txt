@@ -1,9 +1,8 @@
 /** 
- * Unimplemented. See org.w3c.dom.NodeList
- * @param index index of a child of this node in its list of children
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node item(int index){
+public Node getLastChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
@@ -11,7 +10,7 @@ public Node item(int index){
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public String getNodeName(){
+public String getLocalName(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

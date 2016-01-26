@@ -18,3 +18,5 @@ private void painticonEnabled(Graphics2D g){
   g.setPaint(decodeGradient4(roundRect));
   g.fill(roundRect);
 }
+-->
+83.0 / 358 = 0.23184357541899442

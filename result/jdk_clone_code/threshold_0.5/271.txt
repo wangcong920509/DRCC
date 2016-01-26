@@ -1,14 +1,14 @@
 /** 
- * register one global notation
+ * register one global attribute
  */
-public void addGlobalNotationDecl(XSNotationDecl decl){
-  fGlobalNotationDecls.put(decl.fName,decl);
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
   decl.setNamespaceItem(this);
 }
 /** 
- * register one global complex type
+ * register one global attribute group
  */
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl){
-  fGlobalTypeDecls.put(decl.getName(),decl);
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
+  fGlobalAttrGrpDecls.put(decl.fName,decl);
   decl.setNamespaceItem(this);
 }

@@ -40,3 +40,5 @@ catch (  OutOfMemoryError ome) {
     Thread.currentThread().yield();
   }
 }
+-->
+85.0 / 574 = 0.1480836236933798

@@ -2,18 +2,17 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getNextSibling(){
+public Node getLastChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param importedNode The node to import.
- * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
  * @return null
- * @throws DOMException
  */
-public Node importNode(Node importedNode,boolean deep) throws DOMException {
+public String getAttributeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

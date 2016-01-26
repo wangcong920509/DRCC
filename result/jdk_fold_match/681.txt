@@ -15,3 +15,5 @@ private void paintBackgroundEnabled(Graphics2D g){
   g.setPaint(decodeGradient1(rect));
   g.fill(rect);
 }
+-->
+64.0 / 218 = 0.29357798165137616

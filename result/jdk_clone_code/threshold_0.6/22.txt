@@ -1,11 +1,15 @@
 /** 
- * The following constructors are for use by you for whatever purpose you can think of.  Constructing the exception in this manner makes the exception behave in the normal way - i.e., as documented in the class "Throwable".  The fields "errorToken", "expectedTokenSequences", and "tokenImage" do not contain relevant information.  The JavaCC generated code does not use these constructors.
+ * Get the default Context object
+ * @result          the default Context object
  */
-public ParseException(){
-  super();
-  specialConstructor=false;
+public synchronized org.omg.CORBA.Context get_default_context(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
-public ParseException(String message){
-  super(message);
-  specialConstructor=false;
+/** 
+ * This method does nothing. It is not required by the spec to do anything!
+ */
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

@@ -27,3 +27,5 @@ private void paintBackgroundPressedAndEditable(Graphics2D g){
   g.setPaint(decodeGradient8(path));
   g.fill(path);
 }
+-->
+128.0 / 820 = 0.15609756097560976

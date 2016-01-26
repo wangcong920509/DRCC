@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Method add
+ * @param xmlX509CRL
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public void add(XMLX509CRL xmlX509CRL){
+  this._constructionElement.appendChild(xmlX509CRL.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method addUnknownElement
+ * @param element
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

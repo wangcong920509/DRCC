@@ -13,3 +13,5 @@ Token processParen2() throws ParseException {
   this.next();
   return tok;
 }
+-->
+76.0 / 254 = 0.2992125984251969

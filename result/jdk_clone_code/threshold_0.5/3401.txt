@@ -1,32 +1,23 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>String</code> in the Java programming language. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <p>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no further values in the stream.
+ * Returns the component at the specified index. <p>This method is identical in functionality to the  {@link #get(int)}method (which is part of the  {@link List} interface).
+ * @param index   an index into this vector
+ * @return     the component at the specified index
+ * @throws ArrayIndexOutOfBoundsException if the index is out of range( {@code index < 0 || index >= size()})
  */
-public String readString() throws SQLException {
-  String attrib=(String)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public synchronized E elementAt(int index){
+  if (index >= elementCount) {
+    throw new ArrayIndexOutOfBoundsException(index + " >= " + elementCount);
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return elementData(index);
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.sql.Time</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns the element at the specified position in this Vector.
+ * @param index index of the element to return
+ * @return object at the specified index
+ * @throws ArrayIndexOutOfBoundsException if the index is out of range( {@code index < 0 || index >= size()})
+ * @since 1.2
  */
-public java.sql.Time readTime() throws SQLException {
-  java.sql.Time attrib=(java.sql.Time)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public synchronized E get(int index){
+  if (index >= elementCount)   throw new ArrayIndexOutOfBoundsException(index);
+  return elementData(index);
 }

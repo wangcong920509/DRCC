@@ -24,3 +24,5 @@ private void painticonEnabledAndWindowNotFocused(Graphics2D g){
   g.setPaint(color40);
   g.fill(path);
 }
+-->
+113.0 / 673 = 0.16790490341753342

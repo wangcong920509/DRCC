@@ -1,28 +1,25 @@
 /** 
- * Look up the index of an attribute by XML 1.0 qualified name.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * <p>Constructs a new Duration object by specifying each field individually.</p> <p>All the parameters are optional as long as at least one field is present. If specified, parameters have to be zero or positive.</p>
+ * @param isPositive Set to <code>false</code> to create a negative duration. When the lengthof the duration is zero, this parameter will be ignored.
+ * @param years of this <code>Duration</code>
+ * @param months of this <code>Duration</code>
+ * @throws IllegalArgumentException If years, months parameters are all <code>null</code>. Or if any of those parameters are negative.
  */
-public int getIndex(String qName){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname != null && attribute.name.rawname.equals(qName)) {
-      return i;
-    }
-  }
-  return -1;
+public DurationYearMonthImpl(boolean isPositive,BigInteger years,BigInteger months){
+  super(isPositive,years,months,null,null,null,null);
+  convertToCanonicalYearMonth();
 }
 /** 
- * Look up the index of an attribute by local name only, ignoring its namespace.
- * @param localName The attribute's local name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * <p>Construct a <code>Duration</code> of type <code>xdt:yearMonthDuration</code> by parsing its <code>String</code> representation, "<em>PnYnM</em>", <a href="http://www.w3.org/TR/xpath-datamodel#yearMonthDuration"> XQuery 1.0 and XPath 2.0 Data Model, xdt:yearMonthDuration</a>.</p> <p>The datatype <code>xdt:yearMonthDuration</code> is a subtype of <code>xs:duration</code> whose lexical representation contains only year and month components. This datatype resides in the namespace  {@link javax.xml.XMLConstants#W3C_XPATH_DATATYPE_NS_URI}.</p> <p>Both values are set and availabe from the created  {@link Duration}</p> <p>The XML Schema specification states that values can be of an arbitrary size. Implementations may chose not to or be incapable of supporting arbitrarily large and/or small values. An  {@link UnsupportedOperationException} will be thrown with a message indicating implementation limitsif implementation capacities are exceeded.</p>
+ * @param lexicalRepresentation Lexical representation of a duration.
+ * @throws IllegalArgumentException If <code>lexicalRepresentation</code> is not a valid representation of a <code>Duration</code> expressed only in terms of years and months.
+ * @throws UnsupportedOperationException If implementation cannot support requested values.
+ * @throws NullPointerException If <code>lexicalRepresentation</code> is <code>null</code>.
  */
-public int getIndexByLocalName(String localPart){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart)) {
-      return i;
-    }
+protected DurationYearMonthImpl(String lexicalRepresentation){
+  super(lexicalRepresentation);
+  if (getDays() > 0 || getHours() > 0 || getMinutes() > 0 || getSeconds() > 0) {
+    throw new IllegalArgumentException("Trying to create an xdt:yearMonthDuration with an invalid" + " lexical representation of \"" + lexicalRepresentation + "\", data model requires PnYnM.");
   }
-  return -1;
+  convertToCanonicalYearMonth();
 }

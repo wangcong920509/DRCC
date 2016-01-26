@@ -1,18 +1,41 @@
-public void endPrefixMapping(java.lang.String prefix) throws org.xml.sax.SAXException {
-  if (--eventcounter <= 0) {
-    co_yield(true);
-    eventcounter=frequency;
+/** 
+ * Returns true if the encoding name is a valid IANA encoding. This method does not verify that there is a decoder available for this encoding, only that the characters are valid for an IANA encoding name.
+ * @param ianaEncoding The IANA encoding name.
+ */
+public static boolean isValidIANAEncoding(String ianaEncoding){
+  if (ianaEncoding != null) {
+    int length=ianaEncoding.length();
+    if (length > 0) {
+      char c=ianaEncoding.charAt(0);
+      if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
+        for (int i=1; i < length; i++) {
+          c=ianaEncoding.charAt(i);
+          if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')&& c != '.' && c != '_' && c != '-') {
+            return false;
+          }
+        }
+        return true;
+      }
+    }
   }
-  if (clientContentHandler != null)   clientContentHandler.endPrefixMapping(prefix);
+  return false;
 }
 /** 
- * <p>In the SAX delegation code, I've inlined the count-down in the hope of encouraging compilers to deliver better performance. However, if we subclass (eg to directly connect the output to a DTM builder), that would require calling super in order to run that logic... which seems inelegant.  Hence this routine for the convenience of subclasses: every [frequency] invocations, issue a co_yield.</p>
- * @param moreExepected Should always be true unless this is being calledat the end of endDocument() handling.
+ * Returns true if the encoding name is a valid Java encoding. This method does not verify that there is a decoder available for this encoding, only that the characters are valid for an Java encoding name.
+ * @param javaEncoding The Java encoding name.
  */
-protected void count_and_yield(boolean moreExpected) throws SAXException {
-  if (!moreExpected)   eventcounter=0;
-  if (--eventcounter <= 0) {
-    co_yield(true);
-    eventcounter=frequency;
+public static boolean isValidJavaEncoding(String javaEncoding){
+  if (javaEncoding != null) {
+    int length=javaEncoding.length();
+    if (length > 0) {
+      for (int i=1; i < length; i++) {
+        char c=javaEncoding.charAt(i);
+        if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')&& c != '.' && c != '_' && c != '-') {
+          return false;
+        }
+      }
+      return true;
+    }
   }
+  return false;
 }

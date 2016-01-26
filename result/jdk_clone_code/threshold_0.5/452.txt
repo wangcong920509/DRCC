@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Constructor KeyInfo
+ * @param doc
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public KeyInfo(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * Method addPGPData
+ * @param pgpdata
  */
-public NamespaceMappings getNamespaceMappings(){
-  aMethodIsCalled();
-  return null;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

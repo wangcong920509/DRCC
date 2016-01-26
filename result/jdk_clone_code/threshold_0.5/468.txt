@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param mgmtdata
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ * Method add
+ * @param retrievalmethod
  */
-public String getNamespaceURI(String name,boolean isElement){
-  aMethodIsCalled();
-  return null;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

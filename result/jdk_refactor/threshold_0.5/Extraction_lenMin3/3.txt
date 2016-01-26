@@ -1,6 +1,5 @@
 {
-  int pos=position();
-  int lim=limit();
-  assert(pos <= lim);
-  int rem=(pos <= lim ? lim - pos : 0);
+  fieldPosition.setBeginIndex(0);
+  fieldPosition.setEndIndex(0);
+  return format(number,result,fieldPosition.getFieldDelegate());
 }

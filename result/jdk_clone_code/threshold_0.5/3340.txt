@@ -1,30 +1,30 @@
-private boolean doesListMatch(int beg,int end,List rdns){
-  for (int i=beg; i < end; i++) {
-    if (!this.rdns.get(i).equals(rdns.get(i - beg))) {
-      return false;
-    }
+/** 
+ * Sets the language.  If <code>language</code> is the empty string or null, the language in this <code>Builder</code> is removed.  Otherwise, the language must be <a href="./Locale.html#def_language">well-formed</a> or an exception is thrown. <p>The typical language value is a two or three-letter language code as defined in ISO639.
+ * @param language the language
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>language</code> is ill-formed
+ */
+public Builder setLanguage(String language){
+  try {
+    localeBuilder.setLanguage(language);
   }
-  return true;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
-private boolean matches(int beg,int end,Name n){
-  if (n instanceof LdapName) {
-    LdapName ln=(LdapName)n;
-    return doesListMatch(beg,end,ln.rdns);
+/** 
+ * Sets the variant.  If variant is null or the empty string, the variant in this <code>Builder</code> is removed.  Otherwise, it must consist of one or more <a href="./Locale.html#def_variant">well-formed</a> subtags, or an exception is thrown. <p><b>Note:</b> This method checks if <code>variant</code> satisfies the IETF BCP 47 variant subtag's syntax requirements, and normalizes the value to lowercase letters.  However, the <code>Locale</code> class does not impose any syntactic restriction on variant, and the variant value in <code>Locale</code> is case sensitive.  To set such a variant, use a Locale constructor.
+ * @param variant the variant
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>variant</code> is ill-formed
+ */
+public Builder setVariant(String variant){
+  try {
+    localeBuilder.setVariant(variant);
   }
- else {
-    for (int i=beg; i < end; i++) {
-      Rdn rdn;
-      String rdnString=n.get(i - beg);
-      try {
-        rdn=(new Rfc2253Parser(rdnString)).parseRdn();
-      }
- catch (      InvalidNameException e) {
-        return false;
-      }
-      if (!rdn.equals(rdns.get(i))) {
-        return false;
-      }
-    }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
   }
-  return true;
+  return this;
 }

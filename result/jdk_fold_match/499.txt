@@ -50,3 +50,5 @@ private Path2D decodePath13(){
   path.closePath();
   return path;
 }
+-->
+430.0 / 6538 = 0.06576934842459468

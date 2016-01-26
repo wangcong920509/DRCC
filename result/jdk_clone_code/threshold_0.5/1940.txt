@@ -1,20 +1,31 @@
 /** 
- * Constructs and initializes a point at the specified {@code (x,y)} location in the coordinate space.
- * @param x the X coordinate of the newly constructed <code>Point</code>
- * @param y the Y coordinate of the newly constructed <code>Point</code>
- * @since 1.0
+ * Inserts the item into this choice at the specified position. Existing items at an index greater than or equal to <code>index</code> are shifted up by one to accommodate the new item.  If <code>index</code> is greater than or equal to the number of items in this choice, <code>item</code> is added to the end of this choice. <p> If the item is the first one being added to the choice, then the item becomes selected.  Otherwise, if the selected item was one of the items shifted, the first item in the choice becomes the selected item.  If the selected item was no among those shifted, it remains the selected item.
+ * @param item the non-<code>null</code> item to be inserted
+ * @param index the position at which the item should be inserted
+ * @exception IllegalArgumentException if index is less than 0
  */
-public Point(int x,int y){
-  this.x=x;
-  this.y=y;
+public void insert(String item,int index){
+synchronized (this) {
+    if (index < 0) {
+      throw new IllegalArgumentException("index less than zero.");
+    }
+    index=Math.min(index,pItems.size());
+    insertNoInvalidate(item,index);
+  }
+  invalidateIfValid();
 }
 /** 
- * Moves this point to the specified location in the {@code (x,y)} coordinate plane. This methodis identical with <code>setLocation(int,&nbsp;int)</code>.
- * @param x the X coordinate of the new location
- * @param y the Y coordinate of the new location
- * @see java.awt.Component#setLocation(int,int)
+ * Removes all items from the choice menu.
+ * @see #remove
+ * @since     JDK1.1
  */
-public void move(int x,int y){
-  this.x=x;
-  this.y=y;
+public void removeAll(){
+synchronized (this) {
+    if (peer != null) {
+      ((ChoicePeer)peer).removeAll();
+    }
+    pItems.removeAllElements();
+    selectedIndex=-1;
+  }
+  invalidateIfValid();
 }

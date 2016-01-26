@@ -1,31 +1,15 @@
-public boolean isIDType(){
-switch (fVariety) {
-case VARIETY_ATOMIC:
-    return fValidationDV == DV_ID;
-case VARIETY_LIST:
-  return fItemType.isIDType();
-case VARIETY_UNION:
-for (int i=0; i < fMemberTypes.length; i++) {
-  if (fMemberTypes[i].isIDType())   return true;
-}
-}
-return false;
+/** 
+ * SAX2: Receive notification of character data.
+ */
+public void characters(char[] ch,int start,int length) throws SAXException {
+  super.characters(ch,start,length);
+  _disableEscaping=!_escaping;
+  _textNodeToProcess=getNumberOfNodes();
 }
 /** 
- * Checks if a type is derived from another by list. See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
- * @param ancestorNS The namspace of the ancestor type declaration
- * @param ancestorName The name of the ancestor type declaration
- * @param type The reference type definition
- * @return boolean True if the type is derived by list for the reference type
+ * SAX2: Receive notification of ignorable whitespace in element content. Similar to characters(char[], int, int).
  */
-private boolean isDerivedByList(String ancestorNS,String ancestorName,XSTypeDefinition type){
-  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_LIST) {
-    XSTypeDefinition itemType=((XSSimpleTypeDefinition)type).getItemType();
-    if (itemType != null) {
-      if (isDerivedByRestriction(ancestorNS,ancestorName,itemType)) {
-        return true;
-      }
-    }
-  }
-  return false;
+public void ignorableWhitespace(char[] ch,int start,int length) throws SAXException {
+  super.ignorableWhitespace(ch,start,length);
+  _textNodeToProcess=getNumberOfNodes();
 }

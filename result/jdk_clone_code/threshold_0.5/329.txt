@@ -1,36 +1,59 @@
 /** 
- * Get the handle from a Node. <p>%OPT% This will be pretty slow.</p> <p>%OPT% An XPath-like search (walk up DOM to root, tracking path; walk down DTM reconstructing path) might be considerably faster on later nodes in large documents. That might also imply improving this call to handle nodes which would be in this DTM but have not yet been built, which might or might not be a Good Thing.</p> %REVIEW% This relies on being able to test node-identity via object-identity. DTM2DOM proxying is a great example of a case where that doesn't work. DOM Level 3 will provide the isSameNode() method to fix that, but until then this is going to be flaky.
- * @param node A node, which may be null.
- * @return The node handle or <code>DTM.NULL</code>.
+ * <p>Locates an external subset for documents which do not explicitly provide one. If no external subset is provided, this method should return <code>null</code>.</p>
+ * @param grammarDescription a description of the DTD
+ * @throws XNIException Thrown on general error.
+ * @throws IOException  Thrown if resolved entity stream cannot beopened or some other i/o error occurs.
  */
-private int getHandleFromNode(Node node){
-  if (null != node) {
-    int len=m_nodes.size();
-    boolean isMore;
-    int i=0;
-    do {
-      for (; i < len; i++) {
-        if (m_nodes.elementAt(i) == node)         return makeNodeHandle(i);
-      }
-      isMore=nextNode();
-      len=m_nodes.size();
+public XMLInputSource getExternalSubset(XMLDTDDescription grammarDescription) throws XNIException, IOException {
+  if (fEntityResolver != null) {
+    String name=grammarDescription.getRootName();
+    String baseURI=grammarDescription.getBaseSystemId();
+    try {
+      InputSource inputSource=fEntityResolver.getExternalSubset(name,baseURI);
+      return (inputSource != null) ? createXMLInputSource(inputSource,baseURI) : null;
     }
- while (isMore || i < len);
+ catch (    SAXException e) {
+      Exception ex=e.getException();
+      if (ex == null) {
+        ex=e;
+      }
+      throw new XNIException(ex);
+    }
   }
-  return DTM.NULL;
+  return null;
 }
 /** 
- * Get the handle from a Node. This is a more robust version of getHandleFromNode, intended to be usable by the public. <p>%OPT% This will be pretty slow.</p> %REVIEW% This relies on being able to test node-identity via object-identity. DTM2DOM proxying is a great example of a case where that doesn't work. DOM Level 3 will provide the isSameNode() method to fix that, but until then this is going to be flaky.
- * @param node A node, which may be null.
- * @return The node handle or <code>DTM.NULL</code>.  
+ * Resolves an external parsed entity. If the entity cannot be resolved, this method should return null.
+ * @param resourceIdentifier contains the physical co-ordinates of the resource to be resolved
+ * @throws XNIException Thrown on general error.
+ * @throws IOException  Thrown if resolved entity stream cannot beopened or some other i/o error occurs.
  */
-public int getHandleOfNode(Node node){
-  if (null != node) {
-    if ((m_root == node) || (m_root.getNodeType() == DOCUMENT_NODE && m_root == node.getOwnerDocument()) || (m_root.getNodeType() != DOCUMENT_NODE && m_root.getOwnerDocument() == node.getOwnerDocument())) {
-      for (Node cursor=node; cursor != null; cursor=(cursor.getNodeType() != ATTRIBUTE_NODE) ? cursor.getParentNode() : ((org.w3c.dom.Attr)cursor).getOwnerElement()) {
-        if (cursor == m_root)         return getHandleFromNode(node);
+public XMLInputSource resolveEntity(XMLResourceIdentifier resourceIdentifier) throws XNIException, IOException {
+  if (fEntityResolver != null) {
+    String pubId=resourceIdentifier.getPublicId();
+    String sysId=resourceIdentifier.getLiteralSystemId();
+    String baseURI=resourceIdentifier.getBaseSystemId();
+    String name=null;
+    if (resourceIdentifier instanceof XMLDTDDescription) {
+      name="[dtd]";
+    }
+ else     if (resourceIdentifier instanceof XMLEntityDescription) {
+      name=((XMLEntityDescription)resourceIdentifier).getEntityName();
+    }
+    if (pubId == null && sysId == null) {
+      return null;
+    }
+    try {
+      InputSource inputSource=fEntityResolver.resolveEntity(name,pubId,baseURI,sysId);
+      return (inputSource != null) ? createXMLInputSource(inputSource,baseURI) : null;
+    }
+ catch (    SAXException e) {
+      Exception ex=e.getException();
+      if (ex == null) {
+        ex=e;
       }
+      throw new XNIException(ex);
     }
   }
-  return DTM.NULL;
+  return null;
 }

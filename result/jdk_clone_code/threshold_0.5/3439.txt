@@ -1,32 +1,22 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> as a <code>java.sql.Date</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Return the key used to identify the element type in arrays - e.g. "Z" for boolean, "C" for char etc...
+ * @param elementClassName the wrapper class name of the arrayelement ("Boolean",  "Character", etc...)
+ * @return the key corresponding to the given type ("Z", "C", etc...)return null if the given elementClassName is not a primitive wrapper class name.
  */
-public java.sql.Date readDate() throws SQLException {
-  java.sql.Date attrib=(java.sql.Date)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+static String getPrimitiveTypeKey(String elementClassName){
+  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
+    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_KEY_INDEX];
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return null;
 }
 /** 
- * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Return the primitive open type corresponding to the given primitive type. e.g. SimpleType.BOOLEAN for "boolean", SimpleType.CHARACTER for "char", etc...
+ * @param primitiveTypeName the primitive type of the array element ("boolean","char", etc...)
+ * @return the OpenType corresponding to the given primitive type name(SimpleType.BOOLEAN, SimpleType.CHARACTER, etc...) return null if the given elementClassName is not a primitive type name.
  */
-public Array readArray() throws SQLException {
-  Array attrib=(Array)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+static SimpleType<?> getPrimitiveOpenType(String primitiveTypeName){
+  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
+    if (primitiveTypeName.equals(typeDescr[PRIMITIVE_TYPE_NAME_INDEX]))     return (SimpleType<?>)typeDescr[PRIMITIVE_OPEN_TYPE_INDEX];
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return null;
 }

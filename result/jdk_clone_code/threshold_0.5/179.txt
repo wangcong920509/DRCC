@@ -1,14 +1,11 @@
-/** 
- * SAX2: Receive notification of a processing instruction.
- */
-public void processingInstruction(String target,String data) throws SAXException {
-  super.processingInstruction(target,data);
-  handleTextEscaping();
+private void addDOMField(ClassGenerator classGen){
+  final FieldGen fgen=new FieldGen(ACC_PUBLIC,Util.getJCRefType(DOM_INTF_SIG),DOM_FIELD,classGen.getConstantPool());
+  classGen.addField(fgen.getField());
 }
 /** 
- * SAX2: Report an XML comment anywhere in the document.
+ * Add a static field
  */
-public void comment(char[] ch,int start,int length) throws SAXException {
-  super.comment(ch,start,length);
-  handleTextEscaping();
+private void addStaticField(ClassGenerator classGen,String type,String name){
+  final FieldGen fgen=new FieldGen(ACC_PROTECTED | ACC_STATIC,Util.getJCRefType(type),name,classGen.getConstantPool());
+  classGen.addField(fgen.getField());
 }

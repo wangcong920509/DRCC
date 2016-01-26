@@ -44,3 +44,5 @@ protected void serializeElement(Element elem) throws IOException {
     }
   }
 }
+-->
+19.0 / 361 = 0.05263157894736842

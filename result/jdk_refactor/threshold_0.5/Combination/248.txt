@@ -1,43 +1,90 @@
 /** 
- * Returns <code>true</code> if it is possible to replace the image metadata associated with an existing image with index <code>imageIndex</code>.  If this method returns <code>false</code>, a call to <code>replaceImageMetadata(imageIndex)</code> will throw an <code>UnsupportedOperationException</code>. <p> A writer that does not support any image metadata replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
- * @param imageIndex the index of the image whose metadata is tobe replaced.
- * @return <code>true</code> if the image metadata of the givenimage can be replaced.
- * @exception IllegalStateException if the output has notbeen set.
- * @exception IndexOutOfBoundsException if the writer supportsimage metadata replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
- * @exception IOException if an I/O error occurs during the query.
+ * Removes the first occurrence of the specified element from this list, if it is present.  If this list does not contain the element, it is unchanged.  More formally, removes the element with the lowest index {@code i} such that<tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt> (if such an element exists).  Returns  {@code true} if this listcontained the specified element (or equivalently, if this list changed as a result of the call).
+ * @param o element to be removed from this list, if present
+ * @return {@code true} if this list contained the specified element
  */
-public boolean canReplaceImageMetadata(int imageIndex) throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
+public boolean remove(Object o){
+  if (o == null) {
+    for (Node<E> x=first; x != null; x=x.next) {
+      if (x.item == null) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+ else {
+    for (Node<E> x=first; x != null; x=x.next) {
+      if (o.equals(x.item)) {
+        unlink(x);
+        return true;
+      }
+    }
   }
   return false;
 }
 
 /** 
- * Returns <code>true</code> if the writer supports the removal of an existing image at the given index.  Existing images with indices greater than the insertion index will have their indices decreased by 1. <p> A writer that does not support any image removal may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
- * @param imageIndex the index of the image to be removed.
- * @return <code>true</code> if it is possible to remove the givenimage.
- * @exception IllegalStateException if the output has notbeen set.
- * @exception IndexOutOfBoundsException if the writer supportsimage removal in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
- * @exception IOException if an I/O error occurs during thequery.
+ * Removes the last occurrence of the specified element in this list (when traversing the list from head to tail).  If the list does not contain the element, it is unchanged.
+ * @param o element to be removed from this list, if present
+ * @return {@code true} if the list contained the specified element
+ * @since 1.6
  */
-public boolean canRemoveImage(int imageIndex) throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
+public boolean removeLastOccurrence(Object o){
+  if (o == null) {
+    for (Node<E> x=last; x != null; x=x.prev) {
+      if (x.item == null) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+ else {
+    for (Node<E> x=last; x != null; x=x.prev) {
+      if (o.equals(x.item)) {
+        unlink(x);
+        return true;
+      }
+    }
   }
   return false;
 }
 
 -->
-void canReplaceImageMetadata_canRemoveImage(int imageIndex,int imageIndex,int combFlag){
+void remove_removeLastOccurrence(Object o,Object o,int combFlag){
   if (combFlag == 1) {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
+    if (o == null) {
+      for (Node<E> x=first; x != null; x=x.next) {
+        if (x.item == null) {
+          unlink(x);
+          return true;
+        }
+      }
+    }
+ else {
+      for (Node<E> x=first; x != null; x=x.next) {
+        if (o.equals(x.item)) {
+          unlink(x);
+          return true;
+        }
+      }
     }
   }
  else {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
+    if (o == null) {
+      for (Node<E> x=last; x != null; x=x.prev) {
+        if (x.item == null) {
+          unlink(x);
+          return true;
+        }
+      }
+    }
+ else {
+      for (Node<E> x=last; x != null; x=x.prev) {
+        if (o.equals(x.item)) {
+          unlink(x);
+          return true;
+        }
+      }
     }
   }
   return false;

@@ -1,14 +1,23 @@
-/** 
- * @see SerializationHandler#reset()
- */
-public boolean reset(){
-  aMethodIsCalled();
-  return false;
+public void flushLine(boolean preserveSpace) throws IOException {
+  try {
+    _writer.write(_buffer,0,_pos);
+  }
+ catch (  IOException except) {
+    if (_exception == null)     _exception=except;
+  }
+  _pos=0;
 }
 /** 
- * @see XSLOutputAttributes#getIndent()
+ * Flush the output stream. Must be called when done printing the document, otherwise some text might be buffered.
  */
-public boolean getIndent(){
-  aMethodIsCalled();
-  return false;
+public void flush() throws IOException {
+  try {
+    _writer.write(_buffer,0,_pos);
+    _writer.flush();
+  }
+ catch (  IOException except) {
+    if (_exception == null)     _exception=except;
+    throw except;
+  }
+  _pos=0;
 }

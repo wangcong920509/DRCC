@@ -1,44 +1,32 @@
-boolean checkWindowClosingException(){
-  if (windowClosingException != null) {
-    if (this instanceof Dialog) {
-      ((Dialog)this).interruptBlocking();
-    }
- else {
-      windowClosingException.fillInStackTrace();
-      windowClosingException.printStackTrace();
-      windowClosingException=null;
-    }
-    return true;
-  }
-  return false;
+/** 
+ * Sets the component at the specified index of this vector to be the specified object. The previous component at that position is discarded. The index must be a value greater than or equal to 0 and less than the current size of the vector.
+ * @param node  The node to be set.
+ * @param index The index of the node to be replaced.
+ * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
+ */
+public void setElementAt(int node,int index){
+  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+  super.setElementAt(node,index);
 }
 
-final boolean canBeFocusOwner(){
-  if (isEnabled() && isDisplayable() && isVisible()&& isFocusable()) {
-    return true;
-  }
-  return false;
+/** 
+ * Same as setElementAt.
+ * @param node  The node to be set.
+ * @param index The index of the node to be replaced.
+ * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
+ */
+public void setItem(int node,int index){
+  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+  super.setElementAt(node,index);
 }
 
 -->
-void checkWindowClosingException_canBeFocusOwner(int combFlag){
+void setElementAt_setItem(int node,int index,int node,int index,int combFlag){
   if (combFlag == 1) {
-    if (windowClosingException != null) {
-      if (this instanceof Dialog) {
-        ((Dialog)this).interruptBlocking();
-      }
- else {
-        windowClosingException.fillInStackTrace();
-        windowClosingException.printStackTrace();
-        windowClosingException=null;
-      }
-      return true;
-    }
+    if (!m_mutable)     throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
   }
  else {
-    if (isEnabled() && isDisplayable() && isVisible()&& isFocusable()) {
-      return true;
-    }
+    if (!m_mutable)     throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
   }
-  return false;
+  super.setElementAt(node,index);
 }

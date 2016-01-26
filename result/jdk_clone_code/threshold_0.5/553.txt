@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ * @see SerializationHandler#getOutputStream()
  */
-public String getNamespaceURIFromPrefix(String prefix){
+public OutputStream getOutputStream(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getStandalone()
+ * @see Serializer#asDOMSerializer()
  */
-public String getStandalone(){
-  aMethodIsCalled();
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
   return null;
 }

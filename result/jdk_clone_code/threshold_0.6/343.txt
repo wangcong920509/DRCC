@@ -1,17 +1,14 @@
 /** 
- * Create a new SAXException wrapping an existing exception. <p>The existing exception will be embedded in the new one, and its message will become the default message for the SAXException.</p>
- * @param e The exception to be wrapped in a SAXException.
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public SAXException(Exception e){
-  super();
-  this.exception=e;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new SAXException from an existing exception. <p>The existing exception will be embedded in the new one, but the new exception will have its own message.</p>
- * @param message The detail message.
- * @param e The exception to be wrapped in a SAXException.
+ * @see XSLOutputAttributes#getStandalone()
  */
-public SAXException(String message,Exception e){
-  super(message);
-  this.exception=e;
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
 }

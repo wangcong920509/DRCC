@@ -1,8 +1,13 @@
-public static InterceptorsSystemException get(ORB orb,String logDomain){
-  InterceptorsSystemException wrapper=(InterceptorsSystemException)orb.getLogWrapper(logDomain,"INTERCEPTORS",factory);
-  return wrapper;
+private boolean checkSpecialClasses(Object obj) throws IOException {
+  if (obj instanceof ObjectStreamClass) {
+    throw new IOException("Serialization of ObjectStreamClass not supported");
+  }
+  return false;
 }
-public static InterceptorsSystemException get(String logDomain){
-  InterceptorsSystemException wrapper=(InterceptorsSystemException)ORB.staticGetLogWrapper(logDomain,"INTERCEPTORS",factory);
-  return wrapper;
+private boolean checkSubstitutableSpecialClasses(Object obj) throws IOException {
+  if (obj instanceof String) {
+    orbStream.write_value((java.io.Serializable)obj);
+    return true;
+  }
+  return false;
 }

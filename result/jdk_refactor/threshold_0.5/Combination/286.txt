@@ -1,20 +1,40 @@
-private RoundRectangle2D decodeRoundRect3(){
-  roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
-  return roundRect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    return createInputMap(condition);
+  }
+ else   if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(desktop,this,"Desktop.ancestorInputMap");
+  }
+  return null;
 }
 
-private RoundRectangle2D decodeRoundRect5(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.42857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.857143f) - decodeY(0.42857143f),9.0f,9.0f);
-  return roundRect;
+InputMap createInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(desktop,this,"Desktop.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(desktop,bindings);
+    }
+  }
+  return null;
 }
 
 -->
-void decodeRoundRect3_decodeRoundRect5(int combFlag){
+void getInputMap_createInputMap(int condition,int condition,int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
+    if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+      return createInputMap(condition);
+    }
+ else     if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+      return (InputMap)DefaultLookup.get(desktop,this,"Desktop.ancestorInputMap");
+    }
   }
  else {
-    roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.42857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.857143f) - decodeY(0.42857143f),9.0f,9.0f);
+    if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+      Object[] bindings=(Object[])DefaultLookup.get(desktop,this,"Desktop.windowBindings");
+      if (bindings != null) {
+        return LookAndFeel.makeComponentInputMap(desktop,bindings);
+      }
+    }
   }
-  return roundRect;
+  return null;
 }

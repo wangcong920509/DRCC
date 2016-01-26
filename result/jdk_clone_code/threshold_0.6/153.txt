@@ -1,24 +1,19 @@
 /** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
+ * Look up an augmentations by Namespace name.
+ * @param uri The Namespace URI, or null if the
+ * @param localName The local name of the attribute.
+ * @return Augmentations
  */
-public static void sort(long[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public Augmentations getAugmentations(String uri,String localName){
+  int index=getIndex(uri,localName);
+  return index != -1 ? fAttributes[index].augs : null;
 }
 /** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
+ * Look up an augmentation by XML 1.0 qualified name. <p>
+ * @param qName The XML 1.0 qualified name.
+ * @return Augmentations
  */
-public static void sort(byte[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public Augmentations getAugmentations(String qName){
+  int index=getIndex(qName);
+  return index != -1 ? fAttributes[index].augs : null;
 }

@@ -2,15 +2,17 @@
  * Unimplemented. See org.w3c.dom.Document
  * @return null
  */
-public DocumentFragment createDocumentFragment(){
+public DocumentType getDoctype(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
  * @throws DOMException
  */
-public Node adoptNode(Node source) throws DOMException {
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

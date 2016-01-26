@@ -1,22 +1,31 @@
 /** 
- * Adds a single component to the end of this composite name.
- * @param comp     The non-null component to add.
- * @return The updated CompositeName, not a new one. Cannot be null.
- * @exception InvalidNameException If adding comp at end of the namewould violate the name's syntax.
+ * Resets the <code>Builder</code> to match the provided <code>locale</code>.  Existing state is discarded. <p>All fields of the locale must be well-formed, see  {@link Locale}. <p>Locales with any ill-formed fields cause <code>IllformedLocaleException</code> to be thrown, except for the following three cases which are accepted for compatibility reasons:<ul> <li>Locale("ja", "JP", "JP") is treated as "ja-JP-u-ca-japanese" <li>Locale("th", "TH", "TH") is treated as "th-TH-u-nu-thai" <li>Locale("no", "NO", "NY") is treated as "nn-NO"</ul>
+ * @param locale the locale
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>locale</code> hasany ill-formed fields.
+ * @throws NullPointerException if <code>locale</code> is null.
  */
-public Name add(String comp) throws InvalidNameException {
-  impl.add(comp);
+public Builder setLocale(Locale locale){
+  try {
+    localeBuilder.setLocale(locale.baseLocale,locale.localeExtensions);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
   return this;
 }
 /** 
- * Adds a single component at a specified position within this composite name. Components of this composite name at or after the index of the new component are shifted up by one (away from index 0) to accommodate the new component.
- * @param comp    The non-null component to add.
- * @param posn    The index at which to add the new component.Must be in the range [0,size()].
- * @return The updated CompositeName, not a new one. Cannot be null.
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
- * @exception InvalidNameException If adding comp at the specified positionwould violate the name's syntax.
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
  */
-public Name add(int posn,String comp) throws InvalidNameException {
-  impl.add(posn,comp);
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
   return this;
 }

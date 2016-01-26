@@ -1,17 +1,16 @@
 /** 
- * Constructs a <code>UnsupportedCallbackException</code> with no detail message. <p>
- * @param callback the unrecognized <code>Callback</code>.
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
  */
-public UnsupportedCallbackException(Callback callback){
-  super();
-  this.callback=callback;
+public XML11Serializer(OutputFormat format){
+  super(format);
+  _format.setVersion("1.1");
 }
 /** 
- * Constructs a UnsupportedCallbackException with the specified detail message.  A detail message is a String that describes this particular exception. <p>
- * @param callback the unrecognized <code>Callback</code>. <p>
- * @param msg the detail message.
+ * Constructs a new serializer that writes to the specified writer using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param writer The writer to use
+ * @param format The output format to use, null for the default
  */
-public UnsupportedCallbackException(Callback callback,String msg){
-  super(msg);
-  this.callback=callback;
+public XML11Serializer(Writer writer,OutputFormat format){
+  super(writer,format);
+  _format.setVersion("1.1");
 }

@@ -322,3 +322,5 @@ private void mergeStandardChromaNode(Node node,NodeList siblings) throws IIOInva
     }
   }
 }
+-->
+529.0 / 18366 = 0.02880322334748993

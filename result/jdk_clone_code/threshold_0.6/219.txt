@@ -1,17 +1,16 @@
 /** 
- * Default constructor.
- * @param e the wrapped error.
+ * Method add
+ * @param retrievalmethod
  */
-public RuntimeErrorException(java.lang.Error e){
-  super();
-  error=e;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructor that allows a specific error message to be specified.
- * @param e the wrapped error.
- * @param message the detail message.
+ * Method add
+ * @param spkidata
  */
-public RuntimeErrorException(java.lang.Error e,String message){
-  super(message);
-  error=e;
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

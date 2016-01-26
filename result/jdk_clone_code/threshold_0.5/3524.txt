@@ -1,18 +1,26 @@
 /** 
- * Invoked when a column is repositioned. If a cell is being edited, then editing is stopped and the cell is redrawn. <p> Application code will not use these methods explicitly, they are used internally by JTable.
- * @param e   the event received
- * @see TableColumnModelListener
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
  */
-public void columnMoved(TableColumnModelEvent e){
-  if (isEditing() && !getCellEditor().stopCellEditing()) {
-    getCellEditor().cancelCellEditing();
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
   }
-  repaint();
+  return null;
 }
 /** 
- * Equivalent to <code>revalidate</code> followed by <code>repaint</code>.
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
  */
-protected void resizeAndRepaint(){
-  revalidate();
-  repaint();
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
+  }
+  return null;
 }

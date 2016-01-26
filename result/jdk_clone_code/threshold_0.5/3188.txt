@@ -1,25 +1,28 @@
 /** 
- * Releases in exclusive mode.  Implemented by unblocking one or more threads if  {@link #tryRelease} returns true.This method can be used to implement method  {@link Lock#unlock}.
- * @param arg the release argument.  This value is conveyed to{@link #tryRelease} but is otherwise uninterpreted andcan represent anything you like.
- * @return the value returned from {@link #tryRelease}
+ * Format a long to produce a string.
+ * @param number    The long to format
+ * @param result    where the text is to be appended
+ * @param fieldPosition    On input: an alignment field, if desired.On output: the offsets of the alignment field.
+ * @exception ArithmeticException if rounding is needed with roundingmode being set to RoundingMode.UNNECESSARY
+ * @return The formatted number string
+ * @see java.text.FieldPosition
  */
-public final boolean release(int arg){
-  if (tryRelease(arg)) {
-    Node h=head;
-    if (h != null && h.waitStatus != 0)     unparkSuccessor(h);
-    return true;
-  }
-  return false;
+public StringBuffer format(long number,StringBuffer result,FieldPosition fieldPosition){
+  fieldPosition.setBeginIndex(0);
+  fieldPosition.setEndIndex(0);
+  return format(number,result,fieldPosition.getFieldDelegate());
 }
 /** 
- * Releases in shared mode.  Implemented by unblocking one or more threads if  {@link #tryReleaseShared} returns true.
- * @param arg the release argument.  This value is conveyed to{@link #tryReleaseShared} but is otherwise uninterpretedand can represent anything you like.
- * @return the value returned from {@link #tryReleaseShared}
+ * Formats a BigDecimal to produce a string.
+ * @param number    The BigDecimal to format
+ * @param result    where the text is to be appended
+ * @param fieldPosition    On input: an alignment field, if desired.On output: the offsets of the alignment field.
+ * @return The formatted number string
+ * @exception ArithmeticException if rounding is needed with roundingmode being set to RoundingMode.UNNECESSARY
+ * @see java.text.FieldPosition
  */
-public final boolean releaseShared(int arg){
-  if (tryReleaseShared(arg)) {
-    doReleaseShared();
-    return true;
-  }
-  return false;
+private StringBuffer format(BigDecimal number,StringBuffer result,FieldPosition fieldPosition){
+  fieldPosition.setBeginIndex(0);
+  fieldPosition.setEndIndex(0);
+  return format(number,result,fieldPosition.getFieldDelegate());
 }

@@ -1,19 +1,28 @@
 /** 
- * Returns the Rectangle enclosing the label portion that the last item in path will be drawn into.  Will return null if any component in path is currently valid.
+ * Sets the designated parameter to the given <code>java.lang.BigDecimal</code> value.  The driver converts this to an SQL <code>NUMERIC</code> value when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <P> Note: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the parameter value
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
  */
-public Rectangle getPathBounds(JTree tree,TreePath path){
-  if (tree != null && treeState != null) {
-    return getPathBounds(path,tree.getInsets(),new Rectangle());
+public void setBigDecimal(int parameterIndex,java.math.BigDecimal x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setBigDecimal");
   }
-  return null;
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }
 /** 
- * Returns the path to the node that is closest to x,y.  If there is nothing currently visible this will return null, otherwise it'll always return a valid path.  If you need to test if the returned object is exactly at x, y you should get the bounds for the returned path and test x, y against that.
+ * Sets the designated parameter to the given array of bytes. The driver converts this to an SQL <code>VARBINARY</code> or <code>LONGVARBINARY</code> value (depending on the argument's size relative to the driver's limits on <code>VARBINARY</code> values) when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <p> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the parameter value
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
  */
-public TreePath getClosestPathForLocation(JTree tree,int x,int y){
-  if (tree != null && treeState != null) {
-    y-=tree.getInsets().top;
-    return treeState.getPathClosestTo(x,y);
+public void setBytes(int parameterIndex,byte x[]) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setBytes");
   }
-  return null;
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }

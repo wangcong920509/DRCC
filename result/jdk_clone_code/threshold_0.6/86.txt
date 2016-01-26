@@ -1,26 +1,21 @@
 /** 
- * Translates a character array representation of a {@code BigDecimal} into a {@code BigDecimal}, accepting the same sequence of characters as the  {@link #BigDecimal(String)}constructor, while allowing a sub-array to be specified and with rounding according to the context settings. <p>Note that if the sequence of characters is already available within a character array, using this constructor is faster than converting the  {@code char} array to string and using the{@code BigDecimal(String)} constructor .
- * @param in {@code char} array that is the source of characters.
- * @param offset first character in the array to inspect.
- * @param len number of characters to consider..
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @throws NumberFormatException if {@code in} is not a validrepresentation of a  {@code BigDecimal} or the defined subarrayis not wholly within  {@code in}.
- * @since  1.5
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
  */
-public BigDecimal(char[] in,int offset,int len,MathContext mc){
-  this(in,offset,len);
-  if (mc.precision > 0)   roundThis(mc);
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Translates a  {@code double} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal} is the smallest value such that<tt>(10<sup>scale</sup> &times; val)</tt> is an integer. <p>The results of this constructor can be somewhat unpredictable and its use is generally not recommended; see the notes under the  {@link #BigDecimal(double)} constructor.
- * @param val {@code double} value to be converted to{@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but theRoundingMode is UNNECESSARY.
- * @throws NumberFormatException if {@code val} is infinite or NaN.
- * @since  1.5
+ * Look for ConstantMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-public BigDecimal(double val,MathContext mc){
-  this(val);
-  if (mc.precision > 0)   roundThis(mc);
+public int lookupMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + METHODREF_DELIM + method_name+ METHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

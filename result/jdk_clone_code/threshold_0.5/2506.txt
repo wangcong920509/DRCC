@@ -1,8 +1,11 @@
-public LongBuffer put(long x){
-  Bits.putLongL(bb,ix(nextPutIndex()),x);
+public StringBuilder append(double d){
+  super.append(d);
   return this;
 }
-public LongBuffer put(int i,long x){
-  Bits.putLongL(bb,ix(checkIndex(i)),x);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder delete(int start,int end){
+  super.delete(start,end);
   return this;
 }

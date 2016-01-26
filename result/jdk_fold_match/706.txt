@@ -18,3 +18,5 @@ private void paintForegroundDisabledAndIndeterminate(Graphics2D g){
   g.setPaint(decodeGradient12(path));
   g.fill(path);
 }
+-->
+66.0 / 358 = 0.18435754189944134

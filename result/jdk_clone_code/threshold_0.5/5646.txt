@@ -1,0 +1,16 @@
+/** 
+ * Constructs a <code>SOAPException</code> object with the given <code>String</code> as the reason for the exception being thrown and the given <code>Throwable</code> object as an embedded exception.
+ * @param reason a description of what caused the exception
+ * @param cause a <code>Throwable</code> object that is tobe embedded in this <code>SOAPException</code> object
+ */
+public SOAPException(String reason,Throwable cause){
+  super(reason);
+  initCause(cause);
+}
+/** 
+ * Constructs a <code>SOAPException</code> object initialized with the given <code>Throwable</code> object.
+ */
+public SOAPException(Throwable cause){
+  super(cause.toString());
+  initCause(cause);
+}

@@ -1,20 +1,28 @@
 /** 
- * Writes a <code>boolean</code> to the underlying output stream as a 1-byte value. The value <code>true</code> is written out as the value <code>(byte)1</code>; the value <code>false</code> is written out as the value <code>(byte)0</code>. If no exception is thrown, the counter <code>written</code> is incremented by <code>1</code>.
- * @param v   a <code>boolean</code> value to be written.
- * @exception IOException  if an I/O error occurs.
- * @see java.io.FilterOutputStream#out
+ * Prints out a list, starting at the specified indentation, to the specified print stream.
+ * @param out      a print stream
+ * @param indent   number of spaces to indent
+ * @see java.io.PrintStream#println(java.lang.Object)
+ * @throws NullPointerException if {@code out} is {@code null}
+ * @since     JDK1.0
  */
-public final void writeBoolean(boolean v) throws IOException {
-  out.write(v ? 1 : 0);
-  incCount(1);
+public void list(PrintStream out,int indent){
+  for (int i=0; i < indent; i++) {
+    out.print(" ");
+  }
+  out.println(this);
 }
 /** 
- * Writes out a <code>byte</code> to the underlying output stream as a 1-byte value. If no exception is thrown, the counter <code>written</code> is incremented by <code>1</code>.
- * @param v   a <code>byte</code> value to be written.
- * @exception IOException  if an I/O error occurs.
- * @see java.io.FilterOutputStream#out
+ * Prints out a list, starting at the specified indentation, to the specified print writer.
+ * @param out the print writer to print to
+ * @param indent the number of spaces to indent
+ * @throws NullPointerException if {@code out} is {@code null}
+ * @see java.io.PrintStream#println(java.lang.Object)
+ * @since JDK1.1
  */
-public final void writeByte(int v) throws IOException {
-  out.write(v);
-  incCount(1);
+public void list(PrintWriter out,int indent){
+  for (int i=0; i < indent; i++) {
+    out.print(" ");
+  }
+  out.println(this);
 }

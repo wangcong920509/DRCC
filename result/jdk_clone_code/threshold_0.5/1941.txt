@@ -1,18 +1,30 @@
 /** 
- * Moves mouse pointer to given screen coordinates.
- * @param x         X position
- * @param y         Y position
+ * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param item  the item to remove from this <code>Choice</code> menu
+ * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
+ * @since      JDK1.1
  */
-public synchronized void mouseMove(int x,int y){
-  peer.mouseMove(gdLoc.x + x,gdLoc.y + y);
-  afterEvent();
+public void remove(String item){
+synchronized (this) {
+    int index=pItems.indexOf(item);
+    if (index < 0) {
+      throw new IllegalArgumentException("item " + item + " not found in choice");
+    }
+ else {
+      removeNoInvalidate(index);
+    }
+  }
+  invalidateIfValid();
 }
 /** 
- * Rotates the scroll wheel on wheel-equipped mice.
- * @param wheelAmt  number of "notches" to move the mouse wheelNegative values indicate movement up/away from the user, positive values indicate movement down/towards the user.
- * @since 1.4
+ * Removes an item from the choice menu at the specified position.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param position the position of the item
+ * @throws IndexOutOfBoundsException if the specifiedposition is out of bounds
+ * @since      JDK1.1
  */
-public synchronized void mouseWheel(int wheelAmt){
-  peer.mouseWheel(wheelAmt);
-  afterEvent();
+public void remove(int position){
+synchronized (this) {
+    removeNoInvalidate(position);
+  }
+  invalidateIfValid();
 }

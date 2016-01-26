@@ -1,14 +1,11 @@
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder replace(int start,int end,String str){
-  super.replace(start,end,str);
+public StringBuilder append(boolean b){
+  super.append(b);
   return this;
 }
 /** 
  * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public StringBuilder insert(int offset,String str){
-  super.insert(offset,str);
+public StringBuilder replace(int start,int end,String str){
+  super.replace(start,end,str);
   return this;
 }

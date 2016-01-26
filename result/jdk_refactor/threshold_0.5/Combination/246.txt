@@ -1,40 +1,31 @@
 /** 
- * Returns <code>true</code> if it is possible to replace the stream metadata already present in the output. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
- * @return <code>true</code> if replacement of stream metadata isallowed.
- * @exception IllegalStateException if the output has notbeen set.
- * @exception IOException if an I/O error occurs during the query.
+ * Appends the specified element to the end of this list. <p>This method is equivalent to  {@link #addLast}.
+ * @param e element to be appended to this list
+ * @return {@code true} (as specified by {@link Collection#add})
  */
-public boolean canReplaceStreamMetadata() throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+public boolean add(E e){
+  linkLast(e);
+  return true;
 }
 
 /** 
- * Returns <code>true</code> if the writer supports the writing of a complete image stream consisting of a single image with undefined pixel values and associated metadata and thumbnails to the output.  The pixel values may be defined by future calls to the <code>replacePixels</code> methods.  If the output is an <code>ImageOutputStream</code>, its existing contents prior to the current seek position are not affected, and need not be readable or writable. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
- * @return <code>true</code> if the writing of complete imagestream with contents to be defined later is supported.
- * @exception IllegalStateException if the output has not beenset.
- * @exception IOException if an I/O error occurs during thequery.
+ * Inserts the specified element at the front of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @since 1.6
  */
-public boolean canWriteEmpty() throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
 }
 
 -->
-void canReplaceStreamMetadata_canWriteEmpty(int combFlag){
+void add_offerFirst(E e,E e,int combFlag){
   if (combFlag == 1) {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
-    }
+    linkLast(e);
   }
  else {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
-    }
+    addFirst(e);
   }
-  return false;
+  return true;
 }

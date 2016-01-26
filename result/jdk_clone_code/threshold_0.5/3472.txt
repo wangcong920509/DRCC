@@ -1,32 +1,30 @@
-/** 
- * Retrieves the value at the head of this <code>SQLInputImpl</code> object as a <code>Ref</code> object in the Java programming language.
- * @return a <code>Ref</code> object representing the SQL<code>REF</code> value at the head of the stream; if the value is <code>SQL NULL</code> return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
- */
-public Ref readRef() throws SQLException {
-  Ref attrib=(Ref)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+private boolean doesListMatch(int beg,int end,List rdns){
+  for (int i=beg; i < end; i++) {
+    if (!this.rdns.get(i).equals(rdns.get(i - beg))) {
+      return false;
+    }
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return true;
 }
-/** 
- * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
- */
-public Array readArray() throws SQLException {
-  Array attrib=(Array)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+private boolean matches(int beg,int end,Name n){
+  if (n instanceof LdapName) {
+    LdapName ln=(LdapName)n;
+    return doesListMatch(beg,end,ln.rdns);
   }
  else {
-    lastValueWasNull=false;
-    return attrib;
+    for (int i=beg; i < end; i++) {
+      Rdn rdn;
+      String rdnString=n.get(i - beg);
+      try {
+        rdn=(new Rfc2253Parser(rdnString)).parseRdn();
+      }
+ catch (      InvalidNameException e) {
+        return false;
+      }
+      if (!rdn.equals(rdns.get(i))) {
+        return false;
+      }
+    }
   }
+  return true;
 }

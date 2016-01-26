@@ -1,40 +1,20 @@
-InputMap getInputMap(int condition){
-  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
-    return createInputMap(condition);
-  }
- else   if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
-    return (InputMap)DefaultLookup.get(desktop,this,"Desktop.ancestorInputMap");
-  }
-  return null;
+static int simplifyMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask&=~NEW_MASK;
+  return mask;
 }
 
-InputMap createInputMap(int condition){
-  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
-    Object[] bindings=(Object[])DefaultLookup.get(desktop,this,"Desktop.windowBindings");
-    if (bindings != null) {
-      return LookAndFeel.makeComponentInputMap(desktop,bindings);
-    }
-  }
-  return null;
+static int impliedMask(int mask){
+  if ((mask & CREATE_MASK) != 0)   mask|=NEW_MASK;
+  return mask;
 }
 
 -->
-void getInputMap_createInputMap(int condition,int condition,int combFlag){
+void simplifyMask_impliedMask(int mask,int mask,int combFlag){
   if (combFlag == 1) {
-    if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
-      return createInputMap(condition);
-    }
- else     if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
-      return (InputMap)DefaultLookup.get(desktop,this,"Desktop.ancestorInputMap");
-    }
+    if ((mask & CREATE_MASK) != 0)     mask&=~NEW_MASK;
   }
  else {
-    if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
-      Object[] bindings=(Object[])DefaultLookup.get(desktop,this,"Desktop.windowBindings");
-      if (bindings != null) {
-        return LookAndFeel.makeComponentInputMap(desktop,bindings);
-      }
-    }
+    if ((mask & CREATE_MASK) != 0)     mask|=NEW_MASK;
   }
-  return null;
+  return mask;
 }

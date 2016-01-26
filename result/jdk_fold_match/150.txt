@@ -199,3 +199,5 @@ setDataElements(j,i,dtemp,data);
 break;
 }
 }
+-->
+166.0 / 2098 = 0.07912297426120114

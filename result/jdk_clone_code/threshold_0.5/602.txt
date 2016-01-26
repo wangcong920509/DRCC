@@ -1,18 +1,14 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getPrefix(String uri){
+  aMethodIsCalled();
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @see XSLOutputAttributes#getStandalone()
  */
-public NodeList getChildNodes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getStandalone(){
+  aMethodIsCalled();
   return null;
 }

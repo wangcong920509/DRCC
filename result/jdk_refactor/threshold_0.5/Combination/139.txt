@@ -1,28 +1,28 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @return false
  */
-public Node getParentNode(){
+public boolean hasChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @return False
  */
-public Node getPreviousSibling(){
+public boolean getSpecified(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 
 -->
-void getParentNode_getPreviousSibling(int combFlag){
+void hasChildNodes_getSpecified(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  return null;
+  return false;
 }

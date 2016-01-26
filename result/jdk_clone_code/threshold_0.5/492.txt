@@ -1,14 +1,23 @@
 /** 
- * @see SerializationHandler#getWriter()
+ * Constructor ResourceResolverException
+ * @param _msgID
+ * @param uri
+ * @param BaseURI
  */
-public Writer getWriter(){
-  aMethodIsCalled();
-  return null;
+public ResourceResolverException(String _msgID,Attr uri,String BaseURI){
+  super(_msgID);
+  this._uri=uri;
+  this._BaseURI=BaseURI;
 }
 /** 
- * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ * Constructor ResourceResolverException
+ * @param _msgID
+ * @param _originalException
+ * @param uri
+ * @param BaseURI
  */
-public String getPrefix(String uri){
-  aMethodIsCalled();
-  return null;
+public ResourceResolverException(String _msgID,Exception _originalException,Attr uri,String BaseURI){
+  super(_msgID,_originalException);
+  this._uri=uri;
+  this._BaseURI=BaseURI;
 }

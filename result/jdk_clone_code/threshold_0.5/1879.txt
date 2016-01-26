@@ -1,19 +1,22 @@
 /** 
- * Determines whether this component is showing on screen. This means that the component must be visible, and it must be in a container that is visible and showing. <p> <strong>Note:</strong> sometimes there is no way to detect whether the {@code Component} is actually visible to the user.  This can happen when:<ul> <li>the component has been added to a visible  {@code ScrollPane} butthe  {@code Component} is not currently in the scroll pane's view port.<li>the  {@code Component} is obscured by another {@code Component} or{@code Container}. </ul>
- * @return <code>true</code> if the component is showing,<code>false</code> otherwise
- * @see #setVisible
- * @since JDK1.0
+ * Unimplemented. See org.w3c.dom.Document
+ * @param importedNode The node to import.
+ * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @return null
+ * @throws DOMException
  */
-public boolean isShowing(){
-  if (visible && (peer != null)) {
-    Container parent=this.parent;
-    return (parent == null) || parent.isShowing();
-  }
-  return false;
+public Node importNode(Node importedNode,boolean deep) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
-final boolean canBeFocusOwner(){
-  if (isEnabled() && isDisplayable() && isVisible()&& isFocusable()) {
-    return true;
-  }
-  return false;
+/** 
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI of the attribute
+ * @param qualifiedName Qualified name of the attribute
+ * @return null
+ * @throws DOMException
+ */
+public Attr createAttributeNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

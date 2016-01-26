@@ -1,30 +1,23 @@
 /** 
- * Returns the first tab index with a given <code>title</code>,  or -1 if no tab has this title.
- * @param title the title for the tab
- * @return the first tab index which matches <code>title</code>, or-1 if no tab has this title
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
  */
-public int indexOfTab(String title){
-  for (int i=0; i < getTabCount(); i++) {
-    if (getTitleAt(i).equals(title == null ? "" : title)) {
-      return i;
-    }
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
   }
-  return -1;
+  return null;
 }
 /** 
- * Returns the index of the tab for the specified tab component. Returns -1 if there is no tab for this tab component.
- * @param tabComponent the tab component for the tab
- * @return the first tab which matches this tab component, or -1if there is no tab for this tab component
- * @see #setTabComponentAt
- * @see #getTabComponentAt
- * @since 1.6
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
  */
-public int indexOfTabComponent(Component tabComponent){
-  for (int i=0; i < getTabCount(); i++) {
-    Component c=getTabComponentAt(i);
-    if (c == tabComponent) {
-      return i;
-    }
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
   }
-  return -1;
+  return null;
 }

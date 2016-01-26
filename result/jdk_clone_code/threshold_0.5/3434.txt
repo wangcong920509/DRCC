@@ -1,32 +1,27 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> as a <code>java.sql.Date</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Constructs a ModelMBeanOperationInfo object with a default descriptor. The  {@link Descriptor} of the constructedobject will include fields contributed by any annotations on the  {@code Method} object that contain the {@link DescriptorKey} meta-annotation.
+ * @param operationMethod The java.lang.reflect.Method objectdescribing the MBean operation.
+ * @param description A human readable description of the operation.
  */
-public java.sql.Date readDate() throws SQLException {
-  java.sql.Date attrib=(java.sql.Date)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public ModelMBeanOperationInfo(String description,Method operationMethod){
+  super(description,operationMethod);
+  if (MODELMBEAN_LOGGER.isLoggable(Level.FINER)) {
+    MODELMBEAN_LOGGER.logp(Level.FINER,ModelMBeanOperationInfo.class.getName(),"ModelMBeanOperationInfo(String,Method)","Entry");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  operationDescriptor=validDescriptor(null);
 }
 /** 
- * Returns the next attribute in this <code>SQLInputImpl</code> object as a stream of ASCII characters. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>,return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructs a ModelMBeanOperationInfo object with a default descriptor.
+ * @param name The name of the method.
+ * @param description A human readable description of the operation.
+ * @param signature MBeanParameterInfo objects describing theparameters(arguments) of the method.
+ * @param type The type of the method's return value.
+ * @param impact The impact of the method, one of INFO, ACTION,ACTION_INFO, UNKNOWN.
  */
-public java.io.InputStream readAsciiStream() throws SQLException {
-  java.io.InputStream attrib=(java.io.InputStream)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public ModelMBeanOperationInfo(String name,String description,MBeanParameterInfo[] signature,String type,int impact){
+  super(name,description,signature,type,impact);
+  if (MODELMBEAN_LOGGER.isLoggable(Level.FINER)) {
+    MODELMBEAN_LOGGER.logp(Level.FINER,ModelMBeanOperationInfo.class.getName(),"ModelMBeanOperationInfo(" + "String,String,MBeanParameterInfo[],String,int)","Entry");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  operationDescriptor=validDescriptor(null);
 }

@@ -1,17 +1,8 @@
-/** 
- * Create a new <code>FactoryConfigurationError</code> with a given <code>Exception</code> base cause of the error.
- * @param e The exception to be encapsulated in aFactoryConfigurationError.
- */
-public FactoryConfigurationError(Exception e){
-  super(e.toString());
-  this.exception=e;
+private Rectangle2D decodeRect1(){
+  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Create a new <code>FactoryConfigurationError</code> with the given <code>Exception</code> base cause and detail message.
- * @param e The exception to be encapsulated in aFactoryConfigurationError
- * @param msg The detail message.
- */
-public FactoryConfigurationError(Exception e,String msg){
-  super(msg);
-  this.exception=e;
+private Rectangle2D decodeRect10(){
+  rect.setRect(decodeX(2.4f),decodeY(1.0f),decodeX(2.6f) - decodeX(2.4f),decodeY(2.6f) - decodeY(1.0f));
+  return rect;
 }

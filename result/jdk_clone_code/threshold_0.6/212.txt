@@ -1,19 +1,16 @@
 /** 
- * Constructs an <code>IIOInvalidTreeException</code> with a message string and a reference to the <code>Node</code> that caused the parsing error.
- * @param message a <code>String</code> containing the reason forthe parsing failure.
- * @param offendingNode the DOM <code>Node</code> that caused theexception, or <code>null</code>.
+ * Method add
+ * @param mgmtdata
  */
-public IIOInvalidTreeException(String message,Node offendingNode){
-  super(message);
-  this.offendingNode=offendingNode;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructs an <code>IIOInvalidTreeException</code> with a message string, a reference to an exception that caused this exception, and a reference to the <code>Node</code> that caused the parsing error.
- * @param message a <code>String</code> containing the reason forthe parsing failure.
- * @param cause the <code>Throwable</code> (<code>Error</code> or<code>Exception</code>) that caused this exception to occur, or <code>null</code>.
- * @param offendingNode the DOM <code>Node</code> that caused theexception, or <code>null</code>.
+ * Method addPGPData
+ * @param pgpdata
  */
-public IIOInvalidTreeException(String message,Throwable cause,Node offendingNode){
-  super(message,cause);
-  this.offendingNode=offendingNode;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

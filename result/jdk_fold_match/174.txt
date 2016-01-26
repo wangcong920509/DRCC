@@ -42,3 +42,5 @@ public ECFieldF2m(int m,int[] ks){
     rp=rp.setBit(this.ks[j]);
   }
 }
+-->
+34.0 / 713 = 0.047685834502103785

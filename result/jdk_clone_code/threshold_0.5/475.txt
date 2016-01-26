@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param retrievalmethod
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * Method addUnknownElement
+ * @param element
  */
-public String getVersion(){
-  aMethodIsCalled();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

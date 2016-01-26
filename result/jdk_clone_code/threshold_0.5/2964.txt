@@ -1,8 +1,34 @@
-public ByteBuffer putInt(int x){
-  Bits.putInt(this,ix(nextPutIndex(4)),x,bigEndian);
+public LongBuffer put(int i,long x){
+  unsafe.putLong(ix(checkIndex(i)),((x)));
   return this;
 }
-public ByteBuffer putFloat(float x){
-  Bits.putFloat(this,ix(nextPutIndex(4)),x,bigEndian);
+public LongBuffer put(LongBuffer src){
+  if (src instanceof DirectLongBufferU) {
+    if (src == this)     throw new IllegalArgumentException();
+    DirectLongBufferU sb=(DirectLongBufferU)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 3);
+    sb.position(spos + srem);
+    position(pos + srem);
+  }
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
+  }
+ else {
+    super.put(src);
+  }
   return this;
 }

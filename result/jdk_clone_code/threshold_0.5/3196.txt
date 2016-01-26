@@ -1,16 +1,24 @@
 /** 
- * Constructs an empty insertion-ordered <tt>LinkedHashMap</tt> instance with the specified initial capacity and a default load factor (0.75).
- * @param initialCapacity the initial capacity
- * @throws IllegalArgumentException if the initial capacity is negative
+ * Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element. More formally, returns the lowest index <tt>i</tt> such that <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>, or -1 if there is no such index.
  */
-public LinkedHashMap(int initialCapacity){
-  super(initialCapacity);
-  accessOrder=false;
+public int indexOf(Object o){
+  if (o == null) {
+    for (int i=0; i < size; i++)     if (elementData[i] == null)     return i;
+  }
+ else {
+    for (int i=0; i < size; i++)     if (o.equals(elementData[i]))     return i;
+  }
+  return -1;
 }
 /** 
- * Constructs an empty insertion-ordered <tt>LinkedHashMap</tt> instance with the default initial capacity (16) and load factor (0.75).
+ * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element. More formally, returns the highest index <tt>i</tt> such that <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>, or -1 if there is no such index.
  */
-public LinkedHashMap(){
-  super();
-  accessOrder=false;
+public int lastIndexOf(Object o){
+  if (o == null) {
+    for (int i=size - 1; i >= 0; i--)     if (elementData[i] == null)     return i;
+  }
+ else {
+    for (int i=size - 1; i >= 0; i--)     if (o.equals(elementData[i]))     return i;
+  }
+  return -1;
 }

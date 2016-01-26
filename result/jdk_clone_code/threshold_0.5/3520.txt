@@ -1,30 +1,27 @@
 /** 
- * Returns the tab index corresponding to the tab whose bounds intersect the specified location.  Returns -1 if no tab intersects the location.
- * @param x the x location relative to this tabbedpane
- * @param y the y location relative to this tabbedpane
- * @return the tab index which intersects the location, or-1 if no tab intersects the location
- * @since 1.4
+ * Returns a class instance for the specified class. <P>The spec for this method is the "Java to IDL language mapping", ptc/00-01-06. <P>In Java SE Platform, this method works as follows: <UL><LI>Find the first non-null <tt>ClassLoader</tt> on the call stack and attempt to load the class using this <tt>ClassLoader</tt>. <LI>If the first step fails, and if <tt>remoteCodebase</tt> is non-null and <tt>useCodebaseOnly</tt> is false, then call <tt>java.rmi.server.RMIClassLoader.loadClass(remoteCodebase, className)</tt>. <LI>If <tt>remoteCodebase</tt> is null or <tt>useCodebaseOnly</tt> is true, then call <tt>java.rmi.server.RMIClassLoader.loadClass(className)</tt>. <LI>If a class was not successfully loaded by step 1, 2, or 3, and <tt>loader</tt> is non-null, then call <tt>loader.loadClass(className)</tt>. <LI>If a class was successfully loaded by step 1, 2, 3, or 4, then return the loaded class, else throw <tt>ClassNotFoundException</tt>.
+ * @param className the name of the class.
+ * @param remoteCodebase a space-separated list of URLs at whichthe class might be found. May be null.
+ * @param loader a <tt>ClassLoader</tt> that may be used toload the class if all other methods fail.
+ * @return the <code>Class</code> object representing the loaded class.
+ * @exception ClassNotFoundException if class cannot be loaded.
  */
-public int indexAtLocation(int x,int y){
-  if (ui != null) {
-    return ((TabbedPaneUI)ui).tabForCoordinate(this,x,y);
+public static Class loadClass(String className,String remoteCodebase,ClassLoader loader) throws ClassNotFoundException {
+  if (utilDelegate != null) {
+    return utilDelegate.loadClass(className,remoteCodebase,loader);
   }
-  return -1;
+  return null;
 }
 /** 
- * Returns the index of the tab for the specified tab component. Returns -1 if there is no tab for this tab component.
- * @param tabComponent the tab component for the tab
- * @return the first tab which matches this tab component, or -1if there is no tab for this tab component
- * @see #setTabComponentAt
- * @see #getTabComponentAt
- * @since 1.6
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
  */
-public int indexOfTabComponent(Component tabComponent){
-  for (int i=0; i < getTabCount(); i++) {
-    Component c=getTabComponentAt(i);
-    if (c == tabComponent) {
-      return i;
-    }
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
   }
-  return -1;
+  return null;
 }

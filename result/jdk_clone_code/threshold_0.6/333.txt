@@ -1,15 +1,14 @@
 /** 
- * Create a new <code>FactoryConfigurationError</code> with no detail mesage.
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public FactoryConfigurationError(){
-  super();
-  this.exception=null;
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new <code>FactoryConfigurationError</code> with the <code>String </code> specified as an error message.
- * @param msg The error message for the exception.
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public FactoryConfigurationError(String msg){
-  super(msg);
-  this.exception=null;
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
 }

@@ -1,27 +1,51 @@
-private int scopeOfBaseURI(int depth){
-  for (int i=fBaseURIScope.size() - 1; i >= 0; i--) {
-    if (fBaseURIScope.elementAt(i) <= depth)     return i;
+/** 
+ * Look up the index of an attribute by Namespace name.
+ * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndex(String uri,String localPart){
+  for (int i=0; i < fLength; i++) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart) && ((uri == attribute.name.uri) || (uri != null && attribute.name.uri != null && attribute.name.uri.equals(uri)))) {
+      return i;
+    }
   }
   return -1;
 }
 
-private int scopeOfLanguage(int depth){
-  for (int i=fLanguageScope.size() - 1; i >= 0; i--) {
-    if (fLanguageScope.elementAt(i) <= depth)     return i;
+/** 
+ * Look up the index of an attribute by Namespace name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
+ * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
+ */
+public int getIndexFast(String uri,String localPart){
+  for (int i=0; i < fLength; ++i) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart == localPart && attribute.name.uri == uri) {
+      return i;
+    }
   }
   return -1;
 }
 
 -->
-void scopeOfBaseURI_scopeOfLanguage(int depth,int depth,int combFlag){
+void getIndex_getIndexFast(String uri,String localPart,String uri,String localPart,int combFlag){
   if (combFlag == 1) {
-    for (int i=fBaseURIScope.size() - 1; i >= 0; i--) {
-      if (fBaseURIScope.elementAt(i) <= depth)       return i;
+    for (int i=0; i < fLength; i++) {
+      Attribute attribute=fAttributes[i];
+      if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart) && ((uri == attribute.name.uri) || (uri != null && attribute.name.uri != null && attribute.name.uri.equals(uri)))) {
+        return i;
+      }
     }
   }
  else {
-    for (int i=fLanguageScope.size() - 1; i >= 0; i--) {
-      if (fLanguageScope.elementAt(i) <= depth)       return i;
+    for (int i=0; i < fLength; ++i) {
+      Attribute attribute=fAttributes[i];
+      if (attribute.name.localpart == localPart && attribute.name.uri == uri) {
+        return i;
+      }
     }
   }
   return -1;

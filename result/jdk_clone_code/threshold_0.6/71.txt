@@ -1,22 +1,18 @@
 /** 
- * Construct a StepPattern that tests for namespaces and node names.
- * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
- * @param namespace The namespace to be tested.
- * @param name The local name to be tested.
- * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
- * @param axisForPredicate No longer used.
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public StepPattern(int whatToShow,String namespace,String name,int axis,int axisForPredicate){
-  super(whatToShow,namespace,name);
-  m_axis=axis;
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Construct a StepPattern that doesn't test for node names.
- * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
- * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
- * @param axisForPredicate No longer used.
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public StepPattern(int whatToShow,int axis,int axisForPredicate){
-  super(whatToShow);
-  m_axis=axis;
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }

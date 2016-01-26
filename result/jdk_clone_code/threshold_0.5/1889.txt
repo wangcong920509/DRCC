@@ -1,21 +1,21 @@
 /** 
- * Constructs a <code>Dimension</code> and initializes it to the specified width and specified height.
- * @param width the specified width
- * @param height the specified height
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
+ * @return null
+ * @throws DOMException
  */
-public Dimension(int width,int height){
-  this.width=width;
-  this.height=height;
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Sets the size of this <code>Dimension</code> object to the specified width and height. This method is included for completeness, to parallel the <code>setSize</code> method defined by <code>Component</code>.
- * @param width   the new width for this <code>Dimension</code> object
- * @param height  the new height for this <code>Dimension</code> object
- * @see java.awt.Dimension#getSize
- * @see java.awt.Component#setSize
- * @since    1.1
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public void setSize(int width,int height){
-  this.width=width;
-  this.height=height;
+public Text splitText(int offset) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

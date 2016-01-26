@@ -57,3 +57,5 @@ private void paintfloppyDriveIconEnabled(Graphics2D g){
   g.setPaint(color44);
   g.fill(rect);
 }
+-->
+215.0 / 4189 = 0.0513248985438052

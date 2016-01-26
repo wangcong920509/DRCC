@@ -1,8 +1,25 @@
-HeapShortBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+public ByteBuffer put(ByteBuffer src){
+  if (src instanceof HeapByteBuffer) {
+    if (src == this)     throw new IllegalArgumentException();
+    HeapByteBuffer sb=(HeapByteBuffer)src;
+    int n=sb.remaining();
+    if (n > remaining())     throw new BufferOverflowException();
+    System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
+    sb.position(sb.position() + n);
+    position(position() + n);
+  }
+ else   if (src.isDirect()) {
+    int n=src.remaining();
+    if (n > remaining())     throw new BufferOverflowException();
+    src.get(hb,ix(position()),n);
+    position(position() + n);
+  }
+ else {
+    super.put(src);
+  }
+  return this;
 }
-protected HeapShortBufferR(short[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+public ByteBuffer putDouble(double x){
+  Bits.putDouble(this,ix(nextPutIndex(8)),x,bigEndian);
+  return this;
 }

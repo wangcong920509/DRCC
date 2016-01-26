@@ -1,37 +1,48 @@
 /** 
- * Writes a formatted string to this output stream using the specified format string and arguments.
- * @param l The  {@linkplain java.util.Locale locale} to apply duringformatting.  If <tt>l</tt> is <tt>null</tt> then no localization is applied.
- * @param format A format string as described in <a href="../util/Formatter.html#syntax">Format string syntax</a>
- * @param args Arguments referenced by the format specifiers in the format string.  If there are more arguments than format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.  The maximum number of arguments is limited by the maximum dimension of a Java array as defined by <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a <tt>null</tt> argument depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
- * @throws IllegalFormatException If a format string contains an illegal syntax, a format specifier that is incompatible with the given arguments, insufficient arguments given the format string, or other illegal conditions.  For specification of all possible formatting errors, see the <a href="../util/Formatter.html#detail">Details</a> section of the formatter class specification.
- * @throws NullPointerException If the <tt>format</tt> is <tt>null</tt>
- * @return  This output stream
- * @since  1.5
+ * @deprecated As of JDK version 1.1,replaced by <code>getMinimumSize()</code>.
  */
-public PrintStream format(Locale l,String format,Object... args){
-  try {
-synchronized (this) {
-      ensureOpen();
-      if ((formatter == null) || (formatter.locale() != l))       formatter=new Formatter(this,l);
-      formatter.format(l,format,args);
+@Deprecated public Dimension minimumSize(){
+  Dimension dim=minSize;
+  if (dim == null || !(isMinimumSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+      minSize=(layoutMgr != null) ? layoutMgr.minimumLayoutSize(this) : super.minimumSize();
+      dim=minSize;
     }
   }
- catch (  InterruptedIOException x) {
-    Thread.currentThread().interrupt();
+  if (dim != null) {
+    return new Dimension(dim);
   }
-catch (  IOException x) {
-    trouble=true;
+ else {
+    return dim;
   }
-  return this;
 }
 /** 
- * Appends the specified character sequence to this output stream. <p> An invocation of this method of the form <tt>out.append(csq)</tt> behaves in exactly the same way as the invocation <pre> out.print(csq.toString()) </pre> <p> Depending on the specification of <tt>toString</tt> for the character sequence <tt>csq</tt>, the entire sequence may not be appended.  For instance, invoking then <tt>toString</tt> method of a character buffer will return a subsequence whose content depends upon the buffer's position and limit.
- * @param csq The character sequence to append.  If <tt>csq</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this output stream.
- * @return  This output stream
- * @since  1.5
+ * Returns the maximum size of this container.  If the maximum size has not been set explicitly by  {@link Component#setMaximumSize(Dimension)}and the  {@link LayoutManager} installed on this {@code Container}is an instance of  {@link LayoutManager2}, then {@link LayoutManager2#maximumLayoutSize(Container)}is used to calculate the maximum size. <p>Note: some implementations may cache the value returned from the {@code LayoutManager2}.  Implementations that cache need not invoke {@code maximumLayoutSize} on the {@code LayoutManager2} every timethis method is invoked, rather the  {@code LayoutManager2} will onlybe queried after the  {@code Container} becomes invalid.
+ * @return    an instance of <code>Dimension</code> that representsthe maximum size of this container.
+ * @see #getPreferredSize
+ * @see #getMinimumSize
+ * @see #getLayout
+ * @see LayoutManager2#maximumLayoutSize(Container)
+ * @see Component#getMaximumSize
  */
-public PrintStream append(CharSequence csq){
-  if (csq == null)   print("null");
- else   print(csq.toString());
-  return this;
+public Dimension getMaximumSize(){
+  Dimension dim=maxSize;
+  if (dim == null || !(isMaximumSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+      if (layoutMgr instanceof LayoutManager2) {
+        LayoutManager2 lm=(LayoutManager2)layoutMgr;
+        maxSize=lm.maximumLayoutSize(this);
+      }
+ else {
+        maxSize=super.getMaximumSize();
+      }
+      dim=maxSize;
+    }
+  }
+  if (dim != null) {
+    return new Dimension(dim);
+  }
+ else {
+    return dim;
+  }
 }

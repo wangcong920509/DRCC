@@ -1,30 +1,8 @@
-/** 
- * Look up the value of a feature flag. <p>The feature name is any fully-qualified URI.  It is possible for a  {@link SchemaFactory} to recognize a feature name buttemporarily be unable to return its value. <p>Implementors are free (and encouraged) to invent their own features, using names built on their own URIs.</p>
- * @param name The feature name, which is a non-null fully-qualified URI.
- * @return The current value of the feature (true or false).
- * @throws SAXNotRecognizedException If the featurevalue can't be assigned or retrieved.
- * @throws SAXNotSupportedException When the{@link SchemaFactory} recognizes the feature name butcannot determine its value at this time.
- * @throws NullPointerException If <code>name</code> is <code>null</code>.
- * @see #setFeature(String,boolean)
- */
-public boolean getFeature(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
-  if (name == null) {
-    throw new NullPointerException("the name parameter is null");
-  }
-  throw new SAXNotRecognizedException(name);
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Look up the value of a property. <p>The property name is any fully-qualified URI.  It is possible for a  {@link SchemaFactory} to recognize a property name buttemporarily be unable to return its value.</p> <p> {@link SchemaFactory}s are not required to recognize any specific property names.</p> <p>Implementors are free (and encouraged) to invent their own properties, using names built on their own URIs.</p>
- * @param name The property name, which is a non-null fully-qualified URI.
- * @return The current value of the property.
- * @throws SAXNotRecognizedException If the propertyvalue can't be assigned or retrieved.
- * @throws SAXNotSupportedException When theXMLReader recognizes the property name but cannot determine its value at this time.
- * @throws NullPointerException If <code>name</code> is <code>null</code>.
- * @see #setProperty(String,Object)
- */
-public Object getProperty(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
-  if (name == null) {
-    throw new NullPointerException("the name parameter is null");
-  }
-  throw new SAXNotRecognizedException(name);
+private Rectangle2D decodeRect11(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

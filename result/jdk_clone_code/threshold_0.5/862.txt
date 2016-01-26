@@ -2,18 +2,15 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getNextSibling(){
+public Node getFirstChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild Replace existing child with this one
- * @param oldChild Existing child to be replaced
- * @return null
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
  * @throws DOMException
  */
-public Node replaceChild(Node newChild,Node oldChild) throws DOMException {
+public Node adoptNode(Node source) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

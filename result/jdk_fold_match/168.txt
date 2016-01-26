@@ -14,3 +14,5 @@ final void truncate(){
   limit=0;
   capacity=0;
 }
+-->
+14.0 / 68 = 0.20588235294117646

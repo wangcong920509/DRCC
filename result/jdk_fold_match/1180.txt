@@ -20,3 +20,5 @@ void writeStyleEndTag() throws IOException {
   writeLineSeparator();
   indentSmart();
 }
+-->
+52.0 / 263 = 0.19771863117870722

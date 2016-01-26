@@ -1,12 +1,16 @@
-public void addGlobalGroupDecl(XSGroupDecl decl,String location){
-  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+public Node getNamedItem(String name){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(name)) {
+      return attrs[i];
+    }
   }
+  return null;
 }
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
-  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+public Node getNamedItemNS(String namespaceURI,String localName){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(localName) && attrs[i].getNamespaceURI().equals(namespaceURI)) {
+      return attrs[i];
+    }
   }
+  return null;
 }

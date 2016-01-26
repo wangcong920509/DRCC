@@ -1,24 +1,8 @@
-/** 
- * Creates an instance of <code>PKIXBuilderParameters</code> with the specified <code>Set</code> of most-trusted CAs. Each element of the set is a  {@link TrustAnchor TrustAnchor}. <p>Note that the <code>Set</code> is copied to protect against subsequent modifications.
- * @param trustAnchors a <code>Set</code> of <code>TrustAnchor</code>s
- * @param targetConstraints a <code>CertSelector</code> specifying theconstraints on the target certificate
- * @throws InvalidAlgorithmParameterException if <code>trustAnchors</code>is empty <code>(trustAnchors.isEmpty() == true)</code>
- * @throws NullPointerException if <code>trustAnchors</code> is<code>null</code>
- * @throws ClassCastException if any of the elements of<code>trustAnchors</code> are not of type <code>java.security.cert.TrustAnchor</code>
- */
-public PKIXBuilderParameters(Set<TrustAnchor> trustAnchors,CertSelector targetConstraints) throws InvalidAlgorithmParameterException {
-  super(trustAnchors);
-  setTargetCertConstraints(targetConstraints);
+public ByteBuffer putChar(char x){
+  Bits.putChar(this,ix(nextPutIndex(2)),x,bigEndian);
+  return this;
 }
-/** 
- * Creates an instance of <code>PKIXBuilderParameters</code> that populates the set of most-trusted CAs from the trusted certificate entries contained in the specified <code>KeyStore</code>. Only keystore entries that contain trusted <code>X509Certificate</code>s are considered; all other certificate types are ignored.
- * @param keystore a <code>KeyStore</code> from which the set ofmost-trusted CAs will be populated
- * @param targetConstraints a <code>CertSelector</code> specifying theconstraints on the target certificate
- * @throws KeyStoreException if <code>keystore</code> has not beeninitialized
- * @throws InvalidAlgorithmParameterException if <code>keystore</code> doesnot contain at least one trusted certificate entry
- * @throws NullPointerException if <code>keystore</code> is<code>null</code>
- */
-public PKIXBuilderParameters(KeyStore keystore,CertSelector targetConstraints) throws KeyStoreException, InvalidAlgorithmParameterException {
-  super(keystore);
-  setTargetCertConstraints(targetConstraints);
+public ByteBuffer putFloat(float x){
+  Bits.putFloat(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }

@@ -1,8 +1,8 @@
-public ServerAlreadyInstalled(int _serverId){
-  super(ServerAlreadyInstalledHelper.id());
+public ServerNotRegistered(String _serverId){
+  super(ServerNotRegisteredHelper.id());
   serverId=_serverId;
 }
-public ServerAlreadyInstalled(String $reason,int _serverId){
-  super(ServerAlreadyInstalledHelper.id() + "  " + $reason);
+public ServerNotRegistered(String $reason,String _serverId){
+  super(ServerNotRegisteredHelper.id() + "  " + $reason);
   serverId=_serverId;
 }

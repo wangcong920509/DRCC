@@ -1,40 +1,28 @@
 /** 
- * @inheritDoc 
+ * @see org.w3c.dom.Node
  */
-public void warning(SAXParseException ex) throws SAXException {
-  if (IgnoreAllErrorHandler.warnOnExceptions) {
-    log.log(java.util.logging.Level.WARNING,"",ex);
-  }
-  if (IgnoreAllErrorHandler.throwExceptions) {
-    throw ex;
-  }
+@Override public final Node getFirstChild(){
+  int newnode=dtm.getFirstChild(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 /** 
- * @inheritDoc 
+ * @see org.w3c.dom.Node
  */
-public void error(SAXParseException ex) throws SAXException {
-  if (IgnoreAllErrorHandler.warnOnExceptions) {
-    log.log(java.util.logging.Level.SEVERE,"",ex);
-  }
-  if (IgnoreAllErrorHandler.throwExceptions) {
-    throw ex;
-  }
+@Override public final Node getNextSibling(){
+  if (dtm.getNodeType(node) == Node.ATTRIBUTE_NODE)   return null;
+  int newnode=dtm.getNextSibling(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 -->
-void warning_error(SAXParseException ex,SAXParseException ex,int combFlag){
+void getFirstChild_getNextSibling(int combFlag){
   if (combFlag == 1) {
-    if (IgnoreAllErrorHandler.warnOnExceptions) {
-      log.log(java.util.logging.Level.WARNING,"",ex);
-    }
+    int newnode=dtm.getFirstChild(node);
   }
  else {
-    if (IgnoreAllErrorHandler.warnOnExceptions) {
-      log.log(java.util.logging.Level.SEVERE,"",ex);
-    }
+    if (dtm.getNodeType(node) == Node.ATTRIBUTE_NODE)     return null;
+    int newnode=dtm.getNextSibling(node);
   }
-  if (IgnoreAllErrorHandler.throwExceptions) {
-    throw ex;
-  }
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

@@ -82,3 +82,5 @@ public QName(String qname,PrefixResolver resolver,boolean validate){
   m_hashCode=toString().hashCode();
   _prefix=prefix;
 }
+-->
+334.0 / 1639 = 0.20378279438682123

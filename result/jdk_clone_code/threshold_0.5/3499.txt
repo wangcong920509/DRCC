@@ -1,24 +1,22 @@
 /** 
- * Pops up an "Open File" file chooser dialog. Note that the text that appears in the approve button is determined by the L&F.
- * @param parent  the parent component of the dialog,can be <code>null</code>; see <code>showDialog</code> for details
- * @return   the return state of the file chooser on popdown:<ul> <li>JFileChooser.CANCEL_OPTION <li>JFileChooser.APPROVE_OPTION <li>JFileChooser.ERROR_OPTION if an error occurs or the dialog is dismissed </ul>
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see #showDialog
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
  */
-public int showOpenDialog(Component parent) throws HeadlessException {
-  setDialogType(OPEN_DIALOG);
-  return showDialog(parent,null);
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
 }
 /** 
- * Pops up a "Save File" file chooser dialog. Note that the text that appears in the approve button is determined by the L&F.
- * @param parent  the parent component of the dialog,can be <code>null</code>; see <code>showDialog</code> for details
- * @return   the return state of the file chooser on popdown:<ul> <li>JFileChooser.CANCEL_OPTION <li>JFileChooser.APPROVE_OPTION <li>JFileChooser.ERROR_OPTION if an error occurs or the dialog is dismissed </ul>
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see #showDialog
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
  */
-public int showSaveDialog(Component parent) throws HeadlessException {
-  setDialogType(SAVE_DIALOG);
-  return showDialog(parent,null);
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
+  }
+  return null;
 }

@@ -1,13 +1,18 @@
 /** 
- * Returns the XML version of the current entity. This will normally be the value from the XML or text declaration or defaulted by the parser. Note that that this value may be different than the version of the processing rules applied to the current entity. For instance, an XML 1.1 document may refer to XML 1.0 entities. In such a case the rules of XML 1.1 are applied to the entire document. Also note that, for a given entity, this value can only be considered final once the XML or text declaration has been read or once it has been determined that there is no such declaration.
+ * Returns the element name
  */
-public final String getXMLVersion(){
-  if (fCurrentEntity != null) {
-    return fCurrentEntity.xmlVersion;
+public String getNodeName(){
+  if (needsSyncData()) {
+    synchronizeData();
   }
-  return null;
+  return name;
 }
-public String getVersion(){
-  if (fCurrentEntity != null)   return fCurrentEntity.version;
-  return null;
+/** 
+ * Returns the name of the Element. Note that Element.nodeName() is defined to also return the tag name. <p> This is case-preserving in XML. HTML should uppercasify it on the way in.
+ */
+public String getTagName(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return name;
 }

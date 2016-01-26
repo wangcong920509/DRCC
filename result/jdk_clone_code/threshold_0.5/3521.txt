@@ -1,23 +1,27 @@
 /** 
- * Sets whether the table draws grid lines around cells. If <code>showGrid</code> is true it does; if it is false it doesn't. There is no <code>getShowGrid</code> method as this state is held in two variables -- <code>showHorizontalLines</code> and <code>showVerticalLines</code> -- each of which can be queried independently.
- * @param showGrid                 true if table view should draw grid lines
- * @see #setShowVerticalLines
- * @see #setShowHorizontalLines
- * @beaninfo description: The color used to draw the grid lines.
+ * Returns a class instance for the specified class. <P>The spec for this method is the "Java to IDL language mapping", ptc/00-01-06. <P>In Java SE Platform, this method works as follows: <UL><LI>Find the first non-null <tt>ClassLoader</tt> on the call stack and attempt to load the class using this <tt>ClassLoader</tt>. <LI>If the first step fails, and if <tt>remoteCodebase</tt> is non-null and <tt>useCodebaseOnly</tt> is false, then call <tt>java.rmi.server.RMIClassLoader.loadClass(remoteCodebase, className)</tt>. <LI>If <tt>remoteCodebase</tt> is null or <tt>useCodebaseOnly</tt> is true, then call <tt>java.rmi.server.RMIClassLoader.loadClass(className)</tt>. <LI>If a class was not successfully loaded by step 1, 2, or 3, and <tt>loader</tt> is non-null, then call <tt>loader.loadClass(className)</tt>. <LI>If a class was successfully loaded by step 1, 2, 3, or 4, then return the loaded class, else throw <tt>ClassNotFoundException</tt>.
+ * @param className the name of the class.
+ * @param remoteCodebase a space-separated list of URLs at whichthe class might be found. May be null.
+ * @param loader a <tt>ClassLoader</tt> that may be used toload the class if all other methods fail.
+ * @return the <code>Class</code> object representing the loaded class.
+ * @exception ClassNotFoundException if class cannot be loaded.
  */
-public void setShowGrid(boolean showGrid){
-  setShowHorizontalLines(showGrid);
-  setShowVerticalLines(showGrid);
-  repaint();
+public static Class loadClass(String className,String remoteCodebase,ClassLoader loader) throws ClassNotFoundException {
+  if (utilDelegate != null) {
+    return utilDelegate.loadClass(className,remoteCodebase,loader);
+  }
+  return null;
 }
 /** 
- * Invoked when a column is repositioned. If a cell is being edited, then editing is stopped and the cell is redrawn. <p> Application code will not use these methods explicitly, they are used internally by JTable.
- * @param e   the event received
- * @see TableColumnModelListener
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
  */
-public void columnMoved(TableColumnModelEvent e){
-  if (isEditing() && !getCellEditor().stopCellEditing()) {
-    getCellEditor().cancelCellEditing();
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
   }
-  repaint();
+  return null;
 }

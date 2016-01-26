@@ -1,19 +1,8 @@
-/** 
- * Initialize this object for signing. If this method is called again with a different argument, it negates the effect of this call.
- * @param privateKey the private key of the identity whose signatureis going to be generated.
- * @exception InvalidKeyException if the key is invalid.
- */
-public final void initSign(PrivateKey privateKey) throws InvalidKeyException {
-  engineInitSign(privateKey);
-  state=SIGN;
+public ByteBuffer putChar(int i,char x){
+  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
+  return this;
 }
-/** 
- * Initialize this object for signing. If this method is called again with a different argument, it negates the effect of this call.
- * @param privateKey the private key of the identity whose signatureis going to be generated.
- * @param random the source of randomness for this signature.
- * @exception InvalidKeyException if the key is invalid.
- */
-public final void initSign(PrivateKey privateKey,SecureRandom random) throws InvalidKeyException {
-  engineInitSign(privateKey,random);
-  state=SIGN;
+public ByteBuffer putFloat(float x){
+  Bits.putFloat(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }

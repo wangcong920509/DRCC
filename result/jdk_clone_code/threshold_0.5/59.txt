@@ -1,8 +1,8 @@
-public ServerAlreadyUninstalled(String _serverId){
-  super(ServerAlreadyUninstalledHelper.id());
-  serverId=_serverId;
+public ORBAlreadyRegistered(String _orbId){
+  super(ORBAlreadyRegisteredHelper.id());
+  orbId=_orbId;
 }
-public ServerAlreadyUninstalled(String $reason,String _serverId){
-  super(ServerAlreadyUninstalledHelper.id() + "  " + $reason);
-  serverId=_serverId;
+public ORBAlreadyRegistered(String $reason,String _orbId){
+  super(ORBAlreadyRegisteredHelper.id() + "  " + $reason);
+  orbId=_orbId;
 }

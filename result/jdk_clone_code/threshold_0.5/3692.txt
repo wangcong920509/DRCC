@@ -1,8 +1,20 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Invoked when a column is added to the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnAdded(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
 }
-private Rectangle2D decodeRect19(){
-  rect.setRect(decodeX(1.6666667f),decodeY(1.6666667f),decodeX(2.2f) - decodeX(1.6666667f),decodeY(2.2f) - decodeY(1.6666667f));
-  return rect;
+/** 
+ * Invoked when a column is removed from the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnRemoved(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
 }

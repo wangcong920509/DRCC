@@ -24,3 +24,5 @@ private void painticonMouseOverAndSelected(Graphics2D g){
   g.setPaint(decodeGradient11(ellipse));
   g.fill(ellipse);
 }
+-->
+115.0 / 659 = 0.17450682852807284

@@ -1,8 +1,8 @@
-public synchronized StringBuffer append(char[] str){
-  super.append(str);
-  return this;
+@ForceInline static Object checkBase(Object obj){
+  obj.getClass();
+  return obj;
 }
-public synchronized StringBuffer append(boolean b){
-  super.append(b);
-  return this;
+@ForceInline static Object nullCheck(Object obj){
+  obj.getClass();
+  return obj;
 }

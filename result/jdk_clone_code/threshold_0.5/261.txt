@@ -1,11 +1,35 @@
-public void addGlobalElementDecl(XSElementDecl decl){
-  fGlobalElemDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
-}
 /** 
- * register one global group
+ * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
  */
-public void addGlobalGroupDecl(XSGroupDecl decl){
-  fGlobalGroupDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public String getPrefix(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    String prefix=fScanner.getElementQName().prefix;
+    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+  }
+  return null;
+}
+protected List getEntityDecls(){
+  if (fEventType == XMLStreamConstants.DTD) {
+    XMLEntityStorage entityStore=fEntityManager.getEntityStore();
+    ArrayList list=null;
+    if (entityStore.hasEntities()) {
+      EntityDeclarationImpl decl=null;
+      list=new ArrayList(entityStore.getEntitySize());
+      Enumeration enu=entityStore.getEntityKeys();
+      while (enu.hasMoreElements()) {
+        String key=(String)enu.nextElement();
+        Entity en=(Entity)entityStore.getEntity(key);
+        decl=new EntityDeclarationImpl();
+        decl.setEntityName(key);
+        if (en.isExternal()) {
+          decl.setXMLResourceIdentifier(((Entity.ExternalEntity)en).entityLocation);
+          decl.setNotationName(((Entity.ExternalEntity)en).notation);
+        }
+ else         decl.setEntityReplacementText(((Entity.InternalEntity)en).text);
+        list.add(decl);
+      }
+    }
+    return list;
+  }
+  return null;
 }

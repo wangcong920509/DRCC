@@ -1,24 +1,22 @@
 /** 
- * Constructs an instance of a Binding given its name and object. <p> <tt>getClassName()</tt> will return the class name of <tt>obj</tt> (or null if <tt>obj</tt> is null) unless the class name has been explicitly set using <tt>setClassName()</tt>
- * @param name    The non-null name of the object. It is relativeto the <em>target context</em> (which is named by the first parameter of the <code>listBindings()</code> method)
- * @param obj     The possibly null object bound to name.
- * @see NameClassPair#setClassName
+ * MissingKeyResourceFailureException constructor.
+ * @param _msgID
+ * @param reference
+ * @see #getReference
  */
-public Binding(String name,Object obj){
-  super(name,null);
-  this.boundObj=obj;
+public MissingResourceFailureException(String _msgID,Reference reference){
+  super(_msgID);
+  this.uninitializedReference=reference;
 }
 /** 
- * Constructs an instance of a Binding given its name, class name, object, and whether the name is relative.
- * @param name    The non-null string name of the object.
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj     The possibly null object bound to name.
- * @param isRelative true if <code>name</code> is a name relativeto the target context (which is named by the first parameter of the <code>listBindings()</code> method); false if <code>name</code> is a URL string.
- * @see NameClassPair#isRelative
- * @see NameClassPair#setRelative
- * @see NameClassPair#setClassName
+ * Constructor MissingResourceFailureException
+ * @param _msgID
+ * @param exArgs
+ * @param _originalException
+ * @param reference
+ * @see #getReference
  */
-public Binding(String name,String className,Object obj,boolean isRelative){
-  super(name,className,isRelative);
-  this.boundObj=obj;
+public MissingResourceFailureException(String _msgID,Object exArgs[],Exception _originalException,Reference reference){
+  super(_msgID,exArgs,_originalException);
+  this.uninitializedReference=reference;
 }

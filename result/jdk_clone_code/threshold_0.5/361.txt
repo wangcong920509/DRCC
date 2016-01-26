@@ -1,18 +1,26 @@
-public void startElement(java.lang.String namespaceURI,java.lang.String localName,java.lang.String qName,Attributes atts) throws org.xml.sax.SAXException {
-  if (--eventcounter <= 0) {
-    co_yield(true);
-    eventcounter=frequency;
+/** 
+ * Returns the default state for a feature, or null if this component does not want to report a default value for this feature.
+ * @param featureId The feature identifier.
+ * @since Xerces 2.2.0
+ */
+@Override public Boolean getFeatureDefault(String featureId){
+  for (int i=0; i < RECOGNIZED_FEATURES.length; i++) {
+    if (RECOGNIZED_FEATURES[i].equals(featureId)) {
+      return FEATURE_DEFAULTS[i];
+    }
   }
-  if (clientContentHandler != null)   clientContentHandler.startElement(namespaceURI,localName,qName,atts);
+  return null;
 }
 /** 
- * <p>In the SAX delegation code, I've inlined the count-down in the hope of encouraging compilers to deliver better performance. However, if we subclass (eg to directly connect the output to a DTM builder), that would require calling super in order to run that logic... which seems inelegant.  Hence this routine for the convenience of subclasses: every [frequency] invocations, issue a co_yield.</p>
- * @param moreExepected Should always be true unless this is being calledat the end of endDocument() handling.
+ * Returns the default state for a property, or null if this component does not want to report a default value for this property.
+ * @param propertyId The property identifier.
+ * @since Xerces 2.2.0
  */
-protected void count_and_yield(boolean moreExpected) throws SAXException {
-  if (!moreExpected)   eventcounter=0;
-  if (--eventcounter <= 0) {
-    co_yield(true);
-    eventcounter=frequency;
+@Override public Object getPropertyDefault(String propertyId){
+  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
+    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
+      return PROPERTY_DEFAULTS[i];
+    }
   }
+  return null;
 }

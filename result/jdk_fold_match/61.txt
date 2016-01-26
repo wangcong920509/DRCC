@@ -77,3 +77,5 @@ protected final void scanElementDecl() throws IOException, XNIException {
   }
   if (nonValidatingMode)   nvGrammarInfo.elementDecl(name,contentModel,null);
 }
+-->
+252.0 / 2373 = 0.10619469026548672

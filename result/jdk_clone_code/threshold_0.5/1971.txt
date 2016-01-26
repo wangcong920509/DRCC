@@ -1,32 +1,20 @@
 /** 
- * Appends the string representation of the  {@code boolean}argument to the sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(boolean)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
- * @param b   a {@code boolean}.
- * @return  a reference to this object.
+ * Subtracts the shape of the specified <code>Area</code> from the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include areas that were contained only in this <code>Area</code> and not in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.subtract(a2); a1(before)     -         a2         =     a1(after) ################     ################ ##############         ##############     ## ############             ############     #### ##########                 ##########     ###### ########                     ########     ######## ######                         ######     ###### ####                             ####     #### ##                                 ##     ## </pre>
+ * @param rhs  the <code>Area</code> to be subtracted from thecurrent shape
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public AbstractStringBuilder append(boolean b){
-  if (b) {
-    ensureCapacityInternal(count + 4);
-    value[count++]='t';
-    value[count++]='r';
-    value[count++]='u';
-    value[count++]='e';
-  }
- else {
-    ensureCapacityInternal(count + 5);
-    value[count++]='f';
-    value[count++]='a';
-    value[count++]='l';
-    value[count++]='s';
-    value[count++]='e';
-  }
-  return this;
+public void subtract(Area rhs){
+  curves=new AreaOp.SubOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }
 /** 
- * Appends the string representation of the  {@code double}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(double)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
- * @param d   a {@code double}.
- * @return  a reference to this object.
+ * Sets the shape of this <code>Area</code> to the intersection of its current shape and the shape of the specified <code>Area</code>. The resulting shape of this <code>Area</code> will include only areas that were contained in both this <code>Area</code> and also in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.intersect(a2); a1(before)   intersect     a2         =     a1(after) ################     ################     ################ ##############         ##############       ############ ############             ############         ######## ##########                 ##########           #### ########                     ######## ######                         ###### ####                             #### ##                                 ## </pre>
+ * @param rhs  the <code>Area</code> to be intersected with this<code>Area</code>
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public AbstractStringBuilder append(double d){
-  new FloatingDecimal(d).appendTo(this);
-  return this;
+public void intersect(Area rhs){
+  curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }

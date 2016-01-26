@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Method add
+ * @param keyname
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public void add(KeyName keyname){
+  this._constructionElement.appendChild(keyname.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * Method addPGPData
+ * @param pgpdata
  */
-public String getEncoding(){
-  aMethodIsCalled();
-  return null;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

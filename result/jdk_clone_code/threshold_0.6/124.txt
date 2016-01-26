@@ -1,21 +1,12 @@
-/** 
- * Creates a new BasicPermission with the specified name. Name is the symbolic name of the permission, such as "setFactory", "print.queueJob", or "topLevelWindow", etc.
- * @param name the name of the BasicPermission.
- * @throws NullPointerException if <code>name</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>name</code> is empty.
- */
-public BasicPermission(String name){
-  super(name);
-  init(name);
+public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
+  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }
-/** 
- * Creates a new BasicPermission object with the specified name. The name is the symbolic name of the BasicPermission, and the actions String is currently unused.
- * @param name the name of the BasicPermission.
- * @param actions ignored.
- * @throws NullPointerException if <code>name</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>name</code> is empty.
- */
-public BasicPermission(String name,String actions){
-  super(name);
-  init(name);
+public void addGlobalNotationDecl(XSNotationDecl decl,String location){
+  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }

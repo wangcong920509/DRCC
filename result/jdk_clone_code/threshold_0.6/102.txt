@@ -1,30 +1,14 @@
 /** 
- * Translates a byte array containing the two's-complement binary representation of a BigInteger into a BigInteger.  The input array is assumed to be in <i>big-endian</i> byte-order: the most significant byte is in the zeroth element.
- * @param val big-endian two's-complement binary representation ofBigInteger.
- * @throws NumberFormatException {@code val} is zero bytes long.
+ * Translates an object of this type to an object of type <code>type</code>. Expects an object of the former type and pushes an object of the latter.
  */
-public BigInteger(byte[] val){
-  if (val.length == 0)   throw new NumberFormatException("Zero length BigInteger");
-  if (val[0] < 0) {
-    mag=makePositive(val);
-    signum=-1;
-  }
- else {
-    mag=stripLeadingZeroBytes(val);
-    signum=(mag.length == 0 ? 0 : 1);
-  }
+public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Type type){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),type.toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 /** 
- * This private constructor translates an int array containing the two's-complement binary representation of a BigInteger into a BigInteger. The input array is assumed to be in <i>big-endian</i> int-order: the most significant int is in the zeroth element.
+ * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
  */
-private BigInteger(int[] val){
-  if (val.length == 0)   throw new NumberFormatException("Zero length BigInteger");
-  if (val[0] < 0) {
-    mag=makePositive(val);
-    signum=-1;
-  }
- else {
-    mag=trustedStripLeadingZeroInts(val);
-    signum=(mag.length == 0 ? 0 : 1);
-  }
+public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

@@ -1,19 +1,28 @@
 /** 
- * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
- * @return {@code true} (as specified by {@link Collection#add})
- * @throws NullPointerException if the specified element is null
+ * Formats a double to produce a string.
+ * @param number    The double to format
+ * @param result    where the text is to be appended
+ * @param fieldPosition    On input: an alignment field, if desired.On output: the offsets of the alignment field.
+ * @exception ArithmeticException if rounding is needed with roundingmode being set to RoundingMode.UNNECESSARY
+ * @return The formatted number string
+ * @see java.text.FieldPosition
  */
-public boolean add(E e){
-  xfer(e,true,ASYNC,0);
-  return true;
+public StringBuffer format(double number,StringBuffer result,FieldPosition fieldPosition){
+  fieldPosition.setBeginIndex(0);
+  fieldPosition.setEndIndex(0);
+  return format(number,result,fieldPosition.getFieldDelegate());
 }
 /** 
- * Returns  {@code true} if this queue contains no elements.
- * @return {@code true} if this queue contains no elements
+ * Format a long to produce a string.
+ * @param number    The long to format
+ * @param result    where the text is to be appended
+ * @param fieldPosition    On input: an alignment field, if desired.On output: the offsets of the alignment field.
+ * @exception ArithmeticException if rounding is needed with roundingmode being set to RoundingMode.UNNECESSARY
+ * @return The formatted number string
+ * @see java.text.FieldPosition
  */
-public boolean isEmpty(){
-  for (Node p=head; p != null; p=succ(p)) {
-    if (!p.isMatched())     return !p.isData;
-  }
-  return true;
+public StringBuffer format(long number,StringBuffer result,FieldPosition fieldPosition){
+  fieldPosition.setBeginIndex(0);
+  fieldPosition.setEndIndex(0);
+  return format(number,result,fieldPosition.getFieldDelegate());
 }

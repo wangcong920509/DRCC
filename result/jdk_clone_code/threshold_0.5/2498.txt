@@ -1,8 +1,11 @@
-public CharBuffer put(char x){
-  Bits.putCharL(bb,ix(nextPutIndex()),x);
+public StringBuilder append(float f){
+  super.append(f);
   return this;
 }
-public CharBuffer put(int i,char x){
-  Bits.putCharL(bb,ix(checkIndex(i)),x);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int index,char[] str,int offset,int len){
+  super.insert(index,str,offset,len);
   return this;
 }

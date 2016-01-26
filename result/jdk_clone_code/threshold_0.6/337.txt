@@ -1,18 +1,14 @@
 /** 
- * Construct an exception with a nested inner exception and a message
- * @param e the exception to nest
- * @param msg the message to report
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public FactoryConfigurationError(java.lang.Exception e,java.lang.String msg){
-  super(msg);
-  nested=e;
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Construct an exception with a nested inner exception and a message
- * @param msg the message to report
- * @param e the exception to nest
+ * @see XSLOutputAttributes#getVersion()
  */
-public FactoryConfigurationError(java.lang.String msg,java.lang.Exception e){
-  super(msg);
-  nested=e;
+public String getVersion(){
+  aMethodIsCalled();
+  return null;
 }

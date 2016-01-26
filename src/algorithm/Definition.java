@@ -23,8 +23,9 @@ import org.eclipse.jdt.core.dom.Statement;
 public class Definition {
 	
 	private String srcName = "";
-	private int number = 1;
-	public static double threshold = 0.5;
+	public int number = 1;
+	public double mCount = 0;
+	public static double threshold = 0.6;
 	private static CountNodes mVisit = new CountNodes();
 	private final static String BASIC_ADDR = "result\\jdk_fold_match\\";
 	
@@ -85,7 +86,6 @@ public class Definition {
 	 */
 	@SuppressWarnings("unchecked")
 	public Boolean Similarity(MethodDeclaration md1, MethodDeclaration md2){
-		mVisit = new CountNodes();
 		if(md1.getBody() == null || md2.getBody() == null)
 			return false;
 		List<Statement> list1 = md1.getBody().statements();
@@ -98,12 +98,14 @@ public class Definition {
 		int len2 = list2.size();
 		//calculate the number of node
 		int countNodes1[] = new int[len1];
+		mVisit = new CountNodes();
 		for(int i = 0; i < len1; i++){
 			list1.get(i).accept(mVisit);
 			countNodes1[i] = mVisit.mCount;
 			total += mVisit.mCount;
 		}
 		int countNodes2[] = new int[len2];
+		mVisit = new CountNodes();
 		for(int i = 0; i < len2; i++){
 			list2.get(i).accept(mVisit);
 			countNodes2[i] = mVisit.mCount;
@@ -124,8 +126,14 @@ public class Definition {
 		if(bc.list.size() != 0)
 			same = bc.bestChoice(0);
 		if(!mFlag){
-			FileOperation.writeToFile(BASIC_ADDR + number + ".txt", srcName + "\n" + md1.toString() + md2.toString());
+//			FileOperation.writeToFile(BASIC_ADDR + number + ".txt", srcName + "\n" + md1.toString() + md2.toString() + "-->\n" + same + " / " + total + " = " + same / total);
 			number += 1;
+			double same2 = 0;
+			for(int i = 0; i < len1; i++)
+				for(int j = 0; j < len2; j++)
+					if(isSame(list1.get(i), list2.get(j)))
+						same2 += countNodes1[i] + countNodes2[j];
+			mCount += same2 / total;
 		}
 		return same / total > threshold;
 	}

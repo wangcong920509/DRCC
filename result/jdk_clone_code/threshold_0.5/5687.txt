@@ -1,0 +1,15 @@
+/** 
+ * Create a new SAXException.
+ */
+public SAXException(){
+  super();
+  this.exception=null;
+}
+/** 
+ * Create a new SAXException.
+ * @param message The error or warning message.
+ */
+public SAXException(String message){
+  super(message);
+  this.exception=null;
+}

@@ -1,14 +1,18 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * Constructs a new serializer that writes to the specified writer using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param writer The writer to use
+ * @param format The output format to use, null for the default
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
-  return null;
+public XML11Serializer(Writer writer,OutputFormat format){
+  super(writer,format);
+  _format.setVersion("1.1");
 }
 /** 
- * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ * Constructs a new serializer that writes to the specified output stream using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param output The output stream to use
+ * @param format The output format to use, null for the default
  */
-public String getPrefix(String uri){
-  aMethodIsCalled();
-  return null;
+public XML11Serializer(OutputStream output,OutputFormat format){
+  super(output,format != null ? format : new OutputFormat(Method.XML,null,false));
+  _format.setVersion("1.1");
 }

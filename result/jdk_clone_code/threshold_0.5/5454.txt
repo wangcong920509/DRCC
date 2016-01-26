@@ -1,58 +1,8 @@
-/** 
- * Returns the path for <code>row</code>.  If <code>row</code> is not visible, <code>null</code> is returned.
- * @param row the location of interest
- * @return the path for <code>row</code>, or <code>null</code>if <code>row</code> is not visible
- */
-public TreePath getPathForRow(int row){
-  if (row >= 0 && row < getRowCount()) {
-    return getNode(row).getTreePath();
-  }
-  return null;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(2.3333333f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * Returns the TreeStateNode identified by path.  This mirrors the behavior of getNodeForPath, but tries to take advantage of path if it is an instance of AbstractTreePath.
- */
-private TreeStateNode getNodeForPath(TreePath path,boolean onlyIfVisible,boolean shouldCreate){
-  if (path != null) {
-    TreeStateNode node;
-    node=getMapping(path);
-    if (node != null) {
-      if (onlyIfVisible && !node.isVisible())       return null;
-      return node;
-    }
-    Stack<TreePath> paths;
-    if (tempStacks.size() == 0) {
-      paths=new Stack<TreePath>();
-    }
- else {
-      paths=tempStacks.pop();
-    }
-    try {
-      paths.push(path);
-      path=path.getParentPath();
-      node=null;
-      while (path != null) {
-        node=getMapping(path);
-        if (node != null) {
-          while (node != null && paths.size() > 0) {
-            path=paths.pop();
-            node.getLoadedChildren(shouldCreate);
-            int childIndex=treeModel.getIndexOfChild(node.getUserObject(),path.getLastPathComponent());
-            if (childIndex == -1 || childIndex >= node.getChildCount() || (onlyIfVisible && !node.isVisible())) {
-              node=null;
-            }
- else             node=(TreeStateNode)node.getChildAt(childIndex);
-          }
-          return node;
-        }
-        paths.push(path);
-        path=path.getParentPath();
-      }
-    }
-  finally {
-      paths.removeAllElements();
-      tempStacks.push(paths);
-    }
-  }
-  return null;
+private Rectangle2D decodeRect12(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

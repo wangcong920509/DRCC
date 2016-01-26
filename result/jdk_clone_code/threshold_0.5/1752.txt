@@ -1,19 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param data Data for text node
  * @return null
  */
-public Text createTextNode(String data){
+public DOMImplementation getImplementation(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented.
- * @param offset Offset into text to split
- * @return null, unimplemented
+ * Unimplemented. See org.w3c.dom.Document
+ * @param importedNode The node to import.
+ * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @return null
  * @throws DOMException
  */
-public Text splitText(int offset) throws DOMException {
+public Node importNode(Node importedNode,boolean deep) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

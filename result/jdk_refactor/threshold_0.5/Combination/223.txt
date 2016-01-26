@@ -1,29 +1,32 @@
 /** 
- * @param key the key
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the end of this deque.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Deque#offerLast})
+ * @throws NullPointerException if the specified element is null
  */
-public K floorKey(K key){
-  Node<K,V> n=findNear(key,LT | EQ);
-  return (n == null) ? null : n.key;
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
 }
 
 /** 
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the end of this deque. <p>This method is equivalent to  {@link #addLast}.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Collection#add})
+ * @throws NullPointerException if the specified element is null
  */
-public K ceilingKey(K key){
-  Node<K,V> n=findNear(key,GT | EQ);
-  return (n == null) ? null : n.key;
+public boolean add(E e){
+  addLast(e);
+  return true;
 }
 
 -->
-void floorKey_ceilingKey(K key,K key,int combFlag){
+void offerLast_add(E e,E e,int combFlag){
   if (combFlag == 1) {
-    Node<K,V> n=findNear(key,LT | EQ);
+    addLast(e);
   }
  else {
-    Node<K,V> n=findNear(key,GT | EQ);
+    addLast(e);
   }
-  return (n == null) ? null : n.key;
+  return true;
 }

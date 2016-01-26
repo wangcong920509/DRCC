@@ -1,26 +1,20 @@
-/** 
- * @see org.w3c.dom.Node
- */
-public final Node getOwnerNode(){
-  int newnode=dtm.getParent(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public org.omg.CORBA.portable.OutputStream createReply(){
+  getProtocolHandler().createResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }
 
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public org.omg.CORBA.portable.OutputStream createExceptionReply(){
+  getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }
 
 -->
-void getOwnerNode_getLastChild(int combFlag){
+void createReply_createExceptionReply(int combFlag){
   if (combFlag == 1) {
-    int newnode=dtm.getParent(node);
+    getProtocolHandler().createResponse(this,(ServiceContexts)null);
   }
  else {
-    int newnode=dtm.getLastChild(node);
+    getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
   }
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+  return (OutputStream)getOutputObject();
 }

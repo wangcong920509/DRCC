@@ -1,26 +1,23 @@
 /** 
- * Returns the first tab index with a given <code>title</code>,  or -1 if no tab has this title.
- * @param title the title for the tab
- * @return the first tab index which matches <code>title</code>, or-1 if no tab has this title
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
  */
-public int indexOfTab(String title){
-  for (int i=0; i < getTabCount(); i++) {
-    if (getTitleAt(i).equals(title == null ? "" : title)) {
-      return i;
-    }
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
   }
-  return -1;
+  return null;
 }
 /** 
- * Returns the tab index corresponding to the tab whose bounds intersect the specified location.  Returns -1 if no tab intersects the location.
- * @param x the x location relative to this tabbedpane
- * @param y the y location relative to this tabbedpane
- * @return the tab index which intersects the location, or-1 if no tab intersects the location
- * @since 1.4
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
  */
-public int indexAtLocation(int x,int y){
-  if (ui != null) {
-    return ((TabbedPaneUI)ui).tabForCoordinate(this,x,y);
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
   }
-  return -1;
+  return null;
 }

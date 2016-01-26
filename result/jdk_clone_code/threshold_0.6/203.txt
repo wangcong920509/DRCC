@@ -1,18 +1,16 @@
 /** 
- * Sets the policy on whether to continue executing existing periodic tasks even when this executor has been  {@code shutdown}. In this case, these tasks will only terminate upon {@code shutdownNow} or after setting the policy to{@code false} when already shutdown.This value is by default  {@code false}.
- * @param value if {@code true}, continue after shutdown, else don't.
- * @see #getContinueExistingPeriodicTasksAfterShutdownPolicy
+ * Method add
+ * @param keyname
  */
-public void setContinueExistingPeriodicTasksAfterShutdownPolicy(boolean value){
-  continueExistingPeriodicTasksAfterShutdown=value;
-  if (!value && isShutdown())   onShutdown();
+public void add(KeyName keyname){
+  this._constructionElement.appendChild(keyname.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Sets the policy on whether to execute existing delayed tasks even when this executor has been  {@code shutdown}. In this case, these tasks will only terminate upon {@code shutdownNow}, or after setting the policy to {@code false} when already shutdown.This value is by default  {@code true}.
- * @param value if {@code true}, execute after shutdown, else don't.
- * @see #getExecuteExistingDelayedTasksAfterShutdownPolicy
+ * Method addPGPData
+ * @param pgpdata
  */
-public void setExecuteExistingDelayedTasksAfterShutdownPolicy(boolean value){
-  executeExistingDelayedTasksAfterShutdown=value;
-  if (!value && isShutdown())   onShutdown();
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

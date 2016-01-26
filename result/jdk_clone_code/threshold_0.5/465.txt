@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param keyvalue
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(KeyValue keyvalue){
+  this._constructionElement.appendChild(keyvalue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see SerializationHandler#getTransformer()
+ * Method add
+ * @param spkidata
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
-  return null;
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

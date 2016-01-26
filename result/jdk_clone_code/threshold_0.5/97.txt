@@ -1,14 +1,17 @@
 /** 
- * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
  */
-protected SnmpSubBulkRequestHandler(SnmpEngine engine,SnmpAdaptorServer server,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
-  super(engine,incRequest,agent,req);
-  init(server,req,nonRepeat,maxRepeat,R);
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
 /** 
- * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ * Put a <CODE>NULL</CODE> value with a specified tag.
+ * @param tag The tag to encode.
  */
-protected SnmpSubBulkRequestHandler(SnmpAdaptorServer server,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
-  super(agent,req);
-  init(server,req,nonRepeat,maxRepeat,R);
+public void putNull(int tag){
+  putLength(0);
+  putTag(tag);
 }

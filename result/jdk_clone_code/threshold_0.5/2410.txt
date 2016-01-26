@@ -1,11 +1,11 @@
-public StringBuilder append(double d){
-  super.append(d);
+public StringBuilder append(char[] str){
+  super.append(str);
   return this;
 }
 /** 
  * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public StringBuilder insert(int offset,char[] str){
-  super.insert(offset,str);
+public StringBuilder replace(int start,int end,String str){
+  super.replace(start,end,str);
   return this;
 }

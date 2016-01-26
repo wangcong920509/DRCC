@@ -1,29 +1,34 @@
-/** 
- * Creates a symbolic link to a target <i>(optional operation)</i>. <p> The  {@code target} parameter is the target of the link. It may be an{@link Path#isAbsolute absolute} or relative path and may not exist. Whenthe target is a relative path then file system operations on the resulting link are relative to the path of the link. <p> The  {@code attrs} parameter is optional {@link FileAttribute attributes} to set atomically when creating the link. Each attribute isidentified by its  {@link FileAttribute#name name}. If more than one attribute of the same name is included in the array then all but the last occurrence is ignored. <p> Where symbolic links are supported, but the underlying  {@link FileStore}does not support symbolic links, then this may fail with an  {@link IOException}. Additionally, some operating systems may require that the Java virtual machine be started with implementation specific privileges to create symbolic links, in which case this method may throw  {@code IOException}.
- * @param link the path of the symbolic link to create
- * @param target the target of the symbolic link
- * @param attrs the array of attributes to set atomically when creating the symbolic link
- * @return  the path to the symbolic link
- * @throws UnsupportedOperationException if the implementation does not support symbolic links or the array contains an attribute that cannot be set atomically when creating the symbolic link
- * @throws FileAlreadyExistsException if a file with the name already exists <i>(optional specific exception)</i>
- * @throws IOException if an I/O error occurs
- * @throws SecurityException In the case of the default provider, and a security manager is installed, it denies  {@link LinkPermission}<tt>("symbolic")</tt> or its  {@link SecurityManager#checkWrite(String) checkWrite}method denies write access to the path of the symbolic link.
- */
-public static Path createSymbolicLink(Path link,Path target,FileAttribute<?>... attrs) throws IOException {
-  provider(link).createSymbolicLink(link,target,attrs);
-  return link;
+public CharBuffer put(char x){
+  unsafe.putChar(ix(nextPutIndex()),((x)));
+  return this;
 }
-/** 
- * Creates a new link (directory entry) for an existing file <i>(optional operation)</i>. <p> The  {@code link} parameter locates the directory entry to create.The  {@code existing} parameter is the path to an existing file. Thismethod creates a new directory entry for the file so that it can be accessed using  {@code link} as the path. On some file systems this isknown as creating a "hard link". Whether the file attributes are maintained for the file or for each directory entry is file system specific and therefore not specified. Typically, a file system requires that all links (directory entries) for a file be on the same file system. Furthermore, on some platforms, the Java virtual machine may require to be started with implementation specific privileges to create hard links or to create links to directories.
- * @param link the link (directory entry) to create
- * @param existing a path to an existing file
- * @return  the path to the link (directory entry)
- * @throws UnsupportedOperationException if the implementation does not support adding an existing file to a directory
- * @throws FileAlreadyExistsException if the entry could not otherwise be created because a file of that name already exists <i>(optional specific exception)</i>
- * @throws IOException if an I/O error occurs
- * @throws SecurityException In the case of the default provider, and a security manager is installed, it denies  {@link LinkPermission}<tt>("hard")</tt> or its  {@link SecurityManager#checkWrite(String) checkWrite}method denies write access to either the link or the existing file.
- */
-public static Path createLink(Path link,Path existing) throws IOException {
-  provider(link).createLink(link,existing);
-  return link;
+public CharBuffer put(CharBuffer src){
+  if (src instanceof DirectCharBufferU) {
+    if (src == this)     throw new IllegalArgumentException();
+    DirectCharBufferU sb=(DirectCharBufferU)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 1);
+    sb.position(spos + srem);
+    position(pos + srem);
+  }
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
+  }
+ else {
+    super.put(src);
+  }
+  return this;
 }

@@ -1,28 +1,38 @@
-/** 
- * Returns an estimate of the number of worker threads that are not blocked waiting to join tasks or for other managed synchronization. This method may overestimate the number of running threads.
- * @return the number of worker threads
- */
-public int getRunningThreadCount(){
-  int r=parallelism + (int)(ctl >> AC_SHIFT);
-  return (r <= 0) ? 0 : r;
+public E peekFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
 }
 
-/** 
- * Returns an estimate of the number of threads that are currently stealing or executing tasks. This method may overestimate the number of active threads.
- * @return the number of active threads
- */
-public int getActiveThreadCount(){
-  int r=parallelism + (int)(ctl >> AC_SHIFT) + blockedCount;
-  return (r <= 0) ? 0 : r;
+public E pollFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null && p.casItem(item,null)) {
+      unlink(p);
+      return item;
+    }
+  }
+  return null;
 }
 
 -->
-void getRunningThreadCount_getActiveThreadCount(int combFlag){
+void peekFirst_pollFirst(int combFlag){
   if (combFlag == 1) {
-    int r=parallelism + (int)(ctl >> AC_SHIFT);
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null)       return item;
+    }
   }
  else {
-    int r=parallelism + (int)(ctl >> AC_SHIFT) + blockedCount;
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null && p.casItem(item,null)) {
+        unlink(p);
+        return item;
+      }
+    }
   }
-  return (r <= 0) ? 0 : r;
+  return null;
 }

@@ -1,20 +1,12 @@
-/** 
- * Get a character array chunk in the string-value of a node. (see http://www.w3.org/TR/xpath#data-model for the definition of a node's string-value). Note that a single text node may have multiple text chunks.
- * @param nodeHandle The node ID.
- * @param chunkIndex Which chunk to get.
- * @param startAndLen An array of 2 where the start position and length ofthe chunk will be returned.
- * @return The character array reference where the chunk occurs.
- */
-public char[] getStringValueChunk(int nodeHandle,int chunkIndex,int[] startAndLen){
-  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
-  return null;
+public int getLineNumber(){
+  if (fLocation != null) {
+    return fLocation.getLineNumber();
+  }
+  return -1;
 }
-/** 
- * Given a node handle, return the XPath node name.  This should be the name as described by the XPath data model, NOT the DOM-style name.
- * @param nodeHandle the id of the node.
- * @return String Name of this node, which may be an empty string.
- */
-public String getNodeNameX(int nodeHandle){
-  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
-  return null;
+public int getCharacterOffset(){
+  if (fLocation != null) {
+    return fLocation.getCharacterOffset();
+  }
+  return -1;
 }

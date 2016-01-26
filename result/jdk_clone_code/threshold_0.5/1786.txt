@@ -1,20 +1,21 @@
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param target Target for Processing instruction
- * @param data Data for Processing instruction
+ * @param tagName Element tag name
  * @return null
  * @throws DOMException
  */
-public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
+public Element createElement(String tagName) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
  * @return null
+ * @throws DOMException
  */
-public Element getElementById(String elementId){
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

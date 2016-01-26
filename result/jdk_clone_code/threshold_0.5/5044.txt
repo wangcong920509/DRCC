@@ -1,8 +1,8 @@
-private Rectangle2D decodeRect4(){
-  rect.setRect(decodeX(1.2643541f),decodeY(1.5542929f),decodeX(1.6315789f) - decodeX(1.2643541f),decodeY(1.5997474f) - decodeY(1.5542929f));
+private Rectangle2D decodeRect41(){
+  rect.setRect(decodeX(1.3333334f),decodeY(2.0f),decodeX(2.2f) - decodeX(1.3333334f),decodeY(2.2f) - decodeY(2.0f));
   return rect;
 }
-private Rectangle2D decodeRect7(){
-  rect.setRect(decodeX(1.4389952f),decodeY(1.7209597f),decodeX(1.7882775f) - decodeX(1.4389952f),decodeY(1.7765152f) - decodeY(1.7209597f));
+private Rectangle2D decodeRect43(){
+  rect.setRect(decodeX(0.8f),decodeY(0.8f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.0f) - decodeY(0.8f));
   return rect;
 }

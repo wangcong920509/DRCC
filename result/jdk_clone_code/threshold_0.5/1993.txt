@@ -1,8 +1,23 @@
-public synchronized StringBuffer append(Object obj){
-  super.append(String.valueOf(obj));
-  return this;
+/** 
+ * Sets the requested data array element in the first (default) bank to the given <code>float</code>.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElemFloat(int)
+ * @see #getElemFloat(int,int)
+ */
+public void setElemFloat(int i,float val){
+  data[i + offset]=(double)val;
+  theTrackable.markDirty();
 }
-public synchronized StringBuffer append(int i){
-  super.append(i);
-  return this;
+/** 
+ * Sets the requested data array element in the specified bank to the given <code>float</code>.
+ * @param bank The bank number.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElemFloat(int)
+ * @see #getElemFloat(int,int)
+ */
+public void setElemFloat(int bank,int i,float val){
+  bankdata[bank][i + offsets[bank]]=(double)val;
+  theTrackable.markDirty();
 }

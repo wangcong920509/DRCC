@@ -1,16 +1,14 @@
-public String getNodeValue(){
-  if (needsSyncData()) {
-    synchronizeData();
-  }
-  return data;
+/** 
+ * Translates an object of this type to the external (Java) type denoted by <code>clazz</code>. This method is used to translate parameters when external functions are called.
+ */
+public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),clazz.getClass().toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 /** 
- * Retrieve character data currently stored in this node.
- * @throws DOMExcpetion (DOMSTRING_SIZE_ERR) In some implementations, the stored data may exceed the permitted length of strings. If so, getData() will throw this DOMException advising the user to instead retrieve the data in chunks via the substring() operation.
+ * Translates an object of this type to its unboxed representation.
  */
-public String getData(){
-  if (needsSyncData()) {
-    synchronizeData();
-  }
-  return data;
+public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

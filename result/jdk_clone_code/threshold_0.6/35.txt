@@ -1,14 +1,8 @@
-/** 
- * @see org.w3c.dom.Node
- */
-public final Node getOwnerNode(){
-  int newnode=dtm.getParent(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ServerHeldDown(String _serverId){
+  super(ServerHeldDownHelper.id());
+  serverId=_serverId;
 }
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ServerHeldDown(String $reason,String _serverId){
+  super(ServerHeldDownHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

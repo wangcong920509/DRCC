@@ -2,7 +2,7 @@ public void write_octet(byte x){
   super.write_octet(x);
   checkPrimitiveAcrossFragmentedChunk();
 }
-public void write_longlong(long x){
-  super.write_longlong(x);
+public void write_long(int x){
+  super.write_long(x);
   checkPrimitiveAcrossFragmentedChunk();
 }

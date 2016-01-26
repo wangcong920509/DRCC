@@ -48,3 +48,5 @@ private void paintdirectoryIconEnabled(Graphics2D g){
   g.setPaint(color24);
   g.fill(path);
 }
+-->
+237.0 / 2895 = 0.08186528497409326

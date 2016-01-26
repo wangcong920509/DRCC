@@ -1,12 +1,28 @@
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
-  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+/** 
+ * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
+ */
+public String getPrefix(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    String prefix=fScanner.getElementQName().prefix;
+    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
   }
+  return null;
 }
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
-  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+/** 
+ * @return
+ */
+public String getValue(){
+  if (fEventType == XMLEvent.PROCESSING_INSTRUCTION) {
+    return fScanner.getPIData().toString();
   }
+ else   if (fEventType == XMLEvent.COMMENT) {
+    return fScanner.getComment();
+  }
+ else   if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    return fScanner.getElementQName().localpart;
+  }
+ else   if (fEventType == XMLEvent.CHARACTERS) {
+    return fScanner.getCharacterData().toString();
+  }
+  return null;
 }

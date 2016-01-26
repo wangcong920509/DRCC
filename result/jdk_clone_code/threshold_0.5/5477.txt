@@ -1,17 +1,8 @@
-/** 
- * Construct an exception with the assocated exception
- * @param th a nested exception
- */
-public XMLStreamException(Throwable th){
-  super(th);
-  nested=th;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Construct an exception with the assocated message and exception
- * @param th a nested exception
- * @param msg the message to report
- */
-public XMLStreamException(String msg,Throwable th){
-  super(msg,th);
-  nested=th;
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(0.6666667f),decodeY(2.3333333f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(2.3333333f));
+  return rect;
 }

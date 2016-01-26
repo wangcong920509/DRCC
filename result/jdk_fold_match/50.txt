@@ -69,3 +69,5 @@ private void translateSimpleContext(ClassGenerator classGen,MethodGenerator meth
   _falseList.add(il.append(new GOTO(null)));
   skipFalse.setTarget(il.append(NOP));
 }
+-->
+524.0 / 8550 = 0.06128654970760234

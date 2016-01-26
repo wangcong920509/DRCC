@@ -1,10 +1,9 @@
 /** 
- * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
+ * @return
  */
-public String getPrefix(){
+public String getNamespaceURI(){
   if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    String prefix=fScanner.getElementQName().prefix;
-    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+    return fScanner.getElementQName().uri;
   }
   return null;
 }
@@ -29,11 +28,10 @@ public String getValue(){
 }
 
 -->
-void getPrefix_getValue(int combFlag){
+void getNamespaceURI_getValue(int combFlag){
   if (combFlag == 1) {
     if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-      String prefix=fScanner.getElementQName().prefix;
-      return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+      return fScanner.getElementQName().uri;
     }
   }
  else {

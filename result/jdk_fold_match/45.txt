@@ -182,3 +182,5 @@ public void compileApplyImports(ClassGenerator classGen,int min,int max){
   classGen.addMethod(methodGen);
   _templates=oldTemplates;
 }
+-->
+97.0 / 69800 = 0.0013896848137535816

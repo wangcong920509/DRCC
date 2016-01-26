@@ -1,40 +1,21 @@
-public ByteBuffer put(ByteBuffer src){
-  if (src instanceof DirectByteBuffer) {
-    if (src == this)     throw new IllegalArgumentException();
-    DirectByteBuffer sb=(DirectByteBuffer)src;
-    int spos=sb.position();
-    int slim=sb.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (srem > rem)     throw new BufferOverflowException();
-    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 0);
-    sb.position(spos + srem);
-    position(pos + srem);
-  }
- else   if (src.hb != null) {
-    int spos=src.position();
-    int slim=src.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    put(src.hb,src.offset + spos,srem);
-    src.position(spos + srem);
-  }
- else {
-    super.put(src);
-  }
-  return this;
+/** 
+ * Constructs a new throwable with the specified detail message and cause.  <p>Note that the detail message associated with {@code cause} is <i>not</i> automatically incorporated inthis throwable's detail message. <p>The  {@link #fillInStackTrace()} method is called to initializethe stack trace data in the newly created throwable.
+ * @param message the detail message (which is saved for later retrievalby the  {@link #getMessage()} method).
+ * @param cause the cause (which is saved for later retrieval by the{@link #getCause()} method).  (A {@code null} value ispermitted, and indicates that the cause is nonexistent or unknown.)
+ * @since  1.4
+ */
+public Throwable(String message,Throwable cause){
+  fillInStackTrace();
+  detailMessage=message;
+  this.cause=cause;
 }
-private ByteBuffer putChar(long a,char x){
-  if (unaligned) {
-    char y=(x);
-    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
-  }
- else {
-    Bits.putChar(a,x,bigEndian);
-  }
-  return this;
+/** 
+ * Constructs a new throwable with the specified cause and a detail message of  {@code (cause==null ? null : cause.toString())} (whichtypically contains the class and detail message of  {@code cause}). This constructor is useful for throwables that are little more than wrappers for other throwables (for example,  {@link java.security.PrivilegedActionException}). <p>The  {@link #fillInStackTrace()} method is called to initializethe stack trace data in the newly created throwable.
+ * @param cause the cause (which is saved for later retrieval by the{@link #getCause()} method).  (A {@code null} value ispermitted, and indicates that the cause is nonexistent or unknown.)
+ * @since  1.4
+ */
+public Throwable(Throwable cause){
+  fillInStackTrace();
+  detailMessage=(cause == null ? null : cause.toString());
+  this.cause=cause;
 }

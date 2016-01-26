@@ -1,20 +1,14 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of attribute node to get
- * @param localName Local part of qualified name of attribute node to get
- * @return null
+ * @see XSLOutputAttributes#getStandalone()
  */
-public Attr getAttributeNodeNS(String namespaceURI,String localName){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getStandalone(){
+  aMethodIsCalled();
   return null;
 }

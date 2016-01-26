@@ -59,3 +59,5 @@ public synchronized Object[] getErrorsID(int id){
   }
   return errors;
 }
+-->
+204.0 / 978 = 0.2085889570552147

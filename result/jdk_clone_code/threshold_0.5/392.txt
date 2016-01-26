@@ -1,16 +1,15 @@
 /** 
- * Constructor KeyInfo
- * @param doc
+ * @see org.w3c.dom.Node
  */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public final Node getOwnerNode(){
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 /** 
- * Method add
- * @param keyname
+ * @see org.w3c.dom.Node
  */
-public void add(KeyName keyname){
-  this._constructionElement.appendChild(keyname.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+@Override public final Node getNextSibling(){
+  if (dtm.getNodeType(node) == Node.ATTRIBUTE_NODE)   return null;
+  int newnode=dtm.getNextSibling(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

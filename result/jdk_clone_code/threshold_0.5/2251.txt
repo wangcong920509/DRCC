@@ -1,11 +1,11 @@
-public StringBuilder append(String str){
-  super.append(str);
+/** 
+ * @since 1.5
+ */
+public synchronized StringBuffer appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder deleteCharAt(int index){
-  super.deleteCharAt(index);
+public synchronized StringBuffer append(double d){
+  super.append(d);
   return this;
 }

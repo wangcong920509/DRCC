@@ -89,3 +89,5 @@ protected void subtractRanges(Token token){
   this.ranges=new int[wp];
   System.arraycopy(result,0,this.ranges,0,wp);
 }
+-->
+168.0 / 2713 = 0.061924069295982306

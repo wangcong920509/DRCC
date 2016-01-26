@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Method add
+ * @param keyvalue
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public void add(KeyValue keyvalue){
+  this._constructionElement.appendChild(keyvalue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * Method add
+ * @param mgmtdata
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

@@ -1,8 +1,21 @@
-public ByteBuffer putLong(long x){
-  Bits.putLong(this,ix(nextPutIndex(8)),x,bigEndian);
+public ShortBuffer put(int i,short x){
+  unsafe.putShort(ix(checkIndex(i)),Bits.swap((x)));
   return this;
 }
-public ByteBuffer putFloat(float x){
-  Bits.putFloat(this,ix(nextPutIndex(4)),x,bigEndian);
+public ShortBuffer put(short[] src,int offset,int length){
+  if ((length << 1) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,src.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferOverflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyFromShortArray(src,offset << 1,ix(pos),length << 1);
+ else     Bits.copyFromArray(src,arrayBaseOffset,offset << 1,ix(pos),length << 1);
+    position(pos + length);
+  }
+ else {
+    super.put(src,offset,length);
+  }
   return this;
 }

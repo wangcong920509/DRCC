@@ -45,3 +45,5 @@ protected void drawRectangle(Node node,Graphics g){
     g.drawRect(x,y,w,h);
   }
 }
+-->
+219.0 / 1625 = 0.13476923076923078

@@ -1,16 +1,19 @@
 /** 
- * Cast result object to a number.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * Unimplemented. See org.w3c.dom.Document
+ * @param target Target for Processing instruction
+ * @param data Data for Processing instruction
+ * @return null
+ * @throws DOMException
  */
-public double num(){
-  int node=item(0);
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Cast result object to a number, but allow side effects, such as the incrementing of an iterator.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
  */
-public double numWithSideEffects(){
-  int node=nextNode();
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

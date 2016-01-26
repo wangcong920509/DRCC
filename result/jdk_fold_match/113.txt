@@ -21,3 +21,5 @@ public KeyValue(Document doc,RSAKeyValue rsaKeyValue){
   this._constructionElement.appendChild(rsaKeyValue.getElement());
   XMLUtils.addReturnToElement(this._constructionElement);
 }
+-->
+50.0 / 108 = 0.46296296296296297

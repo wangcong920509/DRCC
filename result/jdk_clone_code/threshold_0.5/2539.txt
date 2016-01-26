@@ -1,8 +1,14 @@
-public ByteBuffer put(byte x){
-  unsafe.putByte(ix(nextPutIndex()),((x)));
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder deleteCharAt(int index){
+  super.deleteCharAt(index);
   return this;
 }
-public ByteBuffer putShort(int i,short x){
-  putShort(ix(checkIndex(i,(1 << 1))),x);
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int dstOffset,CharSequence s,int start,int end){
+  super.insert(dstOffset,s,start,end);
   return this;
 }

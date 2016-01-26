@@ -1,14 +1,25 @@
 /** 
- * @see SerializationHandler#getWriter()
+ * Constructor ResourceResolverException
+ * @param _msgID
+ * @param exArgs
+ * @param uri
+ * @param BaseURI
  */
-public Writer getWriter(){
-  aMethodIsCalled();
-  return null;
+public ResourceResolverException(String _msgID,Object exArgs[],Attr uri,String BaseURI){
+  super(_msgID,exArgs);
+  this._uri=uri;
+  this._BaseURI=BaseURI;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * Constructor ResourceResolverException
+ * @param _msgID
+ * @param exArgs
+ * @param _originalException
+ * @param uri
+ * @param BaseURI
  */
-public String getDoctypePublic(){
-  aMethodIsCalled();
-  return null;
+public ResourceResolverException(String _msgID,Object exArgs[],Exception _originalException,Attr uri,String BaseURI){
+  super(_msgID,exArgs,_originalException);
+  this._uri=uri;
+  this._BaseURI=BaseURI;
 }

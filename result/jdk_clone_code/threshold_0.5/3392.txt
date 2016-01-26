@@ -1,32 +1,19 @@
 /** 
- * Return a MidiDeviceProcider of a given class from the list of MidiDeviceProviders.
- * @param providerClassName The class name of the provider to be returned.
- * @param provider The list of MidiDeviceProviders that is searched.
- * @return A MidiDeviceProvider of the requested class, or null if noneis found.
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
  */
-private static MidiDeviceProvider getNamedProvider(String providerClassName,List providers){
-  for (int i=0; i < providers.size(); i++) {
-    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
-    if (provider.getClass().getName().equals(providerClassName)) {
-      return provider;
-    }
-  }
-  return null;
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
 }
 /** 
- * Return a MidiDevice with a given name from a list of MidiDeviceProviders.
- * @param deviceName The name of the MidiDevice to be returned.
- * @param providers The List of MidiDeviceProviders to check forMidiDevices.
- * @param deviceClass The requested device type, one of Synthesizer.class,Sequencer.class, Receiver.class or Transmitter.class.
- * @return A Mixer matching the requirements, or null if none is found.
+ * If in xmode peek past whitespace and comments.
  */
-private static MidiDevice getNamedDevice(String deviceName,List providers,Class deviceClass,boolean allowSynthesizer,boolean allowSequencer){
-  for (int i=0; i < providers.size(); i++) {
-    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
-    MidiDevice device=getNamedDevice(deviceName,provider,deviceClass,allowSynthesizer,allowSequencer);
-    if (device != null) {
-      return device;
+private int peekPastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[++cursor];
+    if (ch == '#') {
+      ch=peekPastLine();
     }
   }
-  return null;
+  return ch;
 }

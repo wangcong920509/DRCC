@@ -1,21 +1,14 @@
-public IntBuffer put(int i,int x){
-  unsafe.putInt(ix(checkIndex(i)),((x)));
+public ByteBuffer putLong(long x){
+  putLong(ix(nextPutIndex((1 << 3))),x);
   return this;
 }
-public IntBuffer put(int[] src,int offset,int length){
-  if ((length << 2) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,src.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferOverflowException();
-    if (order() != ByteOrder.nativeOrder())     Bits.copyFromIntArray(src,offset << 2,ix(pos),length << 2);
- else     Bits.copyFromArray(src,arrayBaseOffset,offset << 2,ix(pos),length << 2);
-    position(pos + length);
+private ByteBuffer putFloat(long a,float x){
+  if (unaligned) {
+    int y=Float.floatToRawIntBits(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
   }
  else {
-    super.put(src,offset,length);
+    Bits.putFloat(a,x,bigEndian);
   }
   return this;
 }

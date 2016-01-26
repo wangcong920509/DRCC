@@ -1,21 +1,22 @@
 /** 
- * Look for ConstantNameAndType in ConstantPool.
- * @param name of variable/method
- * @param signature of variable/method
- * @return index on success, -1 otherwise
+ * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
+ * @see TraceDestination#send(int,int,String,String,String)
  */
-public int lookupNameAndType(String name,String signature){
-  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
-  return (index != null) ? index.index : -1;
+public boolean send(int level,int type,String className,String methodName,String info){
+  if (isSelected(level,type)) {
+    getLogger(type).logp(getLevel(level),className,methodName,info);
+    return true;
+  }
+  return false;
 }
 /** 
- * Look for ConstantMethodref in ConstantPool.
- * @param class_name Where to find method
- * @param method_name Guess what
- * @param signature return and argument types
- * @return index on success, -1 otherwise
+ * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
+ * @see TraceDestination#send(int,int,String,String,Throwable)
  */
-public int lookupMethodref(String class_name,String method_name,String signature){
-  Index index=(Index)cp_table.get(class_name + METHODREF_DELIM + method_name+ METHODREF_DELIM+ signature);
-  return (index != null) ? index.index : -1;
+public boolean send(int level,int type,String className,String methodName,Throwable exception){
+  if (isSelected(level,type)) {
+    getLogger(type).log(getLevel(level),className + ": Exception occurred in " + methodName,exception);
+    return true;
+  }
+  return false;
 }

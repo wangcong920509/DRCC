@@ -1,36 +1,26 @@
 /** 
- * Pops up an "Open File" file chooser dialog. Note that the text that appears in the approve button is determined by the L&F.
- * @param parent  the parent component of the dialog,can be <code>null</code>; see <code>showDialog</code> for details
- * @return   the return state of the file chooser on popdown:<ul> <li>JFileChooser.CANCEL_OPTION <li>JFileChooser.APPROVE_OPTION <li>JFileChooser.ERROR_OPTION if an error occurs or the dialog is dismissed </ul>
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see #showDialog
+ * @see org.w3c.dom.Node
  */
-public int showOpenDialog(Component parent) throws HeadlessException {
-  setDialogType(OPEN_DIALOG);
-  return showDialog(parent,null);
+public final Node getOwnerNode(){
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 /** 
- * Pops up a "Save File" file chooser dialog. Note that the text that appears in the approve button is determined by the L&F.
- * @param parent  the parent component of the dialog,can be <code>null</code>; see <code>showDialog</code> for details
- * @return   the return state of the file chooser on popdown:<ul> <li>JFileChooser.CANCEL_OPTION <li>JFileChooser.APPROVE_OPTION <li>JFileChooser.ERROR_OPTION if an error occurs or the dialog is dismissed </ul>
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see #showDialog
+ * @see org.w3c.dom.Node
  */
-public int showSaveDialog(Component parent) throws HeadlessException {
-  setDialogType(SAVE_DIALOG);
-  return showDialog(parent,null);
+@Override public final Node getFirstChild(){
+  int newnode=dtm.getFirstChild(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 -->
-void showOpenDialog_showSaveDialog(Component parent,Component parent,int combFlag){
+void getOwnerNode_getFirstChild(int combFlag){
   if (combFlag == 1) {
-    setDialogType(OPEN_DIALOG);
+    int newnode=dtm.getParent(node);
   }
  else {
-    setDialogType(SAVE_DIALOG);
+    int newnode=dtm.getFirstChild(node);
   }
-  return showDialog(parent,null);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

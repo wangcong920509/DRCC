@@ -1,11 +1,20 @@
 /** 
- * Constructs an (invalid) FileDescriptor object.
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public FileDescriptor(){
-  fd=-1;
-  useCount=new AtomicInteger();
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
-private FileDescriptor(int fd){
-  this.fd=fd;
-  useCount=new AtomicInteger();
+/** 
+ * Look for ConstantFieldref in ConstantPool.
+ * @param class_name Where to find method
+ * @param field_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
+ */
+public int lookupFieldref(String class_name,String field_name,String signature){
+  Index index=(Index)cp_table.get(class_name + FIELDREF_DELIM + field_name+ FIELDREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

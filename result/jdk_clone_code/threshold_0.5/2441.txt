@@ -1,11 +1,11 @@
+public StringBuilder append(boolean b){
+  super.append(b);
+  return this;
+}
 /** 
  * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public StringBuilder deleteCharAt(int index){
-  super.deleteCharAt(index);
-  return this;
-}
-public StringBuilder reverse(){
-  super.reverse();
+public StringBuilder delete(int start,int end){
+  super.delete(start,end);
   return this;
 }

@@ -1,17 +1,21 @@
 /** 
- * Creates a new soft reference that refers to the given object.  The new reference is not registered with any queue.
- * @param referent object the new soft reference will refer to
+ * Gets the offset for the first band of pixel (x,y). A sample of the first band can be retrieved from a <code>DataBuffer</code> <code>data</code> with a <code>ComponentSampleModel</code> <code>csm</code> as <pre> data.getElem(csm.getOffset(x, y)); </pre>
+ * @param x the X location of the pixel
+ * @param y the Y location of the pixel
+ * @return the offset for the first band of the specified pixel.
  */
-public SoftReference(T referent){
-  super(referent);
-  this.timestamp=clock;
+public int getOffset(int x,int y){
+  int offset=y * scanlineStride + x * pixelStride + bandOffsets[0];
+  return offset;
 }
 /** 
- * Creates a new soft reference that refers to the given object and is registered with the given queue.
- * @param referent object the new soft reference will refer to
- * @param q the queue with which the reference is to be registered,or <tt>null</tt> if registration is not required
+ * Gets the offset for band b of pixel (x,y). A sample of band <code>b</code> can be retrieved from a <code>DataBuffer</code> <code>data</code> with a <code>ComponentSampleModel</code> <code>csm</code> as <pre> data.getElem(csm.getOffset(x, y, b)); </pre>
+ * @param x the X location of the specified pixel
+ * @param y the Y location of the specified pixel
+ * @param b the specified band
+ * @return the offset for the specified band of the specified pixel.
  */
-public SoftReference(T referent,ReferenceQueue<? super T> q){
-  super(referent,q);
-  this.timestamp=clock;
+public int getOffset(int x,int y,int b){
+  int offset=y * scanlineStride + x * pixelStride + bandOffsets[b];
+  return offset;
 }

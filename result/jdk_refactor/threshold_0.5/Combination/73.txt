@@ -5,23 +5,23 @@ public String getPublicId(){
   return null;
 }
 
-public String getEncoding(){
-  if (fLocator2 != null) {
-    return fLocator2.getEncoding();
+public String getLiteralSystemId(){
+  if (fLocator != null) {
+    return fLocator.getSystemId();
   }
   return null;
 }
 
 -->
-void getPublicId_getEncoding(int combFlag){
+void getPublicId_getLiteralSystemId(int combFlag){
   if (combFlag == 1) {
     if (fLocator != null) {
       return fLocator.getPublicId();
     }
   }
  else {
-    if (fLocator2 != null) {
-      return fLocator2.getEncoding();
+    if (fLocator != null) {
+      return fLocator.getSystemId();
     }
   }
   return null;

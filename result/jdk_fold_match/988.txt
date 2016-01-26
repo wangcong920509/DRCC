@@ -33,3 +33,5 @@ private void paintBorderEnabledAndNotInScrollPane(Graphics2D g){
   g.setPaint(color11);
   g.fill(rect);
 }
+-->
+158.0 / 1300 = 0.12153846153846154

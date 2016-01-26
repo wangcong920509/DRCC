@@ -1,14 +1,14 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * @see SerializationHandler#asContentHandler()
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public String getVersion(){
+public String getNamespaceURI(String name,boolean isElement){
   aMethodIsCalled();
   return null;
 }

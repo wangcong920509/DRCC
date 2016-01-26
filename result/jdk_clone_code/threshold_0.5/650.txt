@@ -1,17 +1,18 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return false
+ * Construct a IntVector, using the given block size.
+ * @param blocksize Size of block to allocate
  */
-public boolean hasChildNodes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public IntVector(int blocksize){
+  m_blocksize=blocksize;
+  m_mapSize=blocksize;
+  m_map=new int[blocksize];
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param name Name of an attribute
- * @return false
+ * Construct a IntVector, using the given block size.
+ * @param blocksize Size of block to allocate
  */
-public boolean hasAttribute(String name){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public IntVector(int blocksize,int increaseSize){
+  m_blocksize=increaseSize;
+  m_mapSize=blocksize;
+  m_map=new int[blocksize];
 }

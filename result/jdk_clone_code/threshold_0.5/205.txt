@@ -1,24 +1,27 @@
-private boolean specialCardinalityCheck(){
-  if ((fBase.fValidationDV == XSSimpleTypeDecl.DV_DATE) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEARMONTH) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEAR)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTHDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTH)) {
-    return true;
-  }
-  return false;
-}
 /** 
- * Checks if a type is derived from another by list. See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
- * @param ancestorNS The namspace of the ancestor type declaration
- * @param ancestorName The name of the ancestor type declaration
- * @param type The reference type definition
- * @return boolean True if the type is derived by list for the reference type
+ * Override the value of <tt>_node</tt> only when this object was constructed using the empty constructor.
  */
-private boolean isDerivedByList(String ancestorNS,String ancestorName,XSTypeDefinition type){
-  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_LIST) {
-    XSTypeDefinition itemType=((XSSimpleTypeDefinition)type).getItemType();
-    if (itemType != null) {
-      if (isDerivedByRestriction(ancestorNS,ancestorName,itemType)) {
-        return true;
-      }
-    }
+public DTMAxisIterator setStartNode(int node){
+  if (_isConstant) {
+    _node=_startNode;
+    return resetPosition();
   }
-  return false;
+ else   if (_isRestartable) {
+    if (_node <= 0)     _node=_startNode=node;
+    return resetPosition();
+  }
+  return this;
+}
+public DTMAxisIterator reset(){
+  if (_isConstant) {
+    _node=_startNode;
+    return resetPosition();
+  }
+ else {
+    final boolean temp=_isRestartable;
+    _isRestartable=true;
+    setStartNode(_startNode);
+    _isRestartable=temp;
+  }
+  return this;
 }

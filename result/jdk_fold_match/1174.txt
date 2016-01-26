@@ -48,3 +48,5 @@ private void removeElements(Element e,int index,int count,int start,int end) thr
     fireUndoableEditUpdate(new UndoableEditEvent(this,dde));
   }
 }
+-->
+215.0 / 1564 = 0.1374680306905371

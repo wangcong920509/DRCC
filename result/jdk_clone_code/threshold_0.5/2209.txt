@@ -1,15 +1,8 @@
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- * @since      1.2
- */
-public synchronized StringBuffer deleteCharAt(int index){
-  super.deleteCharAt(index);
+public synchronized StringBuffer append(boolean b){
+  super.append(b);
   return this;
 }
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public synchronized StringBuffer insert(int offset,char c){
-  super.insert(offset,c);
+public synchronized StringBuffer append(double d){
+  super.append(d);
   return this;
 }

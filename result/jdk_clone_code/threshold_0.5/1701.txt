@@ -1,18 +1,16 @@
 /** 
- * Unimplemented. See org.w3c.dom.Document
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Element getDocumentElement(){
+public String getPrefix(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param name Entity Reference name
- * @return null
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
  * @throws DOMException
  */
-public EntityReference createEntityReference(String name) throws DOMException {
+public Node adoptNode(Node source) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

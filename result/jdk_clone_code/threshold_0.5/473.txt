@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method addPGPData
+ * @param pgpdata
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getMediaType()
+ * Method addUnknownElement
+ * @param element
  */
-public String getMediaType(){
-  aMethodIsCalled();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

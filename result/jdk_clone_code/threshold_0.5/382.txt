@@ -1,16 +1,20 @@
 /** 
- * Method add
- * @param xmlX509SKI
+ * Get a character array chunk in the string-value of a node. (see http://www.w3.org/TR/xpath#data-model for the definition of a node's string-value). Note that a single text node may have multiple text chunks.
+ * @param nodeHandle The node ID.
+ * @param chunkIndex Which chunk to get.
+ * @param startAndLen An array of 2 where the start position and length ofthe chunk will be returned.
+ * @return The character array reference where the chunk occurs.
  */
-public void add(XMLX509SKI xmlX509SKI){
-  this._constructionElement.appendChild(xmlX509SKI.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public char[] getStringValueChunk(int nodeHandle,int chunkIndex,int[] startAndLen){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
+  return null;
 }
 /** 
- * Method add
- * @param xmlX509SubjectName
+ * Given a node handle, return the XPath node name.  This should be the name as described by the XPath data model, NOT the DOM-style name.
+ * @param nodeHandle the id of the node.
+ * @return String Name of this node, which may be an empty string.
  */
-public void add(XMLX509SubjectName xmlX509SubjectName){
-  this._constructionElement.appendChild(xmlX509SubjectName.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public String getNodeNameX(int nodeHandle){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
+  return null;
 }

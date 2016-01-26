@@ -1,8 +1,14 @@
-public DoubleBuffer put(double x){
-  unsafe.putLong(ix(nextPutIndex()),Bits.swap(Double.doubleToRawLongBits(x)));
+public ByteBuffer putShort(short x){
+  putShort(ix(nextPutIndex((1 << 1))),x);
   return this;
 }
-public DoubleBuffer put(int i,double x){
-  unsafe.putLong(ix(checkIndex(i)),Bits.swap(Double.doubleToRawLongBits(x)));
+private ByteBuffer putDouble(long a,double x){
+  if (unaligned) {
+    long y=Double.doubleToRawLongBits(x);
+    unsafe.putLong(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putDouble(a,x,bigEndian);
+  }
   return this;
 }

@@ -1,19 +1,31 @@
 /** 
- * Creates an SNMP peer object for a device. The default port is 161.
- * @param netaddr The peer <CODE>InetAddress</CODE>.
- * @param port The port number.
+ * Checks whether or not the specified principal has the specified permission. If it does, true is returned, otherwise false is returned. More specifically, this method checks whether the passed permission is a member of the allowed permission set of the specified principal. The allowed permission set is determined by the same algorithm as is used by the getPermissions method.
+ * @param user the principal, assumed to be a valid authenticated Principal.
+ * @param perm the permission to be checked for.
+ * @return true if the principal has the specified permission,false otherwise.
+ * @see java.security.Principal
+ * @see java.security.Permission
  */
-public SnmpPeer(InetAddress netaddr,int port){
-  _devAddr=netaddr;
-  portNum=port;
+public boolean checkPermission(Principal user,java.security.acl.Permission perm){
+  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
+    AclEntry ent=(AclEntry)e.nextElement();
+    if (ent.getPrincipal().equals(user))     if (ent.checkPermission(perm))     return true;
+  }
+  return false;
 }
 /** 
- * Creates an SNMP peer object for a device with the specified port.
- * @param host The peer name.
- * @param port The port number.
- * @exception UnknownHostException If the host name cannot be resolved.
+ * Checks whether or not the specified principal has the specified permission. If it does, true is returned, otherwise false is returned. More specifically, this method checks whether the passed permission is a member of the allowed permission set of the specified principal. The allowed permission set is determined by the same algorithm as is used by the getPermissions method.
+ * @param user the principal, assumed to be a valid authenticated Principal.
+ * @param community the community name associated with the principal.
+ * @param perm the permission to be checked for.
+ * @return true if the principal has the specified permission, falseotherwise.
+ * @see java.security.Principal
+ * @see java.security.Permission
  */
-public SnmpPeer(String host,int port) throws UnknownHostException {
-  useIPAddress(host);
-  portNum=port;
+public boolean checkPermission(Principal user,String community,java.security.acl.Permission perm){
+  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
+    AclEntryImpl ent=(AclEntryImpl)e.nextElement();
+    if (ent.getPrincipal().equals(user))     if (ent.checkPermission(perm) && ent.checkCommunity(community))     return true;
+  }
+  return false;
 }

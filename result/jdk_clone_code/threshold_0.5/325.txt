@@ -1,12 +1,13 @@
-private int scopeOfBaseURI(int depth){
-  for (int i=fBaseURIScope.size() - 1; i >= 0; i--) {
-    if (fBaseURIScope.elementAt(i) <= depth)     return i;
+public boolean isSpecified(int index){
+  if (index < 0 || index >= fAttributes.getLength()) {
+    throw new ArrayIndexOutOfBoundsException(index);
   }
-  return -1;
+  return fAttributes.isSpecified(index);
 }
-private int scopeOfLanguage(int depth){
-  for (int i=fLanguageScope.size() - 1; i >= 0; i--) {
-    if (fLanguageScope.elementAt(i) <= depth)     return i;
+public boolean isSpecified(String qName){
+  int index=getIndex(qName);
+  if (index == -1) {
+    throw new IllegalArgumentException(qName);
   }
-  return -1;
+  return fAttributes.isSpecified(index);
 }

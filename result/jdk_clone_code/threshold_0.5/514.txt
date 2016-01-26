@@ -1,14 +1,14 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * @see SerializationHandler#asContentHandler()
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see SerializationHandler#getWriter()
  */
-public String getDoctypeSystem(){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }

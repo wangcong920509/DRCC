@@ -1,42 +1,17 @@
-private Operation makeLegacySocketFactoryOperation(){
-  Operation sfop=new Operation(){
-    public Object operate(    Object value){
-      String param=(String)value;
-      try {
-        Class<?> legacySocketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
-        if (com.sun.corba.se.spi.legacy.connection.ORBSocketFactory.class.isAssignableFrom(legacySocketFactoryClass)) {
-          return legacySocketFactoryClass.newInstance();
-        }
- else {
-          throw wrapper.illegalSocketFactoryType(legacySocketFactoryClass.toString());
-        }
-      }
- catch (      Exception ex) {
-        throw wrapper.badCustomSocketFactory(ex,param);
-      }
-    }
-  }
-;
-  return sfop;
+/** 
+ * Create an NVList corresponding to an OperationDef
+ * @param oper      operation def to use to create list
+ * @result          NVList created
+ * @see NVList
+ */
+public synchronized NVList create_operation_list(org.omg.CORBA.Object oper){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
-private Operation makeSocketFactoryOperation(){
-  Operation sfop=new Operation(){
-    public Object operate(    Object value){
-      String param=(String)value;
-      try {
-        Class<?> socketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
-        if (com.sun.corba.se.spi.transport.ORBSocketFactory.class.isAssignableFrom(socketFactoryClass)) {
-          return socketFactoryClass.newInstance();
-        }
- else {
-          throw wrapper.illegalSocketFactoryType(socketFactoryClass.toString());
-        }
-      }
- catch (      Exception ex) {
-        throw wrapper.badCustomSocketFactory(ex,param);
-      }
-    }
-  }
-;
-  return sfop;
+/** 
+ * This method does nothing. It is not required by the spec to do anything!
+ */
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

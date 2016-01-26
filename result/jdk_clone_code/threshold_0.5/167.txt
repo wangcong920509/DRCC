@@ -1,14 +1,24 @@
 /** 
- * Translates an object of this type to the external (Java) type denoted by <code>clazz</code>. This method is used to translate parameters when external functions are called.
+ * Constructs a regular expression matcher from a String by compiling it using a new instance of RECompiler.  If you will be compiling many expressions, you may prefer to use a single RECompiler object instead.
+ * @param pattern The regular expression pattern to compile.
+ * @param matchFlags The matching style
+ * @exception RESyntaxException Thrown if the regular expression has invalid syntax.
+ * @see RECompiler
+ * @see recompile
  */
-public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),clazz.getClass().toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public RE(String pattern,int matchFlags) throws RESyntaxException {
+  this(new RECompiler().compile(pattern));
+  setMatchFlags(matchFlags);
 }
 /** 
- * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
+ * Construct a matcher for a pre-compiled regular expression from program (bytecode) data.  Permits special flags to be passed in to modify matching behaviour.
+ * @param program Compiled regular expression program (see RECompiler and/or recompile)
+ * @param matchFlags One or more of the RE match behaviour flags (RE.MATCH_*):<pre> MATCH_NORMAL              // Normal (case-sensitive) matching MATCH_CASEINDEPENDENT     // Case folded comparisons MATCH_MULTILINE           // Newline matches as BOL/EOL </pre>
+ * @see RECompiler
+ * @see REProgram
+ * @see recompile
  */
-public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public RE(REProgram program,int matchFlags){
+  setProgram(program);
+  setMatchFlags(matchFlags);
 }

@@ -1,8 +1,10 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
  * @return null
  */
-public Node getPreviousSibling(){
+public Attr getAttributeNodeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
@@ -10,7 +12,7 @@ public Node getPreviousSibling(){
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public String getPrefix(){
+public Element getOwnerElement(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

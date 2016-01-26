@@ -1,14 +1,8 @@
-/** 
- * Construct an empty XML Filter with no parent. 
- */
-public ResolvingXMLFilter(){
-  super();
-  catalogResolver=new CatalogResolver(catalogManager);
+public ServerAlreadyActive(int _serverId){
+  super(ServerAlreadyActiveHelper.id());
+  serverId=_serverId;
 }
-/** 
- * Construct an XML filter with the specified parent. 
- */
-public ResolvingXMLFilter(XMLReader parent){
-  super(parent);
-  catalogResolver=new CatalogResolver(catalogManager);
+public ServerAlreadyActive(String $reason,int _serverId){
+  super(ServerAlreadyActiveHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

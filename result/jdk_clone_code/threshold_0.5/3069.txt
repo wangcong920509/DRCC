@@ -1,21 +1,8 @@
-/** 
- * Implements CharacterIterator.first() for String.
- * @see CharacterIterator#first
- */
-public char first(){
-  pos=begin;
-  return current();
+public ByteBuffer putInt(int x){
+  Bits.putInt(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }
-/** 
- * Implements CharacterIterator.last() for String.
- * @see CharacterIterator#last
- */
-public char last(){
-  if (end != begin) {
-    pos=end - 1;
-  }
- else {
-    pos=end;
-  }
-  return current();
+public ByteBuffer putFloat(float x){
+  Bits.putFloat(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }

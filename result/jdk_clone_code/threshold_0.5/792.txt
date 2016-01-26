@@ -2,16 +2,15 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getFirstChild(){
+public NodeList getChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Element getElementById(String elementId){
+public NamedNodeMap getAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

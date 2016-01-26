@@ -1,23 +1,24 @@
 /** 
- * Translates the string representation of a  {@code BigDecimal}into a  {@code BigDecimal}, accepting the same strings as the {@link #BigDecimal(String)} constructor, with roundingaccording to the context settings.
- * @param val string representation of a {@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @throws NumberFormatException if {@code val} is not a validrepresentation of a BigDecimal.
- * @since  1.5
+ * Constructs a regular expression matcher from a String by compiling it using a new instance of RECompiler.  If you will be compiling many expressions, you may prefer to use a single RECompiler object instead.
+ * @param pattern The regular expression pattern to compile.
+ * @param matchFlags The matching style
+ * @exception RESyntaxException Thrown if the regular expression has invalid syntax.
+ * @see RECompiler
+ * @see recompile
  */
-public BigDecimal(String val,MathContext mc){
-  this(val.toCharArray(),0,val.length());
-  if (mc.precision > 0)   roundThis(mc);
+public RE(String pattern,int matchFlags) throws RESyntaxException {
+  this(new RECompiler().compile(pattern));
+  setMatchFlags(matchFlags);
 }
 /** 
- * Translates an  {@code int} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal}, before any rounding, is zero.
- * @param val {@code int} value to be converted to {@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @since  1.5
+ * Construct a matcher for a pre-compiled regular expression from program (bytecode) data.  Permits special flags to be passed in to modify matching behaviour.
+ * @param program Compiled regular expression program (see RECompiler and/or recompile)
+ * @param matchFlags One or more of the RE match behaviour flags (RE.MATCH_*):<pre> MATCH_NORMAL              // Normal (case-sensitive) matching MATCH_CASEINDEPENDENT     // Case folded comparisons MATCH_MULTILINE           // Newline matches as BOL/EOL </pre>
+ * @see RECompiler
+ * @see REProgram
+ * @see recompile
  */
-public BigDecimal(int val,MathContext mc){
-  intCompact=val;
-  if (mc.precision > 0)   roundThis(mc);
+public RE(REProgram program,int matchFlags){
+  setProgram(program);
+  setMatchFlags(matchFlags);
 }

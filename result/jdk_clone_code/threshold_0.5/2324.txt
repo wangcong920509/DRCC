@@ -1,14 +1,15 @@
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
  */
-public StringBuilder append(char[] str,int offset,int len){
-  super.append(str,offset,len);
+public synchronized StringBuffer insert(int index,char[] str,int offset,int len){
+  super.insert(index,str,offset,len);
   return this;
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since   JDK1.0.2
  */
-public StringBuilder delete(int start,int end){
-  super.delete(start,end);
+public synchronized StringBuffer reverse(){
+  super.reverse();
   return this;
 }

@@ -78,3 +78,5 @@ private static String toUnicodeInternal(String label,int flag){
   }
   return label;
 }
+-->
+25.0 / 1203 = 0.020781379883624274

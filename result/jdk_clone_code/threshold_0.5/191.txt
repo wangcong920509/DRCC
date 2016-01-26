@@ -1,47 +1,14 @@
 /** 
- * DOM Level 3 WD - Experimental.
+ * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
  */
-public Object getFeature(String feature,String version){
-  if (singleton.hasFeature(feature,version)) {
-    if ((feature.equalsIgnoreCase("+XPath"))) {
-      try {
-        Class xpathClass=ObjectFactory.findProviderClass("com.sun.org.apache.xpath.internal.domapi.XPathEvaluatorImpl",true);
-        Class interfaces[]=xpathClass.getInterfaces();
-        for (int i=0; i < interfaces.length; i++) {
-          if (interfaces[i].getName().equals("org.w3c.dom.xpath.XPathEvaluator")) {
-            return xpathClass.newInstance();
-          }
-        }
-      }
- catch (      Exception e) {
-        return null;
-      }
-    }
- else {
-      return singleton;
-    }
-  }
-  return null;
+public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 /** 
- * NON-DOM: retrieve validator. 
+ * Translates an object of this type to its boxed representation.
  */
-synchronized RevalidationHandler getValidator(String schemaType){
-  if (schemaType == XMLGrammarDescription.XML_SCHEMA) {
-    if (freeValidatorIndex < 0) {
-      return (RevalidationHandler)(ObjectFactory.newInstance("com.sun.org.apache.xerces.internal.impl.xs.XMLSchemaValidator",ObjectFactory.findClassLoader(),true));
-    }
-    RevalidationHandler val=validators[freeValidatorIndex];
-    validators[freeValidatorIndex--]=null;
-    return val;
-  }
- else   if (schemaType == XMLGrammarDescription.XML_DTD) {
-    if (freeDTDValidatorIndex < 0) {
-      return (RevalidationHandler)(ObjectFactory.newInstance("com.sun.org.apache.xerces.internal.impl.dtd.XMLDTDValidator",ObjectFactory.findClassLoader(),true));
-    }
-    RevalidationHandler val=dtdValidators[freeDTDValidatorIndex];
-    dtdValidators[freeDTDValidatorIndex--]=null;
-    return val;
-  }
-  return null;
+public void translateBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

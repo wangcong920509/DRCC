@@ -67,3 +67,5 @@ if (this.read() != T_RPAREN) throw ex("parser.factor.1",this.offset - 1);
 this.next();
 return Token.createCondition(refno,condition,yesPattern,noPattern);
 }
+-->
+379.0 / 2704 = 0.14016272189349113

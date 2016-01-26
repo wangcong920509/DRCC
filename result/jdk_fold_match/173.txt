@@ -37,3 +37,5 @@ public ECFieldF2m(int m,BigInteger rp){
     temp=temp.clearBit(index);
   }
 }
+-->
+32.0 / 503 = 0.0636182902584493

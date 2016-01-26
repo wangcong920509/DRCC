@@ -16,3 +16,5 @@ public void endDocument() throws SAXException {
   super.endDocument();
   namespaceStack.clear();
 }
+-->
+40.0 / 134 = 0.29850746268656714

@@ -1,44 +1,21 @@
 /** 
- * Writes a stream of ASCII characters to this <code>SQLOutputImpl</code> object. The driver will do any necessary conversion from ASCII to the database <code>CHAR</code> format.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * <p>Create a new MBeanServerAccessController that forwards all the MBeanServer requests to <code>mbs</code> after doing access checks based on read and write permissions.</p> <p>This instance is initialized from the specified properties file.</p>
+ * @param accessFileName name of the file which denotes a propertiesfile on disk containing the username/access level entries.
+ * @param mbs the MBeanServer object to which requests will be forwarded.
+ * @exception IOException if the file does not exist, is adirectory rather than a regular file, or for some other reason cannot be opened for reading.
+ * @exception IllegalArgumentException if any of the supplied accesslevel values differs from "readonly" or "readwrite".
  */
-public void writeAsciiStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+public MBeanServerFileAccessController(String accessFileName,MBeanServer mbs) throws IOException {
+  this(accessFileName);
+  setMBeanServer(mbs);
 }
 /** 
- * Writes a stream of uninterpreted bytes to this <code>SQLOutputImpl</code> object.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * <p>Create a new MBeanServerAccessController that forwards all the MBeanServer requests to the MBeanServer set by invoking the  {@link #setMBeanServer} method after doing access checks based on read andwrite permissions.</p> <p>This instance is initialized from the specified properties instance.  This constructor makes a copy of the properties instance and it is the copy that is consulted to check the username and access level of an incoming connection. The original properties object can be modified without affecting the copy. If the  {@link #refresh} method is then called, the<code>MBeanServerFileAccessController</code> will make a new copy of the properties object at that time.</p>
+ * @param accessFileProps properties list containing the username/accesslevel entries.
+ * @param mbs the MBeanServer object to which requests will be forwarded.
+ * @exception IllegalArgumentException if <code>accessFileProps</code> is<code>null</code> or if any of the supplied access level values differs from "readonly" or "readwrite".
  */
-public void writeBinaryStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+public MBeanServerFileAccessController(Properties accessFileProps,MBeanServer mbs) throws IOException {
+  this(accessFileProps);
+  setMBeanServer(mbs);
 }

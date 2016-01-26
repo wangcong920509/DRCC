@@ -31,3 +31,5 @@ public int addInterfaceMethodref(String class_name,String method_name,String sig
   cp_table.put(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature,new Index(ret));
   return ret;
 }
+-->
+138.0 / 711 = 0.1940928270042194

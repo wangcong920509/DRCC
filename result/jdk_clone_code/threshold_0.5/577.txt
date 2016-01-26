@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * @see SerializationHandler#getTransformer()
  */
-public String getVersion(){
+public Transformer getTransformer(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see XSLOutputAttributes#getDoctypePublic()
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
+public String getDoctypePublic(){
+  aMethodIsCalled();
   return null;
 }

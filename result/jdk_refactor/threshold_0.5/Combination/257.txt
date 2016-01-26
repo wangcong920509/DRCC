@@ -1,20 +1,42 @@
-static int simplifyMask(int mask){
-  if ((mask & CREATE_MASK) != 0)   mask&=~NEW_MASK;
-  return mask;
+/** 
+ * If in xmode peek past whitespace and comments.
+ */
+private int peekPastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[++cursor];
+    if (ch == '#') {
+      ch=peekPastLine();
+    }
+  }
+  return ch;
 }
 
-static int impliedMask(int mask){
-  if ((mask & CREATE_MASK) != 0)   mask|=NEW_MASK;
-  return mask;
+/** 
+ * If in xmode parse past whitespace and comments.
+ */
+private int parsePastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[cursor++];
+    if (ch == '#')     ch=parsePastLine();
+  }
+  return ch;
 }
 
 -->
-void simplifyMask_impliedMask(int mask,int mask,int combFlag){
+void peekPastWhitespace_parsePastWhitespace(int ch,int ch,int combFlag){
   if (combFlag == 1) {
-    if ((mask & CREATE_MASK) != 0)     mask&=~NEW_MASK;
+    while (ASCII.isSpace(ch) || ch == '#') {
+      while (ASCII.isSpace(ch))       ch=temp[++cursor];
+      if (ch == '#') {
+        ch=peekPastLine();
+      }
+    }
   }
  else {
-    if ((mask & CREATE_MASK) != 0)     mask|=NEW_MASK;
+    while (ASCII.isSpace(ch) || ch == '#') {
+      while (ASCII.isSpace(ch))       ch=temp[cursor++];
+      if (ch == '#')       ch=parsePastLine();
+    }
   }
-  return mask;
+  return ch;
 }

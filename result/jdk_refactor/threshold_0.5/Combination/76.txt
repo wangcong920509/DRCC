@@ -5,15 +5,15 @@ public String getLiteralSystemId(){
   return null;
 }
 
-public String getXMLVersion(){
+public String getEncoding(){
   if (fLocator2 != null) {
-    return fLocator2.getXMLVersion();
+    return fLocator2.getEncoding();
   }
   return null;
 }
 
 -->
-void getLiteralSystemId_getXMLVersion(int combFlag){
+void getLiteralSystemId_getEncoding(int combFlag){
   if (combFlag == 1) {
     if (fLocator != null) {
       return fLocator.getSystemId();
@@ -21,7 +21,7 @@ void getLiteralSystemId_getXMLVersion(int combFlag){
   }
  else {
     if (fLocator2 != null) {
-      return fLocator2.getXMLVersion();
+      return fLocator2.getEncoding();
     }
   }
   return null;

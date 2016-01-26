@@ -1,8 +1,14 @@
-HeapIntBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+/** 
+ * register one global attribute
+ */
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
-protected HeapIntBufferR(int[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+/** 
+ * register one global attribute group
+ */
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
+  fGlobalAttrGrpDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

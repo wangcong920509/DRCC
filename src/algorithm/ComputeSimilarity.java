@@ -27,7 +27,7 @@ public class ComputeSimilarity extends ASTVisitor{
 		for(int i = 0; i < mdList.length - 1; i++){
 			for(int j = i + 1; j < mdList.length; j++){
 				if(DEFI.Similarity(mdList[i], mdList[j])){
-					FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", DEFI.threshold)+ "\\" + number + ".txt", mdList[i].toString() + mdList[j].toString());
+//					FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", DEFI.threshold)+ "\\" + number + ".txt", mdList[i].toString() + mdList[j].toString());
 					rfc.addMM(new MethodMatches(mdList[i], mdList[j]));
 					number++;
 				}

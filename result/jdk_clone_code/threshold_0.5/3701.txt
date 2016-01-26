@@ -1,8 +1,19 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+private static MenuElement nextEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i <= toIndex; i++) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
 }
-private Rectangle2D decodeRect28(){
-  rect.setRect(decodeX(1.5f),decodeY(1.3333334f),decodeX(1.8333333f) - decodeX(1.5f),decodeY(1.5f) - decodeY(1.3333334f));
-  return rect;
+static MenuElement findEnabledChild(MenuElement e[],MenuElement elem,boolean forward){
+  for (int i=0; i < e.length; i++) {
+    if (e[i] == elem) {
+      return findEnabledChild(e,i,forward);
+    }
+  }
+  return null;
 }

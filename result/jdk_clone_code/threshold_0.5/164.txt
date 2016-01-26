@@ -1,14 +1,18 @@
 /** 
- * Translates an object of this type to an object of type <code>type</code>. Expects an object of the former type and pushes an object of the latter.
+ * Search for given Instruction reference, start at beginning of list.
+ * @param i instruction to search for
+ * @return instruction found on success, null otherwise
  */
-public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Type type){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),type.toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+private InstructionHandle findInstruction1(Instruction i){
+  for (InstructionHandle ih=start; ih != null; ih=ih.next)   if (ih.instruction == i)   return ih;
+  return null;
 }
 /** 
- * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
+ * Search for given Instruction reference, start at end of list
+ * @param i instruction to search for
+ * @return instruction found on success, null otherwise
  */
-public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+private InstructionHandle findInstruction2(Instruction i){
+  for (InstructionHandle ih=end; ih != null; ih=ih.prev)   if (ih.instruction == i)   return ih;
+  return null;
 }

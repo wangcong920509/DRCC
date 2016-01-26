@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * @see SerializationHandler#getOutputFormat()
  */
-public NamespaceMappings getNamespaceMappings(){
+public Properties getOutputFormat(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public String getVersion(){
+public NamespaceMappings getNamespaceMappings(){
   aMethodIsCalled();
   return null;
 }

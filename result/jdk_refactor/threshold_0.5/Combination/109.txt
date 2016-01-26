@@ -1,26 +1,40 @@
 /** 
- * @see SerializationHandler#reset()
+ * @inheritDoc 
  */
-public boolean reset(){
-  aMethodIsCalled();
-  return false;
+public void warning(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.WARNING,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 /** 
- * @see XSLOutputAttributes#getOmitXMLDeclaration()
+ * @inheritDoc 
  */
-public boolean getOmitXMLDeclaration(){
-  aMethodIsCalled();
-  return false;
+public void fatalError(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.WARNING,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 -->
-void reset_getOmitXMLDeclaration(int combFlag){
+void warning_fatalError(SAXParseException ex,SAXParseException ex,int combFlag){
   if (combFlag == 1) {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.WARNING,"",ex);
+    }
   }
  else {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.WARNING,"",ex);
+    }
   }
-  return false;
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }

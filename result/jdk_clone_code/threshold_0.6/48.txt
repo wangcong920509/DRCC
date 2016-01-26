@@ -1,16 +1,14 @@
 /** 
- * Constructor KeyInfo
- * @param doc
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void addNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException {
+  checkRead();
+  getMBeanServer().addNotificationListener(name,listener,filter,handback);
 }
 /** 
- * Method add
- * @param keyvalue
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void add(KeyValue keyvalue){
-  this._constructionElement.appendChild(keyvalue.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void addNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException {
+  checkRead();
+  getMBeanServer().addNotificationListener(name,listener,filter,handback);
 }

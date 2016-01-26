@@ -1,34 +1,13 @@
-/** 
- * Constructor.
- * @param roleName  name of the role
- * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}.
- * @param read  flag to indicate if the corresponding rolecan be read
- * @param write  flag to indicate if the corresponding rolecan be set <P>Minimum and maximum degrees defaulted to 1. <P>Description of role defaulted to null.
- * @exception IllegalArgumentException  if null parameter
- * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
- * @exception NotCompliantMBeanException As of JMX 1.2, thisexception can no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
- */
-public RoleInfo(String roleName,String mbeanClassName,boolean read,boolean write) throws IllegalArgumentException, ClassNotFoundException, NotCompliantMBeanException {
-  try {
-    init(roleName,mbeanClassName,read,write,1,1,null);
-  }
- catch (  InvalidRoleInfoException exc) {
-  }
-  return;
+private static final Appendable nonNullAppendable(Appendable a){
+  if (a == null)   return new StringBuilder();
+  return a;
 }
 /** 
- * Constructor.
- * @param roleName  name of the role
- * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}. <P>IsReadable and IsWritable defaulted to true. <P>Minimum and maximum degrees defaulted to 1. <P>Description of role defaulted to null.
- * @exception IllegalArgumentException  if null parameter
- * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
- * @exception NotCompliantMBeanException As of JMX 1.2, thisexception can no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ * Returns the destination for the output.
+ * @return  The destination for the output
+ * @throws FormatterClosedException If this formatter has been closed by invoking its  {@link #close()} method
  */
-public RoleInfo(String roleName,String mbeanClassName) throws IllegalArgumentException, ClassNotFoundException, NotCompliantMBeanException {
-  try {
-    init(roleName,mbeanClassName,true,true,1,1,null);
-  }
- catch (  InvalidRoleInfoException exc) {
-  }
-  return;
+public Appendable out(){
+  ensureOpen();
+  return a;
 }

@@ -1,8 +1,14 @@
-public OutputBuffer append(char[] s,int from,int to){
-  _buffer.append(s,from,to);
-  return this;
+/** 
+ * Translates an object of this type to an object of type <code>type</code>. Expects an object of the former type and pushes an object of the latter.
+ */
+public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Type type){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),type.toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
-public OutputBuffer append(char ch){
-  _buffer.append(ch);
-  return this;
+/** 
+ * Translates an object of this type to the external (Java) type denoted by <code>clazz</code>. This method is used to translate parameters when external functions are called.
+ */
+public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),clazz.getClass().toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

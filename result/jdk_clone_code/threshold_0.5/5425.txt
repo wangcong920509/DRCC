@@ -1,12 +1,8 @@
-public float getPreferredSpan(int axis){
-  if (isVisible) {
-    return super.getPreferredSpan(axis);
-  }
-  return 0;
+private Rectangle2D decodeRect3(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-public float getMaximumSpan(int axis){
-  if (isVisible) {
-    return super.getMaximumSpan(axis);
-  }
-  return 0;
+private Rectangle2D decodeRect9(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

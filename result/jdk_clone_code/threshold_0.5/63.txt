@@ -1,8 +1,8 @@
-public BadServerDefinition(String _reason){
-  super(BadServerDefinitionHelper.id());
-  reason=_reason;
+public ServerAlreadyUninstalled(String _serverId){
+  super(ServerAlreadyUninstalledHelper.id());
+  serverId=_serverId;
 }
-public BadServerDefinition(String $reason,String _reason){
-  super(BadServerDefinitionHelper.id() + "  " + $reason);
-  reason=_reason;
+public ServerAlreadyUninstalled(String $reason,String _serverId){
+  super(ServerAlreadyUninstalledHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

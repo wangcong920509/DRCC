@@ -1,28 +1,28 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @return false
  */
-public Node getParentNode(){
+public boolean hasChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Unimplemented. Introduced in DOM Level 2.
+ * @return false
  */
-public Node getNextSibling(){
+public boolean hasAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 
 -->
-void getParentNode_getNextSibling(int combFlag){
+void hasChildNodes_hasAttributes(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  return null;
+  return false;
 }

@@ -1,11 +1,8 @@
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder insert(int dstOffset,CharSequence s,int start,int end){
-  super.insert(dstOffset,s,start,end);
+public StringBuilder append(int i){
+  super.append(i);
   return this;
 }
-public StringBuilder reverse(){
-  super.reverse();
+public StringBuilder append(long lng){
+  super.append(lng);
   return this;
 }

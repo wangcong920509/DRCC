@@ -1,8 +1,42 @@
-public org.omg.CORBA.portable.OutputStream createReply(){
-  getProtocolHandler().createResponse(this,(ServiceContexts)null);
-  return (OutputStream)getOutputObject();
+private Operation makeIORToSocketInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iorToSocketInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IORToSocketInfo.class.isAssignableFrom(iorToSocketInfoClass)) {
+          return iorToSocketInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIorToSocketInfoType(iorToSocketInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIorToSocketInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
 }
-public org.omg.CORBA.portable.OutputStream createExceptionReply(){
-  getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
-  return (OutputStream)getOutputObject();
+private Operation makeIIOPPrimaryToContactInfoOperation(){
+  Operation op=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> iiopPrimaryToContactInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (IIOPPrimaryToContactInfo.class.isAssignableFrom(iiopPrimaryToContactInfoClass)) {
+          return iiopPrimaryToContactInfoClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalIiopPrimaryToContactInfoType(iiopPrimaryToContactInfoClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomIiopPrimaryToContactInfo(ex,param);
+      }
+    }
+  }
+;
+  return op;
 }

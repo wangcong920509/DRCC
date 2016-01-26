@@ -1,8 +1,18 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    return createInputMap(condition);
+  }
+ else   if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(desktop,this,"Desktop.ancestorInputMap");
+  }
+  return null;
 }
-private Rectangle2D decodeRect22(){
-  rect.setRect(decodeX(0.2f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.2f),decodeY(2.8f) - decodeY(0.0f));
-  return rect;
+InputMap createInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(desktop,this,"Desktop.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(desktop,bindings);
+    }
+  }
+  return null;
 }

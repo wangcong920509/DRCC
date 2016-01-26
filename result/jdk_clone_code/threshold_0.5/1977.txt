@@ -1,14 +1,23 @@
 /** 
- * Create a field or type name from the given components:  Declaring class, name, type, reference kind. The declaring class may be supplied as null if this is to be a bare name and type. The resulting name will in an unresolved state.
+ * Returns the square of the distance from this <code>Point2D</code> to a specified point.
+ * @param px the X coordinate of the specified point to be measuredagainst this <code>Point2D</code>
+ * @param py the Y coordinate of the specified point to be measuredagainst this <code>Point2D</code>
+ * @return the square of the distance between this<code>Point2D</code> and the specified point.
+ * @since 1.2
  */
-public MemberName(Class<?> defClass,String name,Class<?> type,byte refKind){
-  init(defClass,name,type,flagsMods(IS_FIELD,0,refKind));
-  initResolved(false);
+public double distanceSq(double px,double py){
+  px-=getX();
+  py-=getY();
+  return (px * px + py * py);
 }
 /** 
- * Create a field or type name from the given components:  Declaring class, name, type. The declaring class may be supplied as null if this is to be a bare name and type. The modifier flags default to zero. The resulting name will in an unresolved state.
+ * Returns the square of the distance from this <code>Point2D</code> to a specified <code>Point2D</code>.
+ * @param pt the specified point to be measuredagainst this <code>Point2D</code>
+ * @return the square of the distance between this<code>Point2D</code> to a specified <code>Point2D</code>.
+ * @since 1.2
  */
-public MemberName(Class<?> defClass,String name,Class<?> type,Void unused){
-  this(defClass,name,type,REF_NONE);
-  initResolved(false);
+public double distanceSq(Point2D pt){
+  double px=pt.getX() - this.getX();
+  double py=pt.getY() - this.getY();
+  return (px * px + py * py);
 }

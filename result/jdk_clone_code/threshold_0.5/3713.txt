@@ -1,8 +1,31 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Stops the current editing session.  This has no effect if the tree isn't being edited.  Returns true if the editor allows the editing session to stop.
+ */
+public boolean stopEditing(JTree tree){
+  if (editingComponent != null && cellEditor.stopCellEditing()) {
+    completeEditing(false,false,true);
+    return true;
+  }
+  return false;
 }
-private Rectangle2D decodeRect40(){
-  rect.setRect(decodeX(1.3333334f),decodeY(1.6666667f),decodeX(2.0f) - decodeX(1.3333334f),decodeY(1.8333333f) - decodeY(1.6666667f));
-  return rect;
+/** 
+ * Returns true if <code>mouseX</code> and <code>mouseY</code> fall in the area of row that is used to expand/collapse the node and the node at <code>row</code> does not represent a leaf.
+ */
+protected boolean isLocationInExpandControl(TreePath path,int mouseX,int mouseY){
+  if (path != null && !treeModel.isLeaf(path.getLastPathComponent())) {
+    int boxWidth;
+    Insets i=tree.getInsets();
+    if (getExpandedIcon() != null)     boxWidth=getExpandedIcon().getIconWidth();
+ else     boxWidth=8;
+    int boxLeftX=getRowX(tree.getRowForPath(path),path.getPathCount() - 1);
+    if (leftToRight) {
+      boxLeftX=boxLeftX + i.left - getRightChildIndent() + 1;
+    }
+ else {
+      boxLeftX=tree.getWidth() - boxLeftX - i.right + getRightChildIndent() - 1;
+    }
+    boxLeftX=findCenteredX(boxLeftX,boxWidth);
+    return (mouseX >= boxLeftX && mouseX < (boxLeftX + boxWidth));
+  }
+  return false;
 }

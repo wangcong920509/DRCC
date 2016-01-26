@@ -1,26 +1,40 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @inheritDoc 
  */
-public String getDoctypePublic(){
-  aMethodIsCalled();
-  return null;
+public void error(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.SEVERE,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @inheritDoc 
  */
-public String getDoctypeSystem(){
-  aMethodIsCalled();
-  return null;
+public void fatalError(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.WARNING,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 -->
-void getDoctypePublic_getDoctypeSystem(int combFlag){
+void error_fatalError(SAXParseException ex,SAXParseException ex,int combFlag){
   if (combFlag == 1) {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.SEVERE,"",ex);
+    }
   }
  else {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.WARNING,"",ex);
+    }
   }
-  return null;
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }

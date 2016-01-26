@@ -1,17 +1,34 @@
 /** 
- * Appends the specified <tt>StringBuffer</tt> to this sequence. <p> The characters of the <tt>StringBuffer</tt> argument are appended, in order, to the contents of this <tt>StringBuffer</tt>, increasing the length of this <tt>StringBuffer</tt> by the length of the argument. If <tt>sb</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this <tt>StringBuffer</tt>. <p> Let <i>n</i> be the length of the old character sequence, the one contained in the <tt>StringBuffer</tt> just prior to execution of the <tt>append</tt> method. Then the character at index <i>k</i> in the new character sequence is equal to the character at index <i>k</i> in the old character sequence, if <i>k</i> is less than <i>n</i>; otherwise, it is equal to the character at index <i>k-n</i> in the argument <code>sb</code>. <p> This method synchronizes on <code>this</code> (the destination) object but does not synchronize on the source (<code>sb</code>).
- * @param sb   the <tt>StringBuffer</tt> to append.
- * @return  a reference to this object.
- * @since 1.4
+ * Looks up a serializable field of the represented class by name and type. A specified type of null matches all types, Object.class matches all non-primitive types, and any other non-null type matches assignable types only.  Returns matching field, or null if no match found.
  */
-public synchronized StringBuffer append(StringBuffer sb){
-  super.append(sb);
-  return this;
+ObjectStreamField getField(String name,Class<?> type){
+  for (int i=0; i < fields.length; i++) {
+    ObjectStreamField f=fields[i];
+    if (f.getName().equals(name)) {
+      if (type == null || (type == Object.class && !f.isPrimitive())) {
+        return f;
+      }
+      Class<?> ftype=f.getType();
+      if (ftype != null && type.isAssignableFrom(ftype)) {
+        return f;
+      }
+    }
+  }
+  return null;
 }
 /** 
- * @since   JDK1.0.2
+ * Returns explicit serial version UID value declared by given class, or null if none.
  */
-public synchronized StringBuffer reverse(){
-  super.reverse();
-  return this;
+private static Long getDeclaredSUID(Class<?> cl){
+  try {
+    Field f=cl.getDeclaredField("serialVersionUID");
+    int mask=Modifier.STATIC | Modifier.FINAL;
+    if ((f.getModifiers() & mask) == mask) {
+      f.setAccessible(true);
+      return Long.valueOf(f.getLong(null));
+    }
+  }
+ catch (  Exception ex) {
+  }
+  return null;
 }

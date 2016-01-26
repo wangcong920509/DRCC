@@ -1,22 +1,14 @@
 /** 
- * Creates a matte border with the specified insets and tile icon.
- * @param top the top inset of the border
- * @param left the left inset of the border
- * @param bottom the bottom inset of the border
- * @param right the right inset of the border
- * @param tileIcon the icon to be used for tiling the border
+ * @see SerializationHandler#setEscaping(boolean)
  */
-public MatteBorder(int top,int left,int bottom,int right,Icon tileIcon){
-  super(top,left,bottom,right);
-  this.tileIcon=tileIcon;
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }
 /** 
- * Creates a matte border with the specified insets and tile icon.
- * @param borderInsets the insets of the border
- * @param tileIcon the icon to be used for tiling the border
- * @since 1.3
+ * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
  */
-public MatteBorder(Insets borderInsets,Icon tileIcon){
-  super(borderInsets);
-  this.tileIcon=tileIcon;
+public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }

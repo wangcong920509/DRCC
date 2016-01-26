@@ -136,3 +136,5 @@ protected final void scanAttlistDecl() throws IOException, XNIException {
   fMarkUpDepth--;
   fReportEntity=true;
 }
+-->
+545.0 / 3768 = 0.14463906581740976

@@ -1,12 +1,16 @@
-public String getPublicId(){
-  if (fLocation != null) {
-    return fLocation.getPublicId();
+private boolean containsObject(Object value){
+  for (int i=fLength - 1; i >= 0; --i) {
+    if (value.equals(fArray[i])) {
+      return true;
+    }
   }
-  return null;
+  return false;
 }
-public String getLiteralSystemId(){
-  if (fLocation != null) {
-    return fLocation.getSystemId();
+private boolean containsNull(){
+  for (int i=fLength - 1; i >= 0; --i) {
+    if (fArray[i] == null) {
+      return true;
+    }
   }
-  return null;
+  return false;
 }

@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Constructor KeyInfo
+ * @param doc
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public KeyInfo(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see SerializationHandler#getTransformer()
+ * Method add
+ * @param mgmtdata
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
-  return null;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

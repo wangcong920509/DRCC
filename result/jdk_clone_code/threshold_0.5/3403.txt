@@ -1,32 +1,19 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>String</code> in the Java programming language. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <p>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no further values in the stream.
+ * Creates a new AccessibleRelation using the given locale independent key. The key String should be a locale independent key for the relation. It is not intended to be used as the actual String to display to the user.  To get the localized string, use toDisplayString.
+ * @param key the locale independent name of the relation.
+ * @param target the target object for this relation
+ * @see AccessibleBundle#toDisplayString
  */
-public String readString() throws SQLException {
-  String attrib=(String)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public AccessibleRelation(String key,Object target){
+  this.key=key;
+  this.target=new Object[1];
+  this.target[0]=target;
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a stream of Unicode characters. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Sets the target object for this relation
+ * @param target the target object for this relation
  */
-public java.io.Reader readCharacterStream() throws SQLException {
-  java.io.Reader attrib=(java.io.Reader)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public void setTarget(Object target){
+  this.target=new Object[1];
+  this.target[0]=target;
 }

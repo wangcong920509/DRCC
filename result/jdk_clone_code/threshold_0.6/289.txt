@@ -1,32 +1,14 @@
 /** 
- * Retrieves the value at the head of this <code>SQLInputImpl</code> object as a <code>Ref</code> object in the Java programming language.
- * @return a <code>Ref</code> object representing the SQL<code>REF</code> value at the head of the stream; if the value is <code>SQL NULL</code> return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * @see SerializationHandler#getWriter()
  */
-public Ref readRef() throws SQLException {
-  Ref attrib=(Ref)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public Writer getWriter(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Retrieves the <code>CLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Clob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return a <code>Clob</code> object representing the SQL<code>CLOB</code> value at the head of the stream; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * @see XSLOutputAttributes#getStandalone()
  */
-public Clob readClob() throws SQLException {
-  Clob attrib=(Clob)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
 }

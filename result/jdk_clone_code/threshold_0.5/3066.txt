@@ -1,30 +1,8 @@
-/** 
- * Creates a DecimalFormat using the given pattern and the symbols for the default locale. This is a convenient way to obtain a DecimalFormat when internationalization is not the main concern. <p> To obtain standard formats for a given locale, use the factory methods on NumberFormat such as getNumberInstance. These factories will return the most appropriate sub-class of NumberFormat for a given locale.
- * @param pattern A non-localized pattern string.
- * @exception NullPointerException if <code>pattern</code> is null
- * @exception IllegalArgumentException if the given pattern is invalid.
- * @see java.text.NumberFormat#getInstance
- * @see java.text.NumberFormat#getNumberInstance
- * @see java.text.NumberFormat#getCurrencyInstance
- * @see java.text.NumberFormat#getPercentInstance
- */
-public DecimalFormat(String pattern){
-  this.symbols=new DecimalFormatSymbols(Locale.getDefault(Locale.Category.FORMAT));
-  applyPattern(pattern,false);
+public ByteBuffer putInt(int x){
+  Bits.putInt(this,ix(nextPutIndex(4)),x,bigEndian);
+  return this;
 }
-/** 
- * Creates a DecimalFormat using the given pattern and symbols. Use this constructor when you need to completely customize the behavior of the format. <p> To obtain standard formats for a given locale, use the factory methods on NumberFormat such as getInstance or getCurrencyInstance. If you need only minor adjustments to a standard format, you can modify the format returned by a NumberFormat factory method.
- * @param pattern a non-localized pattern string
- * @param symbols the set of symbols to be used
- * @exception NullPointerException if any of the given arguments is null
- * @exception IllegalArgumentException if the given pattern is invalid
- * @see java.text.NumberFormat#getInstance
- * @see java.text.NumberFormat#getNumberInstance
- * @see java.text.NumberFormat#getCurrencyInstance
- * @see java.text.NumberFormat#getPercentInstance
- * @see java.text.DecimalFormatSymbols
- */
-public DecimalFormat(String pattern,DecimalFormatSymbols symbols){
-  this.symbols=(DecimalFormatSymbols)symbols.clone();
-  applyPattern(pattern,false);
+public ByteBuffer putInt(int i,int x){
+  Bits.putInt(this,ix(checkIndex(i,4)),x,bigEndian);
+  return this;
 }

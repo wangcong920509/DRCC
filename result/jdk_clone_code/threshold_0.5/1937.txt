@@ -1,23 +1,26 @@
 /** 
- * Sets the requested data array element in the first (default) bank to the specified value.
- * @param i The data array element you want to set.
- * @param val The integer value to which you want to set the data array element.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Obsolete as of Java 2 platform v1.1.  Please use the <code>add</code> method instead. <p> Adds an item to this <code>Choice</code> menu.
+ * @param item the item to be added
+ * @exception NullPointerException if the item's value is equal to<code>null</code>
  */
-public void setElem(int i,int val){
-  data[i + offset]=(short)(val & 0xffff);
-  theTrackable.markDirty();
+public void addItem(String item){
+synchronized (this) {
+    insertNoInvalidate(item,pItems.size());
+  }
+  invalidateIfValid();
 }
 /** 
- * Sets the requested data array element in the specified bank from the given integer.
- * @param bank The bank in which you want to set the data array element.
- * @param i The data array element you want to set.
- * @param val The integer value to which you want to set the specified data array element.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Removes all items from the choice menu.
+ * @see #remove
+ * @since     JDK1.1
  */
-public void setElem(int bank,int i,int val){
-  bankdata[bank][i + offsets[bank]]=(short)(val & 0xffff);
-  theTrackable.markDirty();
+public void removeAll(){
+synchronized (this) {
+    if (peer != null) {
+      ((ChoicePeer)peer).removeAll();
+    }
+    pItems.removeAllElements();
+    selectedIndex=-1;
+  }
+  invalidateIfValid();
 }

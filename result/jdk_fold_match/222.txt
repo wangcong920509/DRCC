@@ -47,3 +47,5 @@ public Dimension getPreferredSize(JComponent c){
     return rv;
   }
 }
+-->
+66.0 / 1342 = 0.04918032786885246

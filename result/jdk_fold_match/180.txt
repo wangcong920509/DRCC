@@ -50,3 +50,5 @@ public ListIterator<E> listIterator(final int index){
   }
 ;
 }
+-->
+23.0 / 376 = 0.061170212765957445

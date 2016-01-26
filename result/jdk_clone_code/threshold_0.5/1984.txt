@@ -1,17 +1,23 @@
 /** 
- * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable}.
- * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
+ * Sets the requested data array element in the first (default) bank to the given <code>int</code>.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
  */
-public UndeclaredThrowableException(Throwable undeclaredThrowable){
-  super((Throwable)null);
-  this.undeclaredThrowable=undeclaredThrowable;
+public void setElem(int i,int val){
+  data[i + offset]=(double)val;
+  theTrackable.markDirty();
 }
 /** 
- * Constructs an  {@code UndeclaredThrowableException} with thespecified  {@code Throwable} and a detail message.
- * @param undeclaredThrowable the undeclared checked exceptionthat was thrown
- * @param s the detail message
+ * Sets the requested data array element in the specified bank to the given <code>int</code>.
+ * @param bank The bank number.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
  */
-public UndeclaredThrowableException(Throwable undeclaredThrowable,String s){
-  super(s,null);
-  this.undeclaredThrowable=undeclaredThrowable;
+public void setElem(int bank,int i,int val){
+  bankdata[bank][i + offsets[bank]]=(double)val;
+  theTrackable.markDirty();
 }

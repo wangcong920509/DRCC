@@ -1,30 +1,38 @@
-/** 
- * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never return  {@code false}.
- * @return {@code true} (as specified by {@link Queue#offer})
- * @throws NullPointerException if the specified element is null
- */
-public boolean offer(E e){
-  xfer(e,true,ASYNC,0);
-  return true;
+public E peekFirst(){
+  for (Node<E> p=first(); p != null; p=succ(p)) {
+    E item=p.item;
+    if (item != null)     return item;
+  }
+  return null;
 }
 
-/** 
- * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
- * @return {@code true} (as specified by {@link Collection#add})
- * @throws NullPointerException if the specified element is null
- */
-public boolean add(E e){
-  xfer(e,true,ASYNC,0);
-  return true;
+public E pollLast(){
+  for (Node<E> p=last(); p != null; p=pred(p)) {
+    E item=p.item;
+    if (item != null && p.casItem(item,null)) {
+      unlink(p);
+      return item;
+    }
+  }
+  return null;
 }
 
 -->
-void offer_add(E e,E e,int combFlag){
+void peekFirst_pollLast(int combFlag){
   if (combFlag == 1) {
-    xfer(e,true,ASYNC,0);
+    for (Node<E> p=first(); p != null; p=succ(p)) {
+      E item=p.item;
+      if (item != null)       return item;
+    }
   }
  else {
-    xfer(e,true,ASYNC,0);
+    for (Node<E> p=last(); p != null; p=pred(p)) {
+      E item=p.item;
+      if (item != null && p.casItem(item,null)) {
+        unlink(p);
+        return item;
+      }
+    }
   }
-  return true;
+  return null;
 }

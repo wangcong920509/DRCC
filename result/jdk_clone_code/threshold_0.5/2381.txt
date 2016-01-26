@@ -1,11 +1,11 @@
-public StringBuilder append(long lng){
-  super.append(lng);
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder append(CharSequence s,int start,int end){
+  super.append(s,start,end);
   return this;
 }
-/** 
- * @since 1.5
- */
-public StringBuilder appendCodePoint(int codePoint){
-  super.appendCodePoint(codePoint);
+public StringBuilder append(char[] str){
+  super.append(str);
   return this;
 }

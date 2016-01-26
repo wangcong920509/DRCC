@@ -1,12 +1,24 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Set the <code>MenuShortcut</code> object associated with this menu item. If a menu shortcut is already associated with this menu item, it is replaced.
+ * @param s  the menu shortcut to associatewith this menu item.
+ * @see java.awt.MenuItem#getShortcut
+ * @since       JDK1.1
+ */
+public void setShortcut(MenuShortcut s){
+  shortcut=s;
+  MenuItemPeer peer=(MenuItemPeer)this.peer;
+  if (peer != null) {
+    peer.setLabel(label);
+  }
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- * @since      1.2
+ * Delete any <code>MenuShortcut</code> object associated with this menu item.
+ * @since      JDK1.1
  */
-public synchronized StringBuffer insert(int index,char[] str,int offset,int len){
-  super.insert(index,str,offset,len);
-  return this;
+public void deleteShortcut(){
+  shortcut=null;
+  MenuItemPeer peer=(MenuItemPeer)this.peer;
+  if (peer != null) {
+    peer.setLabel(label);
+  }
 }

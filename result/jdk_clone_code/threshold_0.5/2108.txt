@@ -1,8 +1,11 @@
-public synchronized StringBuffer append(boolean b){
-  super.append(b);
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
   return this;
 }
-public synchronized StringBuffer append(double d){
-  super.append(d);
+/** 
+ * @since   JDK1.0.2
+ */
+public synchronized StringBuffer reverse(){
+  super.reverse();
   return this;
 }

@@ -1,24 +1,14 @@
 /** 
- * Receives notification that an element starts, but attributes are not fully known yet.
- * @param uri the URI of the namespace of the element (optional)
- * @param localName the element name, but without prefix (optional)
- * @param qName the element name, with prefix, if any (required)
- * @see ExtendedContentHandler#startElement(String,String,String)
+ * @see SerializationHandler#getTransformer()
  */
-public void startElement(String uri,String localName,String qName) throws SAXException {
-  if (m_state != null) {
-    m_state.resetState(getTransformer());
-  }
-  if (m_tracer != null)   super.fireStartElem(qName);
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * An element starts, but attributes are not fully known yet.
- * @param qName the element name, with prefix (if any).
- * @see ExtendedContentHandler#startElement(String)
+ * @see XSLOutputAttributes#getStandalone()
  */
-public void startElement(String qName) throws SAXException {
-  if (m_state != null) {
-    m_state.resetState(getTransformer());
-  }
-  if (m_tracer != null)   super.fireStartElem(qName);
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
 }

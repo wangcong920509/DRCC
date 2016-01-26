@@ -1,42 +1,15 @@
-private Operation makeIORToSocketInfoOperation(){
-  Operation op=new Operation(){
-    public Object operate(    Object value){
-      String param=(String)value;
-      try {
-        Class<?> iorToSocketInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
-        if (IORToSocketInfo.class.isAssignableFrom(iorToSocketInfoClass)) {
-          return iorToSocketInfoClass.newInstance();
-        }
- else {
-          throw wrapper.illegalIorToSocketInfoType(iorToSocketInfoClass.toString());
-        }
-      }
- catch (      Exception ex) {
-        throw wrapper.badCustomIorToSocketInfo(ex,param);
-      }
-    }
-  }
-;
-  return op;
+/** 
+ * Get the default Context object
+ * @result          the default Context object
+ */
+public synchronized org.omg.CORBA.Context get_default_context(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
-private Operation makeIIOPPrimaryToContactInfoOperation(){
-  Operation op=new Operation(){
-    public Object operate(    Object value){
-      String param=(String)value;
-      try {
-        Class<?> iiopPrimaryToContactInfoClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
-        if (IIOPPrimaryToContactInfo.class.isAssignableFrom(iiopPrimaryToContactInfoClass)) {
-          return iiopPrimaryToContactInfoClass.newInstance();
-        }
- else {
-          throw wrapper.illegalIiopPrimaryToContactInfoType(iiopPrimaryToContactInfoClass.toString());
-        }
-      }
- catch (      Exception ex) {
-        throw wrapper.badCustomIiopPrimaryToContactInfo(ex,param);
-      }
-    }
-  }
-;
-  return op;
+/** 
+ * This method always returns false because the ORB never needs the main thread to do work.
+ */
+public synchronized boolean work_pending(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

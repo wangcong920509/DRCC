@@ -1,21 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param newAttr Attribute to set
+ * @param name Name of attribute to get
  * @return null
- * @throws DOMException
  */
-public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
+public String getAttribute(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param importedNode The node to import.
- * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @param elementId ID of the element to get
  * @return null
- * @throws DOMException
  */
-public Node importNode(Node importedNode,boolean deep) throws DOMException {
+public Element getElementById(String elementId){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

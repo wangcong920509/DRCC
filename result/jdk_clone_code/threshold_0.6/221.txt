@@ -1,17 +1,16 @@
 /** 
- * Creates a <CODE>RuntimeOperationsException</CODE> that wraps the actual <CODE>java.lang.RuntimeException</CODE>.
- * @param e the wrapped exception.
+ * Method add
+ * @param spkidata
  */
-public RuntimeOperationsException(java.lang.RuntimeException e){
-  super();
-  runtimeException=e;
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Creates a <CODE>RuntimeOperationsException</CODE> that wraps the actual <CODE>java.lang.RuntimeException</CODE> with a detailed message.
- * @param e the wrapped exception.
- * @param message the detail message.
+ * Method addUnknownElement
+ * @param element
  */
-public RuntimeOperationsException(java.lang.RuntimeException e,String message){
-  super(message);
-  runtimeException=e;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

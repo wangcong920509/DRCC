@@ -1,21 +1,14 @@
 /** 
- * The end of the DTD external subset.
- * @param augs Additional information that may include infosetaugmentations.
- * @throws XNIException Thrown by handler to signal an error.
+ * register one global attribute group
  */
-public void endExternalSubset(Augmentations augs) throws XNIException {
-  fInDTDExternalSubset=false;
-  fBaseURIStack.pop();
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
+  fGlobalAttrGrpDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
 /** 
- * This method notifies the end of a parameter entity. Parameter entity names begin with a '%' character.
- * @param name The name of the parameter entity.
- * @param augs Additional information that may include infosetaugmentations.
- * @throws XNIException Thrown by handler to signal an error.
+ * register one global group
  */
-public void endParameterEntity(String name,Augmentations augs) throws XNIException {
-  if (DEBUG_EVENTS) {
-    System.out.println("==>endParameterEntity: " + name);
-  }
-  fBaseURIStack.pop();
+public void addGlobalGroupDecl(XSGroupDecl decl){
+  fGlobalGroupDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

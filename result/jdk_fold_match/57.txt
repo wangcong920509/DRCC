@@ -73,3 +73,5 @@ calcFundamentalFacets();
 fIsImmutable=isImmutable;
 fBuiltInKind=base.fBuiltInKind;
 }
+-->
+246.0 / 5951 = 0.041337590320954465

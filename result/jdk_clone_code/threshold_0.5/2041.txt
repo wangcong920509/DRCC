@@ -1,18 +1,25 @@
 /** 
- * Appends the specified <tt>StringBuffer</tt> to this sequence. <p> The characters of the <tt>StringBuffer</tt> argument are appended, in order, to the contents of this <tt>StringBuffer</tt>, increasing the length of this <tt>StringBuffer</tt> by the length of the argument. If <tt>sb</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this <tt>StringBuffer</tt>. <p> Let <i>n</i> be the length of the old character sequence, the one contained in the <tt>StringBuffer</tt> just prior to execution of the <tt>append</tt> method. Then the character at index <i>k</i> in the new character sequence is equal to the character at index <i>k</i> in the old character sequence, if <i>k</i> is less than <i>n</i>; otherwise, it is equal to the character at index <i>k-n</i> in the argument <code>sb</code>. <p> This method synchronizes on <code>this</code> (the destination) object but does not synchronize on the source (<code>sb</code>).
- * @param sb   the <tt>StringBuffer</tt> to append.
- * @return  a reference to this object.
- * @since 1.4
+ * Writes <code>len</code> bytes from the specified byte array starting at offset <code>off</code> to the underlying output stream. If no exception is thrown, the counter <code>written</code> is incremented by <code>len</code>.
+ * @param b     the data.
+ * @param off   the start offset in the data.
+ * @param len   the number of bytes to write.
+ * @exception IOException  if an I/O error occurs.
+ * @see java.io.FilterOutputStream#out
  */
-public synchronized StringBuffer append(StringBuffer sb){
-  super.append(sb);
-  return this;
+public synchronized void write(byte b[],int off,int len) throws IOException {
+  out.write(b,off,len);
+  incCount(len);
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- * @since      1.2
+ * Writes out the string to the underlying output stream as a sequence of bytes. Each character in the string is written out, in sequence, by discarding its high eight bits. If no exception is thrown, the counter <code>written</code> is incremented by the length of <code>s</code>.
+ * @param s   a string of bytes to be written.
+ * @exception IOException  if an I/O error occurs.
+ * @see java.io.FilterOutputStream#out
  */
-public synchronized StringBuffer replace(int start,int end,String str){
-  super.replace(start,end,str);
-  return this;
+public final void writeBytes(String s) throws IOException {
+  int len=s.length();
+  for (int i=0; i < len; i++) {
+    out.write((byte)s.charAt(i));
+  }
+  incCount(len);
 }

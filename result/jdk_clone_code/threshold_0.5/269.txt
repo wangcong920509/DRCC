@@ -1,12 +1,16 @@
-public void addGlobalGroupDecl(XSGroupDecl decl,String location){
-  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+public boolean hasAttribute(String name){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(name)) {
+      return true;
+    }
   }
+  return false;
 }
-public void addGlobalNotationDecl(XSNotationDecl decl,String location){
-  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+public boolean hasAttributeNS(String namespaceURI,String localName){
+  for (int i=0; i < attrs.length; i++) {
+    if (attrs[i].getName().equals(localName) && nsEquals(attrs[i].getNamespaceURI(),namespaceURI)) {
+      return true;
+    }
   }
+  return false;
 }

@@ -1,17 +1,14 @@
 /** 
- * Construct an exception with the assocated exception
- * @param th a nested exception
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public XMLStreamException(Throwable th){
-  super(th);
-  nested=th;
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Construct an exception with the assocated message and exception
- * @param th a nested exception
- * @param msg the message to report
+ * @see Serializer#asDOMSerializer()
  */
-public XMLStreamException(String msg,Throwable th){
-  super(msg,th);
-  nested=th;
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
 }

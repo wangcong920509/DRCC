@@ -1,74 +1,8 @@
-/** 
- * Returns true if the paths are contiguous, or this object has no RowMapper.
- */
-protected boolean arePathsContiguous(TreePath[] paths){
-  if (rowMapper == null || paths.length < 2)   return true;
- else {
-    BitSet bitSet=new BitSet(32);
-    int anIndex, counter, min;
-    int pathCount=paths.length;
-    int validCount=0;
-    TreePath[] tempPath=new TreePath[1];
-    tempPath[0]=paths[0];
-    min=rowMapper.getRowsForPaths(tempPath)[0];
-    for (counter=0; counter < pathCount; counter++) {
-      if (paths[counter] != null) {
-        tempPath[0]=paths[counter];
-        int[] rows=rowMapper.getRowsForPaths(tempPath);
-        if (rows == null) {
-          return false;
-        }
-        anIndex=rows[0];
-        if (anIndex == -1 || anIndex < (min - pathCount) || anIndex > (min + pathCount))         return false;
-        if (anIndex < min)         min=anIndex;
-        if (!bitSet.get(anIndex)) {
-          bitSet.set(anIndex);
-          validCount++;
-        }
-      }
-    }
-    int maxCounter=validCount + min;
-    for (counter=min; counter < maxCounter; counter++)     if (!bitSet.get(counter))     return false;
-  }
-  return true;
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(0.6666667f),decodeY(2.3333333f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(2.3333333f));
+  return rect;
 }
-/** 
- * Used to test if a particular set of <code>TreePath</code>s can be added. This will return true if <code>paths</code> is null (or empty), or this object has no RowMapper, or nothing is currently selected, or the selection mode is <code>DISCONTIGUOUS_TREE_SELECTION</code>, or adding the paths to the current selection still results in a contiguous set of <code>TreePath</code>s.
- */
-protected boolean canPathsBeAdded(TreePath[] paths){
-  if (paths == null || paths.length == 0 || rowMapper == null || selection == null || selectionMode == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION)   return true;
- else {
-    BitSet bitSet=new BitSet();
-    DefaultListSelectionModel lModel=listSelectionModel;
-    int anIndex;
-    int counter;
-    int min=lModel.getMinSelectionIndex();
-    int max=lModel.getMaxSelectionIndex();
-    TreePath[] tempPath=new TreePath[1];
-    if (min != -1) {
-      for (counter=min; counter <= max; counter++) {
-        if (lModel.isSelectedIndex(counter))         bitSet.set(counter);
-      }
-    }
- else {
-      tempPath[0]=paths[0];
-      min=max=rowMapper.getRowsForPaths(tempPath)[0];
-    }
-    for (counter=paths.length - 1; counter >= 0; counter--) {
-      if (paths[counter] != null) {
-        tempPath[0]=paths[counter];
-        int[] rows=rowMapper.getRowsForPaths(tempPath);
-        if (rows == null) {
-          return false;
-        }
-        anIndex=rows[0];
-        min=Math.min(anIndex,min);
-        max=Math.max(anIndex,max);
-        if (anIndex == -1)         return false;
-        bitSet.set(anIndex);
-      }
-    }
-    for (counter=min; counter <= max; counter++)     if (!bitSet.get(counter))     return false;
-  }
-  return true;
+private Rectangle2D decodeRect12(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

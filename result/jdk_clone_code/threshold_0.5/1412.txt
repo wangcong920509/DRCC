@@ -1,17 +1,20 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param deep Flag indicating whether to clone deep (clone member variables)
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
  * @return null
  */
-public Node cloneNode(boolean deep){
+public Attr getAttributeNodeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public NamedNodeMap getAttributes(){
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

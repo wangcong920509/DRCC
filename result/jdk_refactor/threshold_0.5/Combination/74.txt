@@ -5,15 +5,15 @@ public String getPublicId(){
   return null;
 }
 
-public String getXMLVersion(){
+public String getEncoding(){
   if (fLocator2 != null) {
-    return fLocator2.getXMLVersion();
+    return fLocator2.getEncoding();
   }
   return null;
 }
 
 -->
-void getPublicId_getXMLVersion(int combFlag){
+void getPublicId_getEncoding(int combFlag){
   if (combFlag == 1) {
     if (fLocator != null) {
       return fLocator.getPublicId();
@@ -21,7 +21,7 @@ void getPublicId_getXMLVersion(int combFlag){
   }
  else {
     if (fLocator2 != null) {
-      return fLocator2.getXMLVersion();
+      return fLocator2.getEncoding();
     }
   }
   return null;

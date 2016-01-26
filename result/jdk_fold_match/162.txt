@@ -79,3 +79,5 @@ public BigDecimal pow(int n,MathContext mc){
   if (n < 0)   acc=ONE.divide(acc,workmc);
   return doRound(acc,mc);
 }
+-->
+56.0 / 2137 = 0.026204960224613945

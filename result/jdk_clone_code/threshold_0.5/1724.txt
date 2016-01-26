@@ -1,18 +1,16 @@
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param tagName Element tag name
  * @return null
- * @throws DOMException
  */
-public Element createElement(String tagName) throws DOMException {
+public DocumentType getDoctype(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Document
+ * @return null
  */
-public Node adoptNode(Node source) throws DOMException {
+public DOMImplementation getImplementation(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

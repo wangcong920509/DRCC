@@ -81,3 +81,5 @@ private void paintBackgroundMouseOverAndWindowMaximized(Graphics2D g){
   g.setPaint(color21);
   g.fill(path);
 }
+-->
+400.0 / 8135 = 0.049170251997541485

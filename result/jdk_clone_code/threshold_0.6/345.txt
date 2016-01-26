@@ -1,25 +1,14 @@
 /** 
- * Create a new SAXParseException. <p>This constructor is most useful for parser writers.</p> <p>All parameters except the message are as if they were provided by a  {@link Locator}.  For example, if the system identifier is a URL (including relative filename), the caller must resolve it fully before creating the exception.</p>
- * @param message The error or warning message.
- * @param publicId The public identifier of the entity that generatedthe error or warning.
- * @param systemId The system identifier of the entity that generatedthe error or warning.
- * @param lineNumber The line number of the end of the text thatcaused the error or warning.
- * @param columnNumber The column number of the end of the text thatcause the error or warning.
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public SAXParseException(String message,String publicId,String systemId,int lineNumber,int columnNumber){
-  super(message);
-  init(publicId,systemId,lineNumber,columnNumber);
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new SAXParseException with an embedded exception. <p>This constructor is most useful for parser writers who need to wrap an exception that is not a subclass of {@link org.xml.sax.SAXException SAXException}.</p> <p>All parameters except the message and exception are as if they were provided by a  {@link Locator}.  For example, if the system identifier is a URL (including relative filename), the caller must resolve it fully before creating the exception.</p>
- * @param message The error or warning message, or null to usethe message from the embedded exception.
- * @param publicId The public identifier of the entity that generatedthe error or warning.
- * @param systemId The system identifier of the entity that generatedthe error or warning.
- * @param lineNumber The line number of the end of the text thatcaused the error or warning.
- * @param columnNumber The column number of the end of the text thatcause the error or warning.
- * @param e Another exception to embed in this one.
+ * @see Serializer#asDOMSerializer()
  */
-public SAXParseException(String message,String publicId,String systemId,int lineNumber,int columnNumber,Exception e){
-  super(message,e);
-  init(publicId,systemId,lineNumber,columnNumber);
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
 }

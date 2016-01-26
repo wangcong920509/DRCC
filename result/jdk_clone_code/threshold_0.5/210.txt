@@ -1,12 +1,18 @@
-/** 
- * reset
- * @param componentManager
- */
-public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
-  super.reset(componentManager);
-  init();
+public OutputBuffer append(String s){
+  try {
+    _writer.write(s);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
 }
-public void reset(){
-  super.reset();
-  init();
+public OutputBuffer append(char ch){
+  try {
+    _writer.write(ch);
+  }
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
 }

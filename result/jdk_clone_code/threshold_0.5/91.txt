@@ -1,18 +1,18 @@
 /** 
- * Put an octet string with a specified tag.
- * @param s The bytes to encode
+ * Put an integer with the specified tag.
+ * @param v The integer to encode.
  * @param tag The tag to encode.
  */
-public void putOctetString(byte[] s,int tag){
-  putStringValue(s);
+public void putInteger(int v,int tag){
+  putIntegerValue(v);
   putTag(tag);
 }
 /** 
- * Put an object identifier with a specified tag.
- * @param s The integer to encode.
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
  * @param tag The tag to encode.
  */
-public void putOid(long[] s,int tag){
-  putOidValue(s);
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
   putTag(tag);
 }

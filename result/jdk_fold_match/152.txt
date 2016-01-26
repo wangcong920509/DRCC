@@ -42,3 +42,5 @@ public synchronized int getCaretPosition(){
   }
   return position;
 }
+-->
+76.0 / 346 = 0.21965317919075145

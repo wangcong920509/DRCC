@@ -1,8 +1,16 @@
-public OutputBuffer append(String s){
-  _buffer.append(s);
-  return this;
+/** 
+ * Adds a child node to this syntax tree node.
+ * @param element is the new child node.
+ */
+protected final void addElement(SyntaxTreeNode element){
+  _contents.addElement(element);
+  element.setParent(this);
 }
-public OutputBuffer append(char[] s,int from,int to){
-  _buffer.append(s,from,to);
-  return this;
+/** 
+ * Inserts the first child node of this syntax tree node. The existing children are shifted back one position.
+ * @param element is the new child node.
+ */
+protected final void setFirstElement(SyntaxTreeNode element){
+  _contents.insertElementAt(element,0);
+  element.setParent(this);
 }

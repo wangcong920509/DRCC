@@ -1,42 +1,44 @@
 /** 
- * If in xmode peek past whitespace and comments.
+ * Releases in exclusive mode.  Implemented by unblocking one or more threads if  {@link #tryRelease} returns true.This method can be used to implement method  {@link Lock#unlock}.
+ * @param arg the release argument.  This value is conveyed to{@link #tryRelease} but is otherwise uninterpreted andcan represent anything you like.
+ * @return the value returned from {@link #tryRelease}
  */
-private int peekPastWhitespace(int ch){
-  while (ASCII.isSpace(ch) || ch == '#') {
-    while (ASCII.isSpace(ch))     ch=temp[++cursor];
-    if (ch == '#') {
-      ch=peekPastLine();
-    }
+public final boolean release(int arg){
+  if (tryRelease(arg)) {
+    Node h=head;
+    if (h != null && h.waitStatus != 0)     unparkSuccessor(h);
+    return true;
   }
-  return ch;
+  return false;
 }
 
 /** 
- * If in xmode parse past whitespace and comments.
+ * Releases in shared mode.  Implemented by unblocking one or more threads if  {@link #tryReleaseShared} returns true.
+ * @param arg the release argument.  This value is conveyed to{@link #tryReleaseShared} but is otherwise uninterpretedand can represent anything you like.
+ * @return the value returned from {@link #tryReleaseShared}
  */
-private int parsePastWhitespace(int ch){
-  while (ASCII.isSpace(ch) || ch == '#') {
-    while (ASCII.isSpace(ch))     ch=temp[cursor++];
-    if (ch == '#')     ch=parsePastLine();
+public final boolean releaseShared(int arg){
+  if (tryReleaseShared(arg)) {
+    doReleaseShared();
+    return true;
   }
-  return ch;
+  return false;
 }
 
 -->
-void peekPastWhitespace_parsePastWhitespace(int ch,int ch,int combFlag){
+void release_releaseShared(int arg,int arg,int combFlag){
   if (combFlag == 1) {
-    while (ASCII.isSpace(ch) || ch == '#') {
-      while (ASCII.isSpace(ch))       ch=temp[++cursor];
-      if (ch == '#') {
-        ch=peekPastLine();
-      }
+    if (tryRelease(arg)) {
+      Node h=head;
+      if (h != null && h.waitStatus != 0)       unparkSuccessor(h);
+      return true;
     }
   }
  else {
-    while (ASCII.isSpace(ch) || ch == '#') {
-      while (ASCII.isSpace(ch))       ch=temp[cursor++];
-      if (ch == '#')       ch=parsePastLine();
+    if (tryReleaseShared(arg)) {
+      doReleaseShared();
+      return true;
     }
   }
-  return ch;
+  return false;
 }

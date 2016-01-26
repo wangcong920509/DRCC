@@ -8,3 +8,5 @@ public ToXMLSAXHandler(ContentHandler handler,String encoding){
   initCDATA();
   m_prefixMap=new NamespaceMappings();
 }
+-->
+18.0 / 36 = 0.5

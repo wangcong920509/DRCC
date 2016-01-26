@@ -1,8 +1,21 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(tabPane,this,"TabbedPane.ancestorInputMap");
+  }
+ else   if (condition == JComponent.WHEN_FOCUSED) {
+    return (InputMap)DefaultLookup.get(tabPane,this,"TabbedPane.focusInputMap");
+  }
+  return null;
 }
-private Rectangle2D decodeRect33(){
-  rect.setRect(decodeX(0.8f),decodeY(0.6f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the text View object required to render stylized text (HTML) for the specified tab or null if no specialized text rendering is needed for this tab. This is provided to support html rendering inside tabs.
+ * @param tabIndex the index of the tab
+ * @return the text view to render the tab's text or null if nospecialized rendering is required
+ * @since 1.4
+ */
+protected View getTextViewForTab(int tabIndex){
+  if (htmlViews != null) {
+    return htmlViews.elementAt(tabIndex);
+  }
+  return null;
 }

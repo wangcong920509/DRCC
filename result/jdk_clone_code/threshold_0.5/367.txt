@@ -1,15 +1,18 @@
 /** 
- * Construct an empty XML Filter with no parent. 
+ * Create a new DTMException.
+ * @param message The error or warning message.
  */
-public ResolvingXMLFilter(){
-  super();
-  catalogResolver=new CatalogResolver(catalogManager);
+public DTMException(String message){
+  super(message);
+  this.containedException=null;
+  this.locator=null;
 }
 /** 
- * Construct an XML filter with the specified parent. 
+ * Create a new DTMException wrapping an existing exception.
+ * @param e The exception to be wrapped.
  */
-public ResolvingXMLFilter(CatalogManager manager){
-  super();
-  catalogManager=manager;
-  catalogResolver=new CatalogResolver(catalogManager);
+public DTMException(Throwable e){
+  super(e.getMessage());
+  this.containedException=e;
+  this.locator=null;
 }

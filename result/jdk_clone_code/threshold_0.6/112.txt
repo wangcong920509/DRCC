@@ -1,8 +1,12 @@
-HeapFloatBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+public int getExpandedTypeID(final int nodeHandle){
+  int nodeID=getNodeIdent(nodeHandle);
+  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
+ else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
+ else   return DTM.NULL;
 }
-HeapFloatBufferR(float[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+public short getNodeType(int nodeHandle){
+  int nodeID=getNodeIdent(nodeHandle);
+  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
+ else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
+ else   return DTM.NULL;
 }

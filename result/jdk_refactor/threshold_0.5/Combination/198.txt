@@ -1,36 +1,83 @@
-public static boolean isFilterableICM(ColorModel cm){
-  if (cm instanceof IndexColorModel) {
-    IndexColorModel icm=(IndexColorModel)cm;
-    if (icm.getMapSize() <= 256) {
-      return true;
+/** 
+ * @deprecated As of JDK version 1.1,replaced by <code>getPreferredSize()</code>.
+ */
+@Deprecated public Dimension preferredSize(){
+  Dimension dim=prefSize;
+  if (dim == null || !(isPreferredSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+      prefSize=(layoutMgr != null) ? layoutMgr.preferredLayoutSize(this) : super.preferredSize();
+      dim=prefSize;
     }
   }
-  return false;
+  if (dim != null) {
+    return new Dimension(dim);
+  }
+ else {
+    return dim;
+  }
 }
 
-public static boolean isFilterableDCM(ColorModel cm){
-  if (cm instanceof DirectColorModel) {
-    DirectColorModel dcm=(DirectColorModel)cm;
-    return (isMaskOK(dcm.getAlphaMask(),true) && isMaskOK(dcm.getRedMask(),false) && isMaskOK(dcm.getGreenMask(),false)&& isMaskOK(dcm.getBlueMask(),false));
+/** 
+ * Returns the maximum size of this container.  If the maximum size has not been set explicitly by  {@link Component#setMaximumSize(Dimension)}and the  {@link LayoutManager} installed on this {@code Container}is an instance of  {@link LayoutManager2}, then {@link LayoutManager2#maximumLayoutSize(Container)}is used to calculate the maximum size. <p>Note: some implementations may cache the value returned from the {@code LayoutManager2}.  Implementations that cache need not invoke {@code maximumLayoutSize} on the {@code LayoutManager2} every timethis method is invoked, rather the  {@code LayoutManager2} will onlybe queried after the  {@code Container} becomes invalid.
+ * @return    an instance of <code>Dimension</code> that representsthe maximum size of this container.
+ * @see #getPreferredSize
+ * @see #getMinimumSize
+ * @see #getLayout
+ * @see LayoutManager2#maximumLayoutSize(Container)
+ * @see Component#getMaximumSize
+ */
+public Dimension getMaximumSize(){
+  Dimension dim=maxSize;
+  if (dim == null || !(isMaximumSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+      if (layoutMgr instanceof LayoutManager2) {
+        LayoutManager2 lm=(LayoutManager2)layoutMgr;
+        maxSize=lm.maximumLayoutSize(this);
+      }
+ else {
+        maxSize=super.getMaximumSize();
+      }
+      dim=maxSize;
+    }
   }
-  return false;
+  if (dim != null) {
+    return new Dimension(dim);
+  }
+ else {
+    return dim;
+  }
 }
 
 -->
-void isFilterableICM_isFilterableDCM(ColorModel cm,ColorModel cm,int combFlag){
+void preferredSize_getMaximumSize(int combFlag){
   if (combFlag == 1) {
-    if (cm instanceof IndexColorModel) {
-      IndexColorModel icm=(IndexColorModel)cm;
-      if (icm.getMapSize() <= 256) {
-        return true;
+    Dimension dim=prefSize;
+    if (dim == null || !(isPreferredSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+        prefSize=(layoutMgr != null) ? layoutMgr.preferredLayoutSize(this) : super.preferredSize();
+        dim=prefSize;
       }
     }
   }
  else {
-    if (cm instanceof DirectColorModel) {
-      DirectColorModel dcm=(DirectColorModel)cm;
-      return (isMaskOK(dcm.getAlphaMask(),true) && isMaskOK(dcm.getRedMask(),false) && isMaskOK(dcm.getGreenMask(),false)&& isMaskOK(dcm.getBlueMask(),false));
+    Dimension dim=maxSize;
+    if (dim == null || !(isMaximumSizeSet() || isValid())) {
+synchronized (getTreeLock()) {
+        if (layoutMgr instanceof LayoutManager2) {
+          LayoutManager2 lm=(LayoutManager2)layoutMgr;
+          maxSize=lm.maximumLayoutSize(this);
+        }
+ else {
+          maxSize=super.getMaximumSize();
+        }
+        dim=maxSize;
+      }
     }
   }
-  return false;
+  if (dim != null) {
+    return new Dimension(dim);
+  }
+ else {
+    return dim;
+  }
 }

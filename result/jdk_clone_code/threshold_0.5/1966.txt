@@ -1,21 +1,25 @@
 /** 
- * Appends the specified character sequence to this writer. <p> An invocation of this method of the form <tt>out.append(csq)</tt> behaves in exactly the same way as the invocation <pre> out.write(csq.toString()) </pre> <p> Depending on the specification of <tt>toString</tt> for the character sequence <tt>csq</tt>, the entire sequence may not be appended. For instance, invoking the <tt>toString</tt> method of a character buffer will return a subsequence whose content depends upon the buffer's position and limit.
- * @param csq The character sequence to append.  If <tt>csq</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this writer.
- * @return  This writer
- * @since  1.5
+ * Concatenates this transform with a transform that rotates coordinates around an anchor point. This operation is equivalent to translating the coordinates so that the anchor point is at the origin (S1), then rotating them about the new origin (S2), and finally translating so that the intermediate origin is restored to the coordinates of the original anchor point (S3). <p> This operation is equivalent to the following sequence of calls: <pre> translate(anchorx, anchory);      // S3: final translation rotate(theta);                    // S2: rotate around anchor translate(-anchorx, -anchory);    // S1: translate anchor to origin </pre> Rotating by a positive angle theta rotates points on the positive X axis toward the positive Y axis. Note also the discussion of <a href="#quadrantapproximation">Handling 90-Degree Rotations</a> above.
+ * @param theta the angle of rotation measured in radians
+ * @param anchorx the X coordinate of the rotation anchor point
+ * @param anchory the Y coordinate of the rotation anchor point
+ * @since 1.2
  */
-public PrintWriter append(CharSequence csq){
-  if (csq == null)   write("null");
- else   write(csq.toString());
-  return this;
+public void rotate(double theta,double anchorx,double anchory){
+  translate(anchorx,anchory);
+  rotate(theta);
+  translate(-anchorx,-anchory);
 }
 /** 
- * Appends the specified character to this writer. <p> An invocation of this method of the form <tt>out.append(c)</tt> behaves in exactly the same way as the invocation <pre> out.write(c) </pre>
- * @param c The 16-bit character to append
- * @return  This writer
- * @since 1.5
+ * Concatenates this transform with a transform that rotates coordinates around an anchor point according to a rotation vector. All coordinates rotate about the specified anchor coordinates by the same amount. The amount of rotation is such that coordinates along the former positive X axis will subsequently align with the vector pointing from the origin to the specified vector coordinates. If both <code>vecx</code> and <code>vecy</code> are 0.0, the transform is not modified in any way. This method is equivalent to calling: <pre> rotate(Math.atan2(vecy, vecx), anchorx, anchory); </pre>
+ * @param vecx the X coordinate of the rotation vector
+ * @param vecy the Y coordinate of the rotation vector
+ * @param anchorx the X coordinate of the rotation anchor point
+ * @param anchory the Y coordinate of the rotation anchor point
+ * @since 1.6
  */
-public PrintWriter append(char c){
-  write(c);
-  return this;
+public void rotate(double vecx,double vecy,double anchorx,double anchory){
+  translate(anchorx,anchory);
+  rotate(vecx,vecy);
+  translate(-anchorx,-anchory);
 }

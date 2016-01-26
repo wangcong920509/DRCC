@@ -1,15 +1,14 @@
 /** 
- * Default constructor.
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public NodeVector(){
-  m_blocksize=32;
-  m_mapSize=0;
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Construct a NodeVector, using the given block size.
- * @param blocksize Size of blocks to allocate
+ * @see XSLOutputAttributes#getDoctypePublic()
  */
-public NodeVector(int blocksize){
-  m_blocksize=blocksize;
-  m_mapSize=0;
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
 }

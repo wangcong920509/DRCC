@@ -1,12 +1,24 @@
-public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
-  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+private int findNextEvent() throws XMLStreamException {
+  fStreamAdvancedByHasNext=false;
+  while (fStreamReader.hasNext()) {
+    fCurrentEvent=fStreamReader.next();
+    if (fStreamFilter.accept(fStreamReader)) {
+      fEventAccepted=true;
+      return fCurrentEvent;
+    }
   }
+  if (fCurrentEvent == XMLEvent.END_DOCUMENT)   return fCurrentEvent;
+ else   return -1;
 }
-public void addGlobalNotationDecl(XSNotationDecl decl,String location){
-  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+private int findNextTag() throws XMLStreamException {
+  fStreamAdvancedByHasNext=false;
+  while (fStreamReader.hasNext()) {
+    fCurrentEvent=fStreamReader.nextTag();
+    if (fStreamFilter.accept(fStreamReader)) {
+      fEventAccepted=true;
+      return fCurrentEvent;
+    }
   }
+  if (fCurrentEvent == XMLEvent.END_DOCUMENT)   return fCurrentEvent;
+ else   return -1;
 }

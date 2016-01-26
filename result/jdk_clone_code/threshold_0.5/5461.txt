@@ -1,21 +1,8 @@
-/** 
- * If the value of <code>key</code> is boolean, return the boolean value, otherwise return false.
- * @param key an <code>Object</code> specifying the key for the desired boolean value
- * @return if the value of <code>key</code> is boolean, return theboolean value, otherwise return false.
- * @since 1.4
- */
-public boolean getBoolean(Object key){
-  Object value=get(key);
-  return (value instanceof Boolean) ? ((Boolean)value).booleanValue() : false;
+private Rectangle2D decodeRect9(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }
-/** 
- * If the value of <code>key</code> for the given <code>Locale</code> is boolean, return the boolean value, otherwise return false.
- * @param key an <code>Object</code> specifying the key for the desired boolean value
- * @param l the desired locale
- * @return if the value for <code>key</code> and <code>Locale</code>is boolean, return the boolean value, otherwise return false.
- * @since 1.4
- */
-public boolean getBoolean(Object key,Locale l){
-  Object value=get(key,l);
-  return (value instanceof Boolean) ? ((Boolean)value).booleanValue() : false;
+private Rectangle2D decodeRect12(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

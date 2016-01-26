@@ -1,22 +1,14 @@
-public String getURI(String prefix){
-  if (fNamespaceContext != null) {
-    String uri=fNamespaceContext.getNamespaceURI(prefix);
-    if (uri != null && !XMLConstants.NULL_NS_URI.equals(uri)) {
-      return (fSymbolTable != null) ? fSymbolTable.addSymbol(uri) : uri.intern();
-    }
-  }
-  return null;
+/** 
+ * register one global group
+ */
+public void addGlobalGroupDecl(XSGroupDecl decl){
+  fGlobalGroupDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
-public String getPrefix(String uri){
-  if (fNamespaceContext != null) {
-    if (uri == null) {
-      uri=XMLConstants.NULL_NS_URI;
-    }
-    String prefix=fNamespaceContext.getPrefix(uri);
-    if (prefix == null) {
-      prefix=XMLConstants.DEFAULT_NS_PREFIX;
-    }
-    return (fSymbolTable != null) ? fSymbolTable.addSymbol(prefix) : prefix.intern();
-  }
-  return null;
+/** 
+ * register one global notation
+ */
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

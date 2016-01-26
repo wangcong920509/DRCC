@@ -1,20 +1,8 @@
-/** 
- * Read an object reference from the input stream and narrow it to the desired type.
- * @param in the stream to read from.
- * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
- */
-public static Object readObjectAndNarrow(InputStream in,Class narrowTo) throws ClassCastException {
-  Object result=in.read_Object();
-  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
- else   return null;
+public void write(ObjectId objectId,OutputStream os){
+  super.write(objectId,os);
+  getORBVersion().write(os);
 }
-/** 
- * Read an abstract interface type from the input stream and narrow it to the desired type.
- * @param in the stream to read from.
- * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
- */
-public static Object readAbstractAndNarrow(org.omg.CORBA_2_3.portable.InputStream in,Class narrowTo) throws ClassCastException {
-  Object result=in.read_abstract_interface();
-  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
- else   return null;
+public void write(OutputStream os){
+  super.write(os);
+  getORBVersion().write(os);
 }

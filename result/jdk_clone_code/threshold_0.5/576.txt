@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getStandalone()
+ * @see SerializationHandler#getTransformer()
  */
-public String getStandalone(){
+public Transformer getTransformer(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
   return null;
 }

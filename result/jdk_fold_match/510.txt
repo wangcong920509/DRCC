@@ -29,3 +29,5 @@ private Path2D decodePath7(){
   path.closePath();
   return path;
 }
+-->
+304.0 / 2391 = 0.1271434546214973

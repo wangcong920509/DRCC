@@ -140,3 +140,5 @@ protected final static byte[] decodeInternal(byte[] base64Data,int len) throws B
   }
   return decodedData;
 }
+-->
+193.0 / 6699 = 0.028810270189580534

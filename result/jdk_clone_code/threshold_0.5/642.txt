@@ -1,21 +1,19 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
+ * Return the unicode code point represented by the high/low surrogate pair. <p> This is not a public API.
+ * @param highSurrogate the high char of the high/low pair
+ * @param lowSurrogate the low char of the high/low pair
+ * @xsl.usage internal
  */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+static int toCodePoint(char highSurrogate,char lowSurrogate){
+  int codePoint=((highSurrogate - 0xd800) << 10) + (lowSurrogate - 0xdc00) + 0x10000;
+  return codePoint;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param namespaceURI Namespace URI for the element
- * @param qualifiedName Qualified name of the element
- * @return null
- * @throws DOMException
+ * Return the unicode code point represented by the char. A bit of a dummy method, since all it does is return the char, but as an int value. <p> This is not a public API.
+ * @param ch the char.
+ * @xsl.usage internal
  */
-public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+static int toCodePoint(char ch){
+  int codePoint=ch;
+  return codePoint;
 }

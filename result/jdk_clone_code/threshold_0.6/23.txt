@@ -1,8 +1,14 @@
-public ParserTokenManager(ASCII_CharStream stream,int lexState){
-  this(stream);
-  SwitchTo(lexState);
+/** 
+ * This method always returns false because the ORB never needs the main thread to do work.
+ */
+public synchronized boolean work_pending(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
-public void ReInit(ASCII_CharStream stream,int lexState){
-  ReInit(stream);
-  SwitchTo(lexState);
+/** 
+ * This method does nothing. It is not required by the spec to do anything!
+ */
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

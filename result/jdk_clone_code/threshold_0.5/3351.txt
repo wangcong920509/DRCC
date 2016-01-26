@@ -1,8 +1,32 @@
-public NameParser getNameParser(Name name) throws NamingException {
-  Context ctx=getTargetContext();
-  return ctx.getNameParser(name);
+/** 
+ * Sets the script. If <code>script</code> is null or the empty string, the script in this <code>Builder</code> is removed. Otherwise, the script must be <a href="./Locale.html#def_script">well-formed</a> or an exception is thrown. <p>The typical script value is a four-letter script code as defined by ISO 15924.
+ * @param script the script
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>script</code> is ill-formed
+ */
+public Builder setScript(String script){
+  try {
+    localeBuilder.setScript(script);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
-public NameParser getNameParser(String name) throws NamingException {
-  Context ctx=getTargetContext();
-  return ctx.getNameParser(name);
+/** 
+ * Adds a unicode locale attribute, if not already present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
+ */
+public Builder addUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.addUnicodeLocaleAttribute(attribute);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

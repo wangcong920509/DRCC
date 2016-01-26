@@ -1,15 +1,15 @@
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- * @since      1.2
+ * @throws IndexOutOfBoundsException {@inheritDoc}
  */
-public synchronized StringBuffer delete(int start,int end){
-  super.delete(start,end);
+public synchronized StringBuffer append(char[] str,int offset,int len){
+  super.append(str,offset,len);
   return this;
 }
 /** 
  * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
  */
-public synchronized StringBuffer insert(int offset,Object obj){
-  super.insert(offset,String.valueOf(obj));
+public synchronized StringBuffer insert(int index,char[] str,int offset,int len){
+  super.insert(index,str,offset,len);
   return this;
 }

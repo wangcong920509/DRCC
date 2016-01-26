@@ -38,3 +38,5 @@ ServerRequestInfoImpl(ORB myORB){
   endingPointCall=CALL_SEND_REPLY;
   serverRequestId=myORB.getPIHandler().allocateServerRequestId();
 }
+-->
+113.0 / 1262 = 0.089540412044374

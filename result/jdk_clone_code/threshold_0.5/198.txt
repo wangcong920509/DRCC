@@ -1,19 +1,13 @@
-/** 
- * DOM L3 Core CR - Experimental Returns whether this text node contains element content whitespace</a>, often abusively called "ignorable whitespace". The text node is determined to contain whitespace in element content during the load of the document or if validation occurs while using <code>Document.normalizeDocument()</code>.
- * @since DOM Level 3
- */
-public boolean isElementContentWhitespace(){
-  if (needsSyncData()) {
-    synchronizeData();
+public DTMAxisIterator setStartNode(int node){
+  if (_isRestartable) {
+    _startNode=node;
+    _source.setStartNode(node);
+    resetPosition();
+    _isRestartable=false;
   }
-  return internalIsIgnorableWhitespace();
+  return this;
 }
-/** 
- * NON-DOM: Returns whether this Text is ignorable whitespace.
- */
-public boolean isIgnorableWhitespace(){
-  if (needsSyncData()) {
-    synchronizeData();
-  }
-  return internalIsIgnorableWhitespace();
+public DTMAxisIterator reset(){
+  _index=0;
+  return this;
 }

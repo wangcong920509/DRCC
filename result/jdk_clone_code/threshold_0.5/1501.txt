@@ -1,16 +1,20 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param deep Flag indicating whether to clone deep (clone member variables)
  * @return null
  */
-public NamedNodeMap getAttributes(){
+public Node cloneNode(boolean deep){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
+ * Unimplemented.
+ * @param offset Start offset of substring to extract.
+ * @param count The length of the substring to extract.
  * @return null
+ * @throws DOMException
  */
-public String getLocalName(){
+public String substringData(int offset,int count) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

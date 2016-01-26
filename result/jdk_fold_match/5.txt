@@ -57,3 +57,5 @@ catch (  InvocationTargetException ite) {
   end_block();
   writeEndTag(true);
 }
+-->
+304.0 / 1518 = 0.2002635046113307

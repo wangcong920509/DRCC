@@ -1,17 +1,16 @@
 /** 
- * Create an NVList corresponding to an OperationDef
- * @param oper      operation def to use to create list
- * @result          NVList created
- * @see NVList
+ * Get a Current pseudo-object. The Current interface is used to manage thread-specific information for use by the transactions, security and other services. This method is deprecated, and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
+ * @return          a Current pseudo-object.
+ * @deprecated
  */
-public synchronized NVList create_operation_list(org.omg.CORBA.Object oper){
+public synchronized org.omg.CORBA.Current get_current(){
   checkShutdownState();
   throw wrapper.genericNoImpl();
 }
 /** 
- * This method does nothing. It is not required by the spec to do anything!
+ * This method always returns false because the ORB never needs the main thread to do work.
  */
-public synchronized void perform_work(){
+public synchronized boolean work_pending(){
   checkShutdownState();
   throw wrapper.genericNoImpl();
 }

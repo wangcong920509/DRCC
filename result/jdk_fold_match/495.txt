@@ -47,3 +47,5 @@ private Path2D decodePath9(){
   path.closePath();
   return path;
 }
+-->
+400.0 / 6196 = 0.0645577792123951

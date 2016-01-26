@@ -1,14 +1,17 @@
 /** 
- * @return PMG name.
+ * Creates an <CODE>SnmpParameters</CODE> object with defaults set up. By default, <CODE>set</CODE> operations are not allowed, the read community and the inform community strings to use is "public" and the SNMP version is V1.
  */
-public final String getPMGName(){
-  ConstantUtf8 c=(ConstantUtf8)constant_pool.getConstant(pmg_index,Constants.CONSTANT_Utf8);
-  return c.getBytes();
+public SnmpParameters(){
+  _readCommunity=defaultRdCommunity;
+  _informCommunity=defaultRdCommunity;
 }
 /** 
- * @return PMG class name.
+ * Creates an <CODE>SnmpParameters</CODE> object. This constructor allows the specification of the read/write community strings. The inform community string to use is "public".
+ * @param rdc community string to use for <CODE>get</CODE> operations.
+ * @param wrc community string to use for <CODE>set</CODE> operations.
  */
-public final String getPMGClassName(){
-  ConstantUtf8 c=(ConstantUtf8)constant_pool.getConstant(pmg_class_index,Constants.CONSTANT_Utf8);
-  return c.getBytes();
+public SnmpParameters(String rdc,String wrc){
+  _readCommunity=rdc;
+  _writeCommunity=wrc;
+  _informCommunity=defaultRdCommunity;
 }

@@ -1,18 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @return false
  */
-public NodeList getChildNodes(){
+public boolean hasChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param newAttr Attribute to set
- * @return null
- * @throws DOMException
+ * @param name
+ * @param x
+ * @return false
  */
-public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
+public boolean hasAttributeNS(String name,String x){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }

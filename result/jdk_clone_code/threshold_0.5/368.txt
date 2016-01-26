@@ -1,15 +1,21 @@
 /** 
- * Construct an empty XML Filter with no parent. 
+ * Create a new DTMException from a message and a Locator. <p>This constructor is especially useful when an application is creating its own exception from within a DocumentHandler callback.</p>
+ * @param message The error or warning message.
+ * @param locator The locator object for the error or warning.
  */
-public ResolvingXMLFilter(){
-  super();
-  catalogResolver=new CatalogResolver(catalogManager);
+public DTMException(String message,SourceLocator locator){
+  super(message);
+  this.containedException=null;
+  this.locator=locator;
 }
 /** 
- * Construct an XML filter with the specified parent. 
+ * Wrap an existing exception in a DTMException.
+ * @param message The error or warning message, or null touse the message from the embedded exception.
+ * @param locator The locator object for the error or warning.
+ * @param e Any exception
  */
-public ResolvingXMLFilter(XMLReader parent,CatalogManager manager){
-  super(parent);
-  catalogManager=manager;
-  catalogResolver=new CatalogResolver(catalogManager);
+public DTMException(String message,SourceLocator locator,Throwable e){
+  super(message);
+  this.containedException=e;
+  this.locator=locator;
 }

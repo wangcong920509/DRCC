@@ -1,22 +1,18 @@
 /** 
- * Return the key used to identify the element type in arrays - e.g. "Z" for boolean, "C" for char etc...
- * @param elementClassName the wrapper class name of the arrayelement ("Boolean",  "Character", etc...)
- * @return the key corresponding to the given type ("Z", "C", etc...)return null if the given elementClassName is not a primitive wrapper class name.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never return  {@code false}.
+ * @return {@code true} (as specified by {@link Queue#offer})
+ * @throws NullPointerException if the specified element is null
  */
-static String getPrimitiveTypeKey(String elementClassName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_KEY_INDEX];
-  }
-  return null;
+public boolean offer(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
 }
 /** 
- * Return the primitive type name corresponding to the given wrapper class. e.g. "boolean" for "Boolean", "char" for "Character" etc...
- * @param elementClassName the type of the array element ("Boolean","Character", etc...)
- * @return the primitive type name corresponding to the given wrapper class("boolean", "char", etc...) return null if the given elementClassName is not a primitive wrapper type name.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
+ * @return {@code true} (as specified by {@link Collection#add})
+ * @throws NullPointerException if the specified element is null
  */
-static String getPrimitiveTypeName(String elementClassName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_NAME_INDEX];
-  }
-  return null;
+public boolean add(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
 }

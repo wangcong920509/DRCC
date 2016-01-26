@@ -42,3 +42,5 @@ private void paintinformationIconEnabled(Graphics2D g){
   g.setPaint(color6);
   g.fill(ellipse);
 }
+-->
+188.0 / 2188 = 0.08592321755027423

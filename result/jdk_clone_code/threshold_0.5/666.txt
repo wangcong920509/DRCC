@@ -1,18 +1,22 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Tell if the table contains the given string.
+ * @param key String to look up
+ * @return True if the given string is in this table
  */
-public Node getParentNode(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public final boolean contains(String key){
+  for (int i=0; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(key))     return true;
+  }
+  return false;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param oldAttr Attribute to be removed from this node's list of attributes
- * @return null
- * @throws DOMException
+ * Tell if the table contains the given string.
+ * @param val value to look up
+ * @return True if the given value is in the table.
  */
-public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public final boolean containsValue(String val){
+  for (int i=1; i < m_firstFree; i+=2) {
+    if (m_map[i].equals(val))     return true;
+  }
+  return false;
 }

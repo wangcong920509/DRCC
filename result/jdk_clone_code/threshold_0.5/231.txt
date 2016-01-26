@@ -1,27 +1,24 @@
 /** 
- * @return
+ * built-in derived types by restriction
  */
-public String getNamespaceURI(){
-  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    return fScanner.getElementQName().uri;
+void applyFacets1(XSFacets facets,short presentFacet,short fixedFacet){
+  try {
+    applyFacets(facets,presentFacet,fixedFacet,SPECIAL_PATTERN_NONE,fDummyContext);
   }
-  return null;
+ catch (  InvalidDatatypeFacetException e) {
+    throw new RuntimeException("internal error");
+  }
+  fIsImmutable=true;
 }
-protected List getNotationDecls(){
-  if (fEventType == XMLStreamConstants.DTD) {
-    if (fScanner.fDTDScanner == null)     return null;
-    DTDGrammar grammar=((XMLDTDScannerImpl)(fScanner.fDTDScanner)).getGrammar();
-    if (grammar == null)     return null;
-    List notations=grammar.getNotationDecls();
-    Iterator it=notations.iterator();
-    ArrayList list=new ArrayList();
-    while (it.hasNext()) {
-      XMLNotationDecl ni=(XMLNotationDecl)it.next();
-      if (ni != null) {
-        list.add(new NotationDeclarationImpl(ni));
-      }
-    }
-    return list;
+/** 
+ * built-in derived types by restriction
+ */
+void applyFacets1(XSFacets facets,short presentFacet,short fixedFacet,short patternType){
+  try {
+    applyFacets(facets,presentFacet,fixedFacet,patternType,fDummyContext);
   }
-  return null;
+ catch (  InvalidDatatypeFacetException e) {
+    throw new RuntimeException("internal error");
+  }
+  fIsImmutable=true;
 }

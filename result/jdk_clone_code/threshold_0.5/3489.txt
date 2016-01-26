@@ -1,20 +1,22 @@
 /** 
- * Returns the alignment along the x axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
- * @param parent the {@code Container} hosting this {@code LayoutManager}
- * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
- * @return the alignment; this implementation returns {@code .5}
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
  */
-public float getLayoutAlignmentX(Container parent){
-  checkParent(parent);
-  return .5f;
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
 }
 /** 
- * Returns the alignment along the y axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
- * @param parent the {@code Container} hosting this {@code LayoutManager}
- * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
- * @return alignment; this implementation returns {@code .5}
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
  */
-public float getLayoutAlignmentY(Container parent){
-  checkParent(parent);
-  return .5f;
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
 }

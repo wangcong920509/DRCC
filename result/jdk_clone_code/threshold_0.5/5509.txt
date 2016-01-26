@@ -1,8 +1,8 @@
-public DuplicateName(String _name){
-  super(DuplicateNameHelper.id());
-  name=_name;
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(2.3333333f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-public DuplicateName(String $reason,String _name){
-  super(DuplicateNameHelper.id() + "  " + $reason);
-  name=_name;
+private Rectangle2D decodeRect11(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

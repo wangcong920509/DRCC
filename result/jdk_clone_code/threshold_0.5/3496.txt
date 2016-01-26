@@ -1,40 +1,24 @@
 /** 
- * Creates a dialog with the specified title, owner  {@code Dialog}, modality and  {@code GraphicsConfiguration}. <p> NOTE: Any popup components ( {@code JComboBox}, {@code JPopupMenu},  {@code JMenuBar}) created within a modal dialog will be forced to be lightweight. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the owner {@code Dialog} from which the dialog is displayedor  {@code null} if this dialog has no owner
- * @param title  the {@code String} to display in the dialog'stitle bar
- * @param modal specifies whether dialog blocks user input to other top-levelwindows when shown. If  {@code true}, the modality type property is set to {@code DEFAULT_MODALITY_TYPE}, otherwise the dialog is modeless
- * @param gc the {@code GraphicsConfiguration} of the target screen device;if  {@code null}, the default system  {@code GraphicsConfiguration}is assumed
- * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}returns  {@code true}.
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog.ModalityType#MODELESS
- * @see java.awt.Dialog#DEFAULT_MODALITY_TYPE
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since 1.4
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
  */
-public JDialog(Dialog owner,String title,boolean modal,GraphicsConfiguration gc){
-  super(owner,title,modal,gc);
-  dialogInit();
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
 }
 /** 
- * Creates a dialog with the specified title, owner  {@code Window} andmodality. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the {@code Window} from which the dialog is displayed or{@code null} if this dialog has no owner
- * @param title the {@code String} to display in the dialog'stitle bar or  {@code null} if the dialog has no title
- * @param modalityType specifies whether dialog blocks input to otherwindows when shown.  {@code null} value and unsupported modalitytypes are equivalent to  {@code MODELESS}
- * @throws IllegalArgumentException if the  {@code owner} is not an instance of {@link java.awt.Dialog Dialog}or  {@link java.awt.Frame Frame}
- * @throws IllegalArgumentException if the  {@code owner}'s  {@code GraphicsConfiguration} is not from a screen device
- * @throws HeadlessException when  {@code GraphicsEnvironment.isHeadless()} returns {@code true}
- * @throws SecurityException if the calling thread does not have permission to create modal dialogs with the given  {@code modalityType}
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since 1.6
+ * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
+ * @param obj the object to copy.
+ * @param orb the ORB.
+ * @return the copy or connected object.
+ * @exception RemoteException if the object could not be copied or connected.
  */
-public JDialog(Window owner,String title,Dialog.ModalityType modalityType){
-  super(owner,title,modalityType);
-  dialogInit();
+public static Object copyObject(Object obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObject(obj,orb);
+  }
+  return null;
 }

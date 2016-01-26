@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ * @see SerializationHandler#getWriter()
  */
-public String getNamespaceURIFromPrefix(String prefix){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
   return null;
 }

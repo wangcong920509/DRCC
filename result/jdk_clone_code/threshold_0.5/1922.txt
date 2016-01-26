@@ -1,23 +1,20 @@
 /** 
- * Sets the requested data array element in the first (default) bank to the given <code>int</code>.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Sets the component at the specified index of this vector to be the specified object. The previous component at that position is discarded. The index must be a value greater than or equal to 0 and less than the current size of the vector.
+ * @param node  The node to be set.
+ * @param index The index of the node to be replaced.
+ * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
  */
-public void setElem(int i,int val){
-  data[i + offset]=(float)val;
-  theTrackable.markDirty();
+public void setElementAt(int node,int index){
+  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+  super.setElementAt(node,index);
 }
 /** 
- * Sets the requested data array element in the specified bank to the given <code>float</code>.
- * @param bank The bank number.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElemFloat(int)
- * @see #getElemFloat(int,int)
+ * Same as setElementAt.
+ * @param node  The node to be set.
+ * @param index The index of the node to be replaced.
+ * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
  */
-public void setElemFloat(int bank,int i,float val){
-  bankdata[bank][i + offsets[bank]]=val;
-  theTrackable.markDirty();
+public void setItem(int node,int index){
+  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+  super.setElementAt(node,index);
 }

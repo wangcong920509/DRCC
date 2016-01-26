@@ -1,8 +1,8 @@
-public ServerHeldDown(String _serverId){
-  super(ServerHeldDownHelper.id());
+public ServerAlreadyActive(String _serverId){
+  super(ServerAlreadyActiveHelper.id());
   serverId=_serverId;
 }
-public ServerHeldDown(String $reason,String _serverId){
-  super(ServerHeldDownHelper.id() + "  " + $reason);
+public ServerAlreadyActive(String $reason,String _serverId){
+  super(ServerAlreadyActiveHelper.id() + "  " + $reason);
   serverId=_serverId;
 }

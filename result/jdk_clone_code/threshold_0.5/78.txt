@@ -1,8 +1,8 @@
-private void Part(Control control,int value){
-  this.control=control;
-  this.value=value;
+public PropertyParser add(String propName,Operation action,String fieldName){
+  actions.add(ParserActionFactory.makeNormalAction(propName,action,fieldName));
+  return this;
 }
-private void Prop(Class type,int value){
-  this.type=type;
-  this.value=value;
+public PropertyParser addPrefix(String propName,Operation action,String fieldName,Class componentType){
+  actions.add(ParserActionFactory.makePrefixAction(propName,action,fieldName,componentType));
+  return this;
 }

@@ -15,3 +15,5 @@ private void paintBackgroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient8(path));
   g.fill(path);
 }
+-->
+68.0 / 238 = 0.2857142857142857

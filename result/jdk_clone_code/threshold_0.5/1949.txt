@@ -1,20 +1,20 @@
-/** 
- * Writes the specified byte (the low eight bits of the argument <code>b</code>) to the underlying output stream. If no exception is thrown, the counter <code>written</code> is incremented by <code>1</code>. <p> Implements the <code>write</code> method of <code>OutputStream</code>.
- * @param b   the <code>byte</code> to be written.
- * @exception IOException  if an I/O error occurs.
- * @see java.io.FilterOutputStream#out
- */
-public synchronized void write(int b) throws IOException {
-  out.write(b);
-  incCount(1);
+boolean checkWindowClosingException(){
+  if (windowClosingException != null) {
+    if (this instanceof Dialog) {
+      ((Dialog)this).interruptBlocking();
+    }
+ else {
+      windowClosingException.fillInStackTrace();
+      windowClosingException.printStackTrace();
+      windowClosingException=null;
+    }
+    return true;
+  }
+  return false;
 }
-/** 
- * Writes a <code>boolean</code> to the underlying output stream as a 1-byte value. The value <code>true</code> is written out as the value <code>(byte)1</code>; the value <code>false</code> is written out as the value <code>(byte)0</code>. If no exception is thrown, the counter <code>written</code> is incremented by <code>1</code>.
- * @param v   a <code>boolean</code> value to be written.
- * @exception IOException  if an I/O error occurs.
- * @see java.io.FilterOutputStream#out
- */
-public final void writeBoolean(boolean v) throws IOException {
-  out.write(v ? 1 : 0);
-  incCount(1);
+final boolean canBeFocusOwner(){
+  if (isEnabled() && isDisplayable() && isVisible()&& isFocusable()) {
+    return true;
+  }
+  return false;
 }

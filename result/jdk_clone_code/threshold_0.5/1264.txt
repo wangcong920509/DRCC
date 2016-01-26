@@ -1,18 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of the element
- * @param localName Local part of qualified name of the element
+ * @param name Attribute node name
  * @return null
  */
-public NodeList getElementsByTagNameNS(String namespaceURI,String localName){
+public Attr getAttributeNode(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
+ * @param data Data for text node
  * @return null
  */
-public DocumentType getDoctype(){
+public Text createTextNode(String data){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,14 +1,8 @@
-/** 
- * Overriden to update the mask after invoking supers implementation.
- */
-void updateValue(Object value){
-  super.updateValue(value);
-  updateMaskIfNecessary();
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(0.6666667f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * Subclassed to update the internal representation of the mask after the default read operation has completed.
- */
-private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundException {
-  s.defaultReadObject();
-  updateMaskIfNecessary();
+private Rectangle2D decodeRect9(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

@@ -1,32 +1,18 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>String</code> in the Java programming language. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <p>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no further values in the stream.
+ * Constructs a new serializer that writes to the specified writer using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param writer The writer to use
+ * @param format The output format to use, null for the default
  */
-public String readString() throws SQLException {
-  String attrib=(String)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public XML11Serializer(Writer writer,OutputFormat format){
+  super(writer,format);
+  _format.setVersion("1.1");
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.math.BigDecimal</code>. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Constructs a new serializer that writes to the specified output stream using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param output The output stream to use
+ * @param format The output format to use, null for the default
  */
-public java.math.BigDecimal readBigDecimal() throws SQLException {
-  java.math.BigDecimal attrib=(java.math.BigDecimal)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public XML11Serializer(OutputStream output,OutputFormat format){
+  super(output,format != null ? format : new OutputFormat(Method.XML,null,false));
+  _format.setVersion("1.1");
 }

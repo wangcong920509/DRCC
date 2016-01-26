@@ -1,8 +1,15 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the minimum size for this component.  Which will be the min preferred size or 0, 0.
+ */
+public Dimension getMinimumSize(JComponent c){
+  if (this.getPreferredMinSize() != null)   return this.getPreferredMinSize();
+  return new Dimension(0,0);
 }
-private Rectangle2D decodeRect42(){
-  rect.setRect(decodeX(0.8f),decodeY(2.0f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(2.2f) - decodeY(2.0f));
-  return rect;
+/** 
+ * Returns the maximum size for this component, which will be the preferred size if the instance is currently in a JTree, or 0, 0.
+ */
+public Dimension getMaximumSize(JComponent c){
+  if (tree != null)   return getPreferredSize(tree);
+  if (this.getPreferredMinSize() != null)   return this.getPreferredMinSize();
+  return new Dimension(0,0);
 }

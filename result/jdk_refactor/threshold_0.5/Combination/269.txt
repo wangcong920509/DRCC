@@ -1,37 +1,43 @@
 /** 
- * Returns  {@code false} to indicate that the height of the viewport does notdetermine the height of the layer, unless the preferred height of the layer is smaller than the height of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
- * @return whether the layer should track the height of the viewport
- * @see Scrollable
+ * Returns <code>true</code> if the writer supports the removal of an existing image at the given index.  Existing images with indices greater than the insertion index will have their indices decreased by 1. <p> A writer that does not support any image removal may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image to be removed.
+ * @return <code>true</code> if it is possible to remove the givenimage.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage removal in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public boolean getScrollableTracksViewportHeight(){
-  if (getView() instanceof Scrollable) {
-    return ((Scrollable)getView()).getScrollableTracksViewportHeight();
+public boolean canRemoveImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
   return false;
 }
 
 /** 
- * Returns  {@code false} to indicate that the width of the viewport does notdetermine the width of the layer, unless the preferred width of the layer is smaller than the width of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
- * @return whether the layer should track the width of the viewport
- * @see Scrollable
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public boolean getScrollableTracksViewportWidth(){
-  if (getView() instanceof Scrollable) {
-    return ((Scrollable)getView()).getScrollableTracksViewportWidth();
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
   return false;
 }
 
 -->
-void getScrollableTracksViewportHeight_getScrollableTracksViewportWidth(int combFlag){
+void canRemoveImage_canReplacePixels(int imageIndex,int imageIndex,int combFlag){
   if (combFlag == 1) {
-    if (getView() instanceof Scrollable) {
-      return ((Scrollable)getView()).getScrollableTracksViewportHeight();
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
     }
   }
  else {
-    if (getView() instanceof Scrollable) {
-      return ((Scrollable)getView()).getScrollableTracksViewportWidth();
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
     }
   }
   return false;

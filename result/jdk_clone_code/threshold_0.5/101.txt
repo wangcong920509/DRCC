@@ -1,29 +1,14 @@
 /** 
- * Checks whether or not the specified principal has the specified permission. If it does, true is returned, otherwise false is returned. More specifically, this method checks whether the passed permission is a member of the allowed permission set of the specified principal. The allowed permission set is determined by the same algorithm as is used by the getPermissions method.
- * @param user the principal, assumed to be a valid authenticated Principal.
- * @param perm the permission to be checked for.
- * @return true if the principal has the specified permission,false otherwise.
- * @see java.security.Principal
- * @see java.security.Permission
+ * Constructs a CommunicationException with a target exception.
  */
-public boolean checkPermission(Principal user,java.security.acl.Permission perm){
-  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
-    AclEntry ent=(AclEntry)e.nextElement();
-    if (ent.getPrincipal().equals(user))     if (ent.checkPermission(perm))     return true;
-  }
-  return false;
+public CommunicationException(Throwable target){
+  super(target.getMessage());
+  initCause(target);
 }
 /** 
- * Checks whether or not the specified community string is defined.
- * @param community the community name associated with the principal.
- * @return true if the specified community string is defined, falseotherwise.
- * @see java.security.Principal
- * @see java.security.Permission
+ * Constructs a CommunicationException with a target exception and a detail message.
  */
-public boolean checkCommunity(String community){
-  for (Enumeration e=entryList.elements(); e.hasMoreElements(); ) {
-    AclEntryImpl ent=(AclEntryImpl)e.nextElement();
-    if (ent.checkCommunity(community))     return true;
-  }
-  return false;
+public CommunicationException(Throwable target,String msg){
+  super(msg);
+  initCause(target);
 }

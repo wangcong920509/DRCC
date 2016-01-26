@@ -1,12 +1,34 @@
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
-  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+/** 
+ * @return
+ */
+public String getNamespaceURI(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    return fScanner.getElementQName().uri;
   }
+  return null;
 }
-public void addGlobalGroupDecl(XSGroupDecl decl,String location){
-  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+protected List getEntityDecls(){
+  if (fEventType == XMLStreamConstants.DTD) {
+    XMLEntityStorage entityStore=fEntityManager.getEntityStore();
+    ArrayList list=null;
+    if (entityStore.hasEntities()) {
+      EntityDeclarationImpl decl=null;
+      list=new ArrayList(entityStore.getEntitySize());
+      Enumeration enu=entityStore.getEntityKeys();
+      while (enu.hasMoreElements()) {
+        String key=(String)enu.nextElement();
+        Entity en=(Entity)entityStore.getEntity(key);
+        decl=new EntityDeclarationImpl();
+        decl.setEntityName(key);
+        if (en.isExternal()) {
+          decl.setXMLResourceIdentifier(((Entity.ExternalEntity)en).entityLocation);
+          decl.setNotationName(((Entity.ExternalEntity)en).notation);
+        }
+ else         decl.setEntityReplacementText(((Entity.InternalEntity)en).text);
+        list.add(decl);
+      }
+    }
+    return list;
   }
+  return null;
 }

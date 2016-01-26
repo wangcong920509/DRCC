@@ -1,20 +1,20 @@
-private Rectangle2D decodeRect1(){
-  rect.setRect(decodeX(0.0f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(3.0f) - decodeY(0.0f));
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(3.0f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
   return rect;
 }
 
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.4f));
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(1.0f),decodeY(1.0f),decodeX(3.0f) - decodeX(1.0f),decodeY(2.0f) - decodeY(1.0f));
   return rect;
 }
 
 -->
-void decodeRect1_decodeRect2(int combFlag){
+void decodeRect2_decodeRect5(int combFlag){
   if (combFlag == 1) {
-    rect.setRect(decodeX(0.0f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(3.0f) - decodeY(0.0f));
+    rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(3.0f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
   }
  else {
-    rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.4f));
+    rect.setRect(decodeX(1.0f),decodeY(1.0f),decodeX(3.0f) - decodeX(1.0f),decodeY(2.0f) - decodeY(1.0f));
   }
   return rect;
 }

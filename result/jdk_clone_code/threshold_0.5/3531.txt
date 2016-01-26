@@ -1,21 +1,31 @@
-private static MenuElement nextEnabledChild(MenuElement e[],int fromIndex,int toIndex){
-  for (int i=fromIndex; i <= toIndex; i++) {
-    if (e[i] != null) {
-      Component comp=e[i].getComponent();
-      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
-        return e[i];
-      }
+/** 
+ * Return a MidiDeviceProcider of a given class from the list of MidiDeviceProviders.
+ * @param providerClassName The class name of the provider to be returned.
+ * @param provider The list of MidiDeviceProviders that is searched.
+ * @return A MidiDeviceProvider of the requested class, or null if noneis found.
+ */
+private static MidiDeviceProvider getNamedProvider(String providerClassName,List providers){
+  for (int i=0; i < providers.size(); i++) {
+    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
+    if (provider.getClass().getName().equals(providerClassName)) {
+      return provider;
     }
   }
   return null;
 }
-private static MenuElement previousEnabledChild(MenuElement e[],int fromIndex,int toIndex){
-  for (int i=fromIndex; i >= toIndex; i--) {
-    if (e[i] != null) {
-      Component comp=e[i].getComponent();
-      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
-        return e[i];
-      }
+/** 
+ * Return a MidiDevice with a given name from a list of MidiDeviceProviders.
+ * @param deviceName The name of the MidiDevice to be returned.
+ * @param providers The List of MidiDeviceProviders to check forMidiDevices.
+ * @param deviceClass The requested device type, one of Synthesizer.class,Sequencer.class, Receiver.class or Transmitter.class.
+ * @return A Mixer matching the requirements, or null if none is found.
+ */
+private static MidiDevice getNamedDevice(String deviceName,List providers,Class deviceClass,boolean allowSynthesizer,boolean allowSequencer){
+  for (int i=0; i < providers.size(); i++) {
+    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
+    MidiDevice device=getNamedDevice(deviceName,provider,deviceClass,allowSynthesizer,allowSequencer);
+    if (device != null) {
+      return device;
     }
   }
   return null;

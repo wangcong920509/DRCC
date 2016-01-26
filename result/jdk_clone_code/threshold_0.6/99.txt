@@ -1,24 +1,15 @@
 /** 
- * Translates a  {@code BigInteger} unscaled value and an{@code int} scale into a {@code BigDecimal}, with rounding according to the context settings.  The value of the {@code BigDecimal} is <tt>(unscaledVal &times;10<sup>-scale</sup>)</tt>, rounded according to the {@code precision} and rounding mode settings.
- * @param unscaledVal unscaled value of the {@code BigDecimal}.
- * @param scale scale of the {@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @since  1.5
+ * Creates a new SyntaxTreeNode with a 'null' QName and no source file line number reference.
  */
-public BigDecimal(BigInteger unscaledVal,int scale,MathContext mc){
-  this(unscaledVal);
-  this.scale=scale;
-  if (mc.precision > 0)   roundThis(mc);
+public SyntaxTreeNode(){
+  _line=0;
+  _qname=null;
 }
 /** 
- * Translates an  {@code int} into a {@code BigDecimal}, with rounding according to the context settings.  The scale of the {@code BigDecimal}, before any rounding, is zero.
- * @param val {@code int} value to be converted to {@code BigDecimal}.
- * @param mc the context to use.
- * @throws ArithmeticException if the result is inexact but therounding mode is  {@code UNNECESSARY}.
- * @since  1.5
+ * Creates a new SyntaxTreeNode with a 'null' QName.
+ * @param line Source file line number reference
  */
-public BigDecimal(int val,MathContext mc){
-  intCompact=val;
-  if (mc.precision > 0)   roundThis(mc);
+public SyntaxTreeNode(int line){
+  _line=line;
+  _qname=null;
 }

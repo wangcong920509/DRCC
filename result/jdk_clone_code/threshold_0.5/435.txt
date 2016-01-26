@@ -1,37 +1,16 @@
 /** 
- * @param sibling
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * Method add
+ * @param xmlX509IssuerSerial
  */
-public static Element selectDsNode(Node sibling,String nodeName,int number){
-  while (sibling != null) {
-    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
-  return null;
+public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
+  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @param sibling
- * @param uri
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * Method add
+ * @param xmlX509SubjectName
  */
-public static Element selectNode(Node sibling,String uri,String nodeName,int number){
-  while (sibling != null) {
-    if (sibling.getNamespaceURI() != null && sibling.getNamespaceURI().equals(uri) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
-  return null;
+public void add(XMLX509SubjectName xmlX509SubjectName){
+  this._constructionElement.appendChild(xmlX509SubjectName.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

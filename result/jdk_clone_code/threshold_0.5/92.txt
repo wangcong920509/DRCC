@@ -1,17 +1,18 @@
 /** 
+ * Put an integer with the specified tag.
+ * @param v The integer to encode.
+ * @param tag The tag to encode.
+ */
+public void putInteger(int v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
+}
+/** 
  * Put an octet string with a specified tag.
  * @param s The bytes to encode
  * @param tag The tag to encode.
  */
 public void putOctetString(byte[] s,int tag){
   putStringValue(s);
-  putTag(tag);
-}
-/** 
- * Put a <CODE>NULL</CODE> value with a specified tag.
- * @param tag The tag to encode.
- */
-public void putNull(int tag){
-  putLength(0);
   putTag(tag);
 }

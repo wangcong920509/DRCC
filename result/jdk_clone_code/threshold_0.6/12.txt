@@ -1,14 +1,8 @@
-/** 
- * This method always returns false because the ORB never needs the main thread to do work.
- */
-public synchronized boolean work_pending(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_long(int x){
+  super.write_long(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }
-/** 
- * This method does nothing. It is not required by the spec to do anything!
- */
-public synchronized void perform_work(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_longlong(long x){
+  super.write_longlong(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }

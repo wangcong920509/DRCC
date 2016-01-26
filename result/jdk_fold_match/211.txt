@@ -45,3 +45,5 @@ public IIOMetadataFormatImpl(String rootName,int minChildren,int maxChildren){
   this.rootName=rootName;
   elementMap.put(rootName,root);
 }
+-->
+134.0 / 728 = 0.18406593406593408

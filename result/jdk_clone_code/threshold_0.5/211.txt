@@ -1,26 +1,18 @@
-/** 
- * Returns the default state for a feature, or null if this component does not want to report a default value for this feature.
- * @param featureId The feature identifier.
- * @since Xerces 2.2.0
- */
-public Boolean getFeatureDefault(String featureId){
-  for (int i=0; i < RECOGNIZED_FEATURES.length; i++) {
-    if (RECOGNIZED_FEATURES[i].equals(featureId)) {
-      return FEATURE_DEFAULTS[i];
-    }
+public OutputBuffer append(char[] s,int from,int to){
+  try {
+    _writer.write(s,from,to);
   }
-  return null;
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
 }
-/** 
- * Returns the default state for a property, or null if this component does not want to report a default value for this property.
- * @param propertyId The property identifier.
- * @since Xerces 2.2.0
- */
-public Object getPropertyDefault(String propertyId){
-  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
-    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
-      return PROPERTY_DEFAULTS[i];
-    }
+public OutputBuffer append(char ch){
+  try {
+    _writer.write(ch);
   }
-  return null;
+ catch (  IOException e) {
+    throw new RuntimeException(e.toString());
+  }
+  return this;
 }

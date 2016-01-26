@@ -1,8 +1,15 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    return createInputMap(condition);
+  }
+  return null;
 }
-private Rectangle2D decodeRect23(){
-  rect.setRect(decodeX(0.4f),decodeY(0.2f),decodeX(2.8f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.2f));
-  return rect;
+InputMap createInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(frame,this,"InternalFrame.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(frame,bindings);
+    }
+  }
+  return null;
 }

@@ -24,3 +24,5 @@ private void paintBackgroundPressedAndFocused(Graphics2D g){
   g.setPaint(color24);
   g.fill(rect);
 }
+-->
+113.0 / 667 = 0.16941529235382308

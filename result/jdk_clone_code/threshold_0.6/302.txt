@@ -1,17 +1,14 @@
 /** 
- * Creates a <code>JFormattedTextField</code> with the specified <code>AbstractFormatterFactory</code>.
- * @param factory AbstractFormatterFactory used for formatting.
+ * @see SerializationHandler#getTransformer()
  */
-public JFormattedTextField(AbstractFormatterFactory factory){
-  this();
-  setFormatterFactory(factory);
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Creates a <code>JFormattedTextField</code> with the specified <code>AbstractFormatterFactory</code> and initial value.
- * @param factory <code>AbstractFormatterFactory</code> used forformatting.
- * @param currentValue Initial value to use
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public JFormattedTextField(AbstractFormatterFactory factory,Object currentValue){
-  this(currentValue);
-  setFormatterFactory(factory);
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }

@@ -1,24 +1,8 @@
-/** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
- */
-public static void sort(long[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public ByteBuffer putLong(long x){
+  Bits.putLong(this,ix(nextPutIndex(8)),x,bigEndian);
+  return this;
 }
-/** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
- */
-public static void sort(byte[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public ByteBuffer putDouble(int i,double x){
+  Bits.putDouble(this,ix(checkIndex(i,8)),x,bigEndian);
+  return this;
 }

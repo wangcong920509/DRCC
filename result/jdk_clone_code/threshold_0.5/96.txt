@@ -1,8 +1,18 @@
-public void addRequest(SnmpInformRequest reqc){
-  newq.addRequest(reqc);
-  return;
+/** 
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
+ */
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
-public void addWaiting(SnmpInformRequest reqc){
-  waitq.addWaiting(reqc);
-  return;
+/** 
+ * Put an object identifier with a specified tag.
+ * @param s The integer to encode.
+ * @param tag The tag to encode.
+ */
+public void putOid(long[] s,int tag){
+  putOidValue(s);
+  putTag(tag);
 }

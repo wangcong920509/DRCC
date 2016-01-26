@@ -32,3 +32,5 @@ public Object getObject() throws IOException, ClassNotFoundException {
   a.close();
   return obj;
 }
+-->
+74.0 / 396 = 0.18686868686868688

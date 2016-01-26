@@ -1,31 +1,14 @@
 /** 
- * Create a new SAXParseException from a message and a Locator. <p>This constructor is especially useful when an application is creating its own exception from within a  {@link org.xml.sax.ContentHandler ContentHandler} callback.</p>
- * @param message The error or warning message.
- * @param locator The locator object for the error or warning (may benull).
- * @see org.xml.sax.Locator
+ * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
  */
-public SAXParseException(String message,Locator locator){
-  super(message);
-  if (locator != null) {
-    init(locator.getPublicId(),locator.getSystemId(),locator.getLineNumber(),locator.getColumnNumber());
-  }
- else {
-    init(null,null,-1,-1);
-  }
+protected SnmpSubBulkRequestHandler(SnmpEngine engine,SnmpAdaptorServer server,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
+  super(engine,incRequest,agent,req);
+  init(server,req,nonRepeat,maxRepeat,R);
 }
 /** 
- * Wrap an existing exception in a SAXParseException. <p>This constructor is especially useful when an application is creating its own exception from within a  {@link org.xml.sax.ContentHandler ContentHandler} callback, and needs to wrap an existing exception that is not asubclass of  {@link org.xml.sax.SAXException SAXException}.</p>
- * @param message The error or warning message, or null touse the message from the embedded exception.
- * @param locator The locator object for the error or warning (may benull).
- * @param e Any exception.
- * @see org.xml.sax.Locator
+ * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
  */
-public SAXParseException(String message,Locator locator,Exception e){
-  super(message,e);
-  if (locator != null) {
-    init(locator.getPublicId(),locator.getSystemId(),locator.getLineNumber(),locator.getColumnNumber());
-  }
- else {
-    init(null,null,-1,-1);
-  }
+protected SnmpSubBulkRequestHandler(SnmpAdaptorServer server,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
+  super(agent,req);
+  init(server,req,nonRepeat,maxRepeat,R);
 }

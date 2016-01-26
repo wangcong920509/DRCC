@@ -53,3 +53,5 @@ private void writeImage(RenderedImage image,GIFWritableImageMetadata imageMetada
   writeImageDescriptor(imageMetadata,bitsPerPixel);
   writeRasterData(image,sourceBounds,destSize,param,imageMetadata.interlaceFlag);
 }
+-->
+24.0 / 2039 = 0.011770475723393821

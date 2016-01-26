@@ -1,14 +1,11 @@
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder deleteCharAt(int index){
-  super.deleteCharAt(index);
+public StringBuilder append(boolean b){
+  super.append(b);
   return this;
 }
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @since 1.5
  */
-public StringBuilder insert(int offset,char c){
-  super.insert(offset,c);
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }

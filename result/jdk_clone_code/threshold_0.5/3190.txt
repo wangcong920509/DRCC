@@ -1,17 +1,20 @@
 /** 
- * Returns the Gregorian or Julian calendar system to use with the given date. Use Gregorian from October 15, 1582.
- * @param year normalized calendar year (not -1900)
- * @return the CalendarSystem to use for the specified date
+ * Constructs a MessageFormat for the default locale and the specified pattern. The constructor first sets the locale, then parses the pattern and creates a list of subformats for the format elements contained in it. Patterns and their interpretation are specified in the <a href="#patterns">class description</a>.
+ * @param pattern the pattern for this message format
+ * @exception IllegalArgumentException if the pattern is invalid
  */
-private static final BaseCalendar getCalendarSystem(int year){
-  if (year >= 1582) {
-    return gcal;
-  }
-  return getJulianCalendar();
+public MessageFormat(String pattern){
+  this.locale=Locale.getDefault(Locale.Category.FORMAT);
+  applyPattern(pattern);
 }
-private static final BaseCalendar getCalendarSystem(long utc){
-  if (utc >= 0 || utc >= GregorianCalendar.DEFAULT_GREGORIAN_CUTOVER - TimeZone.getDefaultRef().getOffset(utc)) {
-    return gcal;
-  }
-  return getJulianCalendar();
+/** 
+ * Constructs a MessageFormat for the specified locale and pattern. The constructor first sets the locale, then parses the pattern and creates a list of subformats for the format elements contained in it. Patterns and their interpretation are specified in the <a href="#patterns">class description</a>.
+ * @param pattern the pattern for this message format
+ * @param locale the locale for this message format
+ * @exception IllegalArgumentException if the pattern is invalid
+ * @since 1.4
+ */
+public MessageFormat(String pattern,Locale locale){
+  this.locale=locale;
+  applyPattern(pattern);
 }

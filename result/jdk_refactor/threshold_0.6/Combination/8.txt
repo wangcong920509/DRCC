@@ -1,26 +1,26 @@
 /** 
- * @see org.w3c.dom.Node
+ * See above.
  */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public static String monthAbbreviation(){
+  String format="MMM";
+  return getNameOrAbbrev(format);
 }
 
 /** 
- * @see org.w3c.dom.Node
+ * See above.
  */
-@Override public final Node getPreviousSibling(){
-  int newnode=dtm.getPreviousSibling(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public static String dayName(){
+  String format="EEEE";
+  return getNameOrAbbrev(format);
 }
 
 -->
-void getLastChild_getPreviousSibling(int combFlag){
+void monthAbbreviation_dayName(int combFlag){
   if (combFlag == 1) {
-    int newnode=dtm.getLastChild(node);
+    String format="MMM";
   }
  else {
-    int newnode=dtm.getPreviousSibling(node);
+    String format="EEEE";
   }
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+  return getNameOrAbbrev(format);
 }

@@ -84,3 +84,5 @@ protected void printText(String text,boolean preserveSpace,boolean unescaped) th
     }
   }
 }
+-->
+22.0 / 426 = 0.051643192488262914

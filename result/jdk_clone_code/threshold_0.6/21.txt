@@ -1,14 +1,15 @@
 /** 
- * V3 enabled Adaptor. Each Oid is added using updateRequest method.
+ * Get the default Context object
+ * @result          the default Context object
  */
-protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req){
-  this(agent,req);
-  init(engine,incRequest);
+public synchronized org.omg.CORBA.Context get_default_context(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
 /** 
- * V3 enabled Adaptor.
+ * This method always returns false because the ORB never needs the main thread to do work.
  */
-protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,boolean nouse){
-  this(agent,req,nouse);
-  init(engine,incRequest);
+public synchronized boolean work_pending(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

@@ -1,19 +1,19 @@
 /** 
- * @param inputStream
- * @param props
- * @throws XMLStreamException
+ * DOM L3 Core CR - Experimental Returns whether this text node contains element content whitespace</a>, often abusively called "ignorable whitespace". The text node is determined to contain whitespace in element content during the load of the document or if validation occurs while using <code>Document.normalizeDocument()</code>.
+ * @since DOM Level 3
  */
-public XMLStreamReaderImpl(InputStream inputStream,PropertyManager props) throws XMLStreamException {
-  init(props);
-  XMLInputSource inputSource=new XMLInputSource(null,null,null,inputStream,null);
-  setInputSource(inputSource);
+public boolean isElementContentWhitespace(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return internalIsIgnorableWhitespace();
 }
 /** 
- * @param inputSource
- * @param props
- * @throws XMLStreamException
+ * NON-DOM: Returns whether this Text is ignorable whitespace.
  */
-public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
-  init(props);
-  setInputSource(inputSource);
+public boolean isIgnorableWhitespace(){
+  if (needsSyncData()) {
+    synchronizeData();
+  }
+  return internalIsIgnorableWhitespace();
 }

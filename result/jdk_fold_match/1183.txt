@@ -125,3 +125,5 @@ static final int getTabbedTextOffset(View view,Segment s,FontMetrics metrics,int
   }
   return txtCount;
 }
+-->
+266.0 / 2614 = 0.10175975516449885

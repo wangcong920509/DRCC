@@ -21,3 +21,5 @@ private void painticonMouseOverAndSelectedAndFocused(Graphics2D g){
   g.setPaint(color28);
   g.fill(path);
 }
+-->
+83.0 / 535 = 0.15514018691588785

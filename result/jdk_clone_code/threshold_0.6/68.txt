@@ -1,14 +1,18 @@
 /** 
- * Create a FilterExprIteratorSimple object.
+ * Adds the specified dot-formatted OID <CODE>String</CODE> to the end of this <CODE>SnmpOid</CODE>. The subidentifiers can be expressed as a dot-formatted <CODE>String</CODE> or a MIB variable name.
+ * @param s Variable name of the form .1.2.3 or  1.2.3 or<CODE>ifInOctets</CODE>.
+ * @exception SnmpStatusException An error occurred while accessing a MIB node.
  */
-public FilterExprIteratorSimple(Expression expr){
-  super(null);
-  m_expr=expr;
+public void addToOid(String s) throws SnmpStatusException {
+  SnmpOid suffix=new SnmpOid(s);
+  this.append(suffix);
 }
 /** 
- * Set the inner contained expression of this filter.
+ * Adds the specified array of longs to the end of this <CODE>SnmpOid</CODE>.
+ * @param oid An array of longs.
+ * @exception SnmpStatusException An error occurred while accessing a MIB node.
  */
-public void setInnerExpression(Expression expr){
-  expr.exprSetParent(this);
-  m_expr=expr;
+public void addToOid(long[] oid) throws SnmpStatusException {
+  SnmpOid suffix=new SnmpOid(oid);
+  this.append(suffix);
 }

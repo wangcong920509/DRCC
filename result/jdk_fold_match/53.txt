@@ -37,3 +37,5 @@ public static String substringF(String value,double start,double length){
     return null;
   }
 }
+-->
+80.0 / 664 = 0.12048192771084337

@@ -1,32 +1,28 @@
 /** 
- * Sets the component at the specified index of this vector to be the specified object. The previous component at that position is discarded. The index must be a value greater than or equal to 0 and less than the current size of the vector.
- * @param node  The node to be set.
- * @param index The index of the node to be replaced.
- * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
  */
-public void setElementAt(int node,int index){
-  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
-  super.setElementAt(node,index);
+public String getPrefix(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 /** 
- * Same as setElementAt.
- * @param node  The node to be set.
- * @param index The index of the node to be replaced.
- * @throws RuntimeException thrown if this NodeSetDTM is not ofa mutable type.
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the encoding of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
  */
-public void setItem(int node,int index){
-  if (!m_mutable)   throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
-  super.setElementAt(node,index);
+public String getInputEncoding(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 -->
-void setElementAt_setItem(int node,int index,int node,int index,int combFlag){
+void getPrefix_getInputEncoding(int combFlag){
   if (combFlag == 1) {
-    if (!m_mutable)     throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
-    if (!m_mutable)     throw new RuntimeException(XSLMessages.createXPATHMessage(XPATHErrorResources.ER_NODESETDTM_NOT_MUTABLE,null));
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  super.setElementAt(node,index);
+  return null;
 }

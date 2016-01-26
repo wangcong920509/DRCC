@@ -1,17 +1,19 @@
 /** 
- * Unimplemented. See org.w3c.dom.Document
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Element getDocumentElement(){
+public String getPrefix(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param data Data for text node
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
  * @return null
+ * @throws DOMException
  */
-public Text createTextNode(String data){
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,17 +1,14 @@
 /** 
- * Constructs a new <code>URIReferenceException</code> with the specified detail message and cause. <p>Note that the detail message associated with <code>cause</code> is <i>not</i> automatically incorporated in this exception's detail message.
- * @param message the detail message
- * @param cause the cause (A <tt>null</tt> value is permitted, andindicates that the cause is nonexistent or unknown.)
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public URIReferenceException(String message,Throwable cause){
-  super(message);
-  this.cause=cause;
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Constructs a new <code>URIReferenceException</code> with the specified cause and a detail message of <code>(cause==null ? null : cause.toString())</code> (which typically contains the class and detail message of <code>cause</code>).
- * @param cause the cause (A <tt>null</tt> value is permitted, andindicates that the cause is nonexistent or unknown.)
+ * @see XSLOutputAttributes#getDoctypePublic()
  */
-public URIReferenceException(Throwable cause){
-  super(cause == null ? null : cause.toString());
-  this.cause=cause;
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
 }

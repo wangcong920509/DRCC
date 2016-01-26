@@ -1,41 +1,21 @@
 /** 
- * Returns true if the encoding name is a valid IANA encoding. This method does not verify that there is a decoder available for this encoding, only that the characters are valid for an IANA encoding name.
- * @param ianaEncoding The IANA encoding name.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param target Target for Processing instruction
+ * @param data Data for Processing instruction
+ * @return null
+ * @throws DOMException
  */
-public static boolean isValidIANAEncoding(String ianaEncoding){
-  if (ianaEncoding != null) {
-    int length=ianaEncoding.length();
-    if (length > 0) {
-      char c=ianaEncoding.charAt(0);
-      if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')) {
-        for (int i=1; i < length; i++) {
-          c=ianaEncoding.charAt(i);
-          if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')&& c != '.' && c != '_' && c != '-') {
-            return false;
-          }
-        }
-        return true;
-      }
-    }
-  }
-  return false;
+public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Returns true if the encoding name is a valid Java encoding. This method does not verify that there is a decoder available for this encoding, only that the characters are valid for an Java encoding name.
- * @param javaEncoding The Java encoding name.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Entity Reference name
+ * @return null
+ * @throws DOMException
  */
-public static boolean isValidJavaEncoding(String javaEncoding){
-  if (javaEncoding != null) {
-    int length=javaEncoding.length();
-    if (length > 0) {
-      for (int i=1; i < length; i++) {
-        char c=javaEncoding.charAt(i);
-        if ((c < 'A' || c > 'Z') && (c < 'a' || c > 'z') && (c < '0' || c > '9')&& c != '.' && c != '_' && c != '-') {
-          return false;
-        }
-      }
-      return true;
-    }
-  }
-  return false;
+public EntityReference createEntityReference(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

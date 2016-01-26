@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @see SerializationHandler#getWriter()
  */
-public String getDoctypePublic(){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public String getDoctypeSystem(){
+public String getPrefix(String uri){
   aMethodIsCalled();
   return null;
 }

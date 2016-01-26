@@ -1,10 +1,10 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of attribute node to get
- * @param localName Local part of qualified name of attribute node to get
+ * @param newAttr Attribute to set
  * @return null
+ * @throws DOMException
  */
-public String getAttributeNS(String namespaceURI,String localName){
+public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
@@ -12,7 +12,7 @@ public String getAttributeNS(String namespaceURI,String localName){
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public String getNamespaceURI(){
+public NamedNodeMap getAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

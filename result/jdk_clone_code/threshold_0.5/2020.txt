@@ -1,12 +1,26 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Sets the label for this menu item to the specified label.
+ * @param label   the new label, or <code>null</code> for no label.
+ * @see java.awt.MenuItem#getLabel
+ * @since     JDK1.0
+ */
+public synchronized void setLabel(String label){
+  this.label=label;
+  MenuItemPeer peer=(MenuItemPeer)this.peer;
+  if (peer != null) {
+    peer.setLabel(label);
+  }
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- * @since      1.2
+ * Set the <code>MenuShortcut</code> object associated with this menu item. If a menu shortcut is already associated with this menu item, it is replaced.
+ * @param s  the menu shortcut to associatewith this menu item.
+ * @see java.awt.MenuItem#getShortcut
+ * @since       JDK1.1
  */
-public synchronized StringBuffer deleteCharAt(int index){
-  super.deleteCharAt(index);
-  return this;
+public void setShortcut(MenuShortcut s){
+  shortcut=s;
+  MenuItemPeer peer=(MenuItemPeer)this.peer;
+  if (peer != null) {
+    peer.setLabel(label);
+  }
 }

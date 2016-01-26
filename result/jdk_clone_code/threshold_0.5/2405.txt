@@ -1,11 +1,8 @@
-public StringBuilder append(double d){
-  super.append(d);
+public StringBuilder append(char[] str){
+  super.append(str);
   return this;
 }
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder delete(int start,int end){
-  super.delete(start,end);
+public StringBuilder append(float f){
+  super.append(f);
   return this;
 }

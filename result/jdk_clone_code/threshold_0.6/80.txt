@@ -1,17 +1,20 @@
 /** 
- * Creates a new soft reference that refers to the given object.  The new reference is not registered with any queue.
- * @param referent object the new soft reference will refer to
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public SoftReference(T referent){
-  super(referent);
-  this.timestamp=clock;
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Creates a new soft reference that refers to the given object and is registered with the given queue.
- * @param referent object the new soft reference will refer to
- * @param q the queue with which the reference is to be registered,or <tt>null</tt> if registration is not required
+ * Look for ConstantInterfaceMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-public SoftReference(T referent,ReferenceQueue<? super T> q){
-  super(referent,q);
-  this.timestamp=clock;
+public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

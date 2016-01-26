@@ -1,0 +1,21 @@
+/** 
+ * Returns the current value of an attribute's "specified" flag.
+ * @param index The attribute index (zero-based).
+ * @return current flag value
+ * @exception java.lang.ArrayIndexOutOfBoundsException When thesupplied index does not identify an attribute.
+ */
+public boolean isSpecified(int index){
+  if (index < 0 || index >= getLength())   throw new ArrayIndexOutOfBoundsException("No attribute at index: " + index);
+  return specified[index];
+}
+/** 
+ * Returns the current value of an attribute's "specified" flag.
+ * @param qName The XML qualified (prefixed) name.
+ * @return current flag value
+ * @exception java.lang.IllegalArgumentException When thesupplied name does not identify an attribute.
+ */
+public boolean isSpecified(String qName){
+  int index=getIndex(qName);
+  if (index < 0)   throw new IllegalArgumentException("No such attribute: " + qName);
+  return specified[index];
+}

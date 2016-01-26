@@ -1,14 +1,11 @@
-/** 
- * Translates an object of this type to an object of type <code>type</code>. Expects an object of the former type and pushes an object of the latter.
- */
-public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Type type){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),type.toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public LDC(int index){
+  super(com.sun.org.apache.bcel.internal.Constants.LDC_W,index);
+  setSize();
 }
 /** 
- * Translates an object of this type to its unboxed representation.
+ * Set the index to constant pool and adjust size.
  */
-public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public final void setIndex(int index){
+  super.setIndex(index);
+  setSize();
 }

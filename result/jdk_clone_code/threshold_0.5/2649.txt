@@ -1,5 +1,5 @@
-public ByteBuffer putChar(int i,char x){
-  putChar(ix(checkIndex(i,(1 << 1))),x);
+public ByteBuffer put(byte x){
+  unsafe.putByte(ix(nextPutIndex()),((x)));
   return this;
 }
 public ByteBuffer putLong(long x){

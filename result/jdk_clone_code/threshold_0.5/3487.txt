@@ -1,21 +1,28 @@
 /** 
- * Convenience method to get the array of objects from the TreePath instance that this event wraps.
- * @return an array of Objects, where the first Object is the onestored at the root and the last object is the one stored at the node identified by the path
+ * Construct a new media size attribute from the given floating-point values.
+ * @param x  X dimension.
+ * @param y  Y dimension.
+ * @param units Unit conversion factor, e.g. <CODE>Size2DSyntax.INCH</CODE> or <CODE>Size2DSyntax.MM</CODE>.
+ * @exception IllegalArgumentException (Unchecked exception) Thrown if <CODE>x</CODE> < 0 or <CODE>y</CODE> < 0 or <CODE>units</CODE> < 1 or <CODE>x</CODE> > <CODE>y</CODE>.
  */
-public Object[] getPath(){
-  if (path != null)   return path.getPath();
-  return null;
+public MediaSize(float x,float y,int units){
+  super(x,y,units);
+  if (x > y) {
+    throw new IllegalArgumentException("X dimension > Y dimension");
+  }
+  sizeVector.add(this);
 }
 /** 
- * Returns the values of the child indexes. If this is a removal event the indexes point to locations in the initial list where items were removed. If it is an insert, the indices point to locations in the final list where the items were added. For node changes, the indices point to the locations of the modified nodes.
- * @return an array of <code>int</code> containing index locations forthe children specified by the event
+ * Construct a new media size attribute from the given integer values.
+ * @param x  X dimension.
+ * @param y  Y dimension.
+ * @param units Unit conversion factor, e.g. <CODE>Size2DSyntax.INCH</CODE> or <CODE>Size2DSyntax.MM</CODE>.
+ * @exception IllegalArgumentException (Unchecked exception) Thrown if <CODE>x</CODE> < 0 or <CODE>y</CODE> < 0 or <CODE>units</CODE> < 1 or <CODE>x</CODE> > <CODE>y</CODE>.
  */
-public int[] getChildIndices(){
-  if (childIndices != null) {
-    int cCount=childIndices.length;
-    int[] retArray=new int[cCount];
-    System.arraycopy(childIndices,0,retArray,0,cCount);
-    return retArray;
+public MediaSize(int x,int y,int units){
+  super(x,y,units);
+  if (x > y) {
+    throw new IllegalArgumentException("X dimension > Y dimension");
   }
-  return null;
+  sizeVector.add(this);
 }

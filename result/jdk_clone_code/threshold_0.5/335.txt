@@ -1,39 +1,12 @@
-/** 
- * Given a node handle and an expanded type ID, get the index of the node's attribute of that type, if any.
- * @param nodeHandle int Handle of the node.
- * @param attType int expanded type ID of the required attribute.
- * @return Handle of attribute of the required type, or DTM.NULL to indicatenone exists.
- */
-protected int getTypedAttribute(int nodeHandle,int attType){
-  int type=getNodeType(nodeHandle);
-  if (DTM.ELEMENT_NODE == type) {
-    int identity=makeNodeIdentity(nodeHandle);
-    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
-      type=_type(identity);
-      if (type == DTM.ATTRIBUTE_NODE) {
-        if (_exptype(identity) == attType)         return makeNodeHandle(identity);
-      }
- else       if (DTM.NAMESPACE_NODE != type) {
-        break;
-      }
-    }
+public String getPublicId(){
+  if (fLocator != null) {
+    return fLocator.getPublicId();
   }
-  return DTM.NULL;
+  return null;
 }
-/** 
- * Given a node identity for an attribute, advance to the next attribute.
- * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
- * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
- */
-protected int getNextAttributeIdentity(int identity){
-  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
-    int type=_type(identity);
-    if (type == DTM.ATTRIBUTE_NODE) {
-      return identity;
-    }
- else     if (type != DTM.NAMESPACE_NODE) {
-      break;
-    }
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
   }
-  return DTM.NULL;
+  return null;
 }

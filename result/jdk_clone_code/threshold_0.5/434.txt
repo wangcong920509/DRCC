@@ -1,36 +1,16 @@
 /** 
- * @param sibling
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * Method add
+ * @param xmlX509IssuerSerial
  */
-public static Element selectDsNode(Node sibling,String nodeName,int number){
-  while (sibling != null) {
-    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
-  return null;
+public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
+  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @param sibling
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * Method add
+ * @param xmlX509SKI
  */
-public static Element selectXencNode(Node sibling,String nodeName,int number){
-  while (sibling != null) {
-    if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
-  return null;
+public void add(XMLX509SKI xmlX509SKI){
+  this._constructionElement.appendChild(xmlX509SKI.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

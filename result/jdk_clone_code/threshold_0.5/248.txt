@@ -1,12 +1,13 @@
-public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
-  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
-  }
+public String getVersion(){
+  if (fCurrentEntity != null)   return fCurrentEntity.version;
+  return null;
 }
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
-  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+/** 
+ * Returns the encoding of the current entity. Note that, for a given entity, this value can only be considered final once the encoding declaration has been read (or once it has been determined that there is no such declaration) since, no encoding having been specified on the XMLInputSource, the parser will make an initial "guess" which could be in error.
+ */
+public final String getEncoding(){
+  if (fCurrentEntity != null) {
+    return fCurrentEntity.encoding;
   }
+  return null;
 }

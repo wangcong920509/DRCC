@@ -76,3 +76,5 @@ public void start_value(){
   end_flag--;
   chunkedValueNestingLevel--;
 }
+-->
+342.0 / 3166 = 0.1080227416298168

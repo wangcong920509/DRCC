@@ -1,20 +1,32 @@
-private RoundRectangle2D decodeRoundRect2(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.2857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.7142859f) - decodeY(0.2857143f),9.0f,9.0f);
-  return roundRect;
+/** 
+ * Returns the alignment along the x axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
+ * @param parent the {@code Container} hosting this {@code LayoutManager}
+ * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
+ * @return the alignment; this implementation returns {@code .5}
+ */
+public float getLayoutAlignmentX(Container parent){
+  checkParent(parent);
+  return .5f;
 }
 
-private RoundRectangle2D decodeRoundRect3(){
-  roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
-  return roundRect;
+/** 
+ * Returns the alignment along the y axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
+ * @param parent the {@code Container} hosting this {@code LayoutManager}
+ * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
+ * @return alignment; this implementation returns {@code .5}
+ */
+public float getLayoutAlignmentY(Container parent){
+  checkParent(parent);
+  return .5f;
 }
 
 -->
-void decodeRoundRect2_decodeRoundRect3(int combFlag){
+void getLayoutAlignmentX_getLayoutAlignmentY(Container parent,Container parent,int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.2857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.7142859f) - decodeY(0.2857143f),9.0f,9.0f);
+    checkParent(parent);
   }
  else {
-    roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
+    checkParent(parent);
   }
-  return roundRect;
+  return .5f;
 }

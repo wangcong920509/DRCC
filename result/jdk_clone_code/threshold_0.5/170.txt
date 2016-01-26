@@ -1,14 +1,34 @@
 /** 
- * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
+ * Returns the end index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
  */
-public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public final int getParenEnd(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return end0;
+case 1:
+    return end1;
+case 2:
+  return end2;
+default :
+if (endn == null) {
+  allocParens();
+}
+return endn[which];
+}
+}
+return -1;
 }
 /** 
- * Translates an object of this type to its boxed representation.
+ * Returns the length of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return Number of characters in the parenthesized subexpression
  */
-public void translateBox(ClassGenerator classGen,MethodGenerator methodGen){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
-  classGen.getParser().reportError(Constants.FATAL,err);
+public final int getParenLength(int which){
+  if (which < parenCount) {
+    return getParenEnd(which) - getParenStart(which);
+  }
+  return -1;
 }

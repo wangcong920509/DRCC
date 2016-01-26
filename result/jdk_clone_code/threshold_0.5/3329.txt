@@ -1,20 +1,31 @@
 /** 
- * Creates a composite name whose components consist of a prefix of the components in this composite name. Subsequent changes to this composite name does not affect the name that is returned.
- * @param posn    The 0-based index of the component at which to stop.Must be in the range [0,size()].
- * @return A composite name consisting of the components at indexes inthe range [0,posn).
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Resets the <code>Builder</code> to match the provided <code>locale</code>.  Existing state is discarded. <p>All fields of the locale must be well-formed, see  {@link Locale}. <p>Locales with any ill-formed fields cause <code>IllformedLocaleException</code> to be thrown, except for the following three cases which are accepted for compatibility reasons:<ul> <li>Locale("ja", "JP", "JP") is treated as "ja-JP-u-ca-japanese" <li>Locale("th", "TH", "TH") is treated as "th-TH-u-nu-thai" <li>Locale("no", "NO", "NY") is treated as "nn-NO"</ul>
+ * @param locale the locale
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>locale</code> hasany ill-formed fields.
+ * @throws NullPointerException if <code>locale</code> is null.
  */
-public Name getPrefix(int posn){
-  Enumeration comps=impl.getPrefix(posn);
-  return (new CompositeName(comps));
+public Builder setLocale(Locale locale){
+  try {
+    localeBuilder.setLocale(locale.baseLocale,locale.localeExtensions);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Creates a composite name whose components consist of a suffix of the components in this composite name. Subsequent changes to this composite name does not affect the name that is returned.
- * @param posn    The 0-based index of the component at which to start.Must be in the range [0,size()].
- * @return A composite name consisting of the components at indexes inthe range [posn,size()).  If posn is equal to size(), an empty composite name is returned.
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Sets the script. If <code>script</code> is null or the empty string, the script in this <code>Builder</code> is removed. Otherwise, the script must be <a href="./Locale.html#def_script">well-formed</a> or an exception is thrown. <p>The typical script value is a four-letter script code as defined by ISO 15924.
+ * @param script the script
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>script</code> is ill-formed
  */
-public Name getSuffix(int posn){
-  Enumeration comps=impl.getSuffix(posn);
-  return (new CompositeName(comps));
+public Builder setScript(String script){
+  try {
+    localeBuilder.setScript(script);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

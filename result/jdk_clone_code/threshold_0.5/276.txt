@@ -1,12 +1,12 @@
-public Object get(int index){
-  if (index >= 0 && index < fLength) {
-    return fArray[index];
+public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
+  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  throw new IndexOutOfBoundsException("Index: " + index);
 }
-public ListIterator listIterator(int index){
-  if (index >= 0 && index < fLength) {
-    return listIterator0(index);
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
+  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  throw new IndexOutOfBoundsException("Index: " + index);
 }

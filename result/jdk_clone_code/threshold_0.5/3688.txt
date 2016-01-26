@@ -1,8 +1,31 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the index of the tab for the specified component. Returns -1 if there is no tab for this component.
+ * @param component the component for the tab
+ * @return the first tab which matches this component, or -1if there is no tab for this component
+ */
+public int indexOfComponent(Component component){
+  for (int i=0; i < getTabCount(); i++) {
+    Component c=getComponentAt(i);
+    if ((c != null && c.equals(component)) || (c == null && c == component)) {
+      return i;
+    }
+  }
+  return -1;
 }
-private Rectangle2D decodeRect15(){
-  rect.setRect(decodeX(0.36153847f),decodeY(2.3576922f),decodeX(0.63461536f) - decodeX(0.36153847f),decodeY(2.6807692f) - decodeY(2.3576922f));
-  return rect;
+/** 
+ * Returns the index of the tab for the specified tab component. Returns -1 if there is no tab for this tab component.
+ * @param tabComponent the tab component for the tab
+ * @return the first tab which matches this tab component, or -1if there is no tab for this tab component
+ * @see #setTabComponentAt
+ * @see #getTabComponentAt
+ * @since 1.6
+ */
+public int indexOfTabComponent(Component tabComponent){
+  for (int i=0; i < getTabCount(); i++) {
+    Component c=getTabComponentAt(i);
+    if (c == tabComponent) {
+      return i;
+    }
+  }
+  return -1;
 }

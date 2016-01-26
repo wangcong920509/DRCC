@@ -1,28 +1,28 @@
-public String getEncoding(){
-  if (fLocator2 != null) {
-    return fLocator2.getEncoding();
+public int getLineNumber(){
+  if (fLocator != null) {
+    return fLocator.getLineNumber();
   }
-  return null;
+  return -1;
 }
 
-public String getXMLVersion(){
-  if (fLocator2 != null) {
-    return fLocator2.getXMLVersion();
+public int getColumnNumber(){
+  if (fLocator != null) {
+    return fLocator.getColumnNumber();
   }
-  return null;
+  return -1;
 }
 
 -->
-void getEncoding_getXMLVersion(int combFlag){
+void getLineNumber_getColumnNumber(int combFlag){
   if (combFlag == 1) {
-    if (fLocator2 != null) {
-      return fLocator2.getEncoding();
+    if (fLocator != null) {
+      return fLocator.getLineNumber();
     }
   }
  else {
-    if (fLocator2 != null) {
-      return fLocator2.getXMLVersion();
+    if (fLocator != null) {
+      return fLocator.getColumnNumber();
     }
   }
-  return null;
+  return -1;
 }

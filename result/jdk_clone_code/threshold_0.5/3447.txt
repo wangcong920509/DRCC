@@ -1,32 +1,36 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.sql.Time</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Sets list of roles successfully accessed.
+ * @param list  list of roles successfully accessed
+ * @see #getRoles
  */
-public java.sql.Time readTime() throws SQLException {
-  java.sql.Time attrib=(java.sql.Time)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public void setRoles(RoleList list){
+  if (list != null) {
+    roleList=new RoleList();
+    for (Iterator<?> roleIter=list.iterator(); roleIter.hasNext(); ) {
+      Role currRole=(Role)(roleIter.next());
+      roleList.add((Role)(currRole.clone()));
+    }
   }
  else {
-    lastValueWasNull=false;
-    return attrib;
+    roleList=null;
   }
+  return;
 }
 /** 
- * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Sets list of roles unsuccessfully accessed.
+ * @param unresolvedList  list of roles unsuccessfully accessed
+ * @see #getRolesUnresolved
  */
-public Array readArray() throws SQLException {
-  Array attrib=(Array)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public void setRolesUnresolved(RoleUnresolvedList unresolvedList){
+  if (unresolvedList != null) {
+    unresolvedRoleList=new RoleUnresolvedList();
+    for (Iterator<?> roleUnresIter=unresolvedList.iterator(); roleUnresIter.hasNext(); ) {
+      RoleUnresolved currRoleUnres=(RoleUnresolved)(roleUnresIter.next());
+      unresolvedRoleList.add((RoleUnresolved)(currRoleUnres.clone()));
+    }
   }
  else {
-    lastValueWasNull=false;
-    return attrib;
+    unresolvedRoleList=null;
   }
+  return;
 }

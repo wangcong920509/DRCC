@@ -1,16 +1,15 @@
 /** 
- * Constructor KeyInfo
- * @param doc
+ * @see org.w3c.dom.Node
  */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+@Override public final Node getFirstChild(){
+  int newnode=dtm.getFirstChild(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 /** 
- * Method addPGPData
- * @param pgpdata
+ * @see org.w3c.dom.Node
  */
-public void add(PGPData pgpdata){
-  this._constructionElement.appendChild(pgpdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+@Override public final Node getNextSibling(){
+  if (dtm.getNodeType(node) == Node.ATTRIBUTE_NODE)   return null;
+  int newnode=dtm.getNextSibling(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

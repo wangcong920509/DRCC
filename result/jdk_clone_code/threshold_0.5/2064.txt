@@ -1,15 +1,32 @@
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- * @since      1.5
+ * Appends the string representation of the  {@code boolean}argument to the sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(boolean)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
+ * @param b   a {@code boolean}.
+ * @return  a reference to this object.
  */
-public synchronized StringBuffer append(CharSequence s,int start,int end){
-  super.append(s,start,end);
+public AbstractStringBuilder append(boolean b){
+  if (b) {
+    ensureCapacityInternal(count + 4);
+    value[count++]='t';
+    value[count++]='r';
+    value[count++]='u';
+    value[count++]='e';
+  }
+ else {
+    ensureCapacityInternal(count + 5);
+    value[count++]='f';
+    value[count++]='a';
+    value[count++]='l';
+    value[count++]='s';
+    value[count++]='e';
+  }
   return this;
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * Appends the string representation of the  {@code float}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(float)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
+ * @param f   a {@code float}.
+ * @return  a reference to this object.
  */
-public synchronized StringBuffer insert(int offset,char[] str){
-  super.insert(offset,str);
+public AbstractStringBuilder append(float f){
+  new FloatingDecimal(f).appendTo(this);
   return this;
 }

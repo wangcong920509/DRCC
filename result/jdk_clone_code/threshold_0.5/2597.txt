@@ -1,26 +1,22 @@
-public ByteBuffer put(byte[] src,int offset,int length){
-  if ((length << 0) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,src.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferOverflowException();
-    Bits.copyFromArray(src,arrayBaseOffset,offset << 0,ix(pos),length << 0);
-    position(pos + length);
-  }
- else {
-    super.put(src,offset,length);
-  }
-  return this;
+/** 
+ * Returns a  {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the left.  If{@code n} is non-negative, the call merely adds {@code n} tothe scale.  If  {@code n} is negative, the call is equivalentto  {@code movePointRight(-n)}.  The  {@code BigDecimal}returned by this call has value <tt>(this &times; 10<sup>-n</sup>)</tt> and scale  {@code max(this.scale()+n,0)}.
+ * @param n number of places to move the decimal point to the left.
+ * @return a {@code BigDecimal} which is equivalent to this one with thedecimal point moved  {@code n} places to the left.
+ * @throws ArithmeticException if scale overflows.
+ */
+public BigDecimal movePointLeft(int n){
+  int newScale=checkScale((long)scale + n);
+  BigDecimal num=new BigDecimal(intVal,intCompact,newScale,0);
+  return num.scale < 0 ? num.setScale(0,ROUND_UNNECESSARY) : num;
 }
-private ByteBuffer putInt(long a,int x){
-  if (unaligned) {
-    int y=(x);
-    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
-  }
- else {
-    Bits.putInt(a,x,bigEndian);
-  }
-  return this;
+/** 
+ * Returns a  {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the right.If  {@code n} is non-negative, the call merely subtracts{@code n} from the scale.  If {@code n} is negative, the callis equivalent to  {@code movePointLeft(-n)}.  The {@code BigDecimal} returned by this call has value <tt>(this&times; 10<sup>n</sup>)</tt> and scale  {@code max(this.scale()-n,0)}.
+ * @param n number of places to move the decimal point to the right.
+ * @return a {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the right.
+ * @throws ArithmeticException if scale overflows.
+ */
+public BigDecimal movePointRight(int n){
+  int newScale=checkScale((long)scale - n);
+  BigDecimal num=new BigDecimal(intVal,intCompact,newScale,0);
+  return num.scale < 0 ? num.setScale(0,ROUND_UNNECESSARY) : num;
 }

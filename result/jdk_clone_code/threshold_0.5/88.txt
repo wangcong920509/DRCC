@@ -1,18 +1,14 @@
 /** 
- * Put an integer expressed as a long with the specified tag.
- * @param v The long to encode
- * @param tag The tag to encode.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void putInteger(long v,int tag){
-  putIntegerValue(v);
-  putTag(tag);
+public void removeNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }
 /** 
- * Put an octet string with a specified tag.
- * @param s The bytes to encode
- * @param tag The tag to encode.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void putOctetString(byte[] s,int tag){
-  putStringValue(s);
-  putTag(tag);
+public void removeNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }

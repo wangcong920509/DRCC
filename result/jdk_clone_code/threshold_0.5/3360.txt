@@ -1,24 +1,23 @@
 /** 
- * Maps a SystemException to a RemoteException.
- * @param ex the SystemException to map.
- * @return the mapped exception.
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
  */
-public static RemoteException mapSystemException(SystemException ex){
-  if (utilDelegate != null) {
-    return utilDelegate.mapSystemException(ex);
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
- * @param obj the object to copy.
- * @param orb the ORB.
- * @return the copy or connected object.
- * @exception RemoteException if the object could not be copied or connected.
+ * Resets the builder to its initial, empty state.
+ * @return This builder.
  */
-public static Object copyObject(Object obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObject(obj,orb);
-  }
-  return null;
+public Builder clear(){
+  localeBuilder.clear();
+  return this;
 }

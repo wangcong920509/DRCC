@@ -1,20 +1,38 @@
-private RoundRectangle2D decodeRoundRect2(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.2857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.7142859f) - decodeY(0.2857143f),9.0f,9.0f);
-  return roundRect;
+/** 
+ * Returns  {@code false} to indicate that the height of the viewport does notdetermine the height of the layer, unless the preferred height of the layer is smaller than the height of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
+ * @return whether the layer should track the height of the viewport
+ * @see Scrollable
+ */
+public boolean getScrollableTracksViewportHeight(){
+  if (getView() instanceof Scrollable) {
+    return ((Scrollable)getView()).getScrollableTracksViewportHeight();
+  }
+  return false;
 }
 
-private RoundRectangle2D decodeRoundRect5(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.42857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.857143f) - decodeY(0.42857143f),9.0f,9.0f);
-  return roundRect;
+/** 
+ * Returns  {@code false} to indicate that the width of the viewport does notdetermine the width of the layer, unless the preferred width of the layer is smaller than the width of the viewport. <p/> If the view component of this layer implements  {@link Scrollable}, this method delegates its implementation to the view component.
+ * @return whether the layer should track the width of the viewport
+ * @see Scrollable
+ */
+public boolean getScrollableTracksViewportWidth(){
+  if (getView() instanceof Scrollable) {
+    return ((Scrollable)getView()).getScrollableTracksViewportWidth();
+  }
+  return false;
 }
 
 -->
-void decodeRoundRect2_decodeRoundRect5(int combFlag){
+void getScrollableTracksViewportHeight_getScrollableTracksViewportWidth(int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.2857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.7142859f) - decodeY(0.2857143f),9.0f,9.0f);
+    if (getView() instanceof Scrollable) {
+      return ((Scrollable)getView()).getScrollableTracksViewportHeight();
+    }
   }
  else {
-    roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.42857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.857143f) - decodeY(0.42857143f),9.0f,9.0f);
+    if (getView() instanceof Scrollable) {
+      return ((Scrollable)getView()).getScrollableTracksViewportWidth();
+    }
   }
-  return roundRect;
+  return false;
 }

@@ -1,32 +1,25 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> as a <code>java.sql.Date</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Constructs a ModelMBeanConstructorInfo object with a default descriptor.  The  {@link Descriptor} of the constructedobject will include fields contributed by any annotations on the  {@code Constructor} object that contain the {@link DescriptorKey} meta-annotation.
+ * @param description A human readable description of the constructor.
+ * @param constructorMethod The java.lang.reflect.Constructor objectdescribing the MBean constructor.
  */
-public java.sql.Date readDate() throws SQLException {
-  java.sql.Date attrib=(java.sql.Date)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public ModelMBeanConstructorInfo(String description,Constructor<?> constructorMethod){
+  super(description,constructorMethod);
+  if (MODELMBEAN_LOGGER.isLoggable(Level.FINER)) {
+    MODELMBEAN_LOGGER.logp(Level.FINER,ModelMBeanConstructorInfo.class.getName(),"ModelMBeanConstructorInfo(String,Constructor)","Entry");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  consDescriptor=validDescriptor(null);
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.sql.Timestamp</code> object.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructs a ModelMBeanConstructorInfo object with a default descriptor.
+ * @param name The name of the constructor.
+ * @param description A human readable description of the constructor.
+ * @param signature MBeanParameterInfo object array describing the parameters(arguments) of the constructor.
  */
-public java.sql.Timestamp readTimestamp() throws SQLException {
-  java.sql.Timestamp attrib=(java.sql.Timestamp)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public ModelMBeanConstructorInfo(String name,String description,MBeanParameterInfo[] signature){
+  super(name,description,signature);
+  if (MODELMBEAN_LOGGER.isLoggable(Level.FINER)) {
+    MODELMBEAN_LOGGER.logp(Level.FINER,ModelMBeanConstructorInfo.class.getName(),"ModelMBeanConstructorInfo(" + "String,String,MBeanParameterInfo[])","Entry");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  consDescriptor=validDescriptor(null);
 }

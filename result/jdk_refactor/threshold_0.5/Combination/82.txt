@@ -1,6 +1,6 @@
-public int getColumnNumber(){
+public int getLineNumber(){
   if (fLocation != null) {
-    return fLocation.getColumnNumber();
+    return fLocation.getLineNumber();
   }
   return -1;
 }
@@ -13,10 +13,10 @@ public int getCharacterOffset(){
 }
 
 -->
-void getColumnNumber_getCharacterOffset(int combFlag){
+void getLineNumber_getCharacterOffset(int combFlag){
   if (combFlag == 1) {
     if (fLocation != null) {
-      return fLocation.getColumnNumber();
+      return fLocation.getLineNumber();
     }
   }
  else {

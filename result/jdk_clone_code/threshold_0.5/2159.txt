@@ -1,14 +1,16 @@
 /** 
- * @since 1.5
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @since      1.5
  */
-public synchronized StringBuffer appendCodePoint(int codePoint){
-  super.appendCodePoint(codePoint);
+public synchronized StringBuffer append(CharSequence s,int start,int end){
+  super.append(s,start,end);
   return this;
 }
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
  */
-public synchronized StringBuffer insert(int offset,char c){
-  super.insert(offset,c);
+public synchronized StringBuffer delete(int start,int end){
+  super.delete(start,end);
   return this;
 }

@@ -87,3 +87,5 @@ private void paintBackgroundPressedAndWindowMaximized(Graphics2D g){
   g.setPaint(color21);
   g.fill(path);
 }
+-->
+428.0 / 9322 = 0.045912894228706286

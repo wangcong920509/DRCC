@@ -1,26 +1,64 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
  */
-public String getDoctypePublic(){
-  aMethodIsCalled();
+public static Element selectDsNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
   return null;
 }
 
 /** 
- * @see XSLOutputAttributes#getMediaType()
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
  */
-public String getMediaType(){
-  aMethodIsCalled();
+public static Element selectXencNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
   return null;
 }
 
 -->
-void getDoctypePublic_getMediaType(int combFlag){
+void selectDsNode_selectXencNode(Node sibling,String nodeName,int number,Node sibling,String nodeName,int number,int combFlag){
   if (combFlag == 1) {
-    aMethodIsCalled();
+    while (sibling != null) {
+      if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+        if (number == 0) {
+          return (Element)sibling;
+        }
+        number--;
+      }
+      sibling=sibling.getNextSibling();
+    }
   }
  else {
-    aMethodIsCalled();
+    while (sibling != null) {
+      if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+        if (number == 0) {
+          return (Element)sibling;
+        }
+        number--;
+      }
+      sibling=sibling.getNextSibling();
+    }
   }
   return null;
 }

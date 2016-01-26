@@ -30,3 +30,5 @@ public void setText(CharacterIterator source){
     text.setText(source);
   }
 }
+-->
+47.0 / 230 = 0.20434782608695654

@@ -1,14 +1,14 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * @see SerializationHandler#asContentHandler()
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getMediaType()
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public String getMediaType(){
+public NamespaceMappings getNamespaceMappings(){
   aMethodIsCalled();
   return null;
 }

@@ -1,8 +1,21 @@
-public void setImportingStylesheet(Stylesheet parent){
-  _importedFrom=parent;
-  parent.addIncludedStylesheet(this);
+/** 
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
+ */
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
 }
-public void setIncludingStylesheet(Stylesheet parent){
-  _includedFrom=parent;
-  parent.addIncludedStylesheet(this);
+/** 
+ * Look for ConstantInterfaceMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
+ */
+public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

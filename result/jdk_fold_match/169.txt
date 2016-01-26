@@ -35,3 +35,5 @@ public TrustAnchor(String caName,PublicKey pubKey,byte[] nameConstraints){
   this.trustedCert=null;
   setNameConstraints(nameConstraints);
 }
+-->
+111.0 / 530 = 0.20943396226415095

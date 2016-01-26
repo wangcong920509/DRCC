@@ -1,12 +1,12 @@
-public int getColumnNumber(){
-  if (fLocation != null) {
-    return fLocation.getColumnNumber();
+public Object get(int index){
+  if (index >= 0 && index < fGrammarCount) {
+    return fGrammarList[index];
   }
-  return -1;
+  throw new IndexOutOfBoundsException("Index: " + index);
 }
-public int getCharacterOffset(){
-  if (fLocation != null) {
-    return fLocation.getCharacterOffset();
+public ListIterator listIterator(int index){
+  if (index >= 0 && index < fGrammarCount) {
+    return listIterator0(index);
   }
-  return -1;
+  throw new IndexOutOfBoundsException("Index: " + index);
 }

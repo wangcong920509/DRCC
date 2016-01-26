@@ -119,3 +119,5 @@ public Node replaceChild(Node newChild,Node oldChild) throws DOMException {
   ownerDocument.replacedNode(this);
   return oldChild;
 }
+-->
+293.0 / 6094 = 0.048080078765999346

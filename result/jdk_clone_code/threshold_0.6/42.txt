@@ -1,16 +1,8 @@
-/** 
- * Constructor X509Data
- * @param doc
- */
-public X509Data(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public ServerAlreadyRegistered(int _serverId){
+  super(ServerAlreadyRegisteredHelper.id());
+  serverId=_serverId;
 }
-/** 
- * Method add
- * @param xmlX509SKI
- */
-public void add(XMLX509SKI xmlX509SKI){
-  this._constructionElement.appendChild(xmlX509SKI.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public ServerAlreadyRegistered(String $reason,int _serverId){
+  super(ServerAlreadyRegisteredHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

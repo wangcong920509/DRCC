@@ -193,3 +193,5 @@ private final void scanEntityDecl() throws IOException, XNIException {
   }
   fReportEntity=true;
 }
+-->
+752.0 / 8307 = 0.09052606235704827

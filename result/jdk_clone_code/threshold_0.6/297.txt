@@ -1,18 +1,14 @@
 /** 
- * Adds a binding for <code>keyStroke</code> to <code>actionMapKey</code>. If <code>actionMapKey</code> is null, this removes the current binding for <code>keyStroke</code>.
+ * @see SerializationHandler#setEscaping(boolean)
  */
-public void put(KeyStroke keyStroke,Object actionMapKey){
-  super.put(keyStroke,actionMapKey);
-  if (getComponent() != null) {
-    getComponent().componentInputMapChanged(this);
-  }
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }
 /** 
- * Removes the binding for <code>key</code> from this object.
+ * @see XSLOutputAttributes#getIndent()
  */
-public void remove(KeyStroke key){
-  super.remove(key);
-  if (getComponent() != null) {
-    getComponent().componentInputMapChanged(this);
-  }
+public boolean getIndent(){
+  aMethodIsCalled();
+  return false;
 }

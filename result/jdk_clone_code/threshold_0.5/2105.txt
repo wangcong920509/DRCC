@@ -1,11 +1,11 @@
-public synchronized StringBuffer append(boolean b){
-  super.append(b);
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
   return this;
 }
 /** 
- * @since 1.5
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public synchronized StringBuffer appendCodePoint(int codePoint){
-  super.appendCodePoint(codePoint);
+public synchronized StringBuffer insert(int offset,char[] str){
+  super.insert(offset,str);
   return this;
 }

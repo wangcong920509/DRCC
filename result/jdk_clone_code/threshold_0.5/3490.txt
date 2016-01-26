@@ -1,8 +1,21 @@
-public ColorChooserDialog(Dialog owner,String title,boolean modal,Component c,JColorChooser chooserPane,ActionListener okListener,ActionListener cancelListener) throws HeadlessException {
-  super(owner,title,modal);
-  initColorChooserDialog(c,chooserPane,okListener,cancelListener);
+/** 
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
+ */
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
 }
-public ColorChooserDialog(Frame owner,String title,boolean modal,Component c,JColorChooser chooserPane,ActionListener okListener,ActionListener cancelListener) throws HeadlessException {
-  super(owner,title,modal);
-  initColorChooserDialog(c,chooserPane,okListener,cancelListener);
+/** 
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
+ */
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
+  }
+  return null;
 }

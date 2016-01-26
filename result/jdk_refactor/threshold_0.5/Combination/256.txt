@@ -1,44 +1,26 @@
 /** 
- * Returns <code>true</code> if the writer supports the insertion of a new, empty image at the given index.  The pixel values of the image are undefined, and may be specified in pieces using the <code>replacePixels</code> methods.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support insertion of empty images may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
- * @param imageIndex the index at which the image is to beinserted.
- * @return <code>true</code> if an empty image may be inserted atthe given index.
- * @exception IllegalStateException if the output has not beenset.
- * @exception IndexOutOfBoundsException if the writer supportsempty image insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
- * @exception IOException if an I/O error occurs during thequery.
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
  */
-public boolean canInsertEmpty(int imageIndex) throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
 }
 
 /** 
- * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
- * @param imageIndex the index of the image whose pixels are to bereplaced.
- * @return <code>true</code> if the pixels of the givenimage can be replaced.
- * @exception IllegalStateException if the output has not beenset.
- * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
- * @exception IOException if an I/O error occurs during the query.
+ * Advance the cursor by one, and peek the next character, ignoring the COMMENTS setting
  */
-public boolean canReplacePixels(int imageIndex) throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+private int nextEscaped(){
+  int ch=temp[++cursor];
+  return ch;
 }
 
 -->
-void canInsertEmpty_canReplacePixels(int imageIndex,int imageIndex,int combFlag){
+void readEscaped_nextEscaped(int combFlag){
   if (combFlag == 1) {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
-    }
+    int ch=temp[cursor++];
   }
  else {
-    if (getOutput() == null) {
-      throw new IllegalStateException("getOutput() == null!");
-    }
+    int ch=temp[++cursor];
   }
-  return false;
+  return ch;
 }

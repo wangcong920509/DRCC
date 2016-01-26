@@ -1,19 +1,31 @@
 /** 
- * @param reader
- * @param props
- * @throws XMLStreamException
+ * Computes index of given char within StringBuffer
+ * @param start
+ * @param end
+ * @param ch character to look for in StringBuffer
+ * @return index of ch within StringBuffer
  */
-public XMLStreamReaderImpl(Reader reader,PropertyManager props) throws XMLStreamException {
-  init(props);
-  XMLInputSource inputSource=new XMLInputSource(null,null,null,new BufferedReader(reader),null);
-  setInputSource(inputSource);
+protected int indexOf(String buffer,int start,int end,char ch){
+  for (int i=start; i < end; i++) {
+    if (buffer.charAt(i) == ch) {
+      return i;
+    }
+  }
+  return -1;
 }
 /** 
- * @param inputSource
- * @param props
- * @throws XMLStreamException
+ * Return index of UTC char: 'Z', '+', '-'
+ * @param start
+ * @param end
+ * @return index of the UTC character that was found
  */
-public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
-  init(props);
-  setInputSource(inputSource);
+protected int findUTCSign(String buffer,int start,int end){
+  int c;
+  for (int i=start; i < end; i++) {
+    c=buffer.charAt(i);
+    if (c == 'Z' || c == '+' || c == '-') {
+      return i;
+    }
+  }
+  return -1;
 }

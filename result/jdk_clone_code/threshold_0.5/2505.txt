@@ -1,8 +1,11 @@
-public LongBuffer put(long x){
-  Bits.putLongB(bb,ix(nextPutIndex()),x);
+public StringBuilder append(double d){
+  super.append(d);
   return this;
 }
-public LongBuffer put(int i,long x){
-  Bits.putLongB(bb,ix(checkIndex(i)),x);
+/** 
+ * @since 1.5
+ */
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }

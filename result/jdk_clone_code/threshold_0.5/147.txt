@@ -1,46 +1,19 @@
 /** 
- * Returns the start index of a given paren level.
- * @param which Nesting level of subexpression
- * @return String index
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public final int getParenStart(int which){
-  if (which < parenCount) {
-switch (which) {
-case 0:
-      return start0;
-case 1:
-    return start1;
-case 2:
-  return start2;
-default :
-if (startn == null) {
-  allocParens();
-}
-return startn[which];
-}
-}
-return -1;
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Returns the end index of a given paren level.
- * @param which Nesting level of subexpression
- * @return String index
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
  */
-public final int getParenEnd(int which){
-  if (which < parenCount) {
-switch (which) {
-case 0:
-      return end0;
-case 1:
-    return end1;
-case 2:
-  return end2;
-default :
-if (endn == null) {
-  allocParens();
-}
-return endn[which];
-}
-}
-return -1;
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
 }

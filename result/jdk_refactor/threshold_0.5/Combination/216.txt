@@ -1,38 +1,28 @@
-public E peekLast(){
-  for (Node<E> p=last(); p != null; p=pred(p)) {
-    E item=p.item;
-    if (item != null)     return item;
+public synchronized int waitFor() throws InterruptedException {
+  while (!hasExited) {
+    wait();
   }
-  return null;
+  return exitcode;
 }
 
-public E pollFirst(){
-  for (Node<E> p=first(); p != null; p=succ(p)) {
-    E item=p.item;
-    if (item != null && p.casItem(item,null)) {
-      unlink(p);
-      return item;
-    }
+public synchronized int exitValue(){
+  if (!hasExited) {
+    throw new IllegalThreadStateException("process hasn't exited");
   }
-  return null;
+  return exitcode;
 }
 
 -->
-void peekLast_pollFirst(int combFlag){
+void waitFor_exitValue(int combFlag){
   if (combFlag == 1) {
-    for (Node<E> p=last(); p != null; p=pred(p)) {
-      E item=p.item;
-      if (item != null)       return item;
+    while (!hasExited) {
+      wait();
     }
   }
  else {
-    for (Node<E> p=first(); p != null; p=succ(p)) {
-      E item=p.item;
-      if (item != null && p.casItem(item,null)) {
-        unlink(p);
-        return item;
-      }
+    if (!hasExited) {
+      throw new IllegalThreadStateException("process hasn't exited");
     }
   }
-  return null;
+  return exitcode;
 }

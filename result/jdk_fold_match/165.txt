@@ -66,3 +66,5 @@ private boolean isSealed(String name,Manifest man){
   }
   return "true".equalsIgnoreCase(sealed);
 }
+-->
+80.0 / 1461 = 0.05475701574264202

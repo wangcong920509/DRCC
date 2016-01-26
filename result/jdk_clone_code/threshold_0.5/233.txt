@@ -1,35 +1,26 @@
-/** 
- * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
- */
-public String getPrefix(){
-  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    String prefix=fScanner.getElementQName().prefix;
-    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+private boolean specialCardinalityCheck(){
+  if ((fBase.fValidationDV == XSSimpleTypeDecl.DV_DATE) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEARMONTH) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEAR)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTHDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTH)) {
+    return true;
   }
-  return null;
+  return false;
 }
-protected List getEntityDecls(){
-  if (fEventType == XMLStreamConstants.DTD) {
-    XMLEntityStorage entityStore=fEntityManager.getEntityStore();
-    ArrayList list=null;
-    if (entityStore.hasEntities()) {
-      EntityDeclarationImpl decl=null;
-      list=new ArrayList(entityStore.getEntitySize());
-      Enumeration enu=entityStore.getEntityKeys();
-      while (enu.hasMoreElements()) {
-        String key=(String)enu.nextElement();
-        Entity en=(Entity)entityStore.getEntity(key);
-        decl=new EntityDeclarationImpl();
-        decl.setEntityName(key);
-        if (en.isExternal()) {
-          decl.setXMLResourceIdentifier(((Entity.ExternalEntity)en).entityLocation);
-          decl.setNotationName(((Entity.ExternalEntity)en).notation);
+/** 
+ * Checks if a type is derived from another by union.  See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
+ * @param ancestorNS The namspace of the ancestor type declaration
+ * @param ancestorName The name of the ancestor type declaration
+ * @param type The reference type definition
+ * @return boolean True if the type is derived by union for the reference type
+ */
+private boolean isDerivedByUnion(String ancestorNS,String ancestorName,XSTypeDefinition type){
+  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_UNION) {
+    XSObjectList memberTypes=((XSSimpleTypeDefinition)type).getMemberTypes();
+    for (int i=0; i < memberTypes.getLength(); i++) {
+      if (memberTypes.item(i) != null) {
+        if (isDerivedByRestriction(ancestorNS,ancestorName,(XSSimpleTypeDefinition)memberTypes.item(i))) {
+          return true;
         }
- else         decl.setEntityReplacementText(((Entity.InternalEntity)en).text);
-        list.add(decl);
       }
     }
-    return list;
   }
-  return null;
+  return false;
 }

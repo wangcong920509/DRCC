@@ -1,16 +1,8 @@
-/** 
- * Constructor X509Data
- * @param doc
- */
-public X509Data(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public ServerHeldDown(int _serverId){
+  super(ServerHeldDownHelper.id());
+  serverId=_serverId;
 }
-/** 
- * Method add
- * @param xmlX509Certificate
- */
-public void add(XMLX509Certificate xmlX509Certificate){
-  this._constructionElement.appendChild(xmlX509Certificate.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public ServerHeldDown(String $reason,int _serverId){
+  super(ServerHeldDownHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

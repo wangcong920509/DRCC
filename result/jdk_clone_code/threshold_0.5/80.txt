@@ -1,14 +1,15 @@
-/** 
- * Call <code>checkRead()</code>, then forward this method to the wrapped object.
- */
-public void removeNotificationListener(ObjectName name,NotificationListener listener) throws InstanceNotFoundException, ListenerNotFoundException {
-  checkRead();
-  getMBeanServer().removeNotificationListener(name,listener);
+public IIOMetadata convertStreamMetadata(IIOMetadata inData,ImageWriteParam param){
+  if (inData instanceof JPEGMetadata) {
+    JPEGMetadata jpegData=(JPEGMetadata)inData;
+    if (jpegData.isStream) {
+      return inData;
+    }
+  }
+  return null;
 }
-/** 
- * Call <code>checkRead()</code>, then forward this method to the wrapped object.
- */
-public void removeNotificationListener(ObjectName name,ObjectName listener) throws InstanceNotFoundException, ListenerNotFoundException {
-  checkRead();
-  getMBeanServer().removeNotificationListener(name,listener);
+public Dimension[] getPreferredThumbnailSizes(ImageTypeSpecifier imageType,ImageWriteParam param,IIOMetadata streamMetadata,IIOMetadata imageMetadata){
+  if (jfifOK(imageType,param,streamMetadata,imageMetadata)) {
+    return (Dimension[])preferredThumbSizes.clone();
+  }
+  return null;
 }

@@ -1,14 +1,22 @@
 /** 
- * @see SerializationHandler#getOutputStream()
+ * @inheritDoc 
  */
-public OutputStream getOutputStream(){
-  aMethodIsCalled();
-  return null;
+public void error(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.SEVERE,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @inheritDoc 
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+public void fatalError(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.WARNING,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }

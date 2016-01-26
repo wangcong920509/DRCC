@@ -1,19 +1,19 @@
 /** 
- * Look for ConstantClass in ConstantPool named `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupClass(String str){
-  Index index=(Index)class_table.get(str.replace('.','/'));
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantNameAndType in ConstantPool.
- * @param name of variable/method
- * @param signature of variable/method
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpOid</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified OID value. The status is updated to indicate that the value is valid.
+ * @param val The new OID value.
+ * @exception IllegalArgumentException The specified value is neither a numeric <CODE>String</CODE>nor a <CODE>String</CODE> of the MIB database.
+ * @see SnmpOid
  */
-public int lookupNameAndType(String name,String signature){
-  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
-  return (index != null) ? index.index : -1;
+final public void setSnmpOidValue(String val) throws IllegalArgumentException {
+  clearValue();
+  this.value=new SnmpOid(val);
+  setValueValid();
 }

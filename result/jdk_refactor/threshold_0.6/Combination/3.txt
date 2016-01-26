@@ -1,26 +1,26 @@
 /** 
- * @see org.w3c.dom.Node
+ * See the description of the <a href="#anyOps">general Any operations.</a>
  */
-public final Node getOwnerNode(){
-  int newnode=dtm.getParent(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public String extract_string(){
+  checkExtractBadOperation(TCKind._tk_string);
+  return (String)object;
 }
 
 /** 
- * @see org.w3c.dom.Node
+ * See the description of the <a href="#anyOps">general Any operations.</a>
  */
-@Override public final Node getFirstChild(){
-  int newnode=dtm.getFirstChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public String extract_wstring(){
+  checkExtractBadOperation(TCKind._tk_wstring);
+  return (String)object;
 }
 
 -->
-void getOwnerNode_getFirstChild(int combFlag){
+void extract_string_extract_wstring(int combFlag){
   if (combFlag == 1) {
-    int newnode=dtm.getParent(node);
+    checkExtractBadOperation(TCKind._tk_string);
   }
  else {
-    int newnode=dtm.getFirstChild(node);
+    checkExtractBadOperation(TCKind._tk_wstring);
   }
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+  return (String)object;
 }

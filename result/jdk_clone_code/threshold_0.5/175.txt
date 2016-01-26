@@ -1,16 +1,14 @@
-public DTMAxisIterator forceNaturalOrder(){
-  _docOrder=true;
-  return this;
+/** 
+ * See above.
+ */
+public static String dayName(){
+  String format="EEEE";
+  return getNameOrAbbrev(format);
 }
-public DTMAxisIterator setStartNode(int node){
-  if (_isRestartable) {
-    _source.setStartNode(_startNode=node);
-    _nodes.clear();
-    while ((node=_source.next()) != END) {
-      _nodes.add(node);
-    }
-    _currentIndex=0;
-    resetPosition();
-  }
-  return this;
+/** 
+ * See above.
+ */
+public static String dayAbbreviation(){
+  String format="EEE";
+  return getNameOrAbbrev(format);
 }

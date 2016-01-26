@@ -1,8 +1,20 @@
-public FloatBuffer put(float x){
-  unsafe.putInt(ix(nextPutIndex()),Bits.swap(Float.floatToRawIntBits(x)));
+private ByteBuffer putInt(long a,int x){
+  if (unaligned) {
+    int y=(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putInt(a,x,bigEndian);
+  }
   return this;
 }
-public FloatBuffer put(int i,float x){
-  unsafe.putInt(ix(checkIndex(i)),Bits.swap(Float.floatToRawIntBits(x)));
+private ByteBuffer putFloat(long a,float x){
+  if (unaligned) {
+    int y=Float.floatToRawIntBits(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putFloat(a,x,bigEndian);
+  }
   return this;
 }

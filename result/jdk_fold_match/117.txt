@@ -39,3 +39,5 @@ public SignedInfo(Document doc,Element signatureMethodElem,Element canonicalizat
   this._constructionElement.appendChild(signatureMethod);
   XMLUtils.addReturnToElement(this._constructionElement);
 }
+-->
+144.0 / 643 = 0.223950233281493

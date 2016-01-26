@@ -1,8 +1,23 @@
-private static String message(String message,Object obj){
-  if (obj != null)   message=message + ": " + obj;
-  return message;
+/** 
+ * Returns the distance from this <code>Point2D</code> to a specified point.
+ * @param px the X coordinate of the specified point to be measuredagainst this <code>Point2D</code>
+ * @param py the Y coordinate of the specified point to be measuredagainst this <code>Point2D</code>
+ * @return the distance between this <code>Point2D</code>and a specified point.
+ * @since 1.2
+ */
+public double distance(double px,double py){
+  px-=getX();
+  py-=getY();
+  return Math.sqrt(px * px + py * py);
 }
-private static String message(String message,Object obj,Object obj2){
-  if (obj != null || obj2 != null)   message=message + ": " + obj+ ", "+ obj2;
-  return message;
+/** 
+ * Returns the distance from this <code>Point2D</code> to a specified <code>Point2D</code>.
+ * @param pt the specified point to be measuredagainst this <code>Point2D</code>
+ * @return the distance between this <code>Point2D</code> andthe specified <code>Point2D</code>.
+ * @since 1.2
+ */
+public double distance(Point2D pt){
+  double px=pt.getX() - this.getX();
+  double py=pt.getY() - this.getY();
+  return Math.sqrt(px * px + py * py);
 }

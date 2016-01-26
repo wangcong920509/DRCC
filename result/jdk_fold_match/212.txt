@@ -39,3 +39,5 @@ protected void paintLoweredBevel(Component c,Graphics g,int x,int y,int width,in
   g.translate(-x,-y);
   g.setColor(oldColor);
 }
+-->
+322.0 / 2812 = 0.11450924608819346

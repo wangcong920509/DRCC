@@ -18,3 +18,5 @@ private void painticonMouseOver(Graphics2D g){
   g.setPaint(decodeGradient6(ellipse));
   g.fill(ellipse);
 }
+-->
+83.0 / 358 = 0.23184357541899442

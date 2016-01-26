@@ -1,27 +1,30 @@
 /** 
- * Constructs a search result using the result's name, its class name, its bound object, and its attributes.
- * @param name The non-null name of the search item. It is relativeto the <em>target context</em> of the search (which is named by the first parameter of the <code>search()</code> method)
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj  The object bound to name. Can be null.
- * @param attrs The attributes that were requested to be returned withthis search item. Cannot be null.
- * @see javax.naming.NameClassPair#setClassName
- * @see javax.naming.NameClassPair#getClassName
+ * Sets the language.  If <code>language</code> is the empty string or null, the language in this <code>Builder</code> is removed.  Otherwise, the language must be <a href="./Locale.html#def_language">well-formed</a> or an exception is thrown. <p>The typical language value is a two or three-letter language code as defined in ISO639.
+ * @param language the language
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>language</code> is ill-formed
  */
-public SearchResult(String name,String className,Object obj,Attributes attrs){
-  super(name,className,obj);
-  this.attrs=attrs;
+public Builder setLanguage(String language){
+  try {
+    localeBuilder.setLanguage(language);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Constructs a search result using the result's name, its class name, its bound object, its attributes, and whether the name is relative.
- * @param name The non-null name of the search item.
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj  The object bound to name. Can be null.
- * @param attrs The attributes that were requested to be returned withthis search item. Cannot be null.
- * @param isRelative true if <code>name</code> is relativeto the target context of the search (which is named by the first parameter of the <code>search()</code> method); false if <code>name</code> is a URL string.
- * @see javax.naming.NameClassPair#setClassName
- * @see javax.naming.NameClassPair#getClassName
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
  */
-public SearchResult(String name,String className,Object obj,Attributes attrs,boolean isRelative){
-  super(name,className,obj,isRelative);
-  this.attrs=attrs;
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

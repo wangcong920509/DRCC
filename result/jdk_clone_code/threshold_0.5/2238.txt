@@ -1,14 +1,8 @@
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public synchronized StringBuffer insert(int offset,char c){
-  super.insert(offset,c);
+public synchronized StringBuffer append(int i){
+  super.append(i);
   return this;
 }
-/** 
- * @since   JDK1.0.2
- */
-public synchronized StringBuffer reverse(){
-  super.reverse();
+public synchronized StringBuffer append(double d){
+  super.append(d);
   return this;
 }

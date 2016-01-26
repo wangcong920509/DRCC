@@ -1,12 +1,11 @@
-public synchronized StringBuffer append(float f){
-  super.append(f);
+public synchronized StringBuffer append(char[] str){
+  super.append(str);
   return this;
 }
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- * @since      1.5
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
  */
-public synchronized StringBuffer insert(int dstOffset,CharSequence s,int start,int end){
-  super.insert(dstOffset,s,start,end);
+public synchronized StringBuffer insert(int offset,Object obj){
+  super.insert(offset,String.valueOf(obj));
   return this;
 }

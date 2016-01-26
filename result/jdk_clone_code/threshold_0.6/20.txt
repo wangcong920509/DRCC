@@ -1,14 +1,17 @@
 /** 
- * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ * Create an NVList corresponding to an OperationDef
+ * @param oper      operation def to use to create list
+ * @result          NVList created
+ * @see NVList
  */
-protected SnmpSubBulkRequestHandler(SnmpEngine engine,SnmpAdaptorServer server,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
-  super(engine,incRequest,agent,req);
-  init(server,req,nonRepeat,maxRepeat,R);
+public synchronized NVList create_operation_list(org.omg.CORBA.Object oper){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
 /** 
- * The constuctor initialize the subrequest with the whole varbind list contained in the original request.
+ * This method does nothing. It is not required by the spec to do anything!
  */
-protected SnmpSubBulkRequestHandler(SnmpAdaptorServer server,SnmpMibAgent agent,SnmpPdu req,int nonRepeat,int maxRepeat,int R){
-  super(agent,req);
-  init(server,req,nonRepeat,maxRepeat,R);
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

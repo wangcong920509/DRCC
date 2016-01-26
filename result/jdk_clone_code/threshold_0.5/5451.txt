@@ -1,79 +1,8 @@
-/** 
- * Used to test if a particular set of <code>TreePath</code>s can be added. This will return true if <code>paths</code> is null (or empty), or this object has no RowMapper, or nothing is currently selected, or the selection mode is <code>DISCONTIGUOUS_TREE_SELECTION</code>, or adding the paths to the current selection still results in a contiguous set of <code>TreePath</code>s.
- */
-protected boolean canPathsBeAdded(TreePath[] paths){
-  if (paths == null || paths.length == 0 || rowMapper == null || selection == null || selectionMode == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION)   return true;
- else {
-    BitSet bitSet=new BitSet();
-    DefaultListSelectionModel lModel=listSelectionModel;
-    int anIndex;
-    int counter;
-    int min=lModel.getMinSelectionIndex();
-    int max=lModel.getMaxSelectionIndex();
-    TreePath[] tempPath=new TreePath[1];
-    if (min != -1) {
-      for (counter=min; counter <= max; counter++) {
-        if (lModel.isSelectedIndex(counter))         bitSet.set(counter);
-      }
-    }
- else {
-      tempPath[0]=paths[0];
-      min=max=rowMapper.getRowsForPaths(tempPath)[0];
-    }
-    for (counter=paths.length - 1; counter >= 0; counter--) {
-      if (paths[counter] != null) {
-        tempPath[0]=paths[counter];
-        int[] rows=rowMapper.getRowsForPaths(tempPath);
-        if (rows == null) {
-          return false;
-        }
-        anIndex=rows[0];
-        min=Math.min(anIndex,min);
-        max=Math.max(anIndex,max);
-        if (anIndex == -1)         return false;
-        bitSet.set(anIndex);
-      }
-    }
-    for (counter=min; counter <= max; counter++)     if (!bitSet.get(counter))     return false;
-  }
-  return true;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(2.3333333f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * Returns true if the paths can be removed without breaking the continuity of the model. This is rather expensive.
- */
-protected boolean canPathsBeRemoved(TreePath[] paths){
-  if (rowMapper == null || selection == null || selectionMode == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION)   return true;
- else {
-    BitSet bitSet=new BitSet();
-    int counter;
-    int pathCount=paths.length;
-    int anIndex;
-    int min=-1;
-    int validCount=0;
-    TreePath[] tempPath=new TreePath[1];
-    int[] rows;
-    lastPaths.clear();
-    for (counter=0; counter < pathCount; counter++) {
-      if (paths[counter] != null) {
-        lastPaths.put(paths[counter],Boolean.TRUE);
-      }
-    }
-    for (counter=selection.length - 1; counter >= 0; counter--) {
-      if (lastPaths.get(selection[counter]) == null) {
-        tempPath[0]=selection[counter];
-        rows=rowMapper.getRowsForPaths(tempPath);
-        if (rows != null && rows[0] != -1 && !bitSet.get(rows[0])) {
-          validCount++;
-          if (min == -1)           min=rows[0];
- else           min=Math.min(min,rows[0]);
-          bitSet.set(rows[0]);
-        }
-      }
-    }
-    lastPaths.clear();
-    if (validCount > 1) {
-      for (counter=min + validCount - 1; counter >= min; counter--)       if (!bitSet.get(counter))       return false;
-    }
-  }
-  return true;
+private Rectangle2D decodeRect9(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

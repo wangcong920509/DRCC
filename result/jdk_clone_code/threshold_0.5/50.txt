@@ -1,11 +1,15 @@
-/** 
- * The following methods are for dealing with Connection cleaning for better scalability of servers in high network load conditions.
- */
-public void sendCloseConnection(GIOPVersion giopVersion) throws IOException {
-  Message msg=MessageBase.createCloseConnection(giopVersion);
-  sendHelper(giopVersion,msg);
+private int findDeclaredException(Class cls){
+  for (int ctr=0; ctr < rws.length; ctr++) {
+    Class next=rws[ctr].getExceptionClass();
+    if (next.isAssignableFrom(cls))     return ctr;
+  }
+  return -1;
 }
-public void sendMessageError(GIOPVersion giopVersion) throws IOException {
-  Message msg=MessageBase.createMessageError(giopVersion);
-  sendHelper(giopVersion,msg);
+private int findDeclaredException(String repositoryId){
+  for (int ctr=0; ctr < rws.length; ctr++) {
+    if (rws[ctr] == null)     return -1;
+    String rid=rws[ctr].getId();
+    if (repositoryId.equals(rid))     return ctr;
+  }
+  return -1;
 }

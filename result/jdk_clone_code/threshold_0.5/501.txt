@@ -1,14 +1,8 @@
-/** 
- * @see SerializationHandler#getWriter()
- */
-public Writer getWriter(){
-  aMethodIsCalled();
-  return null;
+public DocumentHandler asDocumentHandler() throws IOException {
+  prepare();
+  return this;
 }
-/** 
- * @see Serializer#asDOMSerializer()
- */
 public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+  prepare();
+  return this;
 }

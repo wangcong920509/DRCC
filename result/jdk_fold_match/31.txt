@@ -40,3 +40,5 @@ catch (  OutOfMemoryError ome) {
   }
   return;
 }
+-->
+75.0 / 618 = 0.12135922330097088

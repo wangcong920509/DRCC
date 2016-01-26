@@ -1,28 +1,29 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return False
+ * @return null
+ * @throws DOMException
  */
-public boolean getSpecified(){
+public String getNodeValue() throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 
 /** 
- * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, whether this document is standalone.
- * @since DOM Level 3NEEDSDOC ($objectName$) @return
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
  */
-public boolean getStandalone(){
+public String getNamespaceURI(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 
 -->
-void getSpecified_getStandalone(int combFlag){
+void getNodeValue_getNamespaceURI(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  return false;
+  return null;
 }

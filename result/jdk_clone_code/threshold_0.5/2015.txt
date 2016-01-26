@@ -1,11 +1,23 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Sets the requested data array element in the first (default) bank to the specified value.
+ * @param i The data array element you want to set.
+ * @param val The integer value to which you want to set the data array element.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
+ */
+public void setElem(int i,int val){
+  data[i + offset]=(short)val;
+  theTrackable.markDirty();
 }
 /** 
- * @since 1.5
+ * Sets the requested data array element in the specified bank from the given integer.
+ * @param bank The bank in which you want to set the data array element.
+ * @param i The data array element you want to set.
+ * @param val The integer value to which you want to set the specified data array element.
+ * @see #getElem(int)
+ * @see #getElem(int,int)
  */
-public synchronized StringBuffer appendCodePoint(int codePoint){
-  super.appendCodePoint(codePoint);
-  return this;
+public void setElem(int bank,int i,int val){
+  bankdata[bank][i + offsets[bank]]=(short)val;
+  theTrackable.markDirty();
 }

@@ -1,25 +1,8 @@
-public FloatBuffer put(float x){
-  hb[ix(nextPutIndex())]=x;
+public ByteBuffer put(int i,byte x){
+  hb[ix(checkIndex(i))]=x;
   return this;
 }
-public FloatBuffer put(FloatBuffer src){
-  if (src instanceof HeapFloatBuffer) {
-    if (src == this)     throw new IllegalArgumentException();
-    HeapFloatBuffer sb=(HeapFloatBuffer)src;
-    int n=sb.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
-    sb.position(sb.position() + n);
-    position(position() + n);
-  }
- else   if (src.isDirect()) {
-    int n=src.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    src.get(hb,ix(position()),n);
-    position(position() + n);
-  }
- else {
-    super.put(src);
-  }
+public ByteBuffer putChar(int i,char x){
+  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
   return this;
 }

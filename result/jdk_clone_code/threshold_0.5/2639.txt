@@ -1,14 +1,14 @@
-public ByteBuffer putChar(char x){
-  putChar(ix(nextPutIndex((1 << 1))),x);
+public ByteBuffer put(byte x){
+  unsafe.putByte(ix(nextPutIndex()),((x)));
   return this;
 }
-private ByteBuffer putDouble(long a,double x){
+private ByteBuffer putChar(long a,char x){
   if (unaligned) {
-    long y=Double.doubleToRawLongBits(x);
-    unsafe.putLong(a,(nativeByteOrder ? y : Bits.swap(y)));
+    char y=(x);
+    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
   }
  else {
-    Bits.putDouble(a,x,bigEndian);
+    Bits.putChar(a,x,bigEndian);
   }
   return this;
 }

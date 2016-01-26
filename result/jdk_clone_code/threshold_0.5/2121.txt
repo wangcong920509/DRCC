@@ -1,8 +1,12 @@
-public synchronized StringBuffer append(char c){
-  super.append(c);
+public synchronized StringBuffer append(String str){
+  super.append(str);
   return this;
 }
-public synchronized StringBuffer append(long lng){
-  super.append(lng);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
+ */
+public synchronized StringBuffer deleteCharAt(int index){
+  super.deleteCharAt(index);
   return this;
 }

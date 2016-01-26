@@ -55,3 +55,5 @@ public void reset(XMLComponentManager componentManager) throws XNIException {
     }
   }
 }
+-->
+92.0 / 1271 = 0.07238394964594808

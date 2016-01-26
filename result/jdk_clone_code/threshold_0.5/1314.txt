@@ -1,18 +1,16 @@
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param newAttr Attribute to set
- * @return null
- * @throws DOMException
+ * Unimplemented. Introduced in DOM Level 2.
+ * @return false
  */
-public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
+public boolean hasAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Node
+ * @return False
  */
-public Node adoptNode(Node source) throws DOMException {
+public boolean getSpecified(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }

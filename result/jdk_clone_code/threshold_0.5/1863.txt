@@ -1,22 +1,19 @@
 /** 
- * Construct a StepPattern that tests for namespaces and node names.
- * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
- * @param namespace The namespace to be tested.
- * @param name The local name to be tested.
- * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
- * @param axisForPredicate No longer used.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Attribute name
+ * @return null
+ * @throws DOMException
  */
-public StepPattern(int whatToShow,String namespace,String name,int axis,int axisForPredicate){
-  super(whatToShow,namespace,name);
-  m_axis=axis;
+public Attr createAttribute(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Construct a StepPattern that doesn't test for node names.
- * @param whatToShow Bit set defined mainly by {@link org.w3c.dom.traversal.NodeFilter}.
- * @param axis The Axis for this test, one of of Axes.ANCESTORORSELF, etc.
- * @param axisForPredicate No longer used.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param elementId ID of the element to get
+ * @return null
  */
-public StepPattern(int whatToShow,int axis,int axisForPredicate){
-  super(whatToShow);
-  m_axis=axis;
+public Element getElementById(String elementId){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

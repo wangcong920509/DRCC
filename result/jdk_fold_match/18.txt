@@ -104,3 +104,5 @@ synchronized (UNIXToolkit.GTK_LOCK) {
     ENGINE.finishPainting();
   }
 }
+-->
+63.0 / 1154 = 0.05459272097053726

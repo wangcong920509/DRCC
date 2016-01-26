@@ -1,14 +1,8 @@
-private ByteBuffer putChar(long a,char x){
-  if (unaligned) {
-    char y=(x);
-    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
-  }
- else {
-    Bits.putChar(a,x,bigEndian);
-  }
+public IntBuffer put(int x){
+  Bits.putIntL(bb,ix(nextPutIndex()),x);
   return this;
 }
-public ByteBuffer putChar(char x){
-  putChar(ix(nextPutIndex((1 << 1))),x);
+public IntBuffer put(int i,int x){
+  Bits.putIntL(bb,ix(checkIndex(i)),x);
   return this;
 }

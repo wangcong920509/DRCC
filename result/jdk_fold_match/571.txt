@@ -57,3 +57,5 @@ private void paintBackgroundPressedAndWindowNotFocused(Graphics2D g){
   g.setPaint(color65);
   g.fill(path);
 }
+-->
+280.0 / 4379 = 0.06394153916419273

@@ -1,8 +1,14 @@
-HeapLongBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+/** 
+ * register one global attribute
+ */
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
-protected HeapLongBufferR(long[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+/** 
+ * register one global notation
+ */
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

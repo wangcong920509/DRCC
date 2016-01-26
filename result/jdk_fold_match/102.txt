@@ -161,3 +161,5 @@ this.setContext(S_NORMAL);
 this.next();
 return tok;
 }
+-->
+754.0 / 6058 = 0.12446351931330472

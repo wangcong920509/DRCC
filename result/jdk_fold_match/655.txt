@@ -33,3 +33,5 @@ private void painticonMouseOverAndWindowNotFocused(Graphics2D g){
   g.setPaint(color10);
   g.fill(path);
 }
+-->
+162.0 / 1296 = 0.125

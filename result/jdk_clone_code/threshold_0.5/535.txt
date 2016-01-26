@@ -1,7 +1,7 @@
 /** 
- * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ * @see SerializationHandler#getOutputFormat()
  */
-public String getPrefix(String uri){
+public Properties getOutputFormat(){
   aMethodIsCalled();
   return null;
 }

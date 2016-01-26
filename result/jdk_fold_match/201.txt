@@ -41,3 +41,5 @@ public E poll(){
   if (c == capacity)   signalNotFull();
   return x;
 }
+-->
+181.0 / 826 = 0.21912832929782083

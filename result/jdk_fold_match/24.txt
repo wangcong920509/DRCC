@@ -49,3 +49,5 @@ public ObjectInstance registerMBean(Object object,ObjectName name) throws Instan
   checkMBeanTrustPermission(theClass);
   return registerObject(infoClassName,object,name);
 }
+-->
+247.0 / 2022 = 0.1221562809099901

@@ -28,3 +28,5 @@ private Insets getTabbedPaneTabInsets(SynthContext context,Insets insets){
   insets.top=insets.bottom=focusSize + pad + yThickness;
   return insets;
 }
+-->
+202.0 / 924 = 0.21861471861471862

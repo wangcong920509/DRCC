@@ -1,18 +1,19 @@
 /** 
- * Look for ConstantClass in ConstantPool named `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupClass(String str){
-  Index index=(Index)class_table.get(str.replace('.','/'));
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantUtf8 in ConstantPool.
- * @param n Utf8 string to look for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpTimeticks</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified timeticks value. The status is updated to indicate that the value is valid.
+ * @param val The new timeticks value.
+ * @exception IllegalArgumentException The specified value is negative or larger than<CODE>SnmpUnsignedInt.MAX_VALUE</CODE>.
+ * @see SnmpTimeticks
  */
-public int lookupUtf8(String n){
-  Index index=(Index)utf8_table.get(n);
-  return (index != null) ? index.index : -1;
+final public void setSnmpTimeticksValue(long val) throws IllegalArgumentException {
+  clearValue();
+  this.value=new SnmpTimeticks(val);
+  setValueValid();
 }

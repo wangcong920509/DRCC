@@ -1,16 +1,15 @@
 /** 
- * Method add
- * @param xmlX509SKI
+ * @see org.w3c.dom.Node
  */
-public void add(XMLX509SKI xmlX509SKI){
-  this._constructionElement.appendChild(xmlX509SKI.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+@Override public final Node getParentNode(){
+  if (getNodeType() == Node.ATTRIBUTE_NODE)   return null;
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 /** 
- * Method add
- * @param xmlX509CRL
+ * @see org.w3c.dom.Node
  */
-public void add(XMLX509CRL xmlX509CRL){
-  this._constructionElement.appendChild(xmlX509CRL.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public final Node getOwnerNode(){
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

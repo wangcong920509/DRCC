@@ -1,17 +1,17 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
  * @return null
+ * @throws DOMException
  */
-public NamedNodeMap getAttributes(){
+public String getNodeValue() throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
  * @return null
  */
-public Element getElementById(String elementId){
+public Element getDocumentElement(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

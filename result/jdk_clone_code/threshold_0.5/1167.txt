@@ -1,19 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param name Name of an attribute
- * @return false
+ * @param oldAttr Attribute to be removed from this node's list of attributes
+ * @return null
+ * @throws DOMException
  */
-public boolean hasAttribute(String name){
+public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param name
- * @param x
- * @return false
+ * Unimplemented. See org.w3c.dom.Node
+ * @param deep Flag indicating whether to clone deep (clone member variables)
+ * @return null
  */
-public boolean hasAttributeNS(String name,String x){
+public Node cloneNode(boolean deep){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }

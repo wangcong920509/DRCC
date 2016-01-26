@@ -1,20 +1,36 @@
-private RoundRectangle2D decodeRoundRect3(){
-  roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
-  return roundRect;
+/** 
+ * Invoked when a column is added to the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnAdded(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
 }
 
-private RoundRectangle2D decodeRoundRect4(){
-  roundRect.setRoundRect(decodeX(0.08571429f),decodeY(0.08571429f),decodeX(2.914286f) - decodeX(0.08571429f),decodeY(2.914286f) - decodeY(0.08571429f),11.0f,11.0f);
-  return roundRect;
+/** 
+ * Invoked when a column is removed from the table column model. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @see TableColumnModelListener
+ */
+public void columnRemoved(TableColumnModelEvent e){
+  if (isEditing()) {
+    removeEditor();
+  }
+  resizeAndRepaint();
 }
 
 -->
-void decodeRoundRect3_decodeRoundRect4(int combFlag){
+void columnAdded_columnRemoved(TableColumnModelEvent e,TableColumnModelEvent e,int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
+    if (isEditing()) {
+      removeEditor();
+    }
   }
  else {
-    roundRect.setRoundRect(decodeX(0.08571429f),decodeY(0.08571429f),decodeX(2.914286f) - decodeX(0.08571429f),decodeY(2.914286f) - decodeY(0.08571429f),11.0f,11.0f);
+    if (isEditing()) {
+      removeEditor();
+    }
   }
-  return roundRect;
+  resizeAndRepaint();
 }

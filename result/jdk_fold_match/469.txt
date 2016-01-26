@@ -90,3 +90,5 @@ private void painthardDriveIconEnabled(Graphics2D g){
   g.setPaint(color56);
   g.fill(rect);
 }
+-->
+355.0 / 10376 = 0.03421356977640709

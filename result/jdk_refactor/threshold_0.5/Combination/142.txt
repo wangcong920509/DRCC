@@ -2,7 +2,7 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getFirstChild(){
+public Node getParentNode(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
@@ -11,13 +11,13 @@ public Node getFirstChild(){
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getPreviousSibling(){
+public Node getFirstChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 
 -->
-void getFirstChild_getPreviousSibling(int combFlag){
+void getParentNode_getFirstChild(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }

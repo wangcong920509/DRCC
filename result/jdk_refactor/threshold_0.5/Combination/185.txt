@@ -1,55 +1,28 @@
 /** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted message string.
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
  */
-public static final String createXPATHMessage(String msgKey,Object args[]){
-  if (XPATHBundle == null) {
-    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-  }
-  if (XPATHBundle != null) {
-    return createXPATHMsg(XPATHBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public String getLocalName(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 /** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted warning string.
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the encoding of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
  */
-public static final String createXPATHWarning(String msgKey,Object args[]){
-  if (XPATHBundle == null) {
-    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-  }
-  if (XPATHBundle != null) {
-    return createXPATHMsg(XPATHBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public String getInputEncoding(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 -->
-void createXPATHMessage_createXPATHWarning(String msgKey,Object args[],String msgKey,Object args[],int combFlag){
+void getLocalName_getInputEncoding(int combFlag){
   if (combFlag == 1) {
-    if (XPATHBundle == null) {
-      XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
-    if (XPATHBundle == null) {
-      XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  if (XPATHBundle != null) {
-    return createXPATHMsg(XPATHBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+  return null;
 }

@@ -142,3 +142,5 @@ public static ColorModel createColorModel(ColorSpace colorSpace,SampleModel samp
   }
   return colorModel;
 }
+-->
+779.0 / 1874 = 0.41568836712913554

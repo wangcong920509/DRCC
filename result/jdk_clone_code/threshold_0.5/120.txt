@@ -1,18 +1,18 @@
 /** 
- * Look for ConstantString in ConstantPool containing String `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * This method has been defined to allow the sub-classes of SnmpInt to perform their own control at intialization time.
  */
-public int lookupString(String str){
-  Index index=(Index)string_table.get(str);
-  return (index != null) ? index.index : -1;
+boolean isInitValueValid(int v){
+  if ((v < 0) || (v > SnmpUnsignedInt.MAX_VALUE)) {
+    return false;
+  }
+  return true;
 }
 /** 
- * Look for ConstantUtf8 in ConstantPool.
- * @param n Utf8 string to look for
- * @return index on success, -1 otherwise
+ * This method has been defined to allow the sub-classes of SnmpInt to perform their own control at intialization time.
  */
-public int lookupUtf8(String n){
-  Index index=(Index)utf8_table.get(n);
-  return (index != null) ? index.index : -1;
+boolean isInitValueValid(long v){
+  if ((v < 0) || (v > SnmpUnsignedInt.MAX_VALUE)) {
+    return false;
+  }
+  return true;
 }

@@ -1,0 +1,38 @@
+/** 
+ * Returns the literal character at index.
+ */
+char getLiteral(int index){
+  if (isValidMask() && string != null && index < string.length()) {
+    return string.charAt(index);
+  }
+  return (char)0;
+}
+
+/** 
+ * Returns the character from the mask that has been buffered at <code>index</code>.
+ */
+char getBufferedChar(int index){
+  if (isValidMask()) {
+    if (string != null && index < string.length()) {
+      return string.charAt(index);
+    }
+  }
+  return (char)0;
+}
+
+-->
+void getLiteral_getBufferedChar(int index,int index,int combFlag){
+  if (combFlag == 1) {
+    if (isValidMask() && string != null && index < string.length()) {
+      return string.charAt(index);
+    }
+  }
+ else {
+    if (isValidMask()) {
+      if (string != null && index < string.length()) {
+        return string.charAt(index);
+      }
+    }
+  }
+  return (char)0;
+}

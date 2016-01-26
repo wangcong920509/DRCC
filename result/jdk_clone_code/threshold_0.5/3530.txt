@@ -1,53 +1,16 @@
 /** 
- * If <code>c</code> is the <code>JOptionPane</code> the receiver is contained in, the preferred size that is returned is the maximum of the preferred size of the <code>LayoutManager</code> for the <code>JOptionPane</code>, and <code>getMinimumOptionPaneSize</code>.
+ * Create an instance of a <code>Subject</code> with an empty <code>Set</code> of Principals and empty Sets of public and private credentials. <p> The newly constructed Sets check whether this <code>Subject</code> has been set read-only before permitting subsequent modifications. The newly created Sets also prevent illegal modifications by ensuring that callers have sufficient permissions. <p> To modify the Principals Set, the caller must have <code>AuthPermission("modifyPrincipals")</code>. To modify the public credential Set, the caller must have <code>AuthPermission("modifyPublicCredentials")</code>. To modify the private credential Set, the caller must have <code>AuthPermission("modifyPrivateCredentials")</code>.
  */
-public Dimension getPreferredSize(JComponent c){
-  if (c == optionPane) {
-    Dimension ourMin=getMinimumOptionPaneSize();
-    LayoutManager lm=c.getLayout();
-    if (lm != null) {
-      Dimension lmSize=lm.preferredLayoutSize(c);
-      if (ourMin != null)       return new Dimension(Math.max(lmSize.width,ourMin.width),Math.max(lmSize.height,ourMin.height));
-      return lmSize;
-    }
-    return ourMin;
-  }
-  return null;
+public Subject(){
+  this.principals=Collections.synchronizedSet(new SecureSet<Principal>(this,PRINCIPAL_SET));
+  this.pubCredentials=Collections.synchronizedSet(new SecureSet<Object>(this,PUB_CREDENTIAL_SET));
+  this.privCredentials=Collections.synchronizedSet(new SecureSet<Object>(this,PRIV_CREDENTIAL_SET));
 }
 /** 
- * Returns the buttons to display from the JOptionPane the receiver is providing the look and feel for. If the JOptionPane has options set, they will be provided, otherwise if the optionType is YES_NO_OPTION, yesNoOptions is returned, if the type is YES_NO_CANCEL_OPTION yesNoCancelOptions is returned, otherwise defaultButtons are returned.
+ * Reads this object from a stream (i.e., deserializes it)
  */
-protected Object[] getButtons(){
-  if (optionPane != null) {
-    Object[] suppliedOptions=optionPane.getOptions();
-    if (suppliedOptions == null) {
-      Object[] defaultOptions;
-      int type=optionPane.getOptionType();
-      Locale l=optionPane.getLocale();
-      int minimumWidth=DefaultLookup.getInt(optionPane,this,"OptionPane.buttonMinimumWidth",-1);
-      if (type == JOptionPane.YES_NO_OPTION) {
-        defaultOptions=new ButtonFactory[2];
-        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.yesButtonText",l),getMnemonic("OptionPane.yesButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.yesIcon"),minimumWidth);
-        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.noButtonText",l),getMnemonic("OptionPane.noButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.noIcon"),minimumWidth);
-      }
- else       if (type == JOptionPane.YES_NO_CANCEL_OPTION) {
-        defaultOptions=new ButtonFactory[3];
-        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.yesButtonText",l),getMnemonic("OptionPane.yesButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.yesIcon"),minimumWidth);
-        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.noButtonText",l),getMnemonic("OptionPane.noButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.noIcon"),minimumWidth);
-        defaultOptions[2]=new ButtonFactory(UIManager.getString("OptionPane.cancelButtonText",l),getMnemonic("OptionPane.cancelButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.cancelIcon"),minimumWidth);
-      }
- else       if (type == JOptionPane.OK_CANCEL_OPTION) {
-        defaultOptions=new ButtonFactory[2];
-        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.okButtonText",l),getMnemonic("OptionPane.okButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.okIcon"),minimumWidth);
-        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.cancelButtonText",l),getMnemonic("OptionPane.cancelButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.cancelIcon"),minimumWidth);
-      }
- else {
-        defaultOptions=new ButtonFactory[1];
-        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.okButtonText",l),getMnemonic("OptionPane.okButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.okIcon"),minimumWidth);
-      }
-      return defaultOptions;
-    }
-    return suppliedOptions;
-  }
-  return null;
+private void readObject(java.io.ObjectInputStream s) throws java.io.IOException, ClassNotFoundException {
+  s.defaultReadObject();
+  this.pubCredentials=Collections.synchronizedSet(new SecureSet<Object>(this,PUB_CREDENTIAL_SET));
+  this.privCredentials=Collections.synchronizedSet(new SecureSet<Object>(this,PRIV_CREDENTIAL_SET));
 }

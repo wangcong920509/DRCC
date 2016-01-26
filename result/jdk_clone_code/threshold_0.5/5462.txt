@@ -1,20 +1,8 @@
-/** 
- * If the value of <code>key</code> is an <code>Insets</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @return if the value for <code>key</code> is an <code>Insets</code>,return the <code>Insets</code> object; otherwise return <code>null</code>
- */
-public Insets getInsets(Object key){
-  Object value=get(key);
-  return (value instanceof Insets) ? (Insets)value : null;
+private Rectangle2D decodeRect10(){
+  rect.setRect(decodeX(0.4f),decodeY(1.0f),decodeX(0.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * If the value of <code>key</code> for the given <code>Locale</code> is an <code>Insets</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @param l the desired locale
- * @return if the value for <code>key</code> and <code>Locale</code>is an <code>Insets</code>, return the <code>Insets</code> object; otherwise return <code>null</code>
- * @since 1.4
- */
-public Insets getInsets(Object key,Locale l){
-  Object value=get(key,l);
-  return (value instanceof Insets) ? (Insets)value : null;
+private Rectangle2D decodeRect11(){
+  rect.setRect(decodeX(2.4f),decodeY(1.0f),decodeX(2.6f) - decodeX(2.4f),decodeY(2.6f) - decodeY(1.0f));
+  return rect;
 }

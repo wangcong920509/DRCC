@@ -1,20 +1,22 @@
 /** 
- * Returns true if there are some marker associated with component <code>comp</code> in a markers' queue
- * @since 1.5
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
+ * @return null
+ * @throws DOMException
  */
-private boolean hasMarker(Component comp){
-  for (Iterator iter=typeAheadMarkers.iterator(); iter.hasNext(); ) {
-    if (((TypeAheadMarker)iter.next()).untilFocused == comp) {
-      return true;
-    }
-  }
-  return false;
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
-private boolean consumeProcessedKeyEvent(KeyEvent e){
-  if ((e.getID() == KeyEvent.KEY_TYPED) && consumeNextKeyTyped) {
-    e.consume();
-    consumeNextKeyTyped=false;
-    return true;
-  }
-  return false;
+/** 
+ * Unimplemented.
+ * @param offset Start offset of substring to extract.
+ * @param count The length of the substring to extract.
+ * @return null
+ * @throws DOMException
+ */
+public String substringData(int offset,int count) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

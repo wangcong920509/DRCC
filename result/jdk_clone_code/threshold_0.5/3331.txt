@@ -1,20 +1,31 @@
 /** 
- * Creates a compound name whose components consist of a prefix of the components in this compound name. The result and this compound name share the same syntax. Subsequent changes to this compound name does not affect the name that is returned and vice versa.
- * @param posn    The 0-based index of the component at which to stop.Must be in the range [0,size()].
- * @return A compound name consisting of the components at indexes inthe range [0,posn).
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Resets the <code>Builder</code> to match the provided <code>locale</code>.  Existing state is discarded. <p>All fields of the locale must be well-formed, see  {@link Locale}. <p>Locales with any ill-formed fields cause <code>IllformedLocaleException</code> to be thrown, except for the following three cases which are accepted for compatibility reasons:<ul> <li>Locale("ja", "JP", "JP") is treated as "ja-JP-u-ca-japanese" <li>Locale("th", "TH", "TH") is treated as "th-TH-u-nu-thai" <li>Locale("no", "NO", "NY") is treated as "nn-NO"</ul>
+ * @param locale the locale
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>locale</code> hasany ill-formed fields.
+ * @throws NullPointerException if <code>locale</code> is null.
  */
-public Name getPrefix(int posn){
-  Enumeration comps=impl.getPrefix(posn);
-  return (new CompoundName(comps,mySyntax));
+public Builder setLocale(Locale locale){
+  try {
+    localeBuilder.setLocale(locale.baseLocale,locale.localeExtensions);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Creates a compound name whose components consist of a suffix of the components in this compound name. The result and this compound name share the same syntax. Subsequent changes to this compound name does not affect the name that is returned.
- * @param posn    The 0-based index of the component at which to start.Must be in the range [0,size()].
- * @return A compound name consisting of the components at indexes inthe range [posn,size()).  If posn is equal to size(), an empty compound name is returned.
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Sets the variant.  If variant is null or the empty string, the variant in this <code>Builder</code> is removed.  Otherwise, it must consist of one or more <a href="./Locale.html#def_variant">well-formed</a> subtags, or an exception is thrown. <p><b>Note:</b> This method checks if <code>variant</code> satisfies the IETF BCP 47 variant subtag's syntax requirements, and normalizes the value to lowercase letters.  However, the <code>Locale</code> class does not impose any syntactic restriction on variant, and the variant value in <code>Locale</code> is case sensitive.  To set such a variant, use a Locale constructor.
+ * @param variant the variant
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>variant</code> is ill-formed
  */
-public Name getSuffix(int posn){
-  Enumeration comps=impl.getSuffix(posn);
-  return (new CompoundName(comps,mySyntax));
+public Builder setVariant(String variant){
+  try {
+    localeBuilder.setVariant(variant);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

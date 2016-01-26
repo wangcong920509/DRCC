@@ -1,15 +1,21 @@
 /** 
- * Create an XRTreeFrag Object.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Attribute name
+ * @return null
+ * @throws DOMException
  */
-public XRTreeFrag(int root,XPathContext xctxt,ExpressionNode parent){
-  super(null);
-  exprSetParent(parent);
-  initDTM(root,xctxt);
+public Attr createAttribute(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Create an XRTreeFrag Object.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param importedNode The node to import.
+ * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @return null
+ * @throws DOMException
  */
-public XRTreeFrag(int root,XPathContext xctxt){
-  super(null);
-  initDTM(root,xctxt);
+public Node importNode(Node importedNode,boolean deep) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

@@ -1,8 +1,14 @@
-public LongBuffer put(long x){
-  unsafe.putLong(ix(nextPutIndex()),((x)));
+private ByteBuffer putFloat(long a,float x){
+  if (unaligned) {
+    int y=Float.floatToRawIntBits(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putFloat(a,x,bigEndian);
+  }
   return this;
 }
-public LongBuffer put(int i,long x){
-  unsafe.putLong(ix(checkIndex(i)),((x)));
+public ByteBuffer putDouble(int i,double x){
+  putDouble(ix(checkIndex(i,(1 << 3))),x);
   return this;
 }

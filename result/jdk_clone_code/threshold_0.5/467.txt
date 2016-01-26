@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param mgmtdata
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ * Method addPGPData
+ * @param pgpdata
  */
-public String getPrefix(String uri){
-  aMethodIsCalled();
-  return null;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

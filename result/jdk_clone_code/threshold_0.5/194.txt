@@ -1,23 +1,10 @@
-/** 
- * @see org.w3c.dom.TypeInfo#getTypeName()
- */
-public String getTypeName(){
-  if (type != null) {
-    if (type instanceof XSSimpleTypeDecl) {
-      return ((XSSimpleTypeDecl)type).getTypeName();
-    }
- else     if (type instanceof XSComplexTypeDecl) {
-      return ((XSComplexTypeDecl)type).getTypeName();
-    }
-  }
-  return null;
+Symbol newSymbol(int ss,String value){
+  beforeLast=last;
+  last=ss;
+  return new Symbol(ss,value);
 }
-/** 
- * @see org.w3c.dom.TypeInfo#getTypeNamespace()
- */
-public String getTypeNamespace(){
-  if (type != null) {
-    return type.getNamespace();
-  }
-  return null;
+Symbol newSymbol(int ss,Long value){
+  beforeLast=last;
+  last=ss;
+  return new Symbol(ss,value);
 }

@@ -30,3 +30,5 @@ public String nextToken(){
   currentPosition=scanToken(currentPosition);
   return str.substring(start,currentPosition);
 }
+-->
+33.0 / 387 = 0.08527131782945736

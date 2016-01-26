@@ -63,3 +63,5 @@ private void paintdetailsViewIconEnabled(Graphics2D g){
   g.setPaint(color107);
   g.fill(rect);
 }
+-->
+256.0 / 5714 = 0.0448022401120056

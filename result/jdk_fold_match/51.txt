@@ -98,3 +98,5 @@ private void translateGeneralContext(ClassGenerator classGen,MethodGenerator met
   _falseList.add(il.append(new IF_ICMPNE(null)));
   skipNext.setTarget(begin);
 }
+-->
+516.0 / 16508 = 0.031257572086261204

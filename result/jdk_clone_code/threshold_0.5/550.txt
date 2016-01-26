@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ * @see SerializationHandler#getOutputStream()
  */
-public String getNamespaceURIFromPrefix(String prefix){
+public OutputStream getOutputStream(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see XSLOutputAttributes#getMediaType()
  */
-public String getDoctypeSystem(){
+public String getMediaType(){
   aMethodIsCalled();
   return null;
 }

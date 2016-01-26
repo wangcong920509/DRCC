@@ -1,26 +1,40 @@
 /** 
- * @see SerializationHandler#reset()
+ * @inheritDoc 
  */
-public boolean reset(){
-  aMethodIsCalled();
-  return false;
+public void warning(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.WARNING,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 /** 
- * @see XSLOutputAttributes#getIndent()
+ * @inheritDoc 
  */
-public boolean getIndent(){
-  aMethodIsCalled();
-  return false;
+public void error(SAXParseException ex) throws SAXException {
+  if (IgnoreAllErrorHandler.warnOnExceptions) {
+    log.log(java.util.logging.Level.SEVERE,"",ex);
+  }
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }
 
 -->
-void reset_getIndent(int combFlag){
+void warning_error(SAXParseException ex,SAXParseException ex,int combFlag){
   if (combFlag == 1) {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.WARNING,"",ex);
+    }
   }
  else {
-    aMethodIsCalled();
+    if (IgnoreAllErrorHandler.warnOnExceptions) {
+      log.log(java.util.logging.Level.SEVERE,"",ex);
+    }
   }
-  return false;
+  if (IgnoreAllErrorHandler.throwExceptions) {
+    throw ex;
+  }
 }

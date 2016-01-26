@@ -1,19 +1,20 @@
 /** 
- * Look up an augmentations by Namespace name.
- * @param uri The Namespace URI, or null if the
- * @param localName The local name of the attribute.
- * @return Augmentations
+ * reset all XML 1.0 components before parsing and namespace context
  */
-public Augmentations getAugmentations(String uri,String localName){
-  int index=getIndex(uri,localName);
-  return index != -1 ? fAttributes[index].augs : null;
+protected void reset() throws XNIException {
+  int count=fComponents.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fComponents.get(i);
+    c.reset(this);
+  }
 }
 /** 
- * Look up an augmentation by XML 1.0 qualified name. <p>
- * @param qName The XML 1.0 qualified name.
- * @return Augmentations
+ * reset all common components before parsing
  */
-public Augmentations getAugmentations(String qName){
-  int index=getIndex(qName);
-  return index != -1 ? fAttributes[index].augs : null;
+protected void resetCommon() throws XNIException {
+  int count=fCommonComponents.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
+    c.reset(this);
+  }
 }

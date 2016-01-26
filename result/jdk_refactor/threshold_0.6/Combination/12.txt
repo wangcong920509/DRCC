@@ -1,33 +1,20 @@
-/** 
- * Retrieves and removes the head of this queue.  This method differs from  {@link #poll poll} only in that it throws an exception if thisqueue is empty. <p>This implementation returns the result of <tt>poll</tt> unless the queue is empty.
- * @return the head of this queue
- * @throws NoSuchElementException if this queue is empty
- */
-public E remove(){
-  E x=poll();
-  if (x != null)   return x;
- else   throw new NoSuchElementException();
+public void setImportingStylesheet(Stylesheet parent){
+  _importedFrom=parent;
+  parent.addIncludedStylesheet(this);
 }
 
-/** 
- * Retrieves, but does not remove, the head of this queue.  This method differs from  {@link #peek peek} only in that it throws an exception ifthis queue is empty. <p>This implementation returns the result of <tt>peek</tt> unless the queue is empty.
- * @return the head of this queue
- * @throws NoSuchElementException if this queue is empty
- */
-public E element(){
-  E x=peek();
-  if (x != null)   return x;
- else   throw new NoSuchElementException();
+public void setIncludingStylesheet(Stylesheet parent){
+  _includedFrom=parent;
+  parent.addIncludedStylesheet(this);
 }
 
 -->
-void remove_element(int combFlag){
+void setImportingStylesheet_setIncludingStylesheet(Stylesheet parent,Stylesheet parent,int combFlag){
   if (combFlag == 1) {
-    E x=poll();
+    _importedFrom=parent;
   }
  else {
-    E x=peek();
+    _includedFrom=parent;
   }
-  if (x != null)   return x;
- else   throw new NoSuchElementException();
+  parent.addIncludedStylesheet(this);
 }

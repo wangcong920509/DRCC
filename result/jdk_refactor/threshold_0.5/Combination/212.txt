@@ -1,30 +1,20 @@
-/** 
- * Inserts the specified element at the front of this deque. As the deque is unbounded, this method will never return  {@code false}.
- * @return {@code true} (as specified by {@link Deque#offerFirst})
- * @throws NullPointerException if the specified element is null
- */
-public boolean offerFirst(E e){
-  linkFirst(e);
-  return true;
+@ForceInline static Object checkBase(Object obj){
+  obj.getClass();
+  return obj;
 }
 
-/** 
- * Inserts the specified element at the end of this deque. As the deque is unbounded, this method will never return  {@code false}. <p>This method is equivalent to  {@link #add}.
- * @return {@code true} (as specified by {@link Deque#offerLast})
- * @throws NullPointerException if the specified element is null
- */
-public boolean offerLast(E e){
-  linkLast(e);
-  return true;
+@ForceInline static Object nullCheck(Object obj){
+  obj.getClass();
+  return obj;
 }
 
 -->
-void offerFirst_offerLast(E e,E e,int combFlag){
+void checkBase_nullCheck(Object obj,Object obj,int combFlag){
   if (combFlag == 1) {
-    linkFirst(e);
+    obj.getClass();
   }
  else {
-    linkLast(e);
+    obj.getClass();
   }
-  return true;
+  return obj;
 }

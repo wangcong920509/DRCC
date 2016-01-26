@@ -1,26 +1,23 @@
 /** 
- * Assigns the specified double value to each element of the specified range of the specified array of doubles.  The range to be filled extends from index <tt>fromIndex</tt>, inclusive, to index <tt>toIndex</tt>, exclusive.  (If <tt>fromIndex==toIndex</tt>, the range to be filled is empty.)
- * @param a the array to be filled
- * @param fromIndex the index of the first element (inclusive) to befilled with the specified value
- * @param toIndex the index of the last element (exclusive) to befilled with the specified value
- * @param val the value to be stored in all elements of the array
- * @throws IllegalArgumentException if <tt>fromIndex &gt; toIndex</tt>
- * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or<tt>toIndex &gt; a.length</tt>
+ * Constructs a <code>SQLClientInfoException</code> object initialized with a given <code>cause</code> and <code>failedProperties</code>. The <code>reason</code>  is initialized to <code>null</code> if <code>cause==null</code> or to <code>cause.toString()</code> if <code>cause!=null</code> and the vendor code is initialized to 0. <p>
+ * @param failedProperties          A Map containing the property values that could notbe set.  The keys in the Map contain the names of the client info properties that could not be set and the values contain one of the reason codes defined in <code>ClientInfoStatus</code>
+ * @param cause                                     the (which is saved for later retrieval by the <code>getCause()</code> method); may be null indicatingthe cause is non-existent or unknown. <p>
+ * @since 1.6
  */
-public static void fill(double[] a,int fromIndex,int toIndex,double val){
-  rangeCheck(a.length,fromIndex,toIndex);
-  for (int i=fromIndex; i < toIndex; i++)   a[i]=val;
+public SQLClientInfoException(Map<String,ClientInfoStatus> failedProperties,Throwable cause){
+  super(cause != null ? cause.toString() : null);
+  initCause(cause);
+  this.failedProperties=failedProperties;
 }
 /** 
- * Assigns the specified float value to each element of the specified range of the specified array of floats.  The range to be filled extends from index <tt>fromIndex</tt>, inclusive, to index <tt>toIndex</tt>, exclusive.  (If <tt>fromIndex==toIndex</tt>, the range to be filled is empty.)
- * @param a the array to be filled
- * @param fromIndex the index of the first element (inclusive) to befilled with the specified value
- * @param toIndex the index of the last element (exclusive) to befilled with the specified value
- * @param val the value to be stored in all elements of the array
- * @throws IllegalArgumentException if <tt>fromIndex &gt; toIndex</tt>
- * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or<tt>toIndex &gt; a.length</tt>
+ * Constructs a <code>SQLClientInfoException</code> object initialized with a given <code>reason</code>, <code>cause</code> and <code>failedProperties</code>. The  <code>SQLState</code> is initialized to <code>null</code> and the vendor code is initialized to 0. <p>
+ * @param reason                            a description of the exception
+ * @param failedProperties          A Map containing the property values that could notbe set.  The keys in the Map contain the names of the client info properties that could not be set and the values contain one of the reason codes defined in <code>ClientInfoStatus</code>
+ * @param cause                                     the underlying reason for this <code>SQLException</code> (which is saved for later retrieval by the <code>getCause()</code> method); may be null indicatingthe cause is non-existent or unknown. <p>
+ * @since 1.6
  */
-public static void fill(float[] a,int fromIndex,int toIndex,float val){
-  rangeCheck(a.length,fromIndex,toIndex);
-  for (int i=fromIndex; i < toIndex; i++)   a[i]=val;
+public SQLClientInfoException(String reason,Map<String,ClientInfoStatus> failedProperties,Throwable cause){
+  super(reason);
+  initCause(cause);
+  this.failedProperties=failedProperties;
 }

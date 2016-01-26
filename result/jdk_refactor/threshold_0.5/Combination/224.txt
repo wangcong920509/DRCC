@@ -1,30 +1,46 @@
 /** 
- * @param key the key
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Returns the index of the first occurrence of the specified element in this list, or -1 if this list does not contain the element. More formally, returns the lowest index <tt>i</tt> such that <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>, or -1 if there is no such index.
  */
-public K floorKey(K key){
-  Node<K,V> n=findNear(key,LT | EQ);
-  return (n == null) ? null : n.key;
+public int indexOf(Object o){
+  if (o == null) {
+    for (int i=0; i < size; i++)     if (elementData[i] == null)     return i;
+  }
+ else {
+    for (int i=0; i < size; i++)     if (o.equals(elementData[i]))     return i;
+  }
+  return -1;
 }
 
 /** 
- * @param key the key
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Returns the index of the last occurrence of the specified element in this list, or -1 if this list does not contain the element. More formally, returns the highest index <tt>i</tt> such that <tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt>, or -1 if there is no such index.
  */
-public K higherKey(K key){
-  Node<K,V> n=findNear(key,GT);
-  return (n == null) ? null : n.key;
+public int lastIndexOf(Object o){
+  if (o == null) {
+    for (int i=size - 1; i >= 0; i--)     if (elementData[i] == null)     return i;
+  }
+ else {
+    for (int i=size - 1; i >= 0; i--)     if (o.equals(elementData[i]))     return i;
+  }
+  return -1;
 }
 
 -->
-void floorKey_higherKey(K key,K key,int combFlag){
+void indexOf_lastIndexOf(Object o,Object o,int combFlag){
   if (combFlag == 1) {
-    Node<K,V> n=findNear(key,LT | EQ);
+    if (o == null) {
+      for (int i=0; i < size; i++)       if (elementData[i] == null)       return i;
+    }
+ else {
+      for (int i=0; i < size; i++)       if (o.equals(elementData[i]))       return i;
+    }
   }
  else {
-    Node<K,V> n=findNear(key,GT);
+    if (o == null) {
+      for (int i=size - 1; i >= 0; i--)       if (elementData[i] == null)       return i;
+    }
+ else {
+      for (int i=size - 1; i >= 0; i--)       if (o.equals(elementData[i]))       return i;
+    }
   }
-  return (n == null) ? null : n.key;
+  return -1;
 }

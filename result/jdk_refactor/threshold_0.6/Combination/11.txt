@@ -1,47 +1,55 @@
 /** 
- * Returns an input stream for reading the specified resource. <p> The search order is described in the documentation for  {@link #getResource(String)}.  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Creates a message from the specified key and replacement arguments, localized to the given locale.
+ * @param msgKey The key for the message text.
+ * @param args The arguments to be used as replacement text in the messagecreated.
+ * @return The formatted message string.
  */
-public InputStream getResourceAsStream(String name){
-  URL url=getResource(name);
-  try {
-    return url != null ? url.openStream() : null;
+public static String createMessage(String msgKey,Object args[]){
+  if (XSLTBundle == null) {
+    XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
   }
- catch (  IOException e) {
-    return null;
+  if (XSLTBundle != null) {
+    return createMsg(XSLTBundle,msgKey,args);
+  }
+ else {
+    return "Could not load any resource bundles.";
   }
 }
 
 /** 
- * Open for reading, a resource of the specified name from the search path used to load classes.  This method locates the resource through the system class loader (see  {@link #getSystemClassLoader()}).  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Creates a message from the specified key and replacement arguments, localized to the given locale.
+ * @param msgKey The key for the message text.
+ * @param args The arguments to be used as replacement text in the messagecreated.
+ * @return The formatted warning string.
  */
-public static InputStream getSystemResourceAsStream(String name){
-  URL url=getSystemResource(name);
-  try {
-    return url != null ? url.openStream() : null;
+public static String createWarning(String msgKey,Object args[]){
+  if (XSLTBundle == null) {
+    XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
   }
- catch (  IOException e) {
-    return null;
+  if (XSLTBundle != null) {
+    return createMsg(XSLTBundle,msgKey,args);
+  }
+ else {
+    return "Could not load any resource bundles.";
   }
 }
 
 -->
-void getResourceAsStream_getSystemResourceAsStream(String name,String name,int combFlag){
+void createMessage_createWarning(String msgKey,Object args[],String msgKey,Object args[],int combFlag){
   if (combFlag == 1) {
-    URL url=getResource(name);
+    if (XSLTBundle == null) {
+      XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
+    }
   }
  else {
-    URL url=getSystemResource(name);
+    if (XSLTBundle == null) {
+      XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
+    }
   }
-  try {
-    return url != null ? url.openStream() : null;
+  if (XSLTBundle != null) {
+    return createMsg(XSLTBundle,msgKey,args);
   }
- catch (  IOException e) {
-    return null;
+ else {
+    return "Could not load any resource bundles.";
   }
 }

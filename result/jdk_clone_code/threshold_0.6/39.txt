@@ -1,14 +1,8 @@
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ORBAlreadyRegistered(String _orbId){
+  super(ORBAlreadyRegisteredHelper.id());
+  orbId=_orbId;
 }
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getPreviousSibling(){
-  int newnode=dtm.getPreviousSibling(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ORBAlreadyRegistered(String $reason,String _orbId){
+  super(ORBAlreadyRegisteredHelper.id() + "  " + $reason);
+  orbId=_orbId;
 }

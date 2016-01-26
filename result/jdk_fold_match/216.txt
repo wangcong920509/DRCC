@@ -22,3 +22,5 @@ public void insertIcon(Icon g){
   replaceSelection(" ",false);
   inputAttributes.removeAttributes(inputAttributes);
 }
+-->
+56.0 / 176 = 0.3181818181818182

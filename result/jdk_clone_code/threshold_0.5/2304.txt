@@ -1,8 +1,16 @@
-public StringBuilder append(char[] str){
-  super.append(str);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
+ */
+public synchronized StringBuffer deleteCharAt(int index){
+  super.deleteCharAt(index);
   return this;
 }
-public StringBuilder append(float f){
-  super.append(f);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * @since      1.2
+ */
+public synchronized StringBuffer replace(int start,int end,String str){
+  super.replace(start,end,str);
   return this;
 }

@@ -1,12 +1,20 @@
-public int getExpandedTypeID(final int nodeHandle){
-  int nodeID=getNodeIdent(nodeHandle);
-  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
- else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
- else   return DTM.NULL;
+/** 
+ * Read an object reference from the input stream and narrow it to the desired type.
+ * @param in the stream to read from.
+ * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
+ */
+public static Object readObjectAndNarrow(InputStream in,Class narrowTo) throws ClassCastException {
+  Object result=in.read_Object();
+  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
+ else   return null;
 }
-public short getNodeType(int nodeHandle){
-  int nodeID=getNodeIdent(nodeHandle);
-  if (nodeID == RTF_TEXT)   return DTM.TEXT_NODE;
- else   if (nodeID == RTF_ROOT)   return DTM.ROOT_NODE;
- else   return DTM.NULL;
+/** 
+ * Read an abstract interface type from the input stream and narrow it to the desired type.
+ * @param in the stream to read from.
+ * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
+ */
+public static Object readAbstractAndNarrow(org.omg.CORBA_2_3.portable.InputStream in,Class narrowTo) throws ClassCastException {
+  Object result=in.read_abstract_interface();
+  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
+ else   return null;
 }

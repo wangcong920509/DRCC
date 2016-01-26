@@ -1,14 +1,32 @@
 /** 
- * Call <code>checkRead()</code>, then forward this method to the wrapped object.
+ * UIManager.LazyValue method, returns the value from the desktop or the fallback value if the desktop value is null.
  */
-public void removeNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
-  checkRead();
-  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
+public Object createValue(UIDefaults table){
+  if (value == null) {
+    value=configureValue(getValueFromDesktop());
+    if (value == null) {
+      value=configureValue(getDefaultValue());
+    }
+  }
+  return value;
 }
 /** 
- * Call <code>checkRead()</code>, then forward this method to the wrapped object.
+ * Configures the value as appropriate for a defaults property in the UIDefaults table.
  */
-public void removeNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
-  checkRead();
-  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
+protected Object configureValue(Object value){
+  if (value != null) {
+    if (value instanceof Color) {
+      return new ColorUIResource((Color)value);
+    }
+ else     if (value instanceof Font) {
+      return new FontUIResource((Font)value);
+    }
+ else     if (value instanceof UIDefaults.LazyValue) {
+      value=((UIDefaults.LazyValue)value).createValue(null);
+    }
+ else     if (value instanceof UIDefaults.ActiveValue) {
+      value=((UIDefaults.ActiveValue)value).createValue(null);
+    }
+  }
+  return value;
 }

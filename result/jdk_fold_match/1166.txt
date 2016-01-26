@@ -37,3 +37,5 @@ private void updateStyle(JToolBar c){
   dragWindowStyle=null;
   toolBar.setLayout(null);
 }
+-->
+167.0 / 1176 = 0.14200680272108843

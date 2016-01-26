@@ -36,3 +36,5 @@ private void paintBackgroundMouseOverAndWindowNotFocused(Graphics2D g){
   g.setPaint(color65);
   g.fill(path);
 }
+-->
+175.0 / 1559 = 0.11225144323284157

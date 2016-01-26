@@ -1,43 +1,12 @@
-protected List getEntityDecls(){
-  if (fEventType == XMLStreamConstants.DTD) {
-    XMLEntityStorage entityStore=fEntityManager.getEntityStore();
-    ArrayList list=null;
-    if (entityStore.hasEntities()) {
-      EntityDeclarationImpl decl=null;
-      list=new ArrayList(entityStore.getEntitySize());
-      Enumeration enu=entityStore.getEntityKeys();
-      while (enu.hasMoreElements()) {
-        String key=(String)enu.nextElement();
-        Entity en=(Entity)entityStore.getEntity(key);
-        decl=new EntityDeclarationImpl();
-        decl.setEntityName(key);
-        if (en.isExternal()) {
-          decl.setXMLResourceIdentifier(((Entity.ExternalEntity)en).entityLocation);
-          decl.setNotationName(((Entity.ExternalEntity)en).notation);
-        }
- else         decl.setEntityReplacementText(((Entity.InternalEntity)en).text);
-        list.add(decl);
-      }
-    }
-    return list;
-  }
-  return null;
+/** 
+ * reset
+ * @param componentManager
+ */
+public void reset(XMLComponentManager componentManager) throws XMLConfigurationException {
+  super.reset(componentManager);
+  init();
 }
-protected List getNotationDecls(){
-  if (fEventType == XMLStreamConstants.DTD) {
-    if (fScanner.fDTDScanner == null)     return null;
-    DTDGrammar grammar=((XMLDTDScannerImpl)(fScanner.fDTDScanner)).getGrammar();
-    if (grammar == null)     return null;
-    List notations=grammar.getNotationDecls();
-    Iterator it=notations.iterator();
-    ArrayList list=new ArrayList();
-    while (it.hasNext()) {
-      XMLNotationDecl ni=(XMLNotationDecl)it.next();
-      if (ni != null) {
-        list.add(new NotationDeclarationImpl(ni));
-      }
-    }
-    return list;
-  }
-  return null;
+public void reset(){
+  super.reset();
+  init();
 }

@@ -1,16 +1,8 @@
-/** 
- * Get a Current pseudo-object. The Current interface is used to manage thread-specific information for use by the transactions, security and other services. This method is deprecated, and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
- * @return          a Current pseudo-object.
- * @deprecated
- */
-public synchronized org.omg.CORBA.Current get_current(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+private DynValueCommonImpl(){
+  this(null,(Any)null,false);
+  isNull=true;
 }
-/** 
- * This method always returns false because the ORB never needs the main thread to do work.
- */
-public synchronized boolean work_pending(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+protected DynValueCommonImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  isNull=true;
 }

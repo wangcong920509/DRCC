@@ -1,14 +1,11 @@
-public MethodType(Type resultType){
-  _argsType=null;
-  _resultType=resultType;
+public GOTO_W(InstructionHandle target){
+  super(com.sun.org.apache.bcel.internal.Constants.GOTO_W,target);
+  length=5;
 }
-public MethodType(Type resultType,Type arg1){
-  if (arg1 != Type.Void) {
-    _argsType=new Vector();
-    _argsType.addElement(arg1);
-  }
- else {
-    _argsType=null;
-  }
-  _resultType=resultType;
+/** 
+ * Read needed data (e.g. index) from file.
+ */
+protected void initFromFile(ByteSequence bytes,boolean wide) throws IOException {
+  index=bytes.readInt();
+  length=5;
 }

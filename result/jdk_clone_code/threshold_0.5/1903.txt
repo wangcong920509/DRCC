@@ -1,21 +1,17 @@
 /** 
- * Gets the offset for the first band of pixel (x,y). A sample of the first band can be retrieved from a <code>DataBuffer</code> <code>data</code> with a <code>ComponentSampleModel</code> <code>csm</code> as <pre> data.getElem(csm.getOffset(x, y)); </pre>
- * @param x the X location of the pixel
- * @param y the Y location of the pixel
- * @return the offset for the first band of the specified pixel.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param elementId ID of the element to get
+ * @return null
  */
-public int getOffset(int x,int y){
-  int offset=y * scanlineStride + x * pixelStride + bandOffsets[0];
-  return offset;
+public Element getElementById(String elementId){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Gets the offset for band b of pixel (x,y). A sample of band <code>b</code> can be retrieved from a <code>DataBuffer</code> <code>data</code> with a <code>ComponentSampleModel</code> <code>csm</code> as <pre> data.getElem(csm.getOffset(x, y, b)); </pre>
- * @param x the X location of the specified pixel
- * @param y the Y location of the specified pixel
- * @param b the specified band
- * @return the offset for the specified band of the specified pixel.
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the version number of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
  */
-public int getOffset(int x,int y,int b){
-  int offset=y * scanlineStride + x * pixelStride + bandOffsets[b];
-  return offset;
+public String getVersion(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

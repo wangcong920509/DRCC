@@ -1,8 +1,11 @@
-public ShortBuffer put(short x){
-  Bits.putShortB(bb,ix(nextPutIndex()),x);
+public StringBuilder append(double d){
+  super.append(d);
   return this;
 }
-public ShortBuffer put(int i,short x){
-  Bits.putShortB(bb,ix(checkIndex(i)),x);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder deleteCharAt(int index){
+  super.deleteCharAt(index);
   return this;
 }

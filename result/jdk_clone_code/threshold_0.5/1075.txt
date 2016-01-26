@@ -1,19 +1,19 @@
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param name Name of the element
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public NodeList getElementsByTagName(String name){
+public String getTagName(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param tagName Element tag name
+ * Unimplemented.
+ * @param offset Start offset of substring to extract.
+ * @param count The length of the substring to extract.
  * @return null
  * @throws DOMException
  */
-public Element createElement(String tagName) throws DOMException {
+public String substringData(int offset,int count) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

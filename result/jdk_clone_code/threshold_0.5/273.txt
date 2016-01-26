@@ -1,8 +1,14 @@
-private Element getElementFromMap(Map<String,Element> registry,String declKey){
-  if (registry == null)   return null;
-  return registry.get(declKey);
+/** 
+ * register one global attribute
+ */
+public void addGlobalAttributeDecl(XSAttributeDecl decl){
+  fGlobalAttrDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
-private XSDocumentInfo getDocInfoFromMap(Map<String,XSDocumentInfo> registry,String declKey){
-  if (registry == null)   return null;
-  return registry.get(declKey);
+/** 
+ * register one global group
+ */
+public void addGlobalGroupDecl(XSGroupDecl decl){
+  fGlobalGroupDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

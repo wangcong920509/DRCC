@@ -1,26 +1,15 @@
 /** 
- * Returns the default state for a feature, or null if this component does not want to report a default value for this feature.
- * @param featureId The feature identifier.
- * @since Xerces 2.2.0
+ * Create an XSLTC template object from the bytecodes. The bytecodes for the translet and auxiliary classes, plus the name of the main translet class, must be supplied.
  */
-public Boolean getFeatureDefault(String featureId){
-  for (int i=0; i < RECOGNIZED_FEATURES.length; i++) {
-    if (RECOGNIZED_FEATURES[i].equals(featureId)) {
-      return FEATURE_DEFAULTS[i];
-    }
-  }
-  return null;
+protected TemplatesImpl(byte[][] bytecodes,String transletName,Properties outputProperties,int indentNumber,TransformerFactoryImpl tfactory){
+  _bytecodes=bytecodes;
+  init(transletName,outputProperties,indentNumber,tfactory);
 }
 /** 
- * Returns the default state for a property, or null if this component does not want to report a default value for this property.
- * @param propertyId The property identifier.
- * @since Xerces 2.2.0
+ * Create an XSLTC template object from the translet class definition(s).
  */
-public Object getPropertyDefault(String propertyId){
-  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
-    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
-      return PROPERTY_DEFAULTS[i];
-    }
-  }
-  return null;
+protected TemplatesImpl(Class[] transletClasses,String transletName,Properties outputProperties,int indentNumber,TransformerFactoryImpl tfactory){
+  _class=transletClasses;
+  _transletIndex=0;
+  init(transletName,outputProperties,indentNumber,tfactory);
 }

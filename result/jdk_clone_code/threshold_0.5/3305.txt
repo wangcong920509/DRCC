@@ -1,20 +1,19 @@
 /** 
- * <p>Instantiates this MBean instance with the data found for the MBean in the persistent store.  The data loaded could include attribute and operation values.</p> <p>This method should be called during construction or initialization of this instance, and before the MBean is registered with the MBeanServer.</p> <p>If the implementation of this class does not support persistence, an  {@link MBeanException} wrapping a {@link ServiceNotFoundException} is thrown.</p>
- * @exception MBeanException Wraps another exception, orpersistence is not supported
- * @exception RuntimeOperationsException Wraps exceptions from thepersistence mechanism
- * @exception InstanceNotFoundException Could not find or loadthis MBean from persistent storage
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never block or return  {@code false}.
+ * @return {@code true} (as specified by{@link BlockingQueue#offer(Object,long,TimeUnit) BlockingQueue.offer})
+ * @throws NullPointerException if the specified element is null
  */
-public void load() throws MBeanException, RuntimeOperationsException, InstanceNotFoundException {
-  final ServiceNotFoundException x=new ServiceNotFoundException("Persistence not supported for this MBean");
-  throw new MBeanException(x,x.getMessage());
+public boolean offer(E e,long timeout,TimeUnit unit){
+  xfer(e,true,ASYNC,0);
+  return true;
 }
 /** 
- * <p>Captures the current state of this MBean instance and writes it out to the persistent store.  The state stored could include attribute and operation values.</p> <p>If the implementation of this class does not support persistence, an  {@link MBeanException} wrapping a {@link ServiceNotFoundException} is thrown.</p><p>Persistence policy from the MBean and attribute descriptor is used to guide execution of this method. The MBean should be stored if 'persistPolicy' field is:</p> <PRE>  != "never" = "always" = "onTimer" and now > 'lastPersistTime' + 'persistPeriod' = "NoMoreOftenThan" and now > 'lastPersistTime' + 'persistPeriod' = "onUnregister" </PRE> <p>Do not store the MBean if 'persistPolicy' field is:</p> <PRE> = "never" = "onUpdate" = "onTimer" && now < 'lastPersistTime' + 'persistPeriod' </PRE>
- * @exception MBeanException Wraps another exception, orpersistence is not supported
- * @exception RuntimeOperationsException Wraps exceptions from thepersistence mechanism
- * @exception InstanceNotFoundException Could not find/access thepersistent store
+ * Returns  {@code true} if this queue contains no elements.
+ * @return {@code true} if this queue contains no elements
  */
-public void store() throws MBeanException, RuntimeOperationsException, InstanceNotFoundException {
-  final ServiceNotFoundException x=new ServiceNotFoundException("Persistence not supported for this MBean");
-  throw new MBeanException(x,x.getMessage());
+public boolean isEmpty(){
+  for (Node p=head; p != null; p=succ(p)) {
+    if (!p.isMatched())     return !p.isData;
+  }
+  return true;
 }

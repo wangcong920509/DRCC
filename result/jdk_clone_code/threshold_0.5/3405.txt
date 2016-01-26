@@ -1,32 +1,26 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>String</code> in the Java programming language. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <p>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no further values in the stream.
+ * Returns <code>true</code> if it is possible to replace the stream metadata already present in the output. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if replacement of stream metadata isallowed.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public String readString() throws SQLException {
-  String attrib=(String)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canReplaceStreamMetadata() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }
 /** 
- * Returns the next attribute in this <code>SQLInputImpl</code> object as a stream of uninterpreted bytes. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns <code>true</code> if the writer supports the insertion of a new image at the given index.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support any image insertion may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> withour checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index at which the image is to beinserted.
+ * @return <code>true</code> if an image may be inserted at thegiven index.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public java.io.InputStream readBinaryStream() throws SQLException {
-  java.io.InputStream attrib=(java.io.InputStream)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canInsertImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }

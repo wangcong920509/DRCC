@@ -1,0 +1,15 @@
+/** 
+ * Returns the current value of the attribute's "declared" flag.
+ */
+public boolean isDeclared(int index){
+  if (index < 0 || index >= getLength())   throw new ArrayIndexOutOfBoundsException("No attribute at index: " + index);
+  return declared[index];
+}
+/** 
+ * Returns the current value of the attribute's "declared" flag.
+ */
+public boolean isDeclared(String qName){
+  int index=getIndex(qName);
+  if (index < 0)   throw new IllegalArgumentException("No such attribute: " + qName);
+  return declared[index];
+}

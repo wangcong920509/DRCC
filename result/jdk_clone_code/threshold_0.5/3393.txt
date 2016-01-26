@@ -1,31 +1,17 @@
 /** 
- * Return a MidiDeviceProcider of a given class from the list of MidiDeviceProviders.
- * @param providerClassName The class name of the provider to be returned.
- * @param provider The list of MidiDeviceProviders that is searched.
- * @return A MidiDeviceProvider of the requested class, or null if noneis found.
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
  */
-private static MidiDeviceProvider getNamedProvider(String providerClassName,List providers){
-  for (int i=0; i < providers.size(); i++) {
-    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
-    if (provider.getClass().getName().equals(providerClassName)) {
-      return provider;
-    }
-  }
-  return null;
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
 }
 /** 
- * From a List of MidiDeviceProviders, return the first appropriate MidiDevice.
- * @param providers The List of MidiDeviceProviders to search.
- * @param deviceClass The requested device type, one of Synthesizer.class,Sequencer.class, Receiver.class or Transmitter.class.
- * @return A MidiDevice that is considered appropriate, or nullif none is found.
+ * If in xmode parse past whitespace and comments.
  */
-private static MidiDevice getFirstDevice(List providers,Class deviceClass,boolean allowSynthesizer,boolean allowSequencer){
-  for (int i=0; i < providers.size(); i++) {
-    MidiDeviceProvider provider=(MidiDeviceProvider)providers.get(i);
-    MidiDevice device=getFirstDevice(provider,deviceClass,allowSynthesizer,allowSequencer);
-    if (device != null) {
-      return device;
-    }
+private int parsePastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[cursor++];
+    if (ch == '#')     ch=parsePastLine();
   }
-  return null;
+  return ch;
 }

@@ -1,11 +1,8 @@
-public StringBuilder append(float f){
-  super.append(f);
+public StringBuilder append(char[] str){
+  super.append(str);
   return this;
 }
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder insert(int offset,char c){
-  super.insert(offset,c);
+public StringBuilder append(char c){
+  super.append(c);
   return this;
 }

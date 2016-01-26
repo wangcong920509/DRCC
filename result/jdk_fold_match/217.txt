@@ -56,3 +56,5 @@ private void readObject(ObjectInputStream s) throws IOException, ClassNotFoundEx
     if (treeModelListener != null)     treeModel.addTreeModelListener(treeModelListener);
   }
 }
+-->
+43.0 / 1897 = 0.022667369530838165

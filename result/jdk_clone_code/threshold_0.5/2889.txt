@@ -1,8 +1,47 @@
-public ByteBuffer put(byte x){
-  hb[ix(nextPutIndex())]=x;
+public DoubleBuffer get(double[] dst,int offset,int length){
+  if ((length << 3) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyToLongArray(ix(pos),dst,offset << 3,length << 3);
+ else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 3,length << 3);
+    position(pos + length);
+  }
+ else {
+    super.get(dst,offset,length);
+  }
   return this;
 }
-public ByteBuffer putShort(int i,short x){
-  Bits.putShort(this,ix(checkIndex(i,2)),x,bigEndian);
+public DoubleBuffer put(DoubleBuffer src){
+  if (src instanceof DirectDoubleBufferS) {
+    if (src == this)     throw new IllegalArgumentException();
+    DirectDoubleBufferS sb=(DirectDoubleBufferS)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 3);
+    sb.position(spos + srem);
+    position(pos + srem);
+  }
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
+  }
+ else {
+    super.put(src);
+  }
   return this;
 }

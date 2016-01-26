@@ -1,25 +1,20 @@
 /** 
- * Creates a <code>Frame</code> in the specified <code>GraphicsConfiguration</code> of a screen device and a blank title. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @param gc the <code>GraphicsConfiguration</code> that is usedto construct the new <code>Frame</code>; if <code>gc</code> is <code>null</code>, the system default <code>GraphicsConfiguration</code> is assumed
- * @exception IllegalArgumentException if <code>gc</code> is not froma screen device.  This exception is always thrown when GraphicsEnvironment.isHeadless() returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since     1.3
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
  */
-public JFrame(GraphicsConfiguration gc){
-  super(gc);
-  frameInit();
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
+  }
+  return null;
 }
 /** 
- * Creates a new, initially invisible <code>Frame</code> with the specified title. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @param title the title for the frame
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see Component#setSize
- * @see Component#setVisible
- * @see JComponent#getDefaultLocale
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
  */
-public JFrame(String title) throws HeadlessException {
-  super(title);
-  frameInit();
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
 }

@@ -63,3 +63,5 @@ private void paintBackgroundEnabledAndWindowNotFocusedAndWindowMaximized(Graphic
   g.setPaint(color58);
   g.fill(path);
 }
+-->
+310.0 / 5060 = 0.06126482213438735

@@ -23,3 +23,5 @@ public void set_to_no_active_member() throws org.omg.DynamicAny.DynAnyPackage.Ty
   components[0]=discriminator;
   representations=REPRESENTATION_COMPONENTS;
 }
+-->
+69.0 / 492 = 0.1402439024390244

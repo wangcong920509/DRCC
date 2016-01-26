@@ -1,20 +1,18 @@
 /** 
- * Look for ConstantClass in ConstantPool named `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupClass(String str){
-  Index index=(Index)class_table.get(str.replace('.','/'));
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantFieldref in ConstantPool.
- * @param class_name Where to find method
- * @param field_name Guess what
- * @param signature return and argument types
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpOpaque</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified bytes array values. The status is updated to indicate that the value is valid.
+ * @param val The new bytes array value.
+ * @see SnmpOpaque
  */
-public int lookupFieldref(String class_name,String field_name,String signature){
-  Index index=(Index)cp_table.get(class_name + FIELDREF_DELIM + field_name+ FIELDREF_DELIM+ signature);
-  return (index != null) ? index.index : -1;
+final public void setSnmpOpaqueValue(byte[] val){
+  clearValue();
+  this.value=new SnmpOpaque(val);
+  setValueValid();
 }

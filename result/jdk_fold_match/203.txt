@@ -49,3 +49,5 @@ public SimpleTimeZone(int rawOffset,String ID,int startMonth,int startDay,int st
     throw new IllegalArgumentException("Illegal daylight saving value: " + dstSavings);
   }
 }
+-->
+16.0 / 720 = 0.022222222222222223

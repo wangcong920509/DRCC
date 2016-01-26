@@ -1,18 +1,14 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public Document getOwnerDocument(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+public String getDoctypeSystem(){
+  aMethodIsCalled();
   return null;
 }

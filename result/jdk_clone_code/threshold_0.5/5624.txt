@@ -1,0 +1,55 @@
+/** 
+ * Returns the path for passed in row.  If row is not visible null is returned.
+ */
+public TreePath getPathForRow(int row){
+  if (row >= 0 && row < getRowCount()) {
+    if (root.getPathForRow(row,getRowCount(),info)) {
+      return info.getPath();
+    }
+  }
+  return null;
+}
+/** 
+ * Messages getTreeNodeForPage(path, onlyIfVisible, shouldCreate, path.length) as long as path is non-null and the length is > 0. Otherwise returns null.
+ */
+private FHTreeStateNode getNodeForPath(TreePath path,boolean onlyIfVisible,boolean shouldCreate){
+  if (path != null) {
+    FHTreeStateNode node;
+    node=getMapping(path);
+    if (node != null) {
+      if (onlyIfVisible && !node.isVisible())       return null;
+      return node;
+    }
+    if (onlyIfVisible)     return null;
+    Stack<TreePath> paths;
+    if (tempStacks.size() == 0) {
+      paths=new Stack<TreePath>();
+    }
+ else {
+      paths=tempStacks.pop();
+    }
+    try {
+      paths.push(path);
+      path=path.getParentPath();
+      node=null;
+      while (path != null) {
+        node=getMapping(path);
+        if (node != null) {
+          while (node != null && paths.size() > 0) {
+            path=paths.pop();
+            node=node.createChildFor(path.getLastPathComponent());
+          }
+          return node;
+        }
+        paths.push(path);
+        path=path.getParentPath();
+      }
+    }
+  finally {
+      paths.removeAllElements();
+      tempStacks.push(paths);
+    }
+    return null;
+  }
+  return null;
+}

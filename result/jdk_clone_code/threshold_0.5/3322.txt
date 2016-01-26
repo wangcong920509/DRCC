@@ -1,22 +1,19 @@
 /** 
- * Customization hook: Get the name that will be used for the <var>sequence</var> MBeanParameterInfo of the MBeanConstructorInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom parameter name.  The default implementation returns {@link MBeanParameterInfo#getName() param.getName()}.
- * @param ctor  The default MBeanConstructorInfo derived by reflection.
- * @param param The default MBeanParameterInfo derived by reflection.
- * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
- * @return the name for the given MBeanParameterInfo.
+ * Appends the specified element to the end of this list. <p>This method is equivalent to  {@link #addLast}.
+ * @param e element to be appended to this list
+ * @return {@code true} (as specified by {@link Collection#add})
  */
-protected String getParameterName(MBeanConstructorInfo ctor,MBeanParameterInfo param,int sequence){
-  if (param == null)   return null;
-  return param.getName();
+public boolean add(E e){
+  linkLast(e);
+  return true;
 }
 /** 
- * Customization hook: Get the name that will be used for the <var>sequence</var> MBeanParameterInfo of the MBeanOperationInfo returned by this MBean. <br> Subclasses may redefine this method in order to supply their custom parameter name.  The default implementation returns {@link MBeanParameterInfo#getName() param.getName()}.
- * @param op    The default MBeanOperationInfo derived by reflection.
- * @param param The default MBeanParameterInfo derived by reflection.
- * @param sequence The sequence number of the parameter considered("0" for the first parameter, "1" for the second parameter, etc...).
- * @return the name to use for the given MBeanParameterInfo.
+ * Inserts the specified element at the front of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @since 1.6
  */
-protected String getParameterName(MBeanOperationInfo op,MBeanParameterInfo param,int sequence){
-  if (param == null)   return null;
-  return param.getName();
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
 }

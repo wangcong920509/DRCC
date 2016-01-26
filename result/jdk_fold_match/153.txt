@@ -33,3 +33,5 @@ private void initDeserializedWindow(){
   addToWindowList();
   initGC(null);
 }
+-->
+64.0 / 1334 = 0.047976011994003

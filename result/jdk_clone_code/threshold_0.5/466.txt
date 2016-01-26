@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param keyvalue
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(KeyValue keyvalue){
+  this._constructionElement.appendChild(keyvalue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * Method addUnknownElement
+ * @param element
  */
-public NamespaceMappings getNamespaceMappings(){
-  aMethodIsCalled();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

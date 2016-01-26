@@ -1,15 +1,14 @@
-public IIOMetadata convertStreamMetadata(IIOMetadata inData,ImageWriteParam param){
-  if (inData instanceof JPEGMetadata) {
-    JPEGMetadata jpegData=(JPEGMetadata)inData;
-    if (jpegData.isStream) {
-      return inData;
-    }
+public static IORFactory getIORFactory(ObjectReferenceTemplate ort){
+  if (ort instanceof ObjectReferenceTemplateImpl) {
+    ObjectReferenceTemplateImpl orti=(ObjectReferenceTemplateImpl)ort;
+    return orti.getIORFactory();
   }
-  return null;
+  throw new BAD_PARAM();
 }
-public Dimension[] getPreferredThumbnailSizes(ImageTypeSpecifier imageType,ImageWriteParam param,IIOMetadata streamMetadata,IIOMetadata imageMetadata){
-  if (jfifOK(imageType,param,streamMetadata,imageMetadata)) {
-    return (Dimension[])preferredThumbSizes.clone();
+public static IORTemplateList getIORTemplateList(ObjectReferenceFactory orf){
+  if (orf instanceof ObjectReferenceProducerBase) {
+    ObjectReferenceProducerBase base=(ObjectReferenceProducerBase)orf;
+    return base.getIORTemplateList();
   }
-  return null;
+  throw new BAD_PARAM();
 }

@@ -33,3 +33,5 @@ private Path2D decodePath13(){
   path.closePath();
   return path;
 }
+-->
+260.0 / 2220 = 0.11711711711711711

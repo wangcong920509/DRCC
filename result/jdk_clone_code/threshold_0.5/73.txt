@@ -1,8 +1,8 @@
-protected void setDefaultValues(){
-  Map map=new FieldMap(entries,true);
-  setFields(map);
+public ServerHeldDown(int _serverId){
+  super(ServerHeldDownHelper.id());
+  serverId=_serverId;
 }
-public void setTestValues(){
-  Map map=new FieldMap(entries,false);
-  setFields(map);
+public ServerHeldDown(String $reason,int _serverId){
+  super(ServerHeldDownHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

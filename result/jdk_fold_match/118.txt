@@ -52,3 +52,5 @@ public XMLSignature(Document doc,String BaseURI,Element SignatureMethodElem,Elem
   this._constructionElement.appendChild(signatureValueElement);
   XMLUtils.addReturnToElement(this._constructionElement);
 }
+-->
+233.0 / 1494 = 0.15595716198125836

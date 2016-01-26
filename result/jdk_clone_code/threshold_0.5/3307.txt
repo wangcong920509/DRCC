@@ -1,22 +1,19 @@
 /** 
- * Return the key used to identify the element type in arrays - e.g. "Z" for boolean, "C" for char etc...
- * @param elementClassName the wrapper class name of the arrayelement ("Boolean",  "Character", etc...)
- * @return the key corresponding to the given type ("Z", "C", etc...)return null if the given elementClassName is not a primitive wrapper class name.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never return  {@code false}.
+ * @return {@code true} (as specified by {@link Queue#offer})
+ * @throws NullPointerException if the specified element is null
  */
-static String getPrimitiveTypeKey(String elementClassName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_KEY_INDEX];
-  }
-  return null;
+public boolean offer(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
 }
 /** 
- * Return the primitive open type corresponding to the given primitive type. e.g. SimpleType.BOOLEAN for "boolean", SimpleType.CHARACTER for "char", etc...
- * @param primitiveTypeName the primitive type of the array element ("boolean","char", etc...)
- * @return the OpenType corresponding to the given primitive type name(SimpleType.BOOLEAN, SimpleType.CHARACTER, etc...) return null if the given elementClassName is not a primitive type name.
+ * Returns  {@code true} if this queue contains no elements.
+ * @return {@code true} if this queue contains no elements
  */
-static SimpleType<?> getPrimitiveOpenType(String primitiveTypeName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (primitiveTypeName.equals(typeDescr[PRIMITIVE_TYPE_NAME_INDEX]))     return (SimpleType<?>)typeDescr[PRIMITIVE_OPEN_TYPE_INDEX];
+public boolean isEmpty(){
+  for (Node p=head; p != null; p=succ(p)) {
+    if (!p.isMatched())     return !p.isData;
   }
-  return null;
+  return true;
 }

@@ -1,22 +1,14 @@
 /** 
- * Tell if the table contains the given string.
- * @param key String to look up
- * @return True if the given string is in this table
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public final boolean contains(String key){
-  for (int i=0; i < m_firstFree; i+=2) {
-    if (m_map[i].equals(key))     return true;
-  }
-  return false;
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Tell if the table contains the given string.
- * @param val value to look up
- * @return True if the given value is in the table.
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public final boolean containsValue(String val){
-  for (int i=1; i < m_firstFree; i+=2) {
-    if (m_map[i].equals(val))     return true;
-  }
-  return false;
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
 }

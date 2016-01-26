@@ -1,16 +1,19 @@
 /** 
- * Unimplemented. See org.w3c.dom.Document
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public DOMImplementation getImplementation(){
+public String getNamespaceURI(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
+ * Unimplemented.
+ * @param offset Start offset of substring to extract.
+ * @param count The length of the substring to extract.
  * @return null
+ * @throws DOMException
  */
-public DocumentFragment createDocumentFragment(){
+public String substringData(int offset,int count) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

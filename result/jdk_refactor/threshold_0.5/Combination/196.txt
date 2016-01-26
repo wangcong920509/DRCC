@@ -1,32 +1,89 @@
 /** 
- * Sets the shape of this <code>Area</code> to the intersection of its current shape and the shape of the specified <code>Area</code>. The resulting shape of this <code>Area</code> will include only areas that were contained in both this <code>Area</code> and also in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.intersect(a2); a1(before)   intersect     a2         =     a1(after) ################     ################     ################ ##############         ##############       ############ ############             ############         ######## ##########                 ##########           #### ########                     ######## ######                         ###### ####                             #### ##                                 ## </pre>
- * @param rhs  the <code>Area</code> to be intersected with this<code>Area</code>
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
+ * Validates this container and all of its subcomponents. <p> Validating a container means laying out its subcomponents. Layout-related changes, such as setting the bounds of a component, or adding a component to the container, invalidate the container automatically.  Note that the ancestors of the container may be invalidated also (see  {@link Component#invalidate} for details.)Therefore, to restore the validity of the hierarchy, the  {@code validate()} method should be invoked on the top-most invalidcontainer of the hierarchy. <p> Validating the container may be a quite time-consuming operation. For performance reasons a developer may postpone the validation of the hierarchy till a set of layout-related operations completes, e.g. after adding all the children to the container. <p> If this  {@code Container} is not valid, this method invokesthe  {@code validateTree} method and marks this {@code Container}as valid. Otherwise, no action is performed.
+ * @see #add(java.awt.Component)
+ * @see #invalidate
+ * @see Container#isValidateRoot
+ * @see javax.swing.JComponent#revalidate()
+ * @see #validateTree
  */
-public void intersect(Area rhs){
-  curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+public void validate(){
+  boolean updateCur=false;
+synchronized (getTreeLock()) {
+    if ((!isValid() || descendUnconditionallyWhenValidating) && peer != null) {
+      ContainerPeer p=null;
+      if (peer instanceof ContainerPeer) {
+        p=(ContainerPeer)peer;
+      }
+      if (p != null) {
+        p.beginValidate();
+      }
+      validateTree();
+      if (p != null) {
+        p.endValidate();
+        if (!descendUnconditionallyWhenValidating) {
+          updateCur=isVisible();
+        }
+      }
+    }
+  }
+  if (updateCur) {
+    updateCursorImmediately();
+  }
 }
 
 /** 
- * Sets the shape of this <code>Area</code> to be the combined area of its current shape and the shape of the specified <code>Area</code>, minus their intersection. The resulting shape of this <code>Area</code> will include only areas that were contained in either this <code>Area</code> or in the specified <code>Area</code>, but not in both. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.exclusiveOr(a2); a1(before)    xor        a2         =     a1(after) ################     ################ ##############         ##############     ##            ## ############             ############     ####        #### ##########                 ##########     ######    ###### ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
- * @param rhs  the <code>Area</code> to be exclusive ORed with this<code>Area</code>.
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
+ * Unconditionally validate the component hierarchy.
  */
-public void exclusiveOr(Area rhs){
-  curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+final void validateUnconditionally(){
+  boolean updateCur=false;
+synchronized (getTreeLock()) {
+    descendUnconditionallyWhenValidating=true;
+    validate();
+    if (peer instanceof ContainerPeer) {
+      updateCur=isVisible();
+    }
+    descendUnconditionallyWhenValidating=false;
+  }
+  if (updateCur) {
+    updateCursorImmediately();
+  }
 }
 
 -->
-void intersect_exclusiveOr(Area rhs,Area rhs,int combFlag){
+void validate_validateUnconditionally(int combFlag){
   if (combFlag == 1) {
-    curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
+    boolean updateCur=false;
+synchronized (getTreeLock()) {
+      if ((!isValid() || descendUnconditionallyWhenValidating) && peer != null) {
+        ContainerPeer p=null;
+        if (peer instanceof ContainerPeer) {
+          p=(ContainerPeer)peer;
+        }
+        if (p != null) {
+          p.beginValidate();
+        }
+        validateTree();
+        if (p != null) {
+          p.endValidate();
+          if (!descendUnconditionallyWhenValidating) {
+            updateCur=isVisible();
+          }
+        }
+      }
+    }
   }
  else {
-    curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
+    boolean updateCur=false;
+synchronized (getTreeLock()) {
+      descendUnconditionallyWhenValidating=true;
+      validate();
+      if (peer instanceof ContainerPeer) {
+        updateCur=isVisible();
+      }
+      descendUnconditionallyWhenValidating=false;
+    }
   }
-  invalidateBounds();
+  if (updateCur) {
+    updateCursorImmediately();
+  }
 }

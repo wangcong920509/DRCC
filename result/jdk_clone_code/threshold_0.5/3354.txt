@@ -1,21 +1,24 @@
 /** 
- * Maps a SystemException to a RemoteException.
- * @param ex the SystemException to map.
- * @return the mapped exception.
+ * Sets the script. If <code>script</code> is null or the empty string, the script in this <code>Builder</code> is removed. Otherwise, the script must be <a href="./Locale.html#def_script">well-formed</a> or an exception is thrown. <p>The typical script value is a four-letter script code as defined by ISO 15924.
+ * @param script the script
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>script</code> is ill-formed
  */
-public static RemoteException mapSystemException(SystemException ex){
-  if (utilDelegate != null) {
-    return utilDelegate.mapSystemException(ex);
+public Builder setScript(String script){
+  try {
+    localeBuilder.setScript(script);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Returns the tie (if any) for a given target object.
- * @return the tie or null if no tie is registered for the given target.
+ * Resets the extensions to their initial, empty state. Language, script, region and variant are unchanged.
+ * @return This builder.
+ * @see #setExtension(char,String)
  */
-public static Tie getTie(Remote target){
-  if (utilDelegate != null) {
-    return utilDelegate.getTie(target);
-  }
-  return null;
+public Builder clearExtensions(){
+  localeBuilder.clearExtensions();
+  return this;
 }

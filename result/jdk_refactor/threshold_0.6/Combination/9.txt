@@ -1,28 +1,26 @@
 /** 
- * Cast result object to a number.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * See above.
  */
-public double num(){
-  int node=item(0);
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public static String monthAbbreviation(){
+  String format="MMM";
+  return getNameOrAbbrev(format);
 }
 
 /** 
- * Cast result object to a number, but allow side effects, such as the incrementing of an iterator.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * See above.
  */
-public double numWithSideEffects(){
-  int node=nextNode();
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public static String dayAbbreviation(){
+  String format="EEE";
+  return getNameOrAbbrev(format);
 }
 
 -->
-void num_numWithSideEffects(int combFlag){
+void monthAbbreviation_dayAbbreviation(int combFlag){
   if (combFlag == 1) {
-    int node=item(0);
+    String format="MMM";
   }
  else {
-    int node=nextNode();
+    String format="EEE";
   }
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+  return getNameOrAbbrev(format);
 }

@@ -46,3 +46,5 @@ public E poll(long timeout,TimeUnit unit) throws InterruptedException {
   if (c == capacity)   signalNotFull();
   return x;
 }
+-->
+46.0 / 947 = 0.048574445617740235

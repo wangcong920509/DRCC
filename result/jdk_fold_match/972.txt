@@ -24,3 +24,5 @@ private void paintBackgroundMouseOver(Graphics2D g){
   g.setPaint(decodeGradient3(rect));
   g.fill(rect);
 }
+-->
+98.0 / 655 = 0.14961832061068703

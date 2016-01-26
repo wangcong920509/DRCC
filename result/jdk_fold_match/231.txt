@@ -24,3 +24,5 @@ static void drawDark3DBorder(Graphics g,int x,int y,int w,int h){
   g.drawLine(w - 2,1,w - 2,1);
   g.translate(-x,-y);
 }
+-->
+129.0 / 535 = 0.2411214953271028

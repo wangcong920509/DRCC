@@ -1,15 +1,14 @@
 /** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with no detail mesage.
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public TransformerFactoryConfigurationError(){
-  super();
-  this.exception=null;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with the <code>String</code> specified as an error message.
- * @param msg The error message for the exception.
+ * @see XSLOutputAttributes#getDoctypePublic()
  */
-public TransformerFactoryConfigurationError(String msg){
-  super(msg);
-  this.exception=null;
+public String getDoctypePublic(){
+  aMethodIsCalled();
+  return null;
 }

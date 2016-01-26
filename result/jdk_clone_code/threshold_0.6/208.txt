@@ -1,18 +1,16 @@
 /** 
- * Constructs an empty insertion-ordered <tt>LinkedHashMap</tt> instance with the specified initial capacity and a default load factor (0.75).
- * @param initialCapacity the initial capacity
- * @throws IllegalArgumentException if the initial capacity is negative
+ * Method add
+ * @param keyvalue
  */
-public LinkedHashMap(int initialCapacity){
-  super(initialCapacity);
-  accessOrder=false;
+public void add(KeyValue keyvalue){
+  this._constructionElement.appendChild(keyvalue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructs an insertion-ordered <tt>LinkedHashMap</tt> instance with the same mappings as the specified map.  The <tt>LinkedHashMap</tt> instance is created with a default load factor (0.75) and an initial capacity sufficient to hold the mappings in the specified map.
- * @param m the map whose mappings are to be placed in this map
- * @throws NullPointerException if the specified map is null
+ * Method addPGPData
+ * @param pgpdata
  */
-public LinkedHashMap(Map<? extends K,? extends V> m){
-  super(m);
-  accessOrder=false;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

@@ -1,9 +1,14 @@
-public ToSAXHandler(ContentHandler hdlr,LexicalHandler lex,String encoding){
-  setContentHandler(hdlr);
-  setLexHandler(lex);
-  setEncoding(encoding);
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
-public ToSAXHandler(ContentHandler handler,String encoding){
-  setContentHandler(handler);
-  setEncoding(encoding);
+/** 
+ * @see XSLOutputAttributes#getMediaType()
+ */
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
 }

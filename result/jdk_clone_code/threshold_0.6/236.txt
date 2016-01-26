@@ -1,21 +1,16 @@
 /** 
- * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
- * @param principals the name of the subordinate and target principals
- * @throws NullPointerException if <code>principals</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>principals</code> is empty.
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
  */
-public DelegationPermission(String principals){
-  super(principals);
-  init(principals);
+public XML11Serializer(OutputFormat format){
+  super(format);
+  _format.setVersion("1.1");
 }
 /** 
- * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
- * @param principals the name of the subordinate and target principals<p>
- * @param actions should be null.
- * @throws NullPointerException if <code>principals</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>principals</code> is empty.
+ * Constructs a new serializer that writes to the specified output stream using the specified output format. If <tt>format</tt> is null, will use a default output format.
+ * @param output The output stream to use
+ * @param format The output format to use, null for the default
  */
-public DelegationPermission(String principals,String actions){
-  super(principals,actions);
-  init(principals);
+public XML11Serializer(OutputStream output,OutputFormat format){
+  super(output,format != null ? format : new OutputFormat(Method.XML,null,false));
+  _format.setVersion("1.1");
 }

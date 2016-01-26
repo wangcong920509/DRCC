@@ -1,20 +1,14 @@
 /** 
- * If the value of <code>key</code> is a <code>Border</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @return if the value for <code>key</code> is a <code>Border</code>,return the <code>Border</code> object; otherwise return <code>null</code>
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public Border getBorder(Object key){
-  Object value=get(key);
-  return (value instanceof Border) ? (Border)value : null;
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * If the value of <code>key</code> for the given <code>Locale</code> is a <code>Border</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @param l the desired locale
- * @return if the value for <code>key</code> and <code>Locale</code>is a <code>Border</code>, return the <code>Border</code> object; otherwise return <code>null</code>
- * @since 1.4
+ * @see XSLOutputAttributes#getStandalone()
  */
-public Border getBorder(Object key,Locale l){
-  Object value=get(key,l);
-  return (value instanceof Border) ? (Border)value : null;
+public String getStandalone(){
+  aMethodIsCalled();
+  return null;
 }

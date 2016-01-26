@@ -46,3 +46,5 @@ public String addSymbol(char[] buffer,int offset,int length){
   entry.hashCode=hash;
   return entry.symbol;
 }
+-->
+217.0 / 1040 = 0.20865384615384616

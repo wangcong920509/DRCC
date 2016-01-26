@@ -1,27 +1,20 @@
 /** 
- * Constructs an instance of a Binding given its name, object, and whether the name is relative. <p> <tt>getClassName()</tt> will return the class name of <tt>obj</tt> (or null if <tt>obj</tt> is null) unless the class name has been explicitly set using <tt>setClassName()</tt>
- * @param name    The non-null string name of the object.
- * @param obj     The possibly null object bound to name.
- * @param isRelative true if <code>name</code> is a name relativeto the target context (which is named by the first parameter of the <code>listBindings()</code> method); false if <code>name</code> is a URL string.
- * @see NameClassPair#isRelative
- * @see NameClassPair#setRelative
- * @see NameClassPair#setClassName
+ * Inserts the specified element at the front of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @since 1.6
  */
-public Binding(String name,Object obj,boolean isRelative){
-  super(name,null,isRelative);
-  this.boundObj=obj;
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
 }
 /** 
- * Constructs an instance of a Binding given its name, class name, object, and whether the name is relative.
- * @param name    The non-null string name of the object.
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj     The possibly null object bound to name.
- * @param isRelative true if <code>name</code> is a name relativeto the target context (which is named by the first parameter of the <code>listBindings()</code> method); false if <code>name</code> is a URL string.
- * @see NameClassPair#isRelative
- * @see NameClassPair#setRelative
- * @see NameClassPair#setClassName
+ * Inserts the specified element at the end of this list.
+ * @param e the element to insert
+ * @return {@code true} (as specified by {@link Deque#offerLast})
+ * @since 1.6
  */
-public Binding(String name,String className,Object obj,boolean isRelative){
-  super(name,className,isRelative);
-  this.boundObj=obj;
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
 }

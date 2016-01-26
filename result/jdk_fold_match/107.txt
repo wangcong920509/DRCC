@@ -150,3 +150,5 @@ XSGroupDecl traverseGlobal(Element elmNode,XSDocumentInfo schemaDoc,SchemaGramma
   fAttrChecker.returnAttrArray(attrValues,schemaDoc);
   return group;
 }
+-->
+857.0 / 4996 = 0.17153722978382707

@@ -1,16 +1,8 @@
-/** 
- * Constructor KeyInfo
- * @param doc
- */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+private void Part(Control control,int value){
+  this.control=control;
+  this.value=value;
 }
-/** 
- * Method add
- * @param keyname
- */
-public void add(KeyName keyname){
-  this._constructionElement.appendChild(keyname.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+private void Prop(Class type,int value){
+  this.type=type;
+  this.value=value;
 }

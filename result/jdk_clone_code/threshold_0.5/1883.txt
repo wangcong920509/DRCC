@@ -1,28 +1,19 @@
 /** 
- * Prints out a list, starting at the specified indentation, to the specified print stream.
- * @param out      a print stream
- * @param indent   number of spaces to indent
- * @see java.io.PrintStream#println(java.lang.Object)
- * @throws NullPointerException if {@code out} is {@code null}
- * @since     JDK1.0
+ * Unimplemented. See org.w3c.dom.Document
+ * @param importedNode The node to import.
+ * @param deep If <code>true</code>, recursively import the subtree underthe specified node; if <code>false</code>, import only the node itself, as explained above. This has no effect on <code>Attr</code> , <code>EntityReference</code>, and <code>Notation</code> nodes.
+ * @return null
+ * @throws DOMException
  */
-public void list(PrintStream out,int indent){
-  for (int i=0; i < indent; i++) {
-    out.print(" ");
-  }
-  out.println(this);
+public Node importNode(Node importedNode,boolean deep) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Prints out a list, starting at the specified indentation, to the specified print writer.
- * @param out the print writer to print to
- * @param indent the number of spaces to indent
- * @throws NullPointerException if {@code out} is {@code null}
- * @see java.io.PrintStream#println(java.lang.Object)
- * @since JDK1.1
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
  */
-public void list(PrintWriter out,int indent){
-  for (int i=0; i < indent; i++) {
-    out.print(" ");
-  }
-  out.println(this);
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

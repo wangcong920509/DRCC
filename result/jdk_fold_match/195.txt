@@ -52,3 +52,5 @@ public boolean offer(E e){
   if (c == 0)   signalNotEmpty();
   return c >= 0;
 }
+-->
+201.0 / 988 = 0.2034412955465587

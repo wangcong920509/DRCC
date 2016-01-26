@@ -115,3 +115,5 @@ public void translate(ClassGenerator classGen,MethodGenerator methodGen){
   final int compare=cpg.addMethodref(BASIS_LIBRARY_CLASS,"compare","(" + tleft.toSignature() + tright.toSignature()+ "I"+ DOM_INTF_SIG+ ")Z");
   il.append(new INVOKESTATIC(compare));
 }
+-->
+36.0 / 6291 = 0.005722460658082976

@@ -1,14 +1,34 @@
 /** 
- * register one global attribute
+ * Returns the default state for a property, or null if this component does not want to report a default value for this property.
+ * @param propertyId The property identifier.
+ * @since Xerces 2.2.0
  */
-public void addGlobalAttributeDecl(XSAttributeDecl decl){
-  fGlobalAttrDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public Object getPropertyDefault(String propertyId){
+  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
+    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
+      return PROPERTY_DEFAULTS[i];
+    }
+  }
+  return null;
 }
 /** 
- * register one global attribute group
+ * Return the literal system identifier for the current document event. <p> The return value is the literal system identifier of the document entity or of the external parsed entity in which the markup triggering the event appears. <p>
+ * @return A string containing the literal system identifier, or nullif none is available.
  */
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
-  fGlobalAttrGrpDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public String getLiteralSystemId(){
+  if (fCurrentEntity != null) {
+    if (fCurrentEntity.entityLocation != null && fCurrentEntity.entityLocation.getLiteralSystemId() != null) {
+      return fCurrentEntity.entityLocation.getLiteralSystemId();
+    }
+ else {
+      int size=fEntityStack.size();
+      for (int i=size - 1; i >= 0; i--) {
+        Entity.ScannedEntity externalEntity=(Entity.ScannedEntity)fEntityStack.elementAt(i);
+        if (externalEntity.entityLocation != null && externalEntity.entityLocation.getLiteralSystemId() != null) {
+          return externalEntity.entityLocation.getLiteralSystemId();
+        }
+      }
+    }
+  }
+  return null;
 }

@@ -1,8 +1,14 @@
-public ByteBuffer putInt(int i,int x){
-  putInt(ix(checkIndex(i,(1 << 2))),x);
+private ByteBuffer putChar(long a,char x){
+  if (unaligned) {
+    char y=(x);
+    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putChar(a,x,bigEndian);
+  }
   return this;
 }
-public ByteBuffer putFloat(float x){
-  putFloat(ix(nextPutIndex((1 << 2))),x);
+public ByteBuffer putInt(int i,int x){
+  putInt(ix(checkIndex(i,(1 << 2))),x);
   return this;
 }

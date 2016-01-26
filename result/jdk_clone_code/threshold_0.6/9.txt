@@ -1,17 +1,8 @@
-/** 
- * Create an NVList corresponding to an OperationDef
- * @param oper      operation def to use to create list
- * @result          NVList created
- * @see NVList
- */
-public synchronized NVList create_operation_list(org.omg.CORBA.Object oper){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_octet(byte x){
+  super.write_octet(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }
-/** 
- * This method does nothing. It is not required by the spec to do anything!
- */
-public synchronized void perform_work(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_longlong(long x){
+  super.write_longlong(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }

@@ -1,20 +1,11 @@
-/** 
- * reset all XML 1.0 components before parsing and namespace context
- */
-protected void reset() throws XNIException {
-  int count=fComponents.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fComponents.get(i);
-    c.reset(this);
-  }
+public void addGlobalElementDecl(XSElementDecl decl){
+  fGlobalElemDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
 /** 
- * reset all components before parsing and namespace context
+ * register one global notation
  */
-protected void resetXML11() throws XNIException {
-  int count=fXML11Components.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fXML11Components.get(i);
-    c.reset(this);
-  }
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

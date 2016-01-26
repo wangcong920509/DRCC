@@ -39,3 +39,5 @@ synchronized (this) {
     finishedDispatch();
   }
 }
+-->
+46.0 / 674 = 0.06824925816023739

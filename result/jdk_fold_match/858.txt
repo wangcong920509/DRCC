@@ -21,3 +21,5 @@ private void paintBackgroundMouseOver(Graphics2D g){
   g.setPaint(color18);
   g.fill(rect);
 }
+-->
+98.0 / 502 = 0.1952191235059761

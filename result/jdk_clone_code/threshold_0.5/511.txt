@@ -1,14 +1,20 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * Tell if the character argument that is from an attribute value should have special treatment.
+ * @param value the value of a character that is in an attribute value
+ * @return true if the character should have any special treatment,such as when writing out attribute values, or entity references.
+ * @xsl.usage internal
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
-  return null;
+final boolean isSpecialAttrChar(int value){
+  if (value < ASCII_MAX)   return isSpecialAttrASCII[value];
+  return get(value);
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ * Tell if the character argument that is from a text node should have special treatment.
+ * @param value the value of a character that is in a text node
+ * @return true if the character should have any special treatment,such as when writing out attribute values, or entity references.
+ * @xsl.usage internal
  */
-public String getNamespaceURI(String name,boolean isElement){
-  aMethodIsCalled();
-  return null;
+final boolean isSpecialTextChar(int value){
+  if (value < ASCII_MAX)   return isSpecialTextASCII[value];
+  return get(value);
 }

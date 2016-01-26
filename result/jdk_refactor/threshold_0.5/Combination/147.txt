@@ -2,7 +2,7 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public String getTagName(){
+public Node getFirstChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
@@ -10,15 +10,14 @@ public String getTagName(){
 /** 
  * Unimplemented. See org.w3c.dom.Node
  * @return null
- * @throws DOMException
  */
-public String getNodeValue() throws DOMException {
+public Node getNextSibling(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 
 -->
-void getTagName_getNodeValue(int combFlag){
+void getFirstChild_getNextSibling(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }

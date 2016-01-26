@@ -1,25 +1,14 @@
 /** 
- * Constructs a new frame that is initially invisible. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see Component#setSize
- * @see Component#setVisible
- * @see JComponent#getDefaultLocale
+ * @see SerializationHandler#getTransformer()
  */
-public JFrame() throws HeadlessException {
-  super();
-  frameInit();
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Creates a new, initially invisible <code>Frame</code> with the specified title. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @param title the title for the frame
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see Component#setSize
- * @see Component#setVisible
- * @see JComponent#getDefaultLocale
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public JFrame(String title) throws HeadlessException {
-  super(title);
-  frameInit();
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
 }

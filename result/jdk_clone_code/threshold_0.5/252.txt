@@ -1,12 +1,19 @@
-public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
-  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
-  }
+/** 
+ * @param inputStream
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(InputStream inputStream,PropertyManager props) throws XMLStreamException {
+  init(props);
+  XMLInputSource inputSource=new XMLInputSource(null,null,null,inputStream,null);
+  setInputSource(inputSource);
 }
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
-  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
-  }
+/** 
+ * @param inputSource
+ * @param props
+ * @throws XMLStreamException
+ */
+public XMLStreamReaderImpl(XMLInputSource inputSource,PropertyManager props) throws XMLStreamException {
+  init(props);
+  setInputSource(inputSource);
 }

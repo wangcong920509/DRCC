@@ -1,32 +1,44 @@
 /** 
- * Returns the alignment along the x axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
- * @param parent the {@code Container} hosting this {@code LayoutManager}
- * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
- * @return the alignment; this implementation returns {@code .5}
+ * Returns <code>true</code> if the writer supports the insertion of a new image at the given index.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support any image insertion may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> withour checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index at which the image is to beinserted.
+ * @return <code>true</code> if an image may be inserted at thegiven index.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public float getLayoutAlignmentX(Container parent){
-  checkParent(parent);
-  return .5f;
+public boolean canInsertImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
 }
 
 /** 
- * Returns the alignment along the y axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
- * @param parent the {@code Container} hosting this {@code LayoutManager}
- * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
- * @return alignment; this implementation returns {@code .5}
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public float getLayoutAlignmentY(Container parent){
-  checkParent(parent);
-  return .5f;
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
 }
 
 -->
-void getLayoutAlignmentX_getLayoutAlignmentY(Container parent,Container parent,int combFlag){
+void canInsertImage_canReplacePixels(int imageIndex,int imageIndex,int combFlag){
   if (combFlag == 1) {
-    checkParent(parent);
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
+    }
   }
  else {
-    checkParent(parent);
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
+    }
   }
-  return .5f;
+  return false;
 }

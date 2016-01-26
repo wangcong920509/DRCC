@@ -1,22 +1,14 @@
 /** 
- * Given a string, find out if there is a value in this table that matches the key.
- * @param key String to look for
- * @return True if the string was found in table, null if not
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public final boolean containsKey(String key){
-  for (int i=m_firstFree - 1; i >= 0; --i) {
-    if (m_map[i].get(key) != null)     return true;
-  }
-  return false;
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Tell if the table contains the given StringToStringTable.
- * @param s The StringToStringTable to find
- * @return True if the StringToStringTable is found
+ * @see XSLOutputAttributes#getEncoding()
  */
-public final boolean contains(StringToStringTable s){
-  for (int i=0; i < m_firstFree; i++) {
-    if (m_map[i].equals(s))     return true;
-  }
-  return false;
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
 }

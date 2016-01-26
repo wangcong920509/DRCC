@@ -1,36 +1,44 @@
-/** 
- * @return
- */
-public String getNamespaceURI(){
-  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    return fScanner.getElementQName().uri;
+private int findNextEvent() throws XMLStreamException {
+  fStreamAdvancedByHasNext=false;
+  while (fStreamReader.hasNext()) {
+    fCurrentEvent=fStreamReader.next();
+    if (fStreamFilter.accept(fStreamReader)) {
+      fEventAccepted=true;
+      return fCurrentEvent;
+    }
   }
-  return null;
+  if (fCurrentEvent == XMLEvent.END_DOCUMENT)   return fCurrentEvent;
+ else   return -1;
 }
 
-/** 
- * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
- */
-public String getPrefix(){
-  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    String prefix=fScanner.getElementQName().prefix;
-    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+private int findNextTag() throws XMLStreamException {
+  fStreamAdvancedByHasNext=false;
+  while (fStreamReader.hasNext()) {
+    fCurrentEvent=fStreamReader.nextTag();
+    if (fStreamFilter.accept(fStreamReader)) {
+      fEventAccepted=true;
+      return fCurrentEvent;
+    }
   }
-  return null;
+  if (fCurrentEvent == XMLEvent.END_DOCUMENT)   return fCurrentEvent;
+ else   return -1;
 }
 
 -->
-void getNamespaceURI_getPrefix(int combFlag){
+void findNextEvent_findNextTag(int combFlag){
   if (combFlag == 1) {
-    if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-      return fScanner.getElementQName().uri;
-    }
+    fStreamAdvancedByHasNext=false;
   }
  else {
-    if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-      String prefix=fScanner.getElementQName().prefix;
-      return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+    fStreamAdvancedByHasNext=false;
+  }
+  while (fStreamReader.hasNext()) {
+    fCurrentEvent=fStreamReader.next();
+    if (fStreamFilter.accept(fStreamReader)) {
+      fEventAccepted=true;
+      return fCurrentEvent;
     }
   }
-  return null;
+  if (fCurrentEvent == XMLEvent.END_DOCUMENT)   return fCurrentEvent;
+ else   return -1;
 }

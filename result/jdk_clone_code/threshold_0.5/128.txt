@@ -1,20 +1,18 @@
 /** 
- * Look for ConstantClass in ConstantPool named `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupClass(String str){
-  Index index=(Index)class_table.get(str.replace('.','/'));
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantInterfaceMethodref in ConstantPool.
- * @param class_name Where to find method
- * @param method_name Guess what
- * @param signature return and argument types
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpString</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified string value. The status is updated to indicate that the value is valid.
+ * @param val The new string value.
+ * @see SnmpString
  */
-public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
-  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
-  return (index != null) ? index.index : -1;
+final public void setSnmpStringValue(String val){
+  clearValue();
+  this.value=new SnmpString(val);
+  setValueValid();
 }

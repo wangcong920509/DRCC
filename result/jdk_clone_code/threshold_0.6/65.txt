@@ -1,15 +1,14 @@
 /** 
- * Constructor ObjectPool
- * @param type Type of objects for this pool
+ * V3 enabled Adaptor. Each Oid is added using updateRequest method.
  */
-public ObjectPool(Class type){
-  objectType=type;
-  freeStack=new ArrayList();
+protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req){
+  this(agent,req);
+  init(engine,incRequest);
 }
 /** 
- * Constructor ObjectPool
+ * V3 enabled Adaptor.
  */
-public ObjectPool(){
-  objectType=null;
-  freeStack=new ArrayList();
+protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,boolean nouse){
+  this(agent,req,nouse);
+  init(engine,incRequest);
 }

@@ -1,20 +1,40 @@
-@ForceInline static Object checkBase(Object obj){
-  obj.getClass();
-  return obj;
+/** 
+ * Sets the position to getBeginIndex() and returns the character at that position.
+ * @return the first character in the text, or DONE if the text is empty
+ * @see getBeginIndex
+ */
+public char first(){
+  pos=0;
+  return current();
 }
 
-@ForceInline static Object nullCheck(Object obj){
-  obj.getClass();
-  return obj;
+/** 
+ * Sets the position to getEndIndex()-1 (getEndIndex() if the text is empty) and returns the character at that position.
+ * @return the last character in the text, or DONE if the text is empty
+ * @see getEndIndex
+ */
+public char last(){
+  if (chars.length > 0) {
+    pos=chars.length - 1;
+  }
+ else {
+    pos=0;
+  }
+  return current();
 }
 
 -->
-void checkBase_nullCheck(Object obj,Object obj,int combFlag){
+void first_last(int combFlag){
   if (combFlag == 1) {
-    obj.getClass();
+    pos=0;
   }
  else {
-    obj.getClass();
+    if (chars.length > 0) {
+      pos=chars.length - 1;
+    }
+ else {
+      pos=0;
+    }
   }
-  return obj;
+  return current();
 }

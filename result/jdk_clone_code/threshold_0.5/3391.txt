@@ -1,21 +1,14 @@
 /** 
- * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
- * @param principals the name of the subordinate and target principals
- * @throws NullPointerException if <code>principals</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>principals</code> is empty.
+ * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
  */
-public DelegationPermission(String principals){
-  super(principals);
-  init(principals);
+private int readEscaped(){
+  int ch=temp[cursor++];
+  return ch;
 }
 /** 
- * Create a new <code>DelegationPermission</code> with the specified subordinate and target principals. <p>
- * @param principals the name of the subordinate and target principals<p>
- * @param actions should be null.
- * @throws NullPointerException if <code>principals</code> is <code>null</code>.
- * @throws IllegalArgumentException if <code>principals</code> is empty.
+ * Advance the cursor by one, and peek the next character, ignoring the COMMENTS setting
  */
-public DelegationPermission(String principals,String actions){
-  super(principals,actions);
-  init(principals);
+private int nextEscaped(){
+  int ch=temp[++cursor];
+  return ch;
 }

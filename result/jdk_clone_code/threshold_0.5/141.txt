@@ -1,11 +1,18 @@
-public GOTO_W(InstructionHandle target){
-  super(com.sun.org.apache.bcel.internal.Constants.GOTO_W,target);
-  length=5;
+/** 
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
+ */
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Read needed data (e.g. index) from file.
+ * Look for ConstantUtf8 in ConstantPool.
+ * @param n Utf8 string to look for
+ * @return index on success, -1 otherwise
  */
-protected void initFromFile(ByteSequence bytes,boolean wide) throws IOException {
-  index=bytes.readInt();
-  length=5;
+public int lookupUtf8(String n){
+  Index index=(Index)utf8_table.get(n);
+  return (index != null) ? index.index : -1;
 }

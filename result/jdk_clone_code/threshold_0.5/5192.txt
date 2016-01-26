@@ -1,8 +1,8 @@
-private Ellipse2D decodeEllipse2(){
-  ellipse.setFrame(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.6f));
-  return ellipse;
+private Rectangle2D decodeRect1(){
+  rect.setRect(decodeX(1.0f),decodeY(1.0f),decodeX(1.0f) - decodeX(1.0f),decodeY(1.0f) - decodeY(1.0f));
+  return rect;
 }
-private Ellipse2D decodeEllipse4(){
-  ellipse.setFrame(decodeX(0.120000005f),decodeY(0.120000005f),decodeX(2.8799999f) - decodeX(0.120000005f),decodeY(2.8799999f) - decodeY(0.120000005f));
-  return ellipse;
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(1.6267943f),decodeY(1.3888888f),decodeX(1.673445f) - decodeX(1.6267943f),decodeY(1.6085858f) - decodeY(1.3888888f));
+  return rect;
 }

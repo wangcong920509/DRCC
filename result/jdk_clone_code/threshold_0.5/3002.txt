@@ -1,8 +1,8 @@
-HeapDoubleBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+public ByteBuffer put(byte x){
+  hb[ix(nextPutIndex())]=x;
+  return this;
 }
-protected HeapDoubleBufferR(double[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+public ByteBuffer putDouble(int i,double x){
+  Bits.putDouble(this,ix(checkIndex(i,8)),x,bigEndian);
+  return this;
 }

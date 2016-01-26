@@ -57,3 +57,5 @@ private void paintnewFolderIconEnabled(Graphics2D g){
   g.setPaint(decodeRadial1(path));
   g.fill(path);
 }
+-->
+284.0 / 4411 = 0.06438449331217411

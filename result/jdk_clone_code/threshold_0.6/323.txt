@@ -1,20 +1,14 @@
 /** 
- * If the value of <code>key</code> is an <code>Insets</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @return if the value for <code>key</code> is an <code>Insets</code>,return the <code>Insets</code> object; otherwise return <code>null</code>
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public Insets getInsets(Object key){
-  Object value=get(key);
-  return (value instanceof Insets) ? (Insets)value : null;
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * If the value of <code>key</code> for the given <code>Locale</code> is an <code>Insets</code> return it, otherwise return <code>null</code>.
- * @param key the desired key
- * @param l the desired locale
- * @return if the value for <code>key</code> and <code>Locale</code>is an <code>Insets</code>, return the <code>Insets</code> object; otherwise return <code>null</code>
- * @since 1.4
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public Insets getInsets(Object key,Locale l){
-  Object value=get(key,l);
-  return (value instanceof Insets) ? (Insets)value : null;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }

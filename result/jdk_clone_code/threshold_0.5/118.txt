@@ -1,20 +1,19 @@
 /** 
- * @return field object with given name, or null
+ * Creates an SNMP peer object for a device. The default port is 161.
+ * @param netaddr The peer <CODE>InetAddress</CODE>.
+ * @param port The port number.
  */
-public Field containsField(String name){
-  for (Iterator e=field_vec.iterator(); e.hasNext(); ) {
-    Field f=(Field)e.next();
-    if (f.getName().equals(name))     return f;
-  }
-  return null;
+public SnmpPeer(InetAddress netaddr,int port){
+  _devAddr=netaddr;
+  portNum=port;
 }
 /** 
- * @return method object with given name and signature, or null
+ * Creates an SNMP peer object for a device with the specified port.
+ * @param host The peer name.
+ * @param port The port number.
+ * @exception UnknownHostException If the host name cannot be resolved.
  */
-public Method containsMethod(String name,String signature){
-  for (Iterator e=method_vec.iterator(); e.hasNext(); ) {
-    Method m=(Method)e.next();
-    if (m.getName().equals(name) && m.getSignature().equals(signature))     return m;
-  }
-  return null;
+public SnmpPeer(String host,int port) throws UnknownHostException {
+  useIPAddress(host);
+  portNum=port;
 }

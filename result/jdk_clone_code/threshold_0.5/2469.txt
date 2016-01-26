@@ -1,11 +1,11 @@
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder insert(int offset,char c){
-  super.insert(offset,c);
+public StringBuilder append(int i){
+  super.append(i);
   return this;
 }
-public StringBuilder reverse(){
-  super.reverse();
+/** 
+ * @since 1.5
+ */
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }

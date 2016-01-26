@@ -1,12 +1,12 @@
-public String getPublicId(){
-  if (fLocator != null) {
-    return fLocator.getPublicId();
+public void addGlobalGroupDecl(XSGroupDecl decl,String location){
+  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return null;
 }
-public String getLiteralSystemId(){
-  if (fLocator != null) {
-    return fLocator.getSystemId();
+public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
+  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return null;
 }

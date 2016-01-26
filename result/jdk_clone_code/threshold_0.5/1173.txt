@@ -1,18 +1,20 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param name
- * @param x
- * @return false
+ * @param oldAttr Attribute to be removed from this node's list of attributes
+ * @return null
+ * @throws DOMException
  */
-public boolean hasAttributeNS(String name,String x){
+public Attr removeAttributeNode(Attr oldAttr) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return False
+ * @param oldChild Child to be removed
+ * @return null
+ * @throws DOMException
  */
-public boolean getSpecified(){
+public Node removeChild(Node oldChild) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }

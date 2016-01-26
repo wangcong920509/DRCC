@@ -1,47 +1,36 @@
 /** 
- * Returns an input stream for reading the specified resource. <p> The search order is described in the documentation for  {@link #getResource(String)}.  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Calls <code>dragOver</code> on the registered <code>DropTargetListener</code> and passes it the specified <code>DropTargetDragEvent</code>. Has no effect if this <code>DropTarget</code> is not active.
+ * @param dtde the <code>DropTargetDragEvent</code>
+ * @throws NullPointerException if this <code>DropTarget</code>is active and <code>dtde</code> is <code>null</code>
+ * @see #isActive
  */
-public InputStream getResourceAsStream(String name){
-  URL url=getResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public synchronized void dragOver(DropTargetDragEvent dtde){
+  if (!active)   return;
+  if (dtListener != null && active)   dtListener.dragOver(dtde);
+  updateAutoscroll(dtde.getLocation());
 }
 
 /** 
- * Open for reading, a resource of the specified name from the search path used to load classes.  This method locates the resource through the system class loader (see  {@link #getSystemClassLoader()}).  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Calls <code>dropActionChanged</code> on the registered <code>DropTargetListener</code> and passes it the specified <code>DropTargetDragEvent</code>. Has no effect if this <code>DropTarget</code> is not active.
+ * @param dtde the <code>DropTargetDragEvent</code>
+ * @throws NullPointerException if this <code>DropTarget</code>is active and <code>dtde</code> is <code>null</code>
+ * @see #isActive
  */
-public static InputStream getSystemResourceAsStream(String name){
-  URL url=getSystemResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public synchronized void dropActionChanged(DropTargetDragEvent dtde){
+  if (!active)   return;
+  if (dtListener != null)   dtListener.dropActionChanged(dtde);
+  updateAutoscroll(dtde.getLocation());
 }
 
 -->
-void getResourceAsStream_getSystemResourceAsStream(String name,String name,int combFlag){
+void dragOver_dropActionChanged(DropTargetDragEvent dtde,DropTargetDragEvent dtde,int combFlag){
   if (combFlag == 1) {
-    URL url=getResource(name);
+    if (!active)     return;
+    if (dtListener != null && active)     dtListener.dragOver(dtde);
   }
  else {
-    URL url=getSystemResource(name);
+    if (!active)     return;
+    if (dtListener != null)     dtListener.dropActionChanged(dtde);
   }
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+  updateAutoscroll(dtde.getLocation());
 }

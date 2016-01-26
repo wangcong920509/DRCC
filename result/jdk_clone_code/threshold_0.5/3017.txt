@@ -1,11 +1,7 @@
-public LongBuffer put(long x){
-  hb[ix(nextPutIndex())]=x;
-  return this;
-}
-public LongBuffer put(LongBuffer src){
-  if (src instanceof HeapLongBuffer) {
+public ByteBuffer put(ByteBuffer src){
+  if (src instanceof HeapByteBuffer) {
     if (src == this)     throw new IllegalArgumentException();
-    HeapLongBuffer sb=(HeapLongBuffer)src;
+    HeapByteBuffer sb=(HeapByteBuffer)src;
     int n=sb.remaining();
     if (n > remaining())     throw new BufferOverflowException();
     System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
@@ -21,5 +17,9 @@ public LongBuffer put(LongBuffer src){
  else {
     super.put(src);
   }
+  return this;
+}
+public ByteBuffer putChar(int i,char x){
+  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
   return this;
 }

@@ -1,8 +1,11 @@
-public FloatBuffer put(float x){
-  Bits.putFloatL(bb,ix(nextPutIndex()),x);
+public StringBuilder append(float f){
+  super.append(f);
   return this;
 }
-public FloatBuffer put(int i,float x){
-  Bits.putFloatL(bb,ix(checkIndex(i)),x);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int offset,boolean b){
+  super.insert(offset,b);
   return this;
 }

@@ -28,7 +28,7 @@ public class RefactorClone{
 	
 	public int number = 1;
 	public int number2 = 1;
-	public double threshold = 0.5;
+	public double threshold = 0.7;
 	private int lenMin = 3;
 	private List<MethodMatches> list = new ArrayList<MethodMatches>();
 	private final static String BASIC_ADDR = "result\\jdk_refactor\\";
@@ -115,7 +115,7 @@ public class RefactorClone{
 		Block newBlock = combineMethod(ast, mm, newParamName);
 		md.setBody(newBlock);
 		String content = mm.mdLeft.toString() +  "\n" + mm.mdRight.toString() + "\n-->\n" + md.toString();
-		FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", threshold)+ "\\Combination\\" + number + ".txt" , content);
+//		FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", threshold)+ "\\Combination\\" + number + ".txt" , content);
 		number++;
 	}
 	
@@ -241,7 +241,7 @@ public class RefactorClone{
 					Block mBlock = ast.newBlock();
 					for(int i = startPos; i <= endPos; i++)
 						mBlock.statements().add(ASTNode.copySubtree(ast, list1.get(i)));
-					FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", threshold)+ "\\Extraction_lenMin" + lenMin +"\\" + number2 + ".txt" , mBlock.toString());
+//					FileOperation.writeToFile(BASIC_ADDR + "threshold_" + String.format("%.1f", threshold)+ "\\Extraction_lenMin" + lenMin +"\\" + number2 + ".txt" , mBlock.toString());
 					number2++;
 				}
 			}

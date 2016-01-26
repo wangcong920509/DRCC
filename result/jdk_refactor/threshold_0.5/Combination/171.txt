@@ -1,28 +1,29 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return False
+ * @return null
+ * @throws DOMException
  */
-public boolean getSpecified(){
+public String getNodeValue() throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 
 /** 
- * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying whether errors checking is enforced or not. When set to <code>false</code>, the implementation is free to not test every possible error case normally defined on DOM operations, and not raise any <code>DOMException</code>. In case of error, the behavior is undefined. This attribute is <code>true</code> by defaults.
- * @since DOM Level 3NEEDSDOC ($objectName$) @return
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
  */
-public boolean getStrictErrorChecking(){
+public String getPrefix(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+  return null;
 }
 
 -->
-void getSpecified_getStrictErrorChecking(int combFlag){
+void getNodeValue_getPrefix(int combFlag){
   if (combFlag == 1) {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
     error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  return false;
+  return null;
 }

@@ -90,3 +90,5 @@ protected void intersectRanges(Token token){
   this.ranges=new int[wp];
   System.arraycopy(result,0,this.ranges,0,wp);
 }
+-->
+155.0 / 2531 = 0.061240616357171075

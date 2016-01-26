@@ -1,30 +1,21 @@
-/** 
- * Sets the value of a file attribute. <p> The  {@code attribute} parameter identifies the attribute to be setand takes the form: <blockquote> [<i>view-name</i><b>:</b>]<i>attribute-name</i> </blockquote> where square brackets [...] delineate an optional component and the character  {@code ':'} stands for itself.<p> <i>view-name</i> is the  {@link FileAttributeView#name name} of a {@link FileAttributeView} that identifies a set of file attributes. If notspecified then it defaults to  {@code "basic"}, the name of the file attribute view that identifies the basic set of file attributes common to many file systems. <i>attribute-name</i> is the name of the attribute within the set. <p> The  {@code options} array may be used to indicate how symbolic linksare handled for the case that the file is a symbolic link. By default, symbolic links are followed and the file attribute of the final target of the link is set. If the option  {@link LinkOption#NOFOLLOW_LINKS NOFOLLOW_LINKS} is present then symbolic links are not followed.<p> <b>Usage Example:</b> Suppose we want to set the DOS "hidden" attribute: <pre> Path path = ... Files.setAttribute(path, "dos:hidden", true); </pre>
- * @param path the path to the file
- * @param attribute the attribute to set
- * @param value the attribute value
- * @param options options indicating how symbolic links are handled
- * @return  the {@code path} parameter
- * @throws UnsupportedOperationException if the attribute view is not available
- * @throws IllegalArgumentException if the attribute name is not specified, or is not recognized, or the attribute value is of the correct type but has an inappropriate value
- * @throws ClassCastException if the attribute value is not of the expected type or is a collection containing elements that are not of the expected type
- * @throws IOException if an I/O error occurs
- * @throws SecurityException In the case of the default provider, and a security manager is installed, its  {@link SecurityManager#checkWrite(String) checkWrite}method denies write access to the file. If this method is invoked to set security sensitive attributes then the security manager may be invoked to check for additional permissions.
- */
-public static Path setAttribute(Path path,String attribute,Object value,LinkOption... options) throws IOException {
-  provider(path).setAttribute(path,attribute,value,options);
-  return path;
+public CharBuffer put(char x){
+  unsafe.putChar(ix(nextPutIndex()),((x)));
+  return this;
 }
-/** 
- * Updates a file's last modified time attribute. The file time is converted to the epoch and precision supported by the file system. Converting from finer to coarser granularities result in precision loss. The behavior of this method when attempting to set the last modified time when it is not supported by the file system or is outside the range supported by the underlying file store is not defined. It may or not fail by throwing an {@code IOException}. <p> <b>Usage Example:</b> Suppose we want to set the last modified time to the current time: <pre> Path path = ... FileTime now = FileTime.fromMillis(System.currentTimeMillis()); Files.setLastModifiedTime(path, now); </pre>
- * @param path the path to the file
- * @param time the new last modified time
- * @return  the file
- * @throws IOException if an I/O error occurs
- * @throws SecurityException In the case of the default provider, the security manager's  {@link SecurityManager#checkWrite(String) checkWrite} method is invokedto check write access to file
- * @see BasicFileAttributeView#setTimes
- */
-public static Path setLastModifiedTime(Path path,FileTime time) throws IOException {
-  getFileAttributeView(path,BasicFileAttributeView.class).setTimes(time,null,null);
-  return path;
+public CharBuffer put(char[] src,int offset,int length){
+  if ((length << 1) > Bits.JNI_COPY_FROM_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,src.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferOverflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyFromCharArray(src,offset << 1,ix(pos),length << 1);
+ else     Bits.copyFromArray(src,arrayBaseOffset,offset << 1,ix(pos),length << 1);
+    position(pos + length);
+  }
+ else {
+    super.put(src,offset,length);
+  }
+  return this;
 }

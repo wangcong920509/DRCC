@@ -1,18 +1,17 @@
 /** 
- * Unimplemented. See org.w3c.dom.NodeList
- * @param index index of a child of this node in its list of children
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node item(int index){
+public Node getNextSibling(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
+ * Unimplemented. See org.w3c.dom.Node
+ * @param deep Flag indicating whether to clone deep (clone member variables)
  * @return null
  */
-public Element getElementById(String elementId){
+public Node cloneNode(boolean deep){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

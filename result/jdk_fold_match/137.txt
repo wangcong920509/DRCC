@@ -32,3 +32,5 @@ public XPath(Expression expr){
   this.setExpression(expr);
   initFunctionTable();
 }
+-->
+112.0 / 595 = 0.18823529411764706

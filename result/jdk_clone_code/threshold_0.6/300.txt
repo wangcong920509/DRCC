@@ -1,24 +1,14 @@
 /** 
- * {@inheritDoc}
- * @since 1.6
+ * @see SerializationHandler#getTransformer()
  */
-protected void addImpl(Component comp,Object constraints,int index){
-  super.addImpl(comp,constraints,index);
-  if (componentOrderCheckingEnabled) {
-    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
-      componentOrderChanged=true;
-    }
-  }
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * {@inheritDoc}
- * @since 1.6
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public void setComponentZOrder(Component comp,int index){
-  super.setComponentZOrder(comp,index);
-  if (componentOrderCheckingEnabled) {
-    if (comp instanceof JInternalFrame || comp instanceof JInternalFrame.JDesktopIcon) {
-      componentOrderChanged=true;
-    }
-  }
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }

@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#asContentHandler()
+ * Method add
+ * @param keyname
  */
-public ContentHandler asContentHandler() throws IOException {
-  couldThrowIOException();
-  return null;
+public void add(KeyName keyname){
+  this._constructionElement.appendChild(keyname.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getMediaType()
+ * Method add
+ * @param retrievalmethod
  */
-public String getMediaType(){
-  aMethodIsCalled();
-  return null;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

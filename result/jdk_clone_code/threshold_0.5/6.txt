@@ -1,8 +1,23 @@
-protected DynAnyBasicImpl(ORB orb,Any any,boolean copyValue){
-  super(orb,any,copyValue);
-  index=NO_INDEX;
+/** 
+ * A variant of the insertion operation that takes a typecode argument as well.
+ */
+public void insert_Object(org.omg.CORBA.Object o,TypeCode tc){
+  try {
+    if (tc.id().equals("IDL:omg.org/CORBA/Object:1.0") || o._is_a(tc.id())) {
+      typeCode=TypeCodeImpl.convertToNative(orb,tc);
+      object=o;
+    }
+ else {
+      throw wrapper.insertObjectIncompatible();
+    }
+  }
+ catch (  Exception ex) {
+    throw wrapper.insertObjectFailed(ex);
+  }
+  isInitialized=true;
 }
-protected DynAnyBasicImpl(ORB orb,TypeCode typeCode){
-  super(orb,typeCode);
-  index=NO_INDEX;
+public void insert_Value(Serializable v,org.omg.CORBA.TypeCode t){
+  object=v;
+  typeCode=TypeCodeImpl.convertToNative(orb,t);
+  isInitialized=true;
 }

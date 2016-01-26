@@ -1,21 +1,18 @@
 /** 
- * MissingKeyResourceFailureException constructor.
- * @param _msgID
- * @param reference
- * @see #getReference
+ * Constructor XMLSecurityException
  */
-public MissingResourceFailureException(String _msgID,Reference reference){
-  super(_msgID);
-  this.uninitializedReference=reference;
+public XMLSecurityException(){
+  super("Missing message string");
+  this.msgID=null;
+  this.originalException=null;
 }
 /** 
- * Constructor MissingResourceFailureException
+ * Constructor XMLSecurityException
  * @param _msgID
- * @param _originalException
- * @param reference
- * @see #getReference
+ * @param exArgs
  */
-public MissingResourceFailureException(String _msgID,Exception _originalException,Reference reference){
-  super(_msgID,_originalException);
-  this.uninitializedReference=reference;
+public XMLSecurityException(String _msgID,Object exArgs[]){
+  super(MessageFormat.format(I18n.getExceptionMessage(_msgID),exArgs));
+  this.msgID=_msgID;
+  this.originalException=null;
 }

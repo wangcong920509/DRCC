@@ -1,8 +1,27 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the path to the node that is closest to x,y.  If there is nothing currently visible this will return null, otherwise it'll always return a valid path.  If you need to test if the returned object is exactly at x, y you should get the bounds for the returned path and test x, y against that.
+ */
+public TreePath getClosestPathForLocation(JTree tree,int x,int y){
+  if (tree != null && treeState != null) {
+    y-=tree.getInsets().top;
+    return treeState.getPathClosestTo(x,y);
+  }
+  return null;
 }
-private Rectangle2D decodeRect38(){
-  rect.setRect(decodeX(1.3333334f),decodeY(1.3333334f),decodeX(2.2f) - decodeX(1.3333334f),decodeY(1.5f) - decodeY(1.3333334f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(tree,this,"Tree.ancestorInputMap");
+  }
+ else   if (condition == JComponent.WHEN_FOCUSED) {
+    InputMap keyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap");
+    InputMap rtlKeyMap;
+    if (tree.getComponentOrientation().isLeftToRight() || ((rtlKeyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap.RightToLeft")) == null)) {
+      return keyMap;
+    }
+ else {
+      rtlKeyMap.setParent(keyMap);
+      return rtlKeyMap;
+    }
+  }
+  return null;
 }

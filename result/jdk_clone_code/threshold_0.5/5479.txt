@@ -1,15 +1,8 @@
-/** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with no detail mesage.
- */
-public TransformerFactoryConfigurationError(){
-  super();
-  this.exception=null;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with the <code>String</code> specified as an error message.
- * @param msg The error message for the exception.
- */
-public TransformerFactoryConfigurationError(String msg){
-  super(msg);
-  this.exception=null;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }

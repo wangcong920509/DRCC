@@ -1,16 +1,18 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Construct a IntVector, using the given block size.
+ * @param blocksize Size of block to allocate
  */
-public Node getParentNode(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public ObjectVector(int blocksize){
+  m_blocksize=blocksize;
+  m_mapSize=blocksize;
+  m_map=new Object[blocksize];
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Construct a IntVector, using the given block size.
+ * @param blocksize Size of block to allocate
  */
-public Node getNextSibling(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public ObjectVector(int blocksize,int increaseSize){
+  m_blocksize=increaseSize;
+  m_mapSize=blocksize;
+  m_map=new Object[blocksize];
 }

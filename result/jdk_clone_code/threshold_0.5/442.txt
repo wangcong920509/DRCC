@@ -1,16 +1,16 @@
 /** 
- * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
+ * Method add
+ * @param xmlX509SKI
  */
-public XML11Serializer(){
-  super();
-  _format.setVersion("1.1");
+public void add(XMLX509SKI xmlX509SKI){
+  this._constructionElement.appendChild(xmlX509SKI.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructs a new serializer that writes to the specified writer using the specified output format. If <tt>format</tt> is null, will use a default output format.
- * @param writer The writer to use
- * @param format The output format to use, null for the default
+ * Method addUnknownElement
+ * @param element
  */
-public XML11Serializer(Writer writer,OutputFormat format){
-  super(writer,format);
-  _format.setVersion("1.1");
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

@@ -1,24 +1,26 @@
 /** 
- * Returns the codebase, if any, for the given class.
- * @param clz the class to get a codebase for.
- * @return a space-separated list of URLs, or null.
+ * Removes a unicode locale attribute, if present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Attribute comparision for removal is case-insensitive.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static String getCodebase(java.lang.Class clz){
-  if (utilDelegate != null) {
-    return utilDelegate.getCodebase(clz);
+public Builder removeUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.removeUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
- * @param obj the objects to copy or connect.
- * @param orb the ORB.
- * @return the copied or connected objects.
- * @exception RemoteException if any object could not be copied or connected.
+ * Resets the extensions to their initial, empty state. Language, script, region and variant are unchanged.
+ * @return This builder.
+ * @see #setExtension(char,String)
  */
-public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObjects(obj,orb);
-  }
-  return null;
+public Builder clearExtensions(){
+  localeBuilder.clearExtensions();
+  return this;
 }

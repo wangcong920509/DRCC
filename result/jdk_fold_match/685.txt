@@ -21,3 +21,5 @@ private void paintForegroundEnabledAndIndeterminate(Graphics2D g){
   g.setPaint(color32);
   g.fill(rect);
 }
+-->
+98.0 / 547 = 0.17915904936014626

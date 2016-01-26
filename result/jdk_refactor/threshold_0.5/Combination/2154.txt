@@ -1,42 +1,20 @@
-/** 
- * Get an attribute by name.
- */
-public AttributeList getAttribute(String name){
-  for (AttributeList a=atts; a != null; a=a.next) {
-    if (a.name.equals(name)) {
-      return a;
-    }
-  }
-  return null;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.0f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
 
-/** 
- * Get an attribute by value.
- */
-public AttributeList getAttributeByValue(String name){
-  for (AttributeList a=atts; a != null; a=a.next) {
-    if ((a.values != null) && a.values.contains(name)) {
-      return a;
-    }
-  }
-  return null;
+private Rectangle2D decodeRect3(){
+  rect.setRect(decodeX(0.0f),decodeY(2.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(3.0f) - decodeY(2.0f));
+  return rect;
 }
 
 -->
-void getAttribute_getAttributeByValue(String name,String name,int combFlag){
+void decodeRect2_decodeRect3(int combFlag){
   if (combFlag == 1) {
-    for (AttributeList a=atts; a != null; a=a.next) {
-      if (a.name.equals(name)) {
-        return a;
-      }
-    }
+    rect.setRect(decodeX(0.0f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.0f),decodeY(2.0f) - decodeY(1.0f));
   }
  else {
-    for (AttributeList a=atts; a != null; a=a.next) {
-      if ((a.values != null) && a.values.contains(name)) {
-        return a;
-      }
-    }
+    rect.setRect(decodeX(0.0f),decodeY(2.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(3.0f) - decodeY(2.0f));
   }
-  return null;
+  return rect;
 }

@@ -1,14 +1,46 @@
-private ByteBuffer putChar(long a,char x){
-  if (unaligned) {
-    char y=(x);
-    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
+public ByteBuffer get(byte[] dst,int offset,int length){
+  if ((length << 0) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 0,length << 0);
+    position(pos + length);
   }
  else {
-    Bits.putChar(a,x,bigEndian);
+    super.get(dst,offset,length);
   }
   return this;
 }
-public ByteBuffer putInt(int i,int x){
-  putInt(ix(checkIndex(i,(1 << 2))),x);
+public ByteBuffer put(ByteBuffer src){
+  if (src instanceof DirectByteBuffer) {
+    if (src == this)     throw new IllegalArgumentException();
+    DirectByteBuffer sb=(DirectByteBuffer)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 0);
+    sb.position(spos + srem);
+    position(pos + srem);
+  }
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
+  }
+ else {
+    super.put(src);
+  }
   return this;
 }

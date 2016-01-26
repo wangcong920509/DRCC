@@ -1,22 +1,19 @@
 /** 
- * Return the primitive type name corresponding to the given wrapper class. e.g. "boolean" for "Boolean", "char" for "Character" etc...
- * @param elementClassName the type of the array element ("Boolean","Character", etc...)
- * @return the primitive type name corresponding to the given wrapper class("boolean", "char", etc...) return null if the given elementClassName is not a primitive wrapper type name.
+ * Inserts the specified element at the tail of this queue. As the queue is unbounded, this method will never throw {@link IllegalStateException} or return {@code false}.
+ * @return {@code true} (as specified by {@link Collection#add})
+ * @throws NullPointerException if the specified element is null
  */
-static String getPrimitiveTypeName(String elementClassName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (elementClassName.equals(typeDescr[PRIMITIVE_WRAPPER_NAME_INDEX]))     return (String)typeDescr[PRIMITIVE_TYPE_NAME_INDEX];
-  }
-  return null;
+public boolean add(E e){
+  xfer(e,true,ASYNC,0);
+  return true;
 }
 /** 
- * Return the primitive open type corresponding to the given primitive type. e.g. SimpleType.BOOLEAN for "boolean", SimpleType.CHARACTER for "char", etc...
- * @param primitiveTypeName the primitive type of the array element ("boolean","char", etc...)
- * @return the OpenType corresponding to the given primitive type name(SimpleType.BOOLEAN, SimpleType.CHARACTER, etc...) return null if the given elementClassName is not a primitive type name.
+ * Returns  {@code true} if this queue contains no elements.
+ * @return {@code true} if this queue contains no elements
  */
-static SimpleType<?> getPrimitiveOpenType(String primitiveTypeName){
-  for (  Object[] typeDescr : PRIMITIVE_ARRAY_TYPES) {
-    if (primitiveTypeName.equals(typeDescr[PRIMITIVE_TYPE_NAME_INDEX]))     return (SimpleType<?>)typeDescr[PRIMITIVE_OPEN_TYPE_INDEX];
+public boolean isEmpty(){
+  for (Node p=head; p != null; p=succ(p)) {
+    if (!p.isMatched())     return !p.isData;
   }
-  return null;
+  return true;
 }

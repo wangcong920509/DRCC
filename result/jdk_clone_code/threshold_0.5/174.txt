@@ -1,13 +1,14 @@
-public DTMAxisIterator setStartNode(int node){
-  if (_isRestartable) {
-    _startNode=node;
-    _source.setStartNode(node);
-    resetPosition();
-    _isRestartable=false;
-  }
-  return this;
+/** 
+ * See above.
+ */
+public static String monthAbbreviation(){
+  String format="MMM";
+  return getNameOrAbbrev(format);
 }
-public DTMAxisIterator reset(){
-  _index=0;
-  return this;
+/** 
+ * See above.
+ */
+public static String dayAbbreviation(){
+  String format="EEE";
+  return getNameOrAbbrev(format);
 }

@@ -1,14 +1,22 @@
 /** 
- * Returns the minimum size for the passed in component, This is passed off to the current layoutmanager.
+ * Constructs a new enumerated control object with the given parameters.
+ * @param type the type of control represented this enumerated control object
+ * @param values the set of possible values for the control
+ * @param value the initial control value
  */
-public Dimension getMinimumSize(JComponent jc){
-  if (splitPane != null)   return layoutManager.minimumLayoutSize(splitPane);
-  return new Dimension(0,0);
+protected EnumControl(Type type,Object[] values,Object value){
+  super(type);
+  this.values=values;
+  this.value=value;
 }
 /** 
- * Returns the maximum size for the passed in component, This is passed off to the current layoutmanager.
+ * Sets the current value for the control.  The default implementation simply sets the value as indicated.  If the value indicated is not supported, an IllegalArgumentException is thrown. Some controls require that their line be open before they can be affected by setting a value.
+ * @param value the desired new value
+ * @throws IllegalArgumentException if the value indicated does not fallwithin the allowable range
  */
-public Dimension getMaximumSize(JComponent jc){
-  if (splitPane != null)   return layoutManager.maximumLayoutSize(splitPane);
-  return new Dimension(0,0);
+public void setValue(Object value){
+  if (!isValueSupported(value)) {
+    throw new IllegalArgumentException("Requested value " + value + " is not supported.");
+  }
+  this.value=value;
 }

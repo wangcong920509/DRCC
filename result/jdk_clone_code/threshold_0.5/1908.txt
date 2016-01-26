@@ -1,22 +1,18 @@
 /** 
- * Sets the requested data array element in the first (default) bank to the given <code>int</code>.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElem(int)
- * @see #getElem(int,int)
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public void setElem(int i,int val){
-  data[i + offset]=(double)val;
-  theTrackable.markDirty();
+public Text splitText(int offset) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Sets the requested data array element in the first (default) bank to the given <code>double</code>.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElemDouble(int)
- * @see #getElemDouble(int,int)
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
  */
-public void setElemDouble(int i,double val){
-  data[i + offset]=val;
-  theTrackable.markDirty();
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

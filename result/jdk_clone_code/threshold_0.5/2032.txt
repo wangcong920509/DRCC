@@ -1,14 +1,21 @@
 /** 
- * Appends the specified <tt>StringBuffer</tt> to this sequence. <p> The characters of the <tt>StringBuffer</tt> argument are appended, in order, to the contents of this <tt>StringBuffer</tt>, increasing the length of this <tt>StringBuffer</tt> by the length of the argument. If <tt>sb</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this <tt>StringBuffer</tt>. <p> Let <i>n</i> be the length of the old character sequence, the one contained in the <tt>StringBuffer</tt> just prior to execution of the <tt>append</tt> method. Then the character at index <i>k</i> in the new character sequence is equal to the character at index <i>k</i> in the old character sequence, if <i>k</i> is less than <i>n</i>; otherwise, it is equal to the character at index <i>k-n</i> in the argument <code>sb</code>. <p> This method synchronizes on <code>this</code> (the destination) object but does not synchronize on the source (<code>sb</code>).
- * @param sb   the <tt>StringBuffer</tt> to append.
- * @return  a reference to this object.
+ * Rotates the scroll wheel on wheel-equipped mice.
+ * @param wheelAmt  number of "notches" to move the mouse wheelNegative values indicate movement up/away from the user, positive values indicate movement down/towards the user.
  * @since 1.4
  */
-public synchronized StringBuffer append(StringBuffer sb){
-  super.append(sb);
-  return this;
+public synchronized void mouseWheel(int wheelAmt){
+  peer.mouseWheel(wheelAmt);
+  afterEvent();
 }
-public synchronized StringBuffer append(boolean b){
-  super.append(b);
-  return this;
+/** 
+ * Presses a given key.  The key should be released using the <code>keyRelease</code> method. <p> Key codes that have more than one physical key associated with them (e.g. <code>KeyEvent.VK_SHIFT</code> could mean either the left or right shift key) will map to the left key.
+ * @param keycode Key to press (e.g. <code>KeyEvent.VK_A</code>)
+ * @throws IllegalArgumentException if <code>keycode</code> is nota valid key
+ * @see #keyRelease(int)
+ * @see java.awt.event.KeyEvent
+ */
+public synchronized void keyPress(int keycode){
+  checkKeycodeArgument(keycode);
+  peer.keyPress(keycode);
+  afterEvent();
 }

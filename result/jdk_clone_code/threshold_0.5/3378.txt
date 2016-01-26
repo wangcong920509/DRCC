@@ -1,23 +1,25 @@
 /** 
- * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
- * @return a class which implements the ValueHandler interface.
+ * Adds a unicode locale attribute, if not already present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static ValueHandler createValueHandler(){
-  if (utilDelegate != null) {
-    return utilDelegate.createValueHandler();
+public Builder addUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.addUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
- * @param obj the object to copy.
- * @param orb the ORB.
- * @return the copy or connected object.
- * @exception RemoteException if the object could not be copied or connected.
+ * Resets the builder to its initial, empty state.
+ * @return This builder.
  */
-public static Object copyObject(Object obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObject(obj,orb);
-  }
-  return null;
+public Builder clear(){
+  localeBuilder.clear();
+  return this;
 }

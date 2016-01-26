@@ -1,19 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param name Name of attribute to get
+ * @param newAttr Attribute node to be added to this node's list of attributes
  * @return null
+ * @throws DOMException
  */
-public String getAttribute(String name){
+public Attr setAttributeNode(Attr newAttr) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of attribute node to get
- * @param localName Local part of qualified name of attribute node to get
+ * Unimplemented. See org.w3c.dom.Document
  * @return null
  */
-public Attr getAttributeNodeNS(String namespaceURI,String localName){
+public DocumentType getDoctype(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

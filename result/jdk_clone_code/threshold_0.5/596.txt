@@ -1,23 +1,14 @@
 /** 
- * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
- * @param elem object to look for
- * @param index Index of where to begin search
- * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public final int indexOf(Object elem,int index){
-  for (int i=index; i < m_firstFree; i++) {
-    if (m_map[i] == elem)     return i;
-  }
-  return java.lang.Integer.MIN_VALUE;
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
- * @param elem Object to look for
- * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public final int lastIndexOf(Object elem){
-  for (int i=(m_firstFree - 1); i >= 0; i--) {
-    if (m_map[i] == elem)     return i;
-  }
-  return java.lang.Integer.MIN_VALUE;
+public String getNamespaceURI(String name,boolean isElement){
+  aMethodIsCalled();
+  return null;
 }

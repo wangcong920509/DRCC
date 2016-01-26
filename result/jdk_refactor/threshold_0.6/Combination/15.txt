@@ -1,26 +1,26 @@
 /** 
- * Called by superclass constructors and pseudoconstructors (clone, readObject) before any entries are inserted into the map.  Initializes the chain.
+ * Translates an object of this type to its boxed representation.
  */
-@Override void init(){
-  header=new Entry<>(-1,null,null,null);
-  header.before=header.after=header;
+public void translateBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 
 /** 
- * Removes all of the mappings from this map. The map will be empty after this call returns.
+ * Translates an object of this type to its unboxed representation.
  */
-public void clear(){
-  super.clear();
-  header.before=header.after=header;
+public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 
 -->
-void init_clear(int combFlag){
+void translateBox_translateUnBox(ClassGenerator classGen,MethodGenerator methodGen,ClassGenerator classGen,MethodGenerator methodGen,int combFlag){
   if (combFlag == 1) {
-    header=new Entry<>(-1,null,null,null);
+    ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
   }
  else {
-    super.clear();
+    ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
   }
-  header.before=header.after=header;
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

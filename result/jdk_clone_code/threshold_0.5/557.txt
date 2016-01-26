@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @see SerializationHandler#getWriter()
  */
-public String getDoctypePublic(){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public String getEncoding(){
+public String getNamespaceURI(String name,boolean isElement){
   aMethodIsCalled();
   return null;
 }

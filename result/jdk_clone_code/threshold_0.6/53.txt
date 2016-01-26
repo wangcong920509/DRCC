@@ -1,16 +1,18 @@
 /** 
- * Constructor KeyInfo
- * @param doc
+ * Put an integer with the specified tag.
+ * @param v The integer to encode.
+ * @param tag The tag to encode.
  */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void putInteger(int v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
 /** 
- * Method addUnknownElement
- * @param element
+ * Put an octet string with a specified tag.
+ * @param s The bytes to encode
+ * @param tag The tag to encode.
  */
-public void addUnknownElement(Element element){
-  this._constructionElement.appendChild(element);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void putOctetString(byte[] s,int tag){
+  putStringValue(s);
+  putTag(tag);
 }

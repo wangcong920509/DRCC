@@ -1,64 +1,28 @@
 /** 
- * @param sibling
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * A document type declaration information item has the following properties: 1. [system identifier] The system identifier of the external subset, if it exists. Otherwise this property has no value.
+ * @return the system identifier String object, or null if there is none.
  */
-public static Element selectDsNode(Node sibling,String nodeName,int number){
-  while (sibling != null) {
-    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
+public String getDocumentTypeDeclarationSystemIdentifier(){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
   return null;
 }
 
 /** 
- * @param sibling
- * @param nodeName
- * @param number
- * @return nodes with the constrain
+ * Return the public identifier of the external subset, normalized as described in 4.2.2 External Entities [XML]. If there is no external subset or if it has no public identifier, this property has no value.
+ * @return the public identifier String object, or null if there is none.
  */
-public static Element selectXencNode(Node sibling,String nodeName,int number){
-  while (sibling != null) {
-    if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-      if (number == 0) {
-        return (Element)sibling;
-      }
-      number--;
-    }
-    sibling=sibling.getNextSibling();
-  }
+public String getDocumentTypeDeclarationPublicIdentifier(){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
   return null;
 }
 
 -->
-void selectDsNode_selectXencNode(Node sibling,String nodeName,int number,Node sibling,String nodeName,int number,int combFlag){
+void getDocumentTypeDeclarationSystemIdentifier_getDocumentTypeDeclarationPublicIdentifier(int combFlag){
   if (combFlag == 1) {
-    while (sibling != null) {
-      if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-        if (number == 0) {
-          return (Element)sibling;
-        }
-        number--;
-      }
-      sibling=sibling.getNextSibling();
-    }
+    error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
   }
  else {
-    while (sibling != null) {
-      if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
-        if (number == 0) {
-          return (Element)sibling;
-        }
-        number--;
-      }
-      sibling=sibling.getNextSibling();
-    }
+    error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
   }
   return null;
 }

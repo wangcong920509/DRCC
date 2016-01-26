@@ -2,16 +2,16 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getLastChild(){
+public Node getFirstChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param data Data for comment
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Name of attribute to get
  * @return null
  */
-public Comment createComment(String data){
+public String getAttribute(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

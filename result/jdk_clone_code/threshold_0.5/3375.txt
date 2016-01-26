@@ -1,24 +1,26 @@
 /** 
- * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
- * @return a class which implements the ValueHandler interface.
+ * Sets the Unicode locale keyword type for the given key.  If the type is null, the Unicode keyword is removed.  Otherwise, the key must be non-null and both key and type must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Keys and types are converted to lower case. <p><b>Note</b>:Setting the 'u' extension via  {@link #setExtension}replaces all Unicode locale keywords with those defined in the extension.
+ * @param key the Unicode locale key
+ * @param type the Unicode locale type
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> or <code>type</code>is ill-formed
+ * @throws NullPointerException if <code>key</code> is null
+ * @see #setExtension(char,String)
  */
-public static ValueHandler createValueHandler(){
-  if (utilDelegate != null) {
-    return utilDelegate.createValueHandler();
+public Builder setUnicodeLocaleKeyword(String key,String type){
+  try {
+    localeBuilder.setUnicodeLocaleKeyword(key,type);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Returns a class instance for the specified class. <P>The spec for this method is the "Java to IDL language mapping", ptc/00-01-06. <P>In Java SE Platform, this method works as follows: <UL><LI>Find the first non-null <tt>ClassLoader</tt> on the call stack and attempt to load the class using this <tt>ClassLoader</tt>. <LI>If the first step fails, and if <tt>remoteCodebase</tt> is non-null and <tt>useCodebaseOnly</tt> is false, then call <tt>java.rmi.server.RMIClassLoader.loadClass(remoteCodebase, className)</tt>. <LI>If <tt>remoteCodebase</tt> is null or <tt>useCodebaseOnly</tt> is true, then call <tt>java.rmi.server.RMIClassLoader.loadClass(className)</tt>. <LI>If a class was not successfully loaded by step 1, 2, or 3, and <tt>loader</tt> is non-null, then call <tt>loader.loadClass(className)</tt>. <LI>If a class was successfully loaded by step 1, 2, 3, or 4, then return the loaded class, else throw <tt>ClassNotFoundException</tt>.
- * @param className the name of the class.
- * @param remoteCodebase a space-separated list of URLs at whichthe class might be found. May be null.
- * @param loader a <tt>ClassLoader</tt> that may be used toload the class if all other methods fail.
- * @return the <code>Class</code> object representing the loaded class.
- * @exception ClassNotFoundException if class cannot be loaded.
+ * Resets the builder to its initial, empty state.
+ * @return This builder.
  */
-public static Class loadClass(String className,String remoteCodebase,ClassLoader loader) throws ClassNotFoundException {
-  if (utilDelegate != null) {
-    return utilDelegate.loadClass(className,remoteCodebase,loader);
-  }
-  return null;
+public Builder clear(){
+  localeBuilder.clear();
+  return this;
 }

@@ -1,18 +1,14 @@
 /** 
- * Returns the document type name
+ * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
  */
-public String getNodeName(){
-  if (needsSyncData()) {
-    synchronizeData();
-  }
-  return name;
+public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
 /** 
- * Name of this document type. If we loaded from a DTD, this should be the name immediately following the DOCTYPE keyword.
+ * Translates an object of this type to its unboxed representation.
  */
-public String getName(){
-  if (needsSyncData()) {
-    synchronizeData();
-  }
-  return name;
+public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

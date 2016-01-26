@@ -1,26 +1,21 @@
 /** 
- * Obsolete as of Java 2 platform v1.1.  Please use the <code>add</code> method instead. <p> Adds an item to this <code>Choice</code> menu.
- * @param item the item to be added
- * @exception NullPointerException if the item's value is equal to<code>null</code>
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Entity Reference name
+ * @return null
+ * @throws DOMException
  */
-public void addItem(String item){
-synchronized (this) {
-    insertNoInvalidate(item,pItems.size());
-  }
-  invalidateIfValid();
+public EntityReference createEntityReference(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Removes all items from the choice menu.
- * @see #remove
- * @since     JDK1.1
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
+ * @return null
+ * @throws DOMException
  */
-public void removeAll(){
-synchronized (this) {
-    if (peer != null) {
-      ((ChoicePeer)peer).removeAll();
-    }
-    pItems.removeAllElements();
-    selectedIndex=-1;
-  }
-  invalidateIfValid();
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

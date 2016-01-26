@@ -1,8 +1,11 @@
-public ByteBuffer put(int i,byte x){
-  unsafe.putByte(ix(checkIndex(i)),((x)));
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int offset,char c){
+  super.insert(offset,c);
   return this;
 }
-public ByteBuffer putDouble(double x){
-  putDouble(ix(nextPutIndex((1 << 3))),x);
+public StringBuilder reverse(){
+  super.reverse();
   return this;
 }

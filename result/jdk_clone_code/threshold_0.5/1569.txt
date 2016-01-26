@@ -1,19 +1,16 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @param newChild Replace existing child with this one
- * @param oldChild Existing child to be replaced
  * @return null
- * @throws DOMException
  */
-public Node replaceChild(Node newChild,Node oldChild) throws DOMException {
+public NamedNodeMap getAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the encoding of this document. This is <code>null</code> when unspecified.
- * @since DOM Level 3NEEDSDOC ($objectName$) @return
+ * Unimplemented. See org.w3c.dom.Document
+ * @return null
  */
-public String getInputEncoding(){
+public DocumentType getDoctype(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

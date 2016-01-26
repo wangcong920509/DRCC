@@ -1,35 +1,28 @@
-/** 
- * reset all XML 1.0 components before parsing and namespace context
- */
-protected void reset() throws XNIException {
-  int count=fComponents.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fComponents.get(i);
-    c.reset(this);
+public XSAttributeUse getAttributeUse(String namespace,String name){
+  for (int i=0; i < fAttrUseNum; i++) {
+    if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name))     return fAttributeUses[i];
   }
+  return null;
 }
 
-/** 
- * reset all common components before parsing
- */
-protected void resetCommon() throws XNIException {
-  int count=fCommonComponents.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
-    c.reset(this);
+public XSAttributeUse getAttributeUseNoProhibited(String namespace,String name){
+  for (int i=0; i < fAttrUseNum; i++) {
+    if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name) && (fAttributeUses[i].fUse != SchemaSymbols.USE_PROHIBITED))     return fAttributeUses[i];
   }
+  return null;
 }
 
 -->
-void reset_resetCommon(int combFlag){
+void getAttributeUse_getAttributeUseNoProhibited(String namespace,String name,String namespace,String name,int combFlag){
   if (combFlag == 1) {
-    int count=fComponents.size();
+    for (int i=0; i < fAttrUseNum; i++) {
+      if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name))       return fAttributeUses[i];
+    }
   }
  else {
-    int count=fCommonComponents.size();
+    for (int i=0; i < fAttrUseNum; i++) {
+      if ((fAttributeUses[i].fAttrDecl.fTargetNamespace == namespace) && (fAttributeUses[i].fAttrDecl.fName == name) && (fAttributeUses[i].fUse != SchemaSymbols.USE_PROHIBITED))       return fAttributeUses[i];
+    }
   }
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fComponents.get(i);
-    c.reset(this);
-  }
+  return null;
 }

@@ -1,18 +1,36 @@
 /** 
- * Put an integer with the specified tag.
- * @param v The integer to encode.
- * @param tag The tag to encode.
+ * Instantiates an object using the list of all class loaders registered in the MBean server (using its  {@link javax.management.loading.ClassLoaderRepository}). <P>The object's class should have a public constructor. <P>The call returns a reference to the newly created object. <P>The newly created object is not registered in the MBean Interceptor.
+ * @param className The class name of the object to be instantiated.
+ * @param params An array containing the parameters of the constructor tobe invoked.
+ * @param signature An array containing the signature of the constructor tobe invoked.
+ * @return The newly instantiated object.
+ * @exception ReflectionException Wraps a<CODE>java.lang.ClassNotFoundException</CODE> or the <CODE>java.lang.Exception</CODE> that occurred when trying to invoke the object's constructor.
+ * @exception MBeanException The constructor of the object has thrown anexception
+ * @exception RuntimeOperationsException Wraps a<CODE>java.lang.IllegalArgumentException</CODE>: the className passed in parameter is null.
  */
-public void putInteger(int v,int tag){
-  putIntegerValue(v);
-  putTag(tag);
+public Object instantiate(String className,Object params[],String signature[],ClassLoader loader) throws ReflectionException, MBeanException {
+  Class<?> theClass=findClassWithDefaultLoaderRepository(className);
+  return instantiate(theClass,params,signature,loader);
 }
 /** 
- * Put an octet string with a specified tag.
- * @param s The bytes to encode
- * @param tag The tag to encode.
+ * Instantiates an object. The class loader to be used is identified by its object name. <P>If the object name of the loader is null, a default has to be provided (for example, for a MBean Server, the ClassLoader that loaded it will be used). <P>The object's class should have a public constructor. <P>The call returns a reference to the newly created object. <P>The newly created object is not registered in the MBean server.
+ * @param className The class name of the object to be instantiated.
+ * @param params An array containing the parameters of the constructor tobe invoked.
+ * @param signature An array containing the signature of the constructor tobe invoked.
+ * @param loaderName The object name of the class loader to be used.
+ * @return The newly instantiated object.
+ * @exception ReflectionException Wraps a<CODE>java.lang.ClassNotFoundException</CODE> or the <CODE>java.lang.Exception</CODE> that occurred when trying to invoke the object's constructor.
+ * @exception MBeanException The constructor of the object has thrown anexception
+ * @exception InstanceNotFoundException The specified class loader is notregistered in the MBean Interceptor.
+ * @exception RuntimeOperationsException Wraps a<CODE>java.lang.IllegalArgumentException</CODE>: the className passed in parameter is null.
  */
-public void putOctetString(byte[] s,int tag){
-  putStringValue(s);
-  putTag(tag);
+public Object instantiate(String className,ObjectName loaderName,Object params[],String signature[],ClassLoader loader) throws ReflectionException, MBeanException, InstanceNotFoundException {
+  Class<?> theClass;
+  if (loaderName == null) {
+    theClass=findClass(className,loader);
+  }
+ else {
+    theClass=findClass(className,loaderName);
+  }
+  return instantiate(theClass,params,signature,loader);
 }

@@ -1,19 +1,9 @@
-/** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
- */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public ToSAXHandler(ContentHandler hdlr,LexicalHandler lex,String encoding){
+  setContentHandler(hdlr);
+  setLexHandler(lex);
+  setEncoding(encoding);
 }
-/** 
- * Unimplemented. See org.w3c.dom.Document
- * @param elementId ID of the element to get
- * @return null
- */
-public Element getElementById(String elementId){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public ToSAXHandler(ContentHandler handler,String encoding){
+  setContentHandler(handler);
+  setEncoding(encoding);
 }

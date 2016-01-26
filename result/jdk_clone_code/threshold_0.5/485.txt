@@ -1,14 +1,19 @@
 /** 
- * @see SerializationHandler#getOutputStream()
+ * Method getHTMLRepresentation
+ * @throws XMLSignatureException
+ * @return The HTML representation for this XMLSignature
  */
-public OutputStream getOutputStream(){
-  aMethodIsCalled();
-  return null;
+public String getHTMLRepresentation() throws XMLSignatureException {
+  XMLSignatureInputDebugger db=new XMLSignatureInputDebugger(this);
+  return db.getHTMLRepresentation();
 }
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * Method getHTMLRepresentation
+ * @param inclusiveNamespaces
+ * @throws XMLSignatureException
+ * @return The HTML representation for this XMLSignature
  */
-public String getEncoding(){
-  aMethodIsCalled();
-  return null;
+public String getHTMLRepresentation(Set inclusiveNamespaces) throws XMLSignatureException {
+  XMLSignatureInputDebugger db=new XMLSignatureInputDebugger(this,inclusiveNamespaces);
+  return db.getHTMLRepresentation();
 }

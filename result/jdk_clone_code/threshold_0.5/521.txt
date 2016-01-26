@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
+ * @see SerializationHandler#asContentHandler()
  */
-public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
-  couldThrowSAXException();
-  return false;
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
+  return null;
 }
 /** 
- * @see XSLOutputAttributes#getOmitXMLDeclaration()
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public boolean getOmitXMLDeclaration(){
+public String getDoctypeSystem(){
   aMethodIsCalled();
-  return false;
+  return null;
 }

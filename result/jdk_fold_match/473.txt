@@ -105,3 +105,5 @@ private void paintlistViewIconEnabled(Graphics2D g){
   g.setPaint(color122);
   g.fill(rect);
 }
+-->
+436.0 / 15173 = 0.02873525341066368

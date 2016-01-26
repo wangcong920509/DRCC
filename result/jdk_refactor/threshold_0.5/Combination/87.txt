@@ -1,28 +1,66 @@
 /** 
- * Set the flag to include the start node in the iteration.
- * @return This default method returns just returns this DTMAxisIterator,after setting the flag. (Returning "this" permits C++-style chaining of method calls into a single expression.)
+ * Get the handle from a Node. <p>%OPT% This will be pretty slow.</p> <p>%OPT% An XPath-like search (walk up DOM to root, tracking path; walk down DTM reconstructing path) might be considerably faster on later nodes in large documents. That might also imply improving this call to handle nodes which would be in this DTM but have not yet been built, which might or might not be a Good Thing.</p> %REVIEW% This relies on being able to test node-identity via object-identity. DTM2DOM proxying is a great example of a case where that doesn't work. DOM Level 3 will provide the isSameNode() method to fix that, but until then this is going to be flaky.
+ * @param node A node, which may be null.
+ * @return The node handle or <code>DTM.NULL</code>.
  */
-public DTMAxisIterator includeSelf(){
-  _includeSelf=true;
-  return this;
+private int getHandleFromNode(Node node){
+  if (null != node) {
+    int len=m_nodes.size();
+    boolean isMore;
+    int i=0;
+    do {
+      for (; i < len; i++) {
+        if (m_nodes.elementAt(i) == node)         return makeNodeHandle(i);
+      }
+      isMore=nextNode();
+      len=m_nodes.size();
+    }
+ while (isMore || i < len);
+  }
+  return DTM.NULL;
 }
 
 /** 
- * Reset the position to zero. NOTE that this does not change the iteration state, only the position number associated with that state. %REVIEW% Document when this would be used?
- * @return This instance.
+ * Get the handle from a Node. This is a more robust version of getHandleFromNode, intended to be usable by the public. <p>%OPT% This will be pretty slow.</p> %REVIEW% This relies on being able to test node-identity via object-identity. DTM2DOM proxying is a great example of a case where that doesn't work. DOM Level 3 will provide the isSameNode() method to fix that, but until then this is going to be flaky.
+ * @param node A node, which may be null.
+ * @return The node handle or <code>DTM.NULL</code>.  
  */
-protected final DTMAxisIterator resetPosition(){
-  _position=0;
-  return this;
+public int getHandleOfNode(Node node){
+  if (null != node) {
+    if ((m_root == node) || (m_root.getNodeType() == DOCUMENT_NODE && m_root == node.getOwnerDocument()) || (m_root.getNodeType() != DOCUMENT_NODE && m_root.getOwnerDocument() == node.getOwnerDocument())) {
+      for (Node cursor=node; cursor != null; cursor=(cursor.getNodeType() != ATTRIBUTE_NODE) ? cursor.getParentNode() : ((org.w3c.dom.Attr)cursor).getOwnerElement()) {
+        if (cursor == m_root)         return getHandleFromNode(node);
+      }
+    }
+  }
+  return DTM.NULL;
 }
 
 -->
-void includeSelf_resetPosition(int combFlag){
+void getHandleFromNode_getHandleOfNode(Node node,Node node,int combFlag){
   if (combFlag == 1) {
-    _includeSelf=true;
+    if (null != node) {
+      int len=m_nodes.size();
+      boolean isMore;
+      int i=0;
+      do {
+        for (; i < len; i++) {
+          if (m_nodes.elementAt(i) == node)           return makeNodeHandle(i);
+        }
+        isMore=nextNode();
+        len=m_nodes.size();
+      }
+ while (isMore || i < len);
+    }
   }
  else {
-    _position=0;
+    if (null != node) {
+      if ((m_root == node) || (m_root.getNodeType() == DOCUMENT_NODE && m_root == node.getOwnerDocument()) || (m_root.getNodeType() != DOCUMENT_NODE && m_root.getOwnerDocument() == node.getOwnerDocument())) {
+        for (Node cursor=node; cursor != null; cursor=(cursor.getNodeType() != ATTRIBUTE_NODE) ? cursor.getParentNode() : ((org.w3c.dom.Attr)cursor).getOwnerElement()) {
+          if (cursor == m_root)           return getHandleFromNode(node);
+        }
+      }
+    }
   }
-  return this;
+  return DTM.NULL;
 }

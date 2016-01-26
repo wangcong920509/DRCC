@@ -1,8 +1,14 @@
-protected DynAnyBasicImpl(ORB orb,Any any,boolean copyValue){
-  super(orb,any,copyValue);
-  index=NO_INDEX;
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_short(){
+  checkExtractBadOperation(TCKind._tk_short);
+  return (short)value;
 }
-protected DynAnyBasicImpl(ORB orb,TypeCode typeCode){
-  super(orb,typeCode);
-  index=NO_INDEX;
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public short extract_ushort(){
+  checkExtractBadOperation(TCKind._tk_ushort);
+  return (short)value;
 }

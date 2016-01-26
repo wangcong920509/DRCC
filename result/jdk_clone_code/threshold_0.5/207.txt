@@ -1,38 +1,8 @@
-/** 
- * Checks if a type is derived from another by list. See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
- * @param ancestorNS The namspace of the ancestor type declaration
- * @param ancestorName The name of the ancestor type declaration
- * @param type The reference type definition
- * @return boolean True if the type is derived by list for the reference type
- */
-private boolean isDerivedByList(String ancestorNS,String ancestorName,XSTypeDefinition type){
-  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_LIST) {
-    XSTypeDefinition itemType=((XSSimpleTypeDefinition)type).getItemType();
-    if (itemType != null) {
-      if (isDerivedByRestriction(ancestorNS,ancestorName,itemType)) {
-        return true;
-      }
-    }
-  }
-  return false;
+public OutputBuffer append(String s){
+  _buffer.append(s);
+  return this;
 }
-/** 
- * Checks if a type is derived from another by union.  See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
- * @param ancestorNS The namspace of the ancestor type declaration
- * @param ancestorName The name of the ancestor type declaration
- * @param type The reference type definition
- * @return boolean True if the type is derived by union for the reference type
- */
-private boolean isDerivedByUnion(String ancestorNS,String ancestorName,XSTypeDefinition type){
-  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_UNION) {
-    XSObjectList memberTypes=((XSSimpleTypeDefinition)type).getMemberTypes();
-    for (int i=0; i < memberTypes.getLength(); i++) {
-      if (memberTypes.item(i) != null) {
-        if (isDerivedByRestriction(ancestorNS,ancestorName,(XSSimpleTypeDefinition)memberTypes.item(i))) {
-          return true;
-        }
-      }
-    }
-  }
-  return false;
+public OutputBuffer append(char ch){
+  _buffer.append(ch);
+  return this;
 }

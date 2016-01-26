@@ -1,41 +1,22 @@
 /** 
- * Given a node handle, get the handle of the node's first child. If not yet resolved, waits for more nodes to be added to the document and tries again.
- * @param nodeHandle int Handle of the node.
- * @return int DTM node-number of first child, or DTM.NULL to indicate none exists.
+ * @see com.sun.org.apache.xerces.internal.xni.NamespaceContext#getURI(String)
  */
-public int getTypedFirstChild(int nodeHandle,int nodeType){
-  int firstChild, eType;
-  if (nodeType < DTM.NTYPES) {
-    for (firstChild=_firstch(makeNodeIdentity(nodeHandle)); firstChild != DTM.NULL; firstChild=_nextsib(firstChild)) {
-      eType=_exptype(firstChild);
-      if (eType == nodeType || (eType >= DTM.NTYPES && m_expandedNameTable.getType(eType) == nodeType)) {
-        return makeNodeHandle(firstChild);
-      }
+public String getURI(String prefix){
+  for (int i=fNamespaceSize; i > 0; i-=2) {
+    if (fNamespace[i - 2] == prefix) {
+      return fNamespace[i - 1];
     }
   }
- else {
-    for (firstChild=_firstch(makeNodeIdentity(nodeHandle)); firstChild != DTM.NULL; firstChild=_nextsib(firstChild)) {
-      if (_exptype(firstChild) == nodeType) {
-        return makeNodeHandle(firstChild);
-      }
-    }
-  }
-  return DTM.NULL;
+  return null;
 }
 /** 
- * Given a node identity for an attribute, advance to the next attribute.
- * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
- * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
+ * @see com.sun.org.apache.xerces.internal.xni.NamespaceContext#getPrefix(String)
  */
-protected int getNextAttributeIdentity(int identity){
-  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
-    int type=_type(identity);
-    if (type == DTM.ATTRIBUTE_NODE) {
-      return identity;
-    }
- else     if (type != DTM.NAMESPACE_NODE) {
-      break;
+public String getPrefix(String uri){
+  for (int i=fNamespaceSize; i > 0; i-=2) {
+    if (fNamespace[i - 1] == uri) {
+      if (getURI(fNamespace[i - 2]) == uri)       return fNamespace[i - 2];
     }
   }
-  return DTM.NULL;
+  return null;
 }

@@ -1,8 +1,28 @@
-private RoundRectangle2D decodeRoundRect2(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.2857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.7142859f) - decodeY(0.2857143f),9.0f,9.0f);
-  return roundRect;
+/** 
+ * Sets the designated parameter to the given array of bytes. The driver converts this to an SQL <code>VARBINARY</code> or <code>LONGVARBINARY</code> value (depending on the argument's size relative to the driver's limits on <code>VARBINARY</code> values) when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <p> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the parameter value
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
+ */
+public void setBytes(int parameterIndex,byte x[]) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setBytes");
+  }
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }
-private RoundRectangle2D decodeRoundRect3(){
-  roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
-  return roundRect;
+/** 
+ * Sets the designated parameter to an <code>Object</code> in the Java programming language. The second parameter must be an <code>Object</code> type.  For integral values, the <code>java.lang</code> equivalent objects should be used. For example, use the class <code>Integer</code> for an <code>int</code>. <P> The JDBC specification defines a standard mapping from Java <code>Object</code> types to SQL types.  The driver will use this standard mapping to  convert the given object to its corresponding SQL type before sending it to the database. If the object has a custom mapping (is of a class implementing <code>SQLData</code>), the driver should call the method <code>SQLData.writeSQL</code> to write the object to the SQL data stream. <P> If, on the other hand, the object is of a class implementing <code>Ref</code>, <code>Blob</code>, <code>Clob</code>, <code>Struct</code>, or <code>Array</code>, the driver should pass it to the database as a value of the corresponding SQL type. <P> This method throws an exception if there is an ambiguity, for example, if the object is of a class implementing more than one interface. <P> Note that this method may be used to pass database-specific abstract data types. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <p> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class. <P> After this method has been called, a call to the method <code>getParams</code> will return an object array of the current command parameters, which will include the <code>Object</code> set for placeholder parameter number <code>parameterIndex</code>. Note that because the numbering of elements in an array starts at zero, the array element that corresponds to placeholder parameter number <i>parameterIndex</i> is element number <i>parameterIndex</i> -1.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x the object containing the input parameter value
+ * @throws SQLException if an error occurs theparameter index is out of bounds, or there is ambiguity in the implementation of the object being set
+ * @see #getParams
+ */
+public void setObject(int parameterIndex,Object x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setObject");
+  }
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }

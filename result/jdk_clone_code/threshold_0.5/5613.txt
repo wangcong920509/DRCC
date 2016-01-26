@@ -1,0 +1,43 @@
+/** 
+ * Subclassed to treat the decimal separator, grouping separator, exponent symbol, percent, permille, currency and sign as literals.
+ */
+boolean isLiteral(Map attrs){
+  if (!super.isLiteral(attrs)) {
+    if (attrs == null) {
+      return false;
+    }
+    int size=attrs.size();
+    if (attrs.get(NumberFormat.Field.GROUPING_SEPARATOR) != null) {
+      size--;
+      if (attrs.get(NumberFormat.Field.INTEGER) != null) {
+        size--;
+      }
+    }
+    if (attrs.get(NumberFormat.Field.EXPONENT_SYMBOL) != null) {
+      size--;
+    }
+    if (attrs.get(NumberFormat.Field.PERCENT) != null) {
+      size--;
+    }
+    if (attrs.get(NumberFormat.Field.PERMILLE) != null) {
+      size--;
+    }
+    if (attrs.get(NumberFormat.Field.CURRENCY) != null) {
+      size--;
+    }
+    if (attrs.get(NumberFormat.Field.SIGN) != null) {
+      size--;
+    }
+    return size == 0;
+  }
+  return true;
+}
+/** 
+ * Subclassed to make the decimal separator navigatable, as well as making the character between the integer field and the next field navigatable.
+ */
+boolean isNavigatable(int index){
+  if (!super.isNavigatable(index)) {
+    return getBufferedChar(index) == getDecimalSeparator();
+  }
+  return true;
+}

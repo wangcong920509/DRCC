@@ -99,3 +99,5 @@ private final void scanNotationDecl() throws IOException, XNIException {
   }
   fReportEntity=true;
 }
+-->
+393.0 / 3822 = 0.10282574568288853

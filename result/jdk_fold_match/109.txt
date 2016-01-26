@@ -42,3 +42,5 @@ public void reset() throws XNIException {
   fCurrentCDATASectionIndex=-1;
   fBaseURIStack.removeAllElements();
 }
+-->
+137.0 / 1814 = 0.07552370452039692

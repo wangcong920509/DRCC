@@ -1,18 +1,16 @@
 /** 
- * Constructs a new serializer that writes to the specified writer using the specified output format. If <tt>format</tt> is null, will use a default output format.
- * @param writer The writer to use
- * @param format The output format to use, null for the default
+ * Method add
+ * @param xmlX509Certificate
  */
-public XML11Serializer(Writer writer,OutputFormat format){
-  super(writer,format);
-  _format.setVersion("1.1");
+public void add(XMLX509Certificate xmlX509Certificate){
+  this._constructionElement.appendChild(xmlX509Certificate.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructs a new serializer that writes to the specified output stream using the specified output format. If <tt>format</tt> is null, will use a default output format.
- * @param output The output stream to use
- * @param format The output format to use, null for the default
+ * Method add
+ * @param xmlX509CRL
  */
-public XML11Serializer(OutputStream output,OutputFormat format){
-  super(output,format != null ? format : new OutputFormat(Method.XML,null,false));
-  _format.setVersion("1.1");
+public void add(XMLX509CRL xmlX509CRL){
+  this._constructionElement.appendChild(xmlX509CRL.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

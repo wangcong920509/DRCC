@@ -24,3 +24,5 @@ private void paintBackgroundEnabledAndFocusedAndSorted(Graphics2D g){
   g.setPaint(color10);
   g.fill(path);
 }
+-->
+98.0 / 655 = 0.14961832061068703

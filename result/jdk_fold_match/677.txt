@@ -33,3 +33,5 @@ private void paintwarningIconEnabled(Graphics2D g){
   g.setPaint(color37);
   g.fill(ellipse);
 }
+-->
+162.0 / 1314 = 0.1232876712328767

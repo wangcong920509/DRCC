@@ -1,20 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @param oldChild Child to be removed
  * @return null
- * @throws DOMException
  */
-public Node removeChild(Node oldChild) throws DOMException {
+public NamedNodeMap getAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param name Entity Reference name
+ * Unimplemented.
+ * @param offset Start offset of substring to extract.
+ * @param count The length of the substring to extract.
  * @return null
  * @throws DOMException
  */
-public EntityReference createEntityReference(String name) throws DOMException {
+public String substringData(int offset,int count) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

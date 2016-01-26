@@ -1,12 +1,12 @@
-public String getEncoding(){
-  if (fLocator2 != null) {
-    return fLocator2.getEncoding();
+public Object get(int index){
+  if (index >= 0 && index < fLength) {
+    return fArray[index];
   }
-  return null;
+  throw new IndexOutOfBoundsException("Index: " + index);
 }
-public String getXMLVersion(){
-  if (fLocator2 != null) {
-    return fLocator2.getXMLVersion();
+public ListIterator listIterator(int index){
+  if (index >= 0 && index < fLength) {
+    return listIterator0(index);
   }
-  return null;
+  throw new IndexOutOfBoundsException("Index: " + index);
 }

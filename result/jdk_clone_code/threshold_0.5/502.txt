@@ -1,14 +1,8 @@
-/** 
- * @see SerializationHandler#reset()
- */
-public boolean reset(){
-  aMethodIsCalled();
-  return false;
+public ContentHandler asContentHandler() throws IOException {
+  prepare();
+  return this;
 }
-/** 
- * @see SerializationHandler#setEscaping(boolean)
- */
-public boolean setEscaping(boolean escape) throws SAXException {
-  couldThrowSAXException();
-  return false;
+public DOMSerializer asDOMSerializer() throws IOException {
+  prepare();
+  return this;
 }

@@ -1,8 +1,14 @@
-public ColorChooserDialog(Dialog owner,String title,boolean modal,Component c,JColorChooser chooserPane,ActionListener okListener,ActionListener cancelListener) throws HeadlessException {
-  super(owner,title,modal);
-  initColorChooserDialog(c,chooserPane,okListener,cancelListener);
+/** 
+ * @see SerializationHandler#getTransformer()
+ */
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
-public ColorChooserDialog(Frame owner,String title,boolean modal,Component c,JColorChooser chooserPane,ActionListener okListener,ActionListener cancelListener) throws HeadlessException {
-  super(owner,title,modal);
-  initColorChooserDialog(c,chooserPane,okListener,cancelListener);
+/** 
+ * @see ExtendedContentHandler#getNamespaceMappings()
+ */
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }

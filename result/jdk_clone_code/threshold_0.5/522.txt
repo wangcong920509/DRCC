@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * @see SerializationHandler#asContentHandler()
  */
-public NamespaceMappings getNamespaceMappings(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see ExtendedContentHandler#getPrefix(java.lang.String)
+ * @see XSLOutputAttributes#getEncoding()
  */
-public String getPrefix(String uri){
+public String getEncoding(){
   aMethodIsCalled();
   return null;
 }

@@ -1,34 +1,11 @@
 /** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted message string.
+ * The following methods are for dealing with Connection cleaning for better scalability of servers in high network load conditions.
  */
-public static String createMessage(String msgKey,Object args[]){
-  if (XSLTBundle == null) {
-    XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
-  }
-  if (XSLTBundle != null) {
-    return createMsg(XSLTBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public void sendCloseConnection(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createCloseConnection(giopVersion);
+  sendHelper(giopVersion,msg);
 }
-/** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted warning string.
- */
-public static String createWarning(String msgKey,Object args[]){
-  if (XSLTBundle == null) {
-    XSLTBundle=SecuritySupport.getResourceBundle(XSLT_ERROR_RESOURCES);
-  }
-  if (XSLTBundle != null) {
-    return createMsg(XSLTBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public void sendMessageError(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createMessageError(giopVersion);
+  sendHelper(giopVersion,msg);
 }

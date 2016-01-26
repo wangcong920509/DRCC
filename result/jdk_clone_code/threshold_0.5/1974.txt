@@ -1,22 +1,20 @@
 /** 
- * Creates a call site with a permanent target.
- * @param target the target to be permanently associated with this call site
- * @throws NullPointerException if the proposed target is null
+ * Sets the shape of this <code>Area</code> to the intersection of its current shape and the shape of the specified <code>Area</code>. The resulting shape of this <code>Area</code> will include only areas that were contained in both this <code>Area</code> and also in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.intersect(a2); a1(before)   intersect     a2         =     a1(after) ################     ################     ################ ##############         ##############       ############ ############             ############         ######## ##########                 ##########           #### ########                     ######## ######                         ###### ####                             #### ##                                 ## </pre>
+ * @param rhs  the <code>Area</code> to be intersected with this<code>Area</code>
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public ConstantCallSite(MethodHandle target){
-  super(target);
-  isFrozen=true;
+public void intersect(Area rhs){
+  curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }
 /** 
- * Creates a call site with a permanent target, possibly bound to the call site itself. <p> During construction of the call site, the  {@code createTargetHook} is invoked toproduce the actual target, as if by a call of the form {@code (MethodHandle) createTargetHook.invoke(this)}. <p> Note that user code cannot perform such an action directly in a subclass constructor, since the target must be fixed before the  {@code ConstantCallSite} constructor returns.<p> The hook is said to bind the call site to a target method handle, and a typical action would be  {@code someTarget.bindTo(this)}. However, the hook is free to take any action whatever, including ignoring the call site and returning a constant target. <p> The result returned by the hook must be a method handle of exactly the same type as the call site. <p> While the hook is being called, the new  {@code ConstantCallSite}object is in a partially constructed state. In this state, a call to  {@code getTarget}, or any other attempt to use the target, will result in an  {@code IllegalStateException}. It is legal at all times to obtain the call site's type using the  {@code type} method.
- * @param targetType the type of the method handle to be permanently associated with this call site
- * @param createTargetHook a method handle to invoke (on the call site) to produce the call site's target
- * @throws WrongMethodTypeException if the hook cannot be invoked on the required arguments,or if the target returned by the hook is not of the given  {@code targetType}
- * @throws NullPointerException if the hook returns a null value
- * @throws ClassCastException if the hook returns something other than a {@code MethodHandle}
- * @throws Throwable anything else thrown by the the hook function
+ * Sets the shape of this <code>Area</code> to be the combined area of its current shape and the shape of the specified <code>Area</code>, minus their intersection. The resulting shape of this <code>Area</code> will include only areas that were contained in either this <code>Area</code> or in the specified <code>Area</code>, but not in both. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.exclusiveOr(a2); a1(before)    xor        a2         =     a1(after) ################     ################ ##############         ##############     ##            ## ############             ############     ####        #### ##########                 ##########     ######    ###### ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
+ * @param rhs  the <code>Area</code> to be exclusive ORed with this<code>Area</code>.
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-protected ConstantCallSite(MethodType targetType,MethodHandle createTargetHook) throws Throwable {
-  super(targetType,createTargetHook);
-  isFrozen=true;
+public void exclusiveOr(Area rhs){
+  curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }

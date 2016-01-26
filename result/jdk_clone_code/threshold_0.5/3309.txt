@@ -1,17 +1,25 @@
 /** 
- * Creates a <CODE>ReflectionException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE>.
- * @param e the wrapped exception.
+ * Releases in exclusive mode.  Implemented by unblocking one or more threads if  {@link #tryRelease} returns true.This method can be used to implement method  {@link Lock#unlock}.
+ * @param arg the release argument.  This value is conveyed to{@link #tryRelease} but is otherwise uninterpreted andcan represent anything you like.
+ * @return the value returned from {@link #tryRelease}
  */
-public ReflectionException(java.lang.Exception e){
-  super();
-  exception=e;
+public final boolean release(long arg){
+  if (tryRelease(arg)) {
+    Node h=head;
+    if (h != null && h.waitStatus != 0)     unparkSuccessor(h);
+    return true;
+  }
+  return false;
 }
 /** 
- * Creates a <CODE>ReflectionException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE> with a detail message.
- * @param e the wrapped exception.
- * @param message the detail message.
+ * Releases in shared mode.  Implemented by unblocking one or more threads if  {@link #tryReleaseShared} returns true.
+ * @param arg the release argument.  This value is conveyed to{@link #tryReleaseShared} but is otherwise uninterpretedand can represent anything you like.
+ * @return the value returned from {@link #tryReleaseShared}
  */
-public ReflectionException(java.lang.Exception e,String message){
-  super(message);
-  exception=e;
+public final boolean releaseShared(long arg){
+  if (tryReleaseShared(arg)) {
+    doReleaseShared();
+    return true;
+  }
+  return false;
 }

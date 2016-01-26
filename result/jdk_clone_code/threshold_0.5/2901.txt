@@ -1,8 +1,8 @@
-public ByteBuffer put(int i,byte x){
-  hb[ix(checkIndex(i))]=x;
+public DoubleBuffer put(double x){
+  unsafe.putDouble(ix(nextPutIndex()),((x)));
   return this;
 }
-public ByteBuffer putShort(short x){
-  Bits.putShort(this,ix(nextPutIndex(2)),x,bigEndian);
+public DoubleBuffer put(int i,double x){
+  unsafe.putDouble(ix(checkIndex(i)),((x)));
   return this;
 }

@@ -1,0 +1,73 @@
+/** 
+ * Returns true if the paths are contiguous, or this object has no RowMapper.
+ */
+protected boolean arePathsContiguous(TreePath[] paths){
+  if (rowMapper == null || paths.length < 2)   return true;
+ else {
+    BitSet bitSet=new BitSet(32);
+    int anIndex, counter, min;
+    int pathCount=paths.length;
+    int validCount=0;
+    TreePath[] tempPath=new TreePath[1];
+    tempPath[0]=paths[0];
+    min=rowMapper.getRowsForPaths(tempPath)[0];
+    for (counter=0; counter < pathCount; counter++) {
+      if (paths[counter] != null) {
+        tempPath[0]=paths[counter];
+        int[] rows=rowMapper.getRowsForPaths(tempPath);
+        if (rows == null) {
+          return false;
+        }
+        anIndex=rows[0];
+        if (anIndex == -1 || anIndex < (min - pathCount) || anIndex > (min + pathCount))         return false;
+        if (anIndex < min)         min=anIndex;
+        if (!bitSet.get(anIndex)) {
+          bitSet.set(anIndex);
+          validCount++;
+        }
+      }
+    }
+    int maxCounter=validCount + min;
+    for (counter=min; counter < maxCounter; counter++)     if (!bitSet.get(counter))     return false;
+  }
+  return true;
+}
+/** 
+ * Returns true if the paths can be removed without breaking the continuity of the model. This is rather expensive.
+ */
+protected boolean canPathsBeRemoved(TreePath[] paths){
+  if (rowMapper == null || selection == null || selectionMode == TreeSelectionModel.DISCONTIGUOUS_TREE_SELECTION)   return true;
+ else {
+    BitSet bitSet=new BitSet();
+    int counter;
+    int pathCount=paths.length;
+    int anIndex;
+    int min=-1;
+    int validCount=0;
+    TreePath[] tempPath=new TreePath[1];
+    int[] rows;
+    lastPaths.clear();
+    for (counter=0; counter < pathCount; counter++) {
+      if (paths[counter] != null) {
+        lastPaths.put(paths[counter],Boolean.TRUE);
+      }
+    }
+    for (counter=selection.length - 1; counter >= 0; counter--) {
+      if (lastPaths.get(selection[counter]) == null) {
+        tempPath[0]=selection[counter];
+        rows=rowMapper.getRowsForPaths(tempPath);
+        if (rows != null && rows[0] != -1 && !bitSet.get(rows[0])) {
+          validCount++;
+          if (min == -1)           min=rows[0];
+ else           min=Math.min(min,rows[0]);
+          bitSet.set(rows[0]);
+        }
+      }
+    }
+    lastPaths.clear();
+    if (validCount > 1) {
+      for (counter=min + validCount - 1; counter >= min; counter--)       if (!bitSet.get(counter))       return false;
+    }
+  }
+  return true;
+}

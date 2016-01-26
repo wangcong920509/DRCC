@@ -1,21 +1,30 @@
 /** 
- * Maps a SystemException to a RemoteException.
- * @param ex the SystemException to map.
- * @return the mapped exception.
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
  */
-public static RemoteException mapSystemException(SystemException ex){
-  if (utilDelegate != null) {
-    return utilDelegate.mapSystemException(ex);
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
- * @return a class which implements the ValueHandler interface.
+ * Sets the variant.  If variant is null or the empty string, the variant in this <code>Builder</code> is removed.  Otherwise, it must consist of one or more <a href="./Locale.html#def_variant">well-formed</a> subtags, or an exception is thrown. <p><b>Note:</b> This method checks if <code>variant</code> satisfies the IETF BCP 47 variant subtag's syntax requirements, and normalizes the value to lowercase letters.  However, the <code>Locale</code> class does not impose any syntactic restriction on variant, and the variant value in <code>Locale</code> is case sensitive.  To set such a variant, use a Locale constructor.
+ * @param variant the variant
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>variant</code> is ill-formed
  */
-public static ValueHandler createValueHandler(){
-  if (utilDelegate != null) {
-    return utilDelegate.createValueHandler();
+public Builder setVariant(String variant){
+  try {
+    localeBuilder.setVariant(variant);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

@@ -1,16 +1,16 @@
 /** 
- * Method add
- * @param keyvalue
+ * A document type declaration information item has the following properties: 1. [system identifier] The system identifier of the external subset, if it exists. Otherwise this property has no value.
+ * @return the system identifier String object, or null if there is none.
  */
-public void add(KeyValue keyvalue){
-  this._constructionElement.appendChild(keyvalue.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public String getDocumentTypeDeclarationSystemIdentifier(){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
+  return null;
 }
 /** 
- * Method add
- * @param spkidata
+ * Return the public identifier of the external subset, normalized as described in 4.2.2 External Entities [XML]. If there is no external subset or if it has no public identifier, this property has no value.
+ * @return the public identifier String object, or null if there is none.
  */
-public void add(SPKIData spkidata){
-  this._constructionElement.appendChild(spkidata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public String getDocumentTypeDeclarationPublicIdentifier(){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
+  return null;
 }

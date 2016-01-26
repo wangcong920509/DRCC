@@ -30,3 +30,5 @@ private void paintBorderEnabled(Graphics2D g){
   g.setPaint(color1);
   g.fill(rect);
 }
+-->
+120.0 / 990 = 0.12121212121212122

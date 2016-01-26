@@ -1,17 +1,22 @@
 /** 
- * Creates an <CODE>MBeanException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE>.
- * @param e the wrapped exception.
+ * Returns the first unmatched node of the given mode, or null if none.  Used by methods isEmpty, hasWaitingConsumer.
  */
-public MBeanException(java.lang.Exception e){
-  super();
-  exception=e;
+private Node firstOfMode(boolean isData){
+  for (Node p=head; p != null; p=succ(p)) {
+    if (!p.isMatched())     return (p.isData == isData) ? p : null;
+  }
+  return null;
 }
 /** 
- * Creates an <CODE>MBeanException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE> with a detail message.
- * @param e the wrapped exception.
- * @param message the detail message.
+ * Returns the item in the first unmatched node with isData; or null if none.  Used by peek.
  */
-public MBeanException(java.lang.Exception e,String message){
-  super(message);
-  exception=e;
+private E firstDataItem(){
+  for (Node p=head; p != null; p=succ(p)) {
+    Object item=p.item;
+    if (p.isData) {
+      if (item != null && item != p)       return this.<E>cast(item);
+    }
+ else     if (item == null)     return null;
+  }
+  return null;
 }

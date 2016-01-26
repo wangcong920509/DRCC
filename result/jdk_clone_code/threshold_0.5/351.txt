@@ -1,14 +1,28 @@
 /** 
- * @see org.w3c.dom.Node
+ * Look up the index of an attribute by local name only, ignoring its namespace.
+ * @param localName The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
  */
-@Override public final Node getFirstChild(){
-  int newnode=dtm.getFirstChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public int getIndexByLocalName(String localPart){
+  for (int i=0; i < fLength; i++) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart)) {
+      return i;
+    }
+  }
+  return -1;
 }
 /** 
- * @see org.w3c.dom.Node
+ * Look up the index of an attribute by XML 1.0 qualified name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
+ * @param qName The qualified (prefixed) name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
  */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public int getIndexFast(String qName){
+  for (int i=0; i < fLength; ++i) {
+    Attribute attribute=fAttributes[i];
+    if (attribute.name.rawname == qName) {
+      return i;
+    }
+  }
+  return -1;
 }

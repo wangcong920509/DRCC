@@ -1,22 +1,8 @@
-/** 
- * Returns true if the MaskFormatter allows invalid, or the offset is less than the max length and the character at <code>offset</code> is a literal.
- */
-boolean isNavigatable(int offset){
-  if (!getAllowsInvalid()) {
-    return (offset < getMaxLength() && !isLiteral(offset));
-  }
-  return true;
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(0.6666667f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-boolean isValidEdit(ReplaceHolder rh){
-  if (!getAllowsInvalid()) {
-    String newString=getReplaceString(rh.offset,rh.length,rh.text);
-    try {
-      rh.value=stringToValue(newString,false);
-      return true;
-    }
- catch (    ParseException pe) {
-      return false;
-    }
-  }
-  return true;
+private Rectangle2D decodeRect10(){
+  rect.setRect(decodeX(0.4f),decodeY(1.0f),decodeX(0.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(1.0f));
+  return rect;
 }

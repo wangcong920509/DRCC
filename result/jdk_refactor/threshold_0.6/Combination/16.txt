@@ -1,69 +1,30 @@
 /** 
- * Writes a stream of ASCII characters to this <code>SQLOutputImpl</code> object. The driver will do any necessary conversion from ASCII to the database <code>CHAR</code> format.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * Given a node handle, find the owning document node.  This has the exact same semantics as the DOM Document method of the same name, in that if the nodeHandle is a document node, it will return NULL. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
+ * @param nodeHandle the id of the node.
+ * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
  */
-public void writeAsciiStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+public int getOwnerDocument(int nodeHandle){
+  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
+  return (nodeHandle & DOCHANDLE_MASK);
 }
 
 /** 
- * Writes a stream of uninterpreted bytes to this <code>SQLOutputImpl</code> object.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * Given a node handle, find the owning document node.  This has the DTM semantics; a Document node is its own owner. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
+ * @param nodeHandle the id of the node.
+ * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
  */
-public void writeBinaryStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+public int getDocumentRoot(int nodeHandle){
+  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
+  return (nodeHandle & DOCHANDLE_MASK);
 }
 
 -->
-void writeAsciiStream_writeBinaryStream(java.io.InputStream x,java.io.InputStream x,int combFlag){
+void getOwnerDocument_getDocumentRoot(int nodeHandle,int nodeHandle,int combFlag){
   if (combFlag == 1) {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+    if ((nodeHandle & NODEHANDLE_MASK) == 0)     return NULL;
   }
  else {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+    if ((nodeHandle & NODEHANDLE_MASK) == 0)     return NULL;
   }
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+  return (nodeHandle & DOCHANDLE_MASK);
 }

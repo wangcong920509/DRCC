@@ -1,20 +1,14 @@
 /** 
- * If the value of <code>key</code> is an <code>Integer</code> return its integer value, otherwise return 0.
- * @param key the desired key
- * @return if the value for <code>key</code> is an <code>Integer</code>,return its value, otherwise return 0
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public int getInt(Object key){
-  Object value=get(key);
-  return (value instanceof Integer) ? ((Integer)value).intValue() : 0;
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * If the value of <code>key</code> for the given <code>Locale</code> is an <code>Integer</code> return its integer value, otherwise return 0.
- * @param key the desired key
- * @param l the desired locale
- * @return if the value for <code>key</code> and <code>Locale</code>is an <code>Integer</code>, return its value, otherwise return 0
- * @since 1.4
+ * @see Serializer#asDOMSerializer()
  */
-public int getInt(Object key,Locale l){
-  Object value=get(key,l);
-  return (value instanceof Integer) ? ((Integer)value).intValue() : 0;
+public DOMSerializer asDOMSerializer() throws IOException {
+  couldThrowIOException();
+  return null;
 }

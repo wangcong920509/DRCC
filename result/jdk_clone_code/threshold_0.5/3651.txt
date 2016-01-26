@@ -1,8 +1,20 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Returns the alignment along the x axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
+ * @param parent the {@code Container} hosting this {@code LayoutManager}
+ * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
+ * @return the alignment; this implementation returns {@code .5}
+ */
+public float getLayoutAlignmentX(Container parent){
+  checkParent(parent);
+  return .5f;
 }
-private Rectangle2D decodeRect27(){
-  rect.setRect(decodeX(1.0f),decodeY(1.3333334f),decodeX(1.3333334f) - decodeX(1.0f),decodeY(1.5f) - decodeY(1.3333334f));
-  return rect;
+/** 
+ * Returns the alignment along the y axis.  This specifies how the component would like to be aligned relative to other components.  The value should be a number between 0 and 1 where 0 represents alignment along the origin, 1 is aligned the furthest away from the origin, 0.5 is centered, etc.
+ * @param parent the {@code Container} hosting this {@code LayoutManager}
+ * @throws IllegalArgumentException if {@code parent} is notthe same  {@code Container} that this was created with
+ * @return alignment; this implementation returns {@code .5}
+ */
+public float getLayoutAlignmentY(Container parent){
+  checkParent(parent);
+  return .5f;
 }

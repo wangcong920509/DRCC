@@ -160,3 +160,5 @@ public static String compileSortRecordFactory(Vector sortObjects,ClassGenerator 
   xsltc.dumpClass(sortRecordFactory.getJavaClass());
   return className;
 }
+-->
+1108.0 / 36711 = 0.030181689411892892

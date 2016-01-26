@@ -1,20 +1,35 @@
 /** 
- * Returns the tie (if any) for a given target object.
- * @return the tie or null if no tie is registered for the given target.
+ * Sets the extension for the given key. If the value is null or the empty string, the extension is removed.  Otherwise, the extension must be <a href="./Locale.html#def_extensions">well-formed</a> or an exception is thrown. <p><b>Note:</b> The key  {@link Locale#UNICODE_LOCALE_EXTENSION UNICODE_LOCALE_EXTENSION} ('u') is used for the Unicode locale extension.Setting a value for this key replaces any existing Unicode locale key/type pairs with those defined in the extension. <p><b>Note:</b> The key  {@link Locale#PRIVATE_USE_EXTENSION PRIVATE_USE_EXTENSION} ('x') is used for the private use code. To bewell-formed, the value for this key needs only to have subtags of one to eight alphanumeric characters, not two to eight as in the general case.
+ * @param key the extension key
+ * @param value the extension value
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> is illegalor <code>value</code> is ill-formed
+ * @see #setUnicodeLocaleKeyword(String,String)
  */
-public static Tie getTie(Remote target){
-  if (utilDelegate != null) {
-    return utilDelegate.getTie(target);
+public Builder setExtension(char key,String value){
+  try {
+    localeBuilder.setExtension(key,value);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
- * @return a class which implements the ValueHandler interface.
+ * Sets the Unicode locale keyword type for the given key.  If the type is null, the Unicode keyword is removed.  Otherwise, the key must be non-null and both key and type must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Keys and types are converted to lower case. <p><b>Note</b>:Setting the 'u' extension via  {@link #setExtension}replaces all Unicode locale keywords with those defined in the extension.
+ * @param key the Unicode locale key
+ * @param type the Unicode locale type
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> or <code>type</code>is ill-formed
+ * @throws NullPointerException if <code>key</code> is null
+ * @see #setExtension(char,String)
  */
-public static ValueHandler createValueHandler(){
-  if (utilDelegate != null) {
-    return utilDelegate.createValueHandler();
+public Builder setUnicodeLocaleKeyword(String key,String type){
+  try {
+    localeBuilder.setUnicodeLocaleKeyword(key,type);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

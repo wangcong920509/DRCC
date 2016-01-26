@@ -1,24 +1,15 @@
 /** 
- * Returns true if o is a non-Role object.
+ * Constructs a default <code>GregorianCalendar</code> using the current time in the default time zone with the default locale.
  */
-private static boolean isTainted(Object o){
-  try {
-    checkTypeSafe(o);
-  }
- catch (  IllegalArgumentException e) {
-    return true;
-  }
-  return false;
+public GregorianCalendar(){
+  this(TimeZone.getDefaultRef(),Locale.getDefault(Locale.Category.FORMAT));
+  setZoneShared(true);
 }
 /** 
- * Returns true if c contains any non-Role objects.
+ * Constructs a <code>GregorianCalendar</code> based on the current time in the default time zone with the given locale.
+ * @param aLocale the given locale.
  */
-private static boolean isTainted(Collection<?> c){
-  try {
-    checkTypeSafe(c);
-  }
- catch (  IllegalArgumentException e) {
-    return true;
-  }
-  return false;
+public GregorianCalendar(Locale aLocale){
+  this(TimeZone.getDefaultRef(),aLocale);
+  setZoneShared(true);
 }

@@ -177,3 +177,5 @@ protected void serializeElement(Element elem) throws IOException {
     if (isDocumentState())     _printer.flush();
   }
 }
+-->
+61.0 / 2499 = 0.024409763905562223

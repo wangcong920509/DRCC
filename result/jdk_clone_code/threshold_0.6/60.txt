@@ -1,16 +1,17 @@
 /** 
- * Constructor SignatureProperties
- * @param doc
+ * Put an octet string with a specified tag.
+ * @param s The bytes to encode
+ * @param tag The tag to encode.
  */
-public SignatureProperties(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void putOctetString(byte[] s,int tag){
+  putStringValue(s);
+  putTag(tag);
 }
 /** 
- * Method addSignatureProperty
- * @param sp
+ * Put a <CODE>NULL</CODE> value with a specified tag.
+ * @param tag The tag to encode.
  */
-public void addSignatureProperty(SignatureProperty sp){
-  this._constructionElement.appendChild(sp.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void putNull(int tag){
+  putLength(0);
+  putTag(tag);
 }

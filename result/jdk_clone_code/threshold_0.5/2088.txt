@@ -1,11 +1,14 @@
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public synchronized StringBuffer append(char[] str,int offset,int len){
-  super.append(str,offset,len);
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
   return this;
 }
-public synchronized StringBuffer append(int i){
-  super.append(i);
+/** 
+ * Appends the specified <tt>StringBuffer</tt> to this sequence. <p> The characters of the <tt>StringBuffer</tt> argument are appended, in order, to the contents of this <tt>StringBuffer</tt>, increasing the length of this <tt>StringBuffer</tt> by the length of the argument. If <tt>sb</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this <tt>StringBuffer</tt>. <p> Let <i>n</i> be the length of the old character sequence, the one contained in the <tt>StringBuffer</tt> just prior to execution of the <tt>append</tt> method. Then the character at index <i>k</i> in the new character sequence is equal to the character at index <i>k</i> in the old character sequence, if <i>k</i> is less than <i>n</i>; otherwise, it is equal to the character at index <i>k-n</i> in the argument <code>sb</code>. <p> This method synchronizes on <code>this</code> (the destination) object but does not synchronize on the source (<code>sb</code>).
+ * @param sb   the <tt>StringBuffer</tt> to append.
+ * @return  a reference to this object.
+ * @since 1.4
+ */
+public synchronized StringBuffer append(StringBuffer sb){
+  super.append(sb);
   return this;
 }

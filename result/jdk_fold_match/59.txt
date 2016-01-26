@@ -65,3 +65,5 @@ public void reset(PropertyManager propertyManager){
   XMLSecurityPropertyManager spm=(XMLSecurityPropertyManager)propertyManager.getProperty(XML_SECURITY_PROPERTY_MANAGER);
   fAccessExternalDTD=spm.getValue(XMLSecurityPropertyManager.Property.ACCESS_EXTERNAL_DTD);
 }
+-->
+380.0 / 5579 = 0.06811256497580212

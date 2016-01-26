@@ -1,8 +1,8 @@
-protected java.lang.Object internalGetServant(byte[] id,String operation) throws ForwardRequest {
-  if (defaultServant == null)   throw poa.invocationWrapper().poaNoDefaultServant();
-  return defaultServant;
+public static ORBUtilSystemException get(ORB orb,String logDomain){
+  ORBUtilSystemException wrapper=(ORBUtilSystemException)orb.getLogWrapper(logDomain,"ORBUTIL",factory);
+  return wrapper;
 }
-public Servant getDefaultServant() throws NoServant, WrongPolicy {
-  if (defaultServant == null)   throw new NoServant();
-  return defaultServant;
+public static ORBUtilSystemException get(String logDomain){
+  ORBUtilSystemException wrapper=(ORBUtilSystemException)ORB.staticGetLogWrapper(logDomain,"ORBUTIL",factory);
+  return wrapper;
 }

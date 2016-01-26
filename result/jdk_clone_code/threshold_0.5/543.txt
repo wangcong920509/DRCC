@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ * @see SerializationHandler#getOutputStream()
  */
-public String getNamespaceURI(String name,boolean isElement){
+public OutputStream getOutputStream(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public String getDoctypeSystem(){
+public NamespaceMappings getNamespaceMappings(){
   aMethodIsCalled();
   return null;
 }

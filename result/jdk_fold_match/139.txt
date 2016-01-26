@@ -32,3 +32,5 @@ public void reset(){
   m_currentExpressionNodes.push(DTM.NULL);
   m_saxLocations.push(null);
 }
+-->
+165.0 / 1886 = 0.08748674443266172

@@ -49,3 +49,5 @@ private void updateStyle(JTree tree){
     tree.setTransferHandler(null);
   }
 }
+-->
+266.0 / 1384 = 0.19219653179190752

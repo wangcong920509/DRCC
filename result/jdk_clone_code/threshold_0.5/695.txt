@@ -1,18 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param newChild New node to append to the list of this node's children
  * @return null
+ * @throws DOMException
  */
-public Node getParentNode(){
+public Node appendChild(Node newChild) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param name Entity Reference name
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
- * @throws DOMException
  */
-public EntityReference createEntityReference(String name) throws DOMException {
+public String getPrefix(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

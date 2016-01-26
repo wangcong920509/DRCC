@@ -93,3 +93,5 @@ private int getNextBlockIncrement(Rectangle visibleRect,int orientation){
   }
   return Math.abs(newLeadingEdge - visibleLeadingEdge);
 }
+-->
+72.0 / 1955 = 0.03682864450127877

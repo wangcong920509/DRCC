@@ -40,3 +40,5 @@ public static XObject eval(Node contextNode,String str,PrefixResolver prefixReso
   int ctxtNode=xpathSupport.getDTMHandleFromNode(contextNode);
   return xpath.execute(xpathSupport,ctxtNode,prefixResolver);
 }
+-->
+101.0 / 315 = 0.32063492063492066

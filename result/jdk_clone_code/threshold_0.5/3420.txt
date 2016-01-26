@@ -1,32 +1,28 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.math.BigDecimal</code>. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Returns <code>true</code> if the writer supports the removal of an existing image at the given index.  Existing images with indices greater than the insertion index will have their indices decreased by 1. <p> A writer that does not support any image removal may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image to be removed.
+ * @return <code>true</code> if it is possible to remove the givenimage.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage removal in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public java.math.BigDecimal readBigDecimal() throws SQLException {
-  java.math.BigDecimal attrib=(java.math.BigDecimal)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canRemoveImage(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }
 /** 
- * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns <code>true</code> if the writer supports the insertion of a new, empty image at the given index.  The pixel values of the image are undefined, and may be specified in pieces using the <code>replacePixels</code> methods.  Existing images with indices greater than or equal to the insertion index will have their indices increased by 1.  A value for <code>imageIndex</code> of <code>-1</code> may be used to signify an index one larger than the current largest index. <p> A writer that does not support insertion of empty images may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index at which the image is to beinserted.
+ * @return <code>true</code> if an empty image may be inserted atthe given index.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportsempty image insertion in general, but <code>imageIndex</code> is less than -1 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public Array readArray() throws SQLException {
-  Array attrib=(Array)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canInsertEmpty(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }

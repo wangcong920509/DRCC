@@ -1,8 +1,18 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Invoked when a column is repositioned. If a cell is being edited, then editing is stopped and the cell is redrawn. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @param e   the event received
+ * @see TableColumnModelListener
+ */
+public void columnMoved(TableColumnModelEvent e){
+  if (isEditing() && !getCellEditor().stopCellEditing()) {
+    getCellEditor().cancelCellEditing();
+  }
+  repaint();
 }
-private Rectangle2D decodeRect20(){
-  rect.setRect(decodeX(1.8333333f),decodeY(1.8333333f),decodeX(2.0f) - decodeX(1.8333333f),decodeY(2.0f) - decodeY(1.8333333f));
-  return rect;
+/** 
+ * Equivalent to <code>revalidate</code> followed by <code>repaint</code>.
+ */
+protected void resizeAndRepaint(){
+  revalidate();
+  repaint();
 }

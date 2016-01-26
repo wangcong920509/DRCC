@@ -1,12 +1,27 @@
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
-  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+/** 
+ * @return
+ */
+public String getNamespaceURI(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    return fScanner.getElementQName().uri;
   }
+  return null;
 }
-public void addGlobalNotationDecl(XSNotationDecl decl,String location){
-  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+protected List getNotationDecls(){
+  if (fEventType == XMLStreamConstants.DTD) {
+    if (fScanner.fDTDScanner == null)     return null;
+    DTDGrammar grammar=((XMLDTDScannerImpl)(fScanner.fDTDScanner)).getGrammar();
+    if (grammar == null)     return null;
+    List notations=grammar.getNotationDecls();
+    Iterator it=notations.iterator();
+    ArrayList list=new ArrayList();
+    while (it.hasNext()) {
+      XMLNotationDecl ni=(XMLNotationDecl)it.next();
+      if (ni != null) {
+        list.add(new NotationDeclarationImpl(ni));
+      }
+    }
+    return list;
   }
+  return null;
 }

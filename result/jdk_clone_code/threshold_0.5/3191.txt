@@ -1,13 +1,21 @@
-private static final Appendable nonNullAppendable(Appendable a){
-  if (a == null)   return new StringBuilder();
-  return a;
+/** 
+ * Implements CharacterIterator.first() for String.
+ * @see CharacterIterator#first
+ */
+public char first(){
+  pos=begin;
+  return current();
 }
 /** 
- * Returns the destination for the output.
- * @return  The destination for the output
- * @throws FormatterClosedException If this formatter has been closed by invoking its  {@link #close()} method
+ * Implements CharacterIterator.last() for String.
+ * @see CharacterIterator#last
  */
-public Appendable out(){
-  ensureOpen();
-  return a;
+public char last(){
+  if (end != begin) {
+    pos=end - 1;
+  }
+ else {
+    pos=end;
+  }
+  return current();
 }

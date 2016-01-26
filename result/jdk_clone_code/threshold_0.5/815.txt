@@ -2,15 +2,17 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getLastChild(){
+public NodeList getChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
+ * @throws DOMException
  */
-public Element getOwnerElement(){
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

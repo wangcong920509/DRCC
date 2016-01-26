@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param spkidata
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(SPKIData spkidata){
+  this._constructionElement.appendChild(spkidata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * Method addUnknownElement
+ * @param element
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

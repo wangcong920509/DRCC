@@ -63,3 +63,5 @@ private void paintBackgroundPressed(Graphics2D g){
   g.setPaint(color65);
   g.fill(path);
 }
+-->
+308.0 / 5566 = 0.05533596837944664

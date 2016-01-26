@@ -1,8 +1,8 @@
-public void write_octet(byte x){
-  super.write_octet(x);
-  checkPrimitiveAcrossFragmentedChunk();
+public void set_members(org.omg.DynamicAny.NameValuePair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
+  super.set_members(value);
+  isNull=false;
 }
-public void write_short(short x){
-  super.write_short(x);
-  checkPrimitiveAcrossFragmentedChunk();
+public void set_members_as_dyn_any(org.omg.DynamicAny.NameDynAnyPair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
+  super.set_members_as_dyn_any(value);
+  isNull=false;
 }

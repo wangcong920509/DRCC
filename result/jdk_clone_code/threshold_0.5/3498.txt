@@ -1,41 +1,21 @@
 /** 
- * Creates a dialog with the specified title, owner  {@code Window} andmodality. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the {@code Window} from which the dialog is displayed or{@code null} if this dialog has no owner
- * @param title the {@code String} to display in the dialog'stitle bar or  {@code null} if the dialog has no title
- * @param modalityType specifies whether dialog blocks input to otherwindows when shown.  {@code null} value and unsupported modalitytypes are equivalent to  {@code MODELESS}
- * @throws IllegalArgumentException if the  {@code owner} is not an instance of {@link java.awt.Dialog Dialog}or  {@link java.awt.Frame Frame}
- * @throws IllegalArgumentException if the  {@code owner}'s  {@code GraphicsConfiguration} is not from a screen device
- * @throws HeadlessException when  {@code GraphicsEnvironment.isHeadless()} returns {@code true}
- * @throws SecurityException if the calling thread does not have permission to create modal dialogs with the given  {@code modalityType}
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since 1.6
+ * Reads a java.lang.Object as a CORBA any.
+ * @param in the stream from which to read the any.
+ * @return the object read from the stream.
  */
-public JDialog(Window owner,String title,Dialog.ModalityType modalityType){
-  super(owner,title,modalityType);
-  dialogInit();
+public static Object readAny(InputStream in){
+  if (utilDelegate != null) {
+    return utilDelegate.readAny(in);
+  }
+  return null;
 }
 /** 
- * Creates a dialog with the specified title, owner  {@code Window}, modality and  {@code GraphicsConfiguration}. <p> NOTE: Any popup components ( {@code JComboBox}, {@code JPopupMenu},  {@code JMenuBar}) created within a modal dialog will be forced to be lightweight. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the {@code Window} from which the dialog is displayed or{@code null} if this dialog has no owner
- * @param title the {@code String} to display in the dialog'stitle bar or  {@code null} if the dialog has no title
- * @param modalityType specifies whether dialog blocks input to otherwindows when shown.  {@code null} value and unsupported modalitytypes are equivalent to  {@code MODELESS}
- * @param gc the {@code GraphicsConfiguration} of the target screen device;if  {@code null}, the default system  {@code GraphicsConfiguration}is assumed
- * @throws IllegalArgumentException if the  {@code owner} is not an instance of {@link java.awt.Dialog Dialog}or  {@link java.awt.Frame Frame}
- * @throws IllegalArgumentException if the  {@code owner}'s  {@code GraphicsConfiguration} is not from a screen device
- * @throws HeadlessException when  {@code GraphicsEnvironment.isHeadless()} returns {@code true}
- * @throws SecurityException if the calling thread does not have permission to create modal dialogs with the given  {@code modalityType}
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since 1.6
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
  */
-public JDialog(Window owner,String title,Dialog.ModalityType modalityType,GraphicsConfiguration gc){
-  super(owner,title,modalityType,gc);
-  dialogInit();
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
+  }
+  return null;
 }

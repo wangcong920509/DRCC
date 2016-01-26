@@ -1,14 +1,11 @@
-public ByteBuffer put(byte x){
-  unsafe.putByte(ix(nextPutIndex()),((x)));
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder delete(int start,int end){
+  super.delete(start,end);
   return this;
 }
-private ByteBuffer putChar(long a,char x){
-  if (unaligned) {
-    char y=(x);
-    unsafe.putChar(a,(nativeByteOrder ? y : Bits.swap(y)));
-  }
- else {
-    Bits.putChar(a,x,bigEndian);
-  }
+public StringBuilder reverse(){
+  super.reverse();
   return this;
 }

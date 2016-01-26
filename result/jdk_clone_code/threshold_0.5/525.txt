@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * @see SerializationHandler#asContentHandler()
  */
-public NamespaceMappings getNamespaceMappings(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * @see XSLOutputAttributes#getVersion()
  */
-public String getDoctypePublic(){
+public String getVersion(){
   aMethodIsCalled();
   return null;
 }

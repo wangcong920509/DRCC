@@ -35,3 +35,5 @@ private void writeNonProxyDesc(ObjectStreamClass desc,boolean unshared) throws I
   bout.writeByte(TC_ENDBLOCKDATA);
   writeClassDesc(desc.getSuperDesc(),false);
 }
+-->
+74.0 / 489 = 0.15132924335378323

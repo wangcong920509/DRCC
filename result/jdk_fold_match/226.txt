@@ -123,3 +123,5 @@ protected JButton createRightOneTouchButton(){
   maybeMakeButtonOpaque(b);
   return b;
 }
+-->
+699.0 / 4714 = 0.14828171404327534

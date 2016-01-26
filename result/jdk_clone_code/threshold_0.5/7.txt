@@ -1,26 +1,8 @@
-protected boolean initializeComponentsFromAny(){
-  try {
-    InputStream input=any.create_input_stream();
-    Any discriminatorAny=DynAnyUtil.extractAnyFromStream(discriminatorType(),input,orb);
-    discriminator=DynAnyUtil.createMostDerivedDynAny(discriminatorAny,orb,false);
-    currentMemberIndex=currentUnionMemberIndex(discriminatorAny);
-    Any memberAny=DynAnyUtil.extractAnyFromStream(memberType(currentMemberIndex),input,orb);
-    currentMember=DynAnyUtil.createMostDerivedDynAny(memberAny,orb,false);
-    components=new DynAny[]{discriminator,currentMember};
-  }
- catch (  InconsistentTypeCode ictc) {
-  }
-  return true;
+protected DynAnyBasicImpl(ORB orb,Any any,boolean copyValue){
+  super(orb,any,copyValue);
+  index=NO_INDEX;
 }
-protected boolean initializeComponentsFromTypeCode(){
-  try {
-    discriminator=DynAnyUtil.createMostDerivedDynAny(memberLabel(0),orb,false);
-    index=0;
-    currentMemberIndex=0;
-    currentMember=DynAnyUtil.createMostDerivedDynAny(memberType(0),orb);
-    components=new DynAny[]{discriminator,currentMember};
-  }
- catch (  InconsistentTypeCode ictc) {
-  }
-  return true;
+protected DynAnyBasicImpl(ORB orb,TypeCode typeCode){
+  super(orb,typeCode);
+  index=NO_INDEX;
 }

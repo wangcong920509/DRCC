@@ -1,21 +1,49 @@
 /** 
- * Constructs an instance of a Binding given its name and object. <p> <tt>getClassName()</tt> will return the class name of <tt>obj</tt> (or null if <tt>obj</tt> is null) unless the class name has been explicitly set using <tt>setClassName()</tt>
- * @param name    The non-null name of the object. It is relativeto the <em>target context</em> (which is named by the first parameter of the <code>listBindings()</code> method)
- * @param obj     The possibly null object bound to name.
- * @see NameClassPair#setClassName
+ * Removes the first occurrence of the specified element from this list, if it is present.  If this list does not contain the element, it is unchanged.  More formally, removes the element with the lowest index {@code i} such that<tt>(o==null&nbsp;?&nbsp;get(i)==null&nbsp;:&nbsp;o.equals(get(i)))</tt> (if such an element exists).  Returns  {@code true} if this listcontained the specified element (or equivalently, if this list changed as a result of the call).
+ * @param o element to be removed from this list, if present
+ * @return {@code true} if this list contained the specified element
  */
-public Binding(String name,Object obj){
-  super(name,null);
-  this.boundObj=obj;
+public boolean remove(Object o){
+  if (o == null) {
+    for (Node<E> x=first; x != null; x=x.next) {
+      if (x.item == null) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+ else {
+    for (Node<E> x=first; x != null; x=x.next) {
+      if (o.equals(x.item)) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+  return false;
 }
 /** 
- * Constructs an instance of a Binding given its name, class name, and object.
- * @param name    The non-null name of the object. It is relativeto the <em>target context</em> (which is named by the first parameter of the <code>listBindings()</code> method)
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj     The possibly null object bound to name.
- * @see NameClassPair#setClassName
+ * Removes the last occurrence of the specified element in this list (when traversing the list from head to tail).  If the list does not contain the element, it is unchanged.
+ * @param o element to be removed from this list, if present
+ * @return {@code true} if the list contained the specified element
+ * @since 1.6
  */
-public Binding(String name,String className,Object obj){
-  super(name,className);
-  this.boundObj=obj;
+public boolean removeLastOccurrence(Object o){
+  if (o == null) {
+    for (Node<E> x=last; x != null; x=x.prev) {
+      if (x.item == null) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+ else {
+    for (Node<E> x=last; x != null; x=x.prev) {
+      if (o.equals(x.item)) {
+        unlink(x);
+        return true;
+      }
+    }
+  }
+  return false;
 }

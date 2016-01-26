@@ -1,14 +1,28 @@
 /** 
- * @see SerializationHandler#reset()
+ * Constructs a new output format with the default values for the specified method and encoding. If <tt>indent</tt> is true, the document will be pretty printed with the default indentation level and default line wrapping.
+ * @param method The specified output method
+ * @param encoding The specified encoding
+ * @param indenting True for pretty printing
+ * @see #setEncoding
+ * @see #setIndenting
+ * @see #setMethod
  */
-public boolean reset(){
-  aMethodIsCalled();
-  return false;
+public OutputFormat(String method,String encoding,boolean indenting){
+  setMethod(method);
+  setEncoding(encoding);
+  setIndenting(indenting);
 }
 /** 
- * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
+ * Constructs a new output format with the proper method, document type identifiers and media type for the specified document, and with the specified encoding. If <tt>indent</tt> is true, the document will be pretty printed with the default indentation level and default line wrapping.
+ * @param doc The document to output
+ * @param encoding The specified encoding
+ * @param indenting True for pretty printing
+ * @see #setEncoding
+ * @see #setIndenting
+ * @see #whichMethod
  */
-public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
-  couldThrowSAXException();
-  return false;
+public OutputFormat(Document doc,String encoding,boolean indenting){
+  this(doc);
+  setEncoding(encoding);
+  setIndenting(indenting);
 }

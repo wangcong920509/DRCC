@@ -1,25 +1,33 @@
 /** 
- * Presses one or more mouse buttons.  The mouse buttons should be released using the  {@link #mouseRelease(int)} method.
- * @param buttons the Button mask; a combination of one or moremouse button masks. <p> It is allowed to use only a combination of valid values as a  {@code buttons} parameter.A valid combination consists of  {@code InputEvent.BUTTON1_DOWN_MASK}, {@code InputEvent.BUTTON2_DOWN_MASK},  {@code InputEvent.BUTTON3_DOWN_MASK}and values returned by the {@link InputEvent#getMaskForButton(int) InputEvent.getMaskForButton(button)} method.The valid combination also depends on a {@link Toolkit#areExtraMouseButtonsEnabled() Toolkit.areExtraMouseButtonsEnabled()} value as follows:<ul> <li> If support for extended mouse buttons is {@link Toolkit#areExtraMouseButtonsEnabled() disabled} by Javathen it is allowed to use only the following standard button masks: {@code InputEvent.BUTTON1_DOWN_MASK},  {@code InputEvent.BUTTON2_DOWN_MASK}, {@code InputEvent.BUTTON3_DOWN_MASK}. <li> If support for extended mouse buttons is {@link Toolkit#areExtraMouseButtonsEnabled() enabled} by Javathen it is allowed to use the standard button masks and masks for existing extended mouse buttons, if the mouse has more then three buttons. In that way, it is allowed to use the button masks corresponding to the buttons in the range from 1 to  {@link java.awt.MouseInfo#getNumberOfButtons() MouseInfo.getNumberOfButtons()}. <br> It is recommended to use the  {@link InputEvent#getMaskForButton(int) InputEvent.getMaskForButton(button)}method to obtain the mask for any mouse button by its number. </ul> <p> The following standard button masks are also accepted: <ul> <li> {@code InputEvent.BUTTON1_MASK}<li> {@code InputEvent.BUTTON2_MASK}<li> {@code InputEvent.BUTTON3_MASK}</ul> However, it is recommended to use  {@code InputEvent.BUTTON1_DOWN_MASK}, {@code InputEvent.BUTTON2_DOWN_MASK},   {@code InputEvent.BUTTON3_DOWN_MASK} instead.Either extended  {@code _DOWN_MASK} or old {@code _MASK} valuesshould be used, but both those models should not be mixed.
- * @throws IllegalArgumentException if the {@code buttons} mask contains the mask for extra mouse buttonand support for extended mouse buttons is  {@link Toolkit#areExtraMouseButtonsEnabled() disabled} by Java
- * @throws IllegalArgumentException if the {@code buttons} mask contains the mask for extra mouse buttonthat does not exist on the mouse and support for extended mouse buttons is  {@link Toolkit#areExtraMouseButtonsEnabled() enabled} by Java
- * @see #mouseRelease(int)
- * @see InputEvent#getMaskForButton(int)
- * @see Toolkit#areExtraMouseButtonsEnabled()
- * @see java.awt.MouseInfo#getNumberOfButtons()
- * @see java.awt.event.MouseEvent
+ * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param item  the item to remove from this <code>Choice</code> menu
+ * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
+ * @since      JDK1.1
  */
-public synchronized void mousePress(int buttons){
-  checkButtonsArgument(buttons);
-  peer.mousePress(buttons);
-  afterEvent();
+public void remove(String item){
+synchronized (this) {
+    int index=pItems.indexOf(item);
+    if (index < 0) {
+      throw new IllegalArgumentException("item " + item + " not found in choice");
+    }
+ else {
+      removeNoInvalidate(index);
+    }
+  }
+  invalidateIfValid();
 }
 /** 
- * Rotates the scroll wheel on wheel-equipped mice.
- * @param wheelAmt  number of "notches" to move the mouse wheelNegative values indicate movement up/away from the user, positive values indicate movement down/towards the user.
- * @since 1.4
+ * Removes all items from the choice menu.
+ * @see #remove
+ * @since     JDK1.1
  */
-public synchronized void mouseWheel(int wheelAmt){
-  peer.mouseWheel(wheelAmt);
-  afterEvent();
+public void removeAll(){
+synchronized (this) {
+    if (peer != null) {
+      ((ChoicePeer)peer).removeAll();
+    }
+    pItems.removeAllElements();
+    selectedIndex=-1;
+  }
+  invalidateIfValid();
 }

@@ -261,3 +261,5 @@ private boolean isConsistent(){
   }
   return retval;
 }
+-->
+447.0 / 13133 = 0.03403639686286454

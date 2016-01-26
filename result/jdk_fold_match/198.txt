@@ -44,3 +44,5 @@ public E take() throws InterruptedException {
   if (c == capacity)   signalNotFull();
   return x;
 }
+-->
+42.0 / 844 = 0.04976303317535545

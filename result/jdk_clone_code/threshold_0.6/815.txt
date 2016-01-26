@@ -1,0 +1,30 @@
+/** 
+ * Look up the value of a feature flag. <p>The feature name is any fully-qualified URI.  It is possible for a  {@link ValidatorHandler} to recognize a feature name buttemporarily be unable to return its value. Some feature values may be available only in specific contexts, such as before, during, or after a validation. <p>Implementors are free (and encouraged) to invent their own features, using names built on their own URIs.</p>
+ * @param name The feature name, which is a non-null fully-qualified URI.
+ * @return The current value of the feature (true or false).
+ * @throws SAXNotRecognizedException If the featurevalue can't be assigned or retrieved.
+ * @throws SAXNotSupportedException When the{@link ValidatorHandler} recognizes the feature name butcannot determine its value at this time.
+ * @throws NullPointerException When <code>name</code> is <code>null</code>.
+ * @see #setFeature(String,boolean)
+ */
+public boolean getFeature(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+  if (name == null) {
+    throw new NullPointerException();
+  }
+  throw new SAXNotRecognizedException(name);
+}
+/** 
+ * Look up the value of a property. <p>The property name is any fully-qualified URI.  It is possible for a  {@link ValidatorHandler} to recognize a property name buttemporarily be unable to return its value. Some property values may be available only in specific contexts, such as before, during, or after a validation.</p> <p> {@link ValidatorHandler}s are not required to recognize any specific property names.</p> <p>Implementors are free (and encouraged) to invent their own properties, using names built on their own URIs.</p>
+ * @param name The property name, which is a non-null fully-qualified URI.
+ * @return The current value of the property.
+ * @throws SAXNotRecognizedException If the propertyvalue can't be assigned or retrieved.
+ * @throws SAXNotSupportedException When theXMLReader recognizes the property name but cannot determine its value at this time.
+ * @throws NullPointerException When <code>name</code> is <code>null</code>.
+ * @see #setProperty(String,Object)
+ */
+public Object getProperty(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
+  if (name == null) {
+    throw new NullPointerException();
+  }
+  throw new SAXNotRecognizedException(name);
+}

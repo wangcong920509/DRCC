@@ -54,3 +54,5 @@ private void updateStyle(JSlider c){
   sliderThumbStyle=SynthLookAndFeel.updateStyle(context,this);
   context.dispose();
 }
+-->
+256.0 / 1858 = 0.1377825618945102

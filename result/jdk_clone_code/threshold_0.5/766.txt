@@ -2,17 +2,16 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getFirstChild(){
+public Node getParentNode(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of attribute node to get
- * @param localName Local part of qualified name of attribute node to get
+ * Unimplemented. See org.w3c.dom.Document
+ * @param elementId ID of the element to get
  * @return null
  */
-public String getAttributeNS(String namespaceURI,String localName){
+public Element getElementById(String elementId){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,11 +1,11 @@
-public StringBuilder append(String str){
-  super.append(str);
-  return this;
-}
 /** 
  * @since 1.5
  */
-public StringBuilder appendCodePoint(int codePoint){
+public synchronized StringBuffer appendCodePoint(int codePoint){
   super.appendCodePoint(codePoint);
+  return this;
+}
+public synchronized StringBuffer append(long lng){
+  super.append(lng);
   return this;
 }

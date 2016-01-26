@@ -1,17 +1,8 @@
-/** 
- * Prepares an empty list with a <CODE>String</CODE> to print while debugging.
- * @param name The name of the newly created <CODE>SnmpVarBindList</CODE>.
- */
-public SnmpVarBindList(String name){
-  super(5,5);
-  identity=name;
+public org.omg.CORBA.portable.OutputStream createReply(){
+  getProtocolHandler().createResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }
-/** 
- * Creates a new <CODE>SnmpVarBindList</CODE> object from a plain vector of <CODE>SnmpVarBind</CODE> objects. Objects in the specified vector can be <CODE>SnmpVarBind</CODE> objects or derivatives.
- * @param name The name of the newly created <CODE>SnmpVarBindList</CODE>.
- * @param list The vector of <CODE>SnmpVarBind</CODE> objects to copy.
- */
-public SnmpVarBindList(String name,Vector<SnmpVarBind> list){
-  this(list);
-  identity=name;
+public org.omg.CORBA.portable.OutputStream createExceptionReply(){
+  getProtocolHandler().createUserExceptionResponse(this,(ServiceContexts)null);
+  return (OutputStream)getOutputObject();
 }

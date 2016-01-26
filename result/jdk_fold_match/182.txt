@@ -51,3 +51,5 @@ public BitSet get(int fromIndex,int toIndex){
   result.checkInvariants();
   return result;
 }
+-->
+172.0 / 1963 = 0.08762098828323994

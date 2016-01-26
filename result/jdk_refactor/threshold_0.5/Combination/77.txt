@@ -1,28 +1,28 @@
-public int getLineNumber(){
+public String getLiteralSystemId(){
   if (fLocator != null) {
-    return fLocator.getLineNumber();
+    return fLocator.getSystemId();
   }
-  return -1;
+  return null;
 }
 
-public int getColumnNumber(){
-  if (fLocator != null) {
-    return fLocator.getColumnNumber();
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
   }
-  return -1;
+  return null;
 }
 
 -->
-void getLineNumber_getColumnNumber(int combFlag){
+void getLiteralSystemId_getXMLVersion(int combFlag){
   if (combFlag == 1) {
     if (fLocator != null) {
-      return fLocator.getLineNumber();
+      return fLocator.getSystemId();
     }
   }
  else {
-    if (fLocator != null) {
-      return fLocator.getColumnNumber();
+    if (fLocator2 != null) {
+      return fLocator2.getXMLVersion();
     }
   }
-  return -1;
+  return null;
 }

@@ -87,3 +87,5 @@ public void translate(ClassGenerator classGen,MethodGenerator methodGen){
   nextNode.setTarget(skip);
   skipNode.setTarget(skip);
 }
+-->
+632.0 / 11057 = 0.0571583612191372

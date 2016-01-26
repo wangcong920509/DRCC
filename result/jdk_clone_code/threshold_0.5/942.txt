@@ -2,16 +2,18 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Document getOwnerDocument(){
+public Node getNextSibling(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param deep Flag indicating whether to clone deep (clone member variables)
+ * Unimplemented. See org.w3c.dom.Document
+ * @param target Target for Processing instruction
+ * @param data Data for Processing instruction
  * @return null
+ * @throws DOMException
  */
-public Node cloneNode(boolean deep){
+public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

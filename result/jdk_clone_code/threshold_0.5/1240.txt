@@ -1,20 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param name Name of attribute to get
- * @return null
+ * @param name
+ * @param x
+ * @return false
  */
-public String getAttribute(String name){
+public boolean hasAttributeNS(String name,String x){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param namespaceURI Namespace URI of the attribute
- * @param qualifiedName Qualified name of the attribute
- * @return null
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Node
+ * @return False
  */
-public Attr createAttributeNS(String namespaceURI,String qualifiedName) throws DOMException {
+public boolean getSpecified(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }

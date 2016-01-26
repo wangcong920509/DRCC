@@ -1,28 +1,32 @@
 /** 
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the front of this deque.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Deque#offerFirst})
+ * @throws NullPointerException if the specified element is null
  */
-public K lowerKey(K key){
-  Node<K,V> n=findNear(key,LT);
-  return (n == null) ? null : n.key;
+public boolean offerFirst(E e){
+  addFirst(e);
+  return true;
 }
 
 /** 
- * @throws ClassCastException {@inheritDoc}
- * @throws NullPointerException if the specified key is null
+ * Inserts the specified element at the end of this deque.
+ * @param e the element to add
+ * @return <tt>true</tt> (as specified by {@link Deque#offerLast})
+ * @throws NullPointerException if the specified element is null
  */
-public K ceilingKey(K key){
-  Node<K,V> n=findNear(key,GT | EQ);
-  return (n == null) ? null : n.key;
+public boolean offerLast(E e){
+  addLast(e);
+  return true;
 }
 
 -->
-void lowerKey_ceilingKey(K key,K key,int combFlag){
+void offerFirst_offerLast(E e,E e,int combFlag){
   if (combFlag == 1) {
-    Node<K,V> n=findNear(key,LT);
+    addFirst(e);
   }
  else {
-    Node<K,V> n=findNear(key,GT | EQ);
+    addLast(e);
   }
-  return (n == null) ? null : n.key;
+  return true;
 }

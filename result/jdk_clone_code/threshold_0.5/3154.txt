@@ -1,26 +1,31 @@
 /** 
- * Assigns the specified boolean value to each element of the specified range of the specified array of booleans.  The range to be filled extends from index <tt>fromIndex</tt>, inclusive, to index <tt>toIndex</tt>, exclusive.  (If <tt>fromIndex==toIndex</tt>, the range to be filled is empty.)
- * @param a the array to be filled
- * @param fromIndex the index of the first element (inclusive) to befilled with the specified value
- * @param toIndex the index of the last element (exclusive) to befilled with the specified value
- * @param val the value to be stored in all elements of the array
- * @throws IllegalArgumentException if <tt>fromIndex &gt; toIndex</tt>
- * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or<tt>toIndex &gt; a.length</tt>
+ * Verifies the passed-in signature. <p>A call to this method resets this signature object to the state it was in when previously initialized for verification via a call to <code>initVerify(PublicKey)</code>. That is, the object is reset and available to verify another signature from the identity whose public key was specified in the call to <code>initVerify</code>.
+ * @param signature the signature bytes to be verified.
+ * @return true if the signature was verified, false if not.
+ * @exception SignatureException if this signature object is notinitialized properly, the passed-in signature is improperly encoded or of the wrong type, if this signature algorithm is unable to process the input data provided, etc.
  */
-public static void fill(boolean[] a,int fromIndex,int toIndex,boolean val){
-  rangeCheck(a.length,fromIndex,toIndex);
-  for (int i=fromIndex; i < toIndex; i++)   a[i]=val;
+public final boolean verify(byte[] signature) throws SignatureException {
+  if (state == VERIFY) {
+    return engineVerify(signature);
+  }
+  throw new SignatureException("object not initialized for " + "verification");
 }
 /** 
- * Assigns the specified double value to each element of the specified range of the specified array of doubles.  The range to be filled extends from index <tt>fromIndex</tt>, inclusive, to index <tt>toIndex</tt>, exclusive.  (If <tt>fromIndex==toIndex</tt>, the range to be filled is empty.)
- * @param a the array to be filled
- * @param fromIndex the index of the first element (inclusive) to befilled with the specified value
- * @param toIndex the index of the last element (exclusive) to befilled with the specified value
- * @param val the value to be stored in all elements of the array
- * @throws IllegalArgumentException if <tt>fromIndex &gt; toIndex</tt>
- * @throws ArrayIndexOutOfBoundsException if <tt>fromIndex &lt; 0</tt> or<tt>toIndex &gt; a.length</tt>
+ * Verifies the passed-in signature in the specified array of bytes, starting at the specified offset. <p>A call to this method resets this signature object to the state it was in when previously initialized for verification via a call to <code>initVerify(PublicKey)</code>. That is, the object is reset and available to verify another signature from the identity whose public key was specified in the call to <code>initVerify</code>.
+ * @param signature the signature bytes to be verified.
+ * @param offset the offset to start from in the array of bytes.
+ * @param length the number of bytes to use, starting at offset.
+ * @return true if the signature was verified, false if not.
+ * @exception SignatureException if this signature object is notinitialized properly, the passed-in signature is improperly encoded or of the wrong type, if this signature algorithm is unable to process the input data provided, etc.
+ * @exception IllegalArgumentException if the <code>signature</code>byte array is null, or the <code>offset</code> or <code>length</code> is less than 0, or the sum of the <code>offset</code> and <code>length</code> is greater than the length of the <code>signature</code> byte array.
+ * @since 1.4
  */
-public static void fill(double[] a,int fromIndex,int toIndex,double val){
-  rangeCheck(a.length,fromIndex,toIndex);
-  for (int i=fromIndex; i < toIndex; i++)   a[i]=val;
+public final boolean verify(byte[] signature,int offset,int length) throws SignatureException {
+  if (state == VERIFY) {
+    if ((signature == null) || (offset < 0) || (length < 0)|| (length > signature.length - offset)) {
+      throw new IllegalArgumentException("Bad arguments");
+    }
+    return engineVerify(signature,offset,length);
+  }
+  throw new SignatureException("object not initialized for " + "verification");
 }

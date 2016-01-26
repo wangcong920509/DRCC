@@ -1,17 +1,8 @@
-/** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with a given <code>Exception</code> base cause of the error.
- * @param e The exception to be encapsulated in aTransformerFactoryConfigurationError.
- */
-public TransformerFactoryConfigurationError(Exception e){
-  super(e.toString());
-  this.exception=e;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.6666667f),decodeY(0.4f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with the given <code>Exception</code> base cause and detail message.
- * @param e The exception to be encapsulated in aTransformerFactoryConfigurationError
- * @param msg The detail message.
- */
-public TransformerFactoryConfigurationError(Exception e,String msg){
-  super(msg);
-  this.exception=e;
+private Rectangle2D decodeRect8(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

@@ -1,8 +1,20 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Creates a <code>JComboBox</code> that contains the elements in the specified array.  By default the first item in the array (and therefore the data model) becomes selected.
+ * @param items  an array of objects to insert into the combo box
+ * @see DefaultComboBoxModel
+ */
+public JComboBox(E[] items){
+  super();
+  setModel(new DefaultComboBoxModel<E>(items));
+  init();
 }
-private Rectangle2D decodeRect32(){
-  rect.setRect(decodeX(0.2f),decodeY(0.2f),decodeX(2.8f) - decodeX(0.2f),decodeY(2.6f) - decodeY(0.2f));
-  return rect;
+/** 
+ * Creates a <code>JComboBox</code> that contains the elements in the specified Vector.  By default the first item in the vector (and therefore the data model) becomes selected.
+ * @param items  an array of vectors to insert into the combo box
+ * @see DefaultComboBoxModel
+ */
+public JComboBox(Vector<E> items){
+  super();
+  setModel(new DefaultComboBoxModel<E>(items));
+  init();
 }

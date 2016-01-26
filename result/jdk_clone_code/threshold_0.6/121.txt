@@ -1,8 +1,12 @@
-HeapShortBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
+  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }
-HeapShortBufferR(short[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl,String location){
+  fGlobalAttrGrpDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
+  }
 }

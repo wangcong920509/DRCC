@@ -1,8 +1,18 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
+/** 
+ * Adds an image to end of the list of sources.  The image is stored as an object in order to allow new node types in the future.
+ * @param source an image object to be stored in the source list.
+ * @return a new <code>ParameterBlock</code> containing the specified<code>source</code>.
+ */
+public ParameterBlock addSource(Object source){
+  sources.addElement(source);
   return this;
 }
-public synchronized StringBuffer append(float f){
-  super.append(f);
+/** 
+ * Adds an object to the list of parameters.
+ * @param obj the <code>Object</code> to add to the<code>parameters</code> <code>Vector</code>
+ * @return a new <code>ParameterBlock</code> containingthe specified parameter.
+ */
+public ParameterBlock add(Object obj){
+  parameters.addElement(obj);
   return this;
 }

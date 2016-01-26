@@ -65,3 +65,5 @@ public void end_value(){
   readEndTag();
   start_block();
 }
+-->
+295.0 / 2805 = 0.1051693404634581

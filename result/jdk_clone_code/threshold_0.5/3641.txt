@@ -1,8 +1,22 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Inserts the specified element as a component in this list at the specified <code>index</code>. <p> Throws an <code>ArrayIndexOutOfBoundsException</code> if the index is invalid. <blockquote> <b>Note:</b> Although this method is not deprecated, the preferred method to use is <code>add(int,Object)</code>, which implements the <code>List</code> interface defined in the 1.2 Collections framework. </blockquote>
+ * @param element the component to insert
+ * @param index   where to insert the new component
+ * @exception ArrayIndexOutOfBoundsException  if the index was invalid
+ * @see #add(int,Object)
+ * @see Vector#insertElementAt(Object,int)
+ */
+public void insertElementAt(E element,int index){
+  delegate.insertElementAt(element,index);
+  fireIntervalAdded(this,index,index);
 }
-private Rectangle2D decodeRect17(){
-  rect.setRect(decodeX(0.4f),decodeY(2.4f),decodeX(0.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(2.4f));
-  return rect;
+/** 
+ * Adds the specified component to the end of this list.
+ * @param element   the component to be added
+ * @see Vector#addElement(Object)
+ */
+public void addElement(E element){
+  int index=delegate.size();
+  delegate.addElement(element);
+  fireIntervalAdded(this,index,index);
 }

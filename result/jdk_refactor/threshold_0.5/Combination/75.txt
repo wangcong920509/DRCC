@@ -1,27 +1,27 @@
-public String getLiteralSystemId(){
+public String getPublicId(){
   if (fLocator != null) {
-    return fLocator.getSystemId();
+    return fLocator.getPublicId();
   }
   return null;
 }
 
-public String getEncoding(){
+public String getXMLVersion(){
   if (fLocator2 != null) {
-    return fLocator2.getEncoding();
+    return fLocator2.getXMLVersion();
   }
   return null;
 }
 
 -->
-void getLiteralSystemId_getEncoding(int combFlag){
+void getPublicId_getXMLVersion(int combFlag){
   if (combFlag == 1) {
     if (fLocator != null) {
-      return fLocator.getSystemId();
+      return fLocator.getPublicId();
     }
   }
  else {
     if (fLocator2 != null) {
-      return fLocator2.getEncoding();
+      return fLocator2.getXMLVersion();
     }
   }
   return null;

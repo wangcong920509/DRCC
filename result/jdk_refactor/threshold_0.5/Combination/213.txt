@@ -1,32 +1,96 @@
-public E peekFirst(){
-  for (Node<E> p=first(); p != null; p=succ(p)) {
-    E item=p.item;
-    if (item != null)     return item;
-  }
-  return null;
+private void emitLoadInsn(char type,int index){
+  int opcode;
+switch (type) {
+case 'I':
+    opcode=Opcodes.ILOAD;
+  break;
+case 'J':
+opcode=Opcodes.LLOAD;
+break;
+case 'F':
+opcode=Opcodes.FLOAD;
+break;
+case 'D':
+opcode=Opcodes.DLOAD;
+break;
+case 'L':
+opcode=Opcodes.ALOAD;
+break;
+default :
+throw new InternalError("unknown type: " + type);
+}
+mv.visitVarInsn(opcode,localsMap[index]);
 }
 
-public E peekLast(){
-  for (Node<E> p=last(); p != null; p=pred(p)) {
-    E item=p.item;
-    if (item != null)     return item;
-  }
-  return null;
+private void emitStoreInsn(char type,int index){
+  int opcode;
+switch (type) {
+case 'I':
+    opcode=Opcodes.ISTORE;
+  break;
+case 'J':
+opcode=Opcodes.LSTORE;
+break;
+case 'F':
+opcode=Opcodes.FSTORE;
+break;
+case 'D':
+opcode=Opcodes.DSTORE;
+break;
+case 'L':
+opcode=Opcodes.ASTORE;
+break;
+default :
+throw new InternalError("unknown type: " + type);
+}
+mv.visitVarInsn(opcode,localsMap[index]);
 }
 
 -->
-void peekFirst_peekLast(int combFlag){
+void emitLoadInsn_emitStoreInsn(char type,int index,char type,int index,int combFlag){
   if (combFlag == 1) {
-    for (Node<E> p=first(); p != null; p=succ(p)) {
-      E item=p.item;
-      if (item != null)       return item;
-    }
-  }
+    int opcode;
+switch (type) {
+case 'I':
+      opcode=Opcodes.ILOAD;
+    break;
+case 'J':
+  opcode=Opcodes.LLOAD;
+break;
+case 'F':
+opcode=Opcodes.FLOAD;
+break;
+case 'D':
+opcode=Opcodes.DLOAD;
+break;
+case 'L':
+opcode=Opcodes.ALOAD;
+break;
+default :
+throw new InternalError("unknown type: " + type);
+}
+}
  else {
-    for (Node<E> p=last(); p != null; p=pred(p)) {
-      E item=p.item;
-      if (item != null)       return item;
-    }
-  }
-  return null;
+int opcode;
+switch (type) {
+case 'I':
+opcode=Opcodes.ISTORE;
+break;
+case 'J':
+opcode=Opcodes.LSTORE;
+break;
+case 'F':
+opcode=Opcodes.FSTORE;
+break;
+case 'D':
+opcode=Opcodes.DSTORE;
+break;
+case 'L':
+opcode=Opcodes.ASTORE;
+break;
+default :
+throw new InternalError("unknown type: " + type);
+}
+}
+mv.visitVarInsn(opcode,localsMap[index]);
 }

@@ -1,8 +1,26 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the Rectangle enclosing the label portion that the last item in path will be drawn into.  Will return null if any component in path is currently valid.
+ */
+public Rectangle getPathBounds(JTree tree,TreePath path){
+  if (tree != null && treeState != null) {
+    return getPathBounds(path,tree.getInsets(),new Rectangle());
+  }
+  return null;
 }
-private Rectangle2D decodeRect36(){
-  rect.setRect(decodeX(0.8f),decodeY(1.0f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.1666666f) - decodeY(1.0f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(tree,this,"Tree.ancestorInputMap");
+  }
+ else   if (condition == JComponent.WHEN_FOCUSED) {
+    InputMap keyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap");
+    InputMap rtlKeyMap;
+    if (tree.getComponentOrientation().isLeftToRight() || ((rtlKeyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap.RightToLeft")) == null)) {
+      return keyMap;
+    }
+ else {
+      rtlKeyMap.setParent(keyMap);
+      return rtlKeyMap;
+    }
+  }
+  return null;
 }

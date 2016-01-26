@@ -75,3 +75,5 @@ public void iconifyFrame(JInternalFrame f){
     }
   }
 }
+-->
+51.0 / 2114 = 0.024124881740775782

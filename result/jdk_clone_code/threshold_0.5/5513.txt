@@ -1,17 +1,8 @@
-/** 
- * Create a new SAXException wrapping an existing exception. <p>The existing exception will be embedded in the new one, and its message will become the default message for the SAXException.</p>
- * @param e The exception to be wrapped in a SAXException.
- */
-public SAXException(Exception e){
-  super();
-  this.exception=e;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }
-/** 
- * Create a new SAXException from an existing exception. <p>The existing exception will be embedded in the new one, but the new exception will have its own message.</p>
- * @param message The detail message.
- * @param e The exception to be wrapped in a SAXException.
- */
-public SAXException(String message,Exception e){
-  super(message);
-  this.exception=e;
+private Rectangle2D decodeRect11(){
+  rect.setRect(decodeX(0.6f),decodeY(2.4f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.6f) - decodeY(2.4f));
+  return rect;
 }

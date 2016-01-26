@@ -1,24 +1,18 @@
 /** 
- * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
- * @param orig the exception to wrap.
- * @return the wrapped exception.
+ * Creates a  {@code PriorityQueue} containing the elements in thespecified sorted set.   This priority queue will be ordered according to the same ordering as the given sorted set.
+ * @param c the sorted set whose elements are to be placedinto this priority queue
+ * @throws ClassCastException if elements of the specified sortedset cannot be compared to one another according to the sorted set's ordering
+ * @throws NullPointerException if the specified sorted set or anyof its elements are null
  */
-public static RemoteException wrapException(Throwable orig){
-  if (utilDelegate != null) {
-    return utilDelegate.wrapException(orig);
-  }
-  return null;
+@SuppressWarnings("unchecked") public PriorityQueue(SortedSet<? extends E> c){
+  this.comparator=(Comparator<? super E>)c.comparator();
+  initElementsFromCollection(c);
 }
 /** 
- * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
- * @param obj the objects to copy or connect.
- * @param orb the ORB.
- * @return the copied or connected objects.
- * @exception RemoteException if any object could not be copied or connected.
+ * Initializes queue array with elements from the given Collection.
+ * @param c the collection
  */
-public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObjects(obj,orb);
-  }
-  return null;
+private void initFromCollection(Collection<? extends E> c){
+  initElementsFromCollection(c);
+  heapify();
 }

@@ -1,14 +1,19 @@
 /** 
- * register one global attribute group
+ * @return
  */
-public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
-  fGlobalAttrGrpDecls.put(decl.fName,decl);
-  decl.setNamespaceItem(this);
+public String getNamespaceURI(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    return fScanner.getElementQName().uri;
+  }
+  return null;
 }
 /** 
- * register one global complex type
+ * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
  */
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl){
-  fGlobalTypeDecls.put(decl.getName(),decl);
-  decl.setNamespaceItem(this);
+public String getPrefix(){
+  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
+    String prefix=fScanner.getElementQName().prefix;
+    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+  }
+  return null;
 }

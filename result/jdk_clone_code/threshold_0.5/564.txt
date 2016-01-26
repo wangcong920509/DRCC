@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see SerializationHandler#getWriter()
  */
-public String getDoctypeSystem(){
+public Writer getWriter(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getStandalone()
+ * @see XSLOutputAttributes#getVersion()
  */
-public String getStandalone(){
+public String getVersion(){
   aMethodIsCalled();
   return null;
 }

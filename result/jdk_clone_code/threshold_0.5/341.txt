@@ -1,53 +1,12 @@
-/** 
- * Retrieve list of namespace declaration locations active at this node. List is an SuballocatedIntVector whose entries are the namespace node HANDLES declared at that ID. %REVIEW% Directly managed arrays rather than vectors? %REVIEW% Handles or IDs? Given usage, I think handles.
- */
-protected SuballocatedIntVector findNamespaceContext(int elementNodeIndex){
-  if (null != m_namespaceDeclSetElements) {
-    int wouldBeAt=findInSortedSuballocatedIntVector(m_namespaceDeclSetElements,elementNodeIndex);
-    if (wouldBeAt >= 0)     return (SuballocatedIntVector)m_namespaceDeclSets.elementAt(wouldBeAt);
-    if (wouldBeAt == -1)     return null;
-    wouldBeAt=-1 - wouldBeAt;
-    int candidate=m_namespaceDeclSetElements.elementAt(--wouldBeAt);
-    int ancestor=_parent(elementNodeIndex);
-    if (wouldBeAt == 0 && candidate < ancestor) {
-      int rootHandle=getDocumentRoot(makeNodeHandle(elementNodeIndex));
-      int rootID=makeNodeIdentity(rootHandle);
-      int uppermostNSCandidateID;
-      if (getNodeType(rootHandle) == DTM.DOCUMENT_NODE) {
-        int ch=_firstch(rootID);
-        uppermostNSCandidateID=(ch != DTM.NULL) ? ch : rootID;
-      }
- else {
-        uppermostNSCandidateID=rootID;
-      }
-      if (candidate == uppermostNSCandidateID) {
-        return (SuballocatedIntVector)m_namespaceDeclSets.elementAt(wouldBeAt);
-      }
-    }
-    while (wouldBeAt >= 0 && ancestor > 0) {
-      if (candidate == ancestor) {
-        return (SuballocatedIntVector)m_namespaceDeclSets.elementAt(wouldBeAt);
-      }
- else       if (candidate < ancestor) {
-        do {
-          ancestor=_parent(ancestor);
-        }
- while (candidate < ancestor);
-      }
- else       if (wouldBeAt > 0) {
-        candidate=m_namespaceDeclSetElements.elementAt(--wouldBeAt);
-      }
- else       break;
-    }
+public int getLineNumber(){
+  if (fLocation != null) {
+    return fLocation.getLineNumber();
   }
-  return null;
+  return -1;
 }
-/** 
- * Given a node handle, return the XPath node name.  This should be the name as described by the XPath data model, NOT the DOM-style name.
- * @param nodeHandle the id of the node.
- * @return String Name of this node, which may be an empty string.
- */
-public String getNodeNameX(int nodeHandle){
-  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
-  return null;
+public int getColumnNumber(){
+  if (fLocation != null) {
+    return fLocation.getColumnNumber();
+  }
+  return -1;
 }

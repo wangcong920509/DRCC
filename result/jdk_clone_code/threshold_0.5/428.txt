@@ -1,19 +1,16 @@
 /** 
- * Method getHTMLRepresentation
- * @throws XMLSignatureException
- * @return The HTML representation for this XMLSignature
+ * Constructor X509Data
+ * @param doc
  */
-public String getHTMLRepresentation() throws XMLSignatureException {
-  XMLSignatureInputDebugger db=new XMLSignatureInputDebugger(this);
-  return db.getHTMLRepresentation();
+public X509Data(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Method getHTMLRepresentation
- * @param inclusiveNamespaces
- * @throws XMLSignatureException
- * @return The HTML representation for this XMLSignature
+ * Method add
+ * @param xmlX509IssuerSerial
  */
-public String getHTMLRepresentation(Set inclusiveNamespaces) throws XMLSignatureException {
-  XMLSignatureInputDebugger db=new XMLSignatureInputDebugger(this,inclusiveNamespaces);
-  return db.getHTMLRepresentation();
+public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
+  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

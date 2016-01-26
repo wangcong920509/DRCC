@@ -1,21 +1,18 @@
 /** 
- * Plays the audio clip at the specified absolute URL. Nothing happens if the audio clip cannot be found.
- * @param url   an absolute URL giving the location of the audio clip.
+ * Unimplemented. See org.w3c.dom.Document
+ * @param name Attribute name
+ * @return null
+ * @throws DOMException
  */
-public void play(URL url){
-  AudioClip clip=getAudioClip(url);
-  if (clip != null) {
-    clip.play();
-  }
+public Attr createAttribute(String name) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Plays the audio clip given the URL and a specifier that is relative to it. Nothing happens if the audio clip cannot be found.
- * @param url    an absolute URL giving the base location of theaudio clip.
- * @param name   the location of the audio clip, relative to the<code>url</code> argument.
+ * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
+ * @throws DOMException
  */
-public void play(URL url,String name){
-  AudioClip clip=getAudioClip(url,name);
-  if (clip != null) {
-    clip.play();
-  }
+public Node adoptNode(Node source) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

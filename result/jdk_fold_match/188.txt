@@ -25,3 +25,5 @@ public V replace(K key,V value){
   Segment<K,V> s=segmentForHash(hash);
   return s == null ? null : s.replace(key,hash,value);
 }
+-->
+33.0 / 316 = 0.10443037974683544

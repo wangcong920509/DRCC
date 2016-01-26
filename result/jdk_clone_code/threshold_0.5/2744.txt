@@ -1,5 +1,5 @@
-public ByteBuffer putLong(int i,long x){
-  putLong(ix(checkIndex(i,(1 << 3))),x);
+public ByteBuffer putChar(char x){
+  putChar(ix(nextPutIndex((1 << 1))),x);
   return this;
 }
 private ByteBuffer putDouble(long a,double x){

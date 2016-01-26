@@ -22,3 +22,5 @@ public void type(TypeCode tc){
   object=null;
   isInitialized=(tc.kind().value() == TCKind._tk_null);
 }
+-->
+68.0 / 366 = 0.18579234972677597

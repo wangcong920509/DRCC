@@ -1,14 +1,8 @@
-/** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder insert(int index,char[] str,int offset,int len){
-  super.insert(index,str,offset,len);
+public StringBuilder append(char c){
+  super.append(c);
   return this;
 }
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public StringBuilder insert(int offset,char c){
-  super.insert(offset,c);
+public StringBuilder append(float f){
+  super.append(f);
   return this;
 }

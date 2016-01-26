@@ -1,17 +1,16 @@
 /** 
- * Creates an <CODE>MBeanException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE>.
- * @param e the wrapped exception.
+ * Method addPGPData
+ * @param pgpdata
  */
-public MBeanException(java.lang.Exception e){
-  super();
-  exception=e;
+public void add(PGPData pgpdata){
+  this._constructionElement.appendChild(pgpdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Creates an <CODE>MBeanException</CODE> that wraps the actual <CODE>java.lang.Exception</CODE> with a detail message.
- * @param e the wrapped exception.
- * @param message the detail message.
+ * Method add
+ * @param retrievalmethod
  */
-public MBeanException(java.lang.Exception e,String message){
-  super(message);
-  exception=e;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

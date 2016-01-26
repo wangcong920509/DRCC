@@ -37,3 +37,5 @@ protected XSSimpleTypeDecl(String name,String uri,short finalSet,XSSimpleTypeDec
   fIsImmutable=isImmutable;
   fBuiltInKind=XSConstants.LIST_DT;
 }
+-->
+67.0 / 1053 = 0.06362773029439696

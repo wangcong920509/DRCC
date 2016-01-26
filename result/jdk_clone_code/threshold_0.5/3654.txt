@@ -1,8 +1,20 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Creates a <code>JComboBox</code> that takes its items from an existing <code>ComboBoxModel</code>.  Since the <code>ComboBoxModel</code> is provided, a combo box created using this constructor does not create a default combo box model and may impact how the insert, remove and add methods behave.
+ * @param aModel the <code>ComboBoxModel</code> that provides thedisplayed list of items
+ * @see DefaultComboBoxModel
+ */
+public JComboBox(ComboBoxModel<E> aModel){
+  super();
+  setModel(aModel);
+  init();
 }
-private Rectangle2D decodeRect30(){
-  rect.setRect(decodeX(1.0f),decodeY(1.6666667f),decodeX(1.3333334f) - decodeX(1.0f),decodeY(1.8333333f) - decodeY(1.6666667f));
-  return rect;
+/** 
+ * Creates a <code>JComboBox</code> that contains the elements in the specified Vector.  By default the first item in the vector (and therefore the data model) becomes selected.
+ * @param items  an array of vectors to insert into the combo box
+ * @see DefaultComboBoxModel
+ */
+public JComboBox(Vector<E> items){
+  super();
+  setModel(new DefaultComboBoxModel<E>(items));
+  init();
 }

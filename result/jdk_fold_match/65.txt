@@ -28,3 +28,5 @@ public void reset(PropertyManager propertyManager){
   fValidation=false;
   fNotifyCharRefs=false;
 }
+-->
+103.0 / 812 = 0.1268472906403941

@@ -1,29 +1,20 @@
 /** 
- * Look up the index of an attribute by XML 1.0 qualified name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * reset all common components before parsing
  */
-public int getIndexFast(String qName){
-  for (int i=0; i < fLength; ++i) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname == qName) {
-      return i;
-    }
+protected void resetCommon() throws XNIException {
+  int count=fCommonComponents.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
+    c.reset(this);
   }
-  return -1;
 }
 /** 
- * Look up the index of an attribute by Namespace name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
- * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
- * @param localName The attribute's local name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * reset all components before parsing and namespace context
  */
-public int getIndexFast(String uri,String localPart){
-  for (int i=0; i < fLength; ++i) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.localpart == localPart && attribute.name.uri == uri) {
-      return i;
-    }
+protected void resetXML11() throws XNIException {
+  int count=fXML11Components.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fXML11Components.get(i);
+    c.reset(this);
   }
-  return -1;
 }

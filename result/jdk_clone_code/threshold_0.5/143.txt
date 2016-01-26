@@ -1,18 +1,20 @@
 /** 
- * Search for given Instruction reference, start at beginning of list.
- * @param i instruction to search for
- * @return instruction found on success, null otherwise
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-private InstructionHandle findInstruction1(Instruction i){
-  for (InstructionHandle ih=start; ih != null; ih=ih.next)   if (ih.instruction == i)   return ih;
-  return null;
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Search for given Instruction reference, start at end of list
- * @param i instruction to search for
- * @return instruction found on success, null otherwise
+ * Look for ConstantMethodref in ConstantPool.
+ * @param class_name Where to find method
+ * @param method_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-private InstructionHandle findInstruction2(Instruction i){
-  for (InstructionHandle ih=end; ih != null; ih=ih.prev)   if (ih.instruction == i)   return ih;
-  return null;
+public int lookupMethodref(String class_name,String method_name,String signature){
+  Index index=(Index)cp_table.get(class_name + METHODREF_DELIM + method_name+ METHODREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

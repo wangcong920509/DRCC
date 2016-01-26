@@ -1,8 +1,20 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Constructs a RenderedImageOp given a ContextualRenderedImageFactory object, and a ParameterBlock containing RenderableImage sources and other parameters.  Any RenderedImage sources referenced by the ParameterBlock will be ignored.
+ * @param CRIF a ContextualRenderedImageFactory object
+ * @param paramBlock a ParameterBlock containing this operation's sourceimages and other parameters necessary for the operation to run.
+ */
+public RenderableImageOp(ContextualRenderedImageFactory CRIF,ParameterBlock paramBlock){
+  this.myCRIF=CRIF;
+  this.paramBlock=(ParameterBlock)paramBlock.clone();
 }
-public synchronized StringBuffer append(double d){
-  super.append(d);
-  return this;
+/** 
+ * Change the current ParameterBlock of the operation, allowing editing of image rendering chains.  The effects of such a change will be visible when a new rendering is created from this RenderableImageOp or any dependent RenderableImageOp.
+ * @param paramBlock the new ParameterBlock.
+ * @return the old ParameterBlock.
+ * @see #getParameterBlock
+ */
+public ParameterBlock setParameterBlock(ParameterBlock paramBlock){
+  ParameterBlock oldParamBlock=this.paramBlock;
+  this.paramBlock=(ParameterBlock)paramBlock.clone();
+  return oldParamBlock;
 }

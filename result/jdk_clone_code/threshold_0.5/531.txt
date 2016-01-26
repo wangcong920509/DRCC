@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * @see SerializationHandler#getOutputFormat()
  */
-public NamespaceMappings getNamespaceMappings(){
+public Properties getOutputFormat(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
+public String getPrefix(String uri){
+  aMethodIsCalled();
   return null;
 }

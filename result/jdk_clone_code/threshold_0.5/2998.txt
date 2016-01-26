@@ -1,8 +1,8 @@
-public DoubleBuffer put(double x){
+public ByteBuffer put(byte x){
   hb[ix(nextPutIndex())]=x;
   return this;
 }
-public DoubleBuffer put(int i,double x){
-  hb[ix(checkIndex(i))]=x;
+public ByteBuffer putLong(int i,long x){
+  Bits.putLong(this,ix(checkIndex(i,8)),x,bigEndian);
   return this;
 }

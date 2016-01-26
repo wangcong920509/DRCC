@@ -1,11 +1,21 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Moves mouse pointer to given screen coordinates.
+ * @param x         X position
+ * @param y         Y position
+ */
+public synchronized void mouseMove(int x,int y){
+  peer.mouseMove(gdLoc.x + x,gdLoc.y + y);
+  afterEvent();
 }
 /** 
- * @since   JDK1.0.2
+ * Presses a given key.  The key should be released using the <code>keyRelease</code> method. <p> Key codes that have more than one physical key associated with them (e.g. <code>KeyEvent.VK_SHIFT</code> could mean either the left or right shift key) will map to the left key.
+ * @param keycode Key to press (e.g. <code>KeyEvent.VK_A</code>)
+ * @throws IllegalArgumentException if <code>keycode</code> is nota valid key
+ * @see #keyRelease(int)
+ * @see java.awt.event.KeyEvent
  */
-public synchronized StringBuffer reverse(){
-  super.reverse();
-  return this;
+public synchronized void keyPress(int keycode){
+  checkKeycodeArgument(keycode);
+  peer.keyPress(keycode);
+  afterEvent();
 }

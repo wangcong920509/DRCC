@@ -37,3 +37,5 @@ byte[] getBytes(String s){
   if (bb.position() == ba.length)   return ba;
  else   return Arrays.copyOf(ba,bb.position());
 }
+-->
+288.0 / 2141 = 0.13451658103689865

@@ -1,25 +1,21 @@
-public ByteBuffer put(ByteBuffer src){
-  if (src instanceof HeapByteBuffer) {
-    if (src == this)     throw new IllegalArgumentException();
-    HeapByteBuffer sb=(HeapByteBuffer)src;
-    int n=sb.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
-    sb.position(sb.position() + n);
-    position(position() + n);
-  }
- else   if (src.isDirect()) {
-    int n=src.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    src.get(hb,ix(position()),n);
-    position(position() + n);
+public FloatBuffer get(float[] dst,int offset,int length){
+  if ((length << 2) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyToIntArray(ix(pos),dst,offset << 2,length << 2);
+ else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 2,length << 2);
+    position(pos + length);
   }
  else {
-    super.put(src);
+    super.get(dst,offset,length);
   }
   return this;
 }
-public ByteBuffer putLong(int i,long x){
-  Bits.putLong(this,ix(checkIndex(i,8)),x,bigEndian);
+public FloatBuffer put(int i,float x){
+  unsafe.putFloat(ix(checkIndex(i)),((x)));
   return this;
 }

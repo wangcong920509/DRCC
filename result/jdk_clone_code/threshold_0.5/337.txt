@@ -1,29 +1,12 @@
-/** 
- * Given a node handle, advance to the next attribute. If an attr, we advance to the next attr on the same node.  If not an attribute, we return NULL.
- * @param nodeHandle int Handle of the node.
- * @return int DTM node-number of the resolved attr,or DTM.NULL to indicate none exists.
- */
-public int getNextAttribute(int nodeHandle){
-  int nodeID=makeNodeIdentity(nodeHandle);
-  if (_type(nodeID) == DTM.ATTRIBUTE_NODE) {
-    return makeNodeHandle(getNextAttributeIdentity(nodeID));
+public String getLiteralSystemId(){
+  if (fLocator != null) {
+    return fLocator.getSystemId();
   }
-  return DTM.NULL;
+  return null;
 }
-/** 
- * Given a node identity for an attribute, advance to the next attribute.
- * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
- * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
- */
-protected int getNextAttributeIdentity(int identity){
-  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
-    int type=_type(identity);
-    if (type == DTM.ATTRIBUTE_NODE) {
-      return identity;
-    }
- else     if (type != DTM.NAMESPACE_NODE) {
-      break;
-    }
+public String getXMLVersion(){
+  if (fLocator2 != null) {
+    return fLocator2.getXMLVersion();
   }
-  return DTM.NULL;
+  return null;
 }

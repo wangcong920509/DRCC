@@ -1,8 +1,8 @@
-public ServerAlreadyRegistered(String _serverId){
-  super(ServerAlreadyRegisteredHelper.id());
-  serverId=_serverId;
+public BadServerDefinition(String _reason){
+  super(BadServerDefinitionHelper.id());
+  reason=_reason;
 }
-public ServerAlreadyRegistered(String $reason,String _serverId){
-  super(ServerAlreadyRegisteredHelper.id() + "  " + $reason);
-  serverId=_serverId;
+public BadServerDefinition(String $reason,String _reason){
+  super(BadServerDefinitionHelper.id() + "  " + $reason);
+  reason=_reason;
 }

@@ -27,3 +27,5 @@ private void painticonMouseOverAndSelectedAndFocused(Graphics2D g){
   g.setPaint(decodeGradient11(ellipse));
   g.fill(ellipse);
 }
+-->
+132.0 / 840 = 0.15714285714285714

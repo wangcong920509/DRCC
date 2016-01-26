@@ -82,3 +82,5 @@ private void compilePatterns(ClassGenerator classGen,MethodGenerator methodGen){
     il.append(new PUTFIELD(cpg.addFieldref(_className,var.getEscapedName(),varType.toSignature())));
   }
 }
+-->
+597.0 / 9050 = 0.06596685082872929

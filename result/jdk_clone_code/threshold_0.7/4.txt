@@ -1,19 +1,14 @@
 /** 
- * Constructs a new instance of Attributes with one attribute. The attribute specified by attrID and val are added to the newly created attribute. The character case of attribute identifiers is significant when subsequently retrieving or adding attributes.
- * @param attrID   non-null The id of the attribute to add.
- * @param val The value of the attribute to add. If null, a nullvalue is added to the attribute.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public BasicAttributes(String attrID,Object val){
-  this();
-  this.put(new BasicAttribute(attrID,val));
+public void removeNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }
 /** 
- * Constructs a new instance of Attributes with one attribute. The attribute specified by attrID and val are added to the newly created attribute. If <code>ignoreCase</code> is true, the character case of attribute identifiers is ignored; otherwise the case is significant.
- * @param attrID   non-null The id of the attribute to add.If this attribute set ignores the character case of its attribute ids, the case of attrID is ignored.
- * @param val The value of the attribute to add. If null, a nullvalue is added to the attribute.
- * @param ignoreCase true means this attribute set will ignorethe case of its attribute identifiers when retrieving or adding attributes; false means case is respected.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public BasicAttributes(String attrID,Object val,boolean ignoreCase){
-  this(ignoreCase);
-  this.put(new BasicAttribute(attrID,val));
+public void removeNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }

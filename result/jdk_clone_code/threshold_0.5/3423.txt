@@ -1,32 +1,26 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as an array of bytes. <p> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Returns <code>true</code> if the writer supports the writing of a complete image stream consisting of a single image with undefined pixel values and associated metadata and thumbnails to the output.  The pixel values may be defined by future calls to the <code>replacePixels</code> methods.  If the output is an <code>ImageOutputStream</code>, its existing contents prior to the current seek position are not affected, and need not be readable or writable. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if the writing of complete imagestream with contents to be defined later is supported.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public byte[] readBytes() throws SQLException {
-  byte[] attrib=(byte[])getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canWriteEmpty() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.sql.Timestamp</code> object.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public java.sql.Timestamp readTimestamp() throws SQLException {
-  java.sql.Timestamp attrib=(java.sql.Timestamp)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }

@@ -1,16 +1,23 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return false
+ * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
+ * @param elem object to look for
+ * @param index Index of where to begin search
+ * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
  */
-public boolean hasChildNodes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public final int indexOf(int elem,int index){
+  for (int i=index; i < m_firstFree; i++) {
+    if (m_map[i] == elem)     return i;
+  }
+  return java.lang.Integer.MIN_VALUE;
 }
 /** 
- * Unimplemented. Introduced in DOM Level 2.
- * @return false
+ * Searches for the first occurence of the given argument, beginning the search at index, and testing for equality using the equals method.
+ * @param elem object to look for
+ * @return the index of the first occurrence of the objectargument in this vector at position index or later in the vector; returns -1 if the object is not found.
  */
-public boolean hasAttributes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public final int indexOf(int elem){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == elem)     return i;
+  }
+  return java.lang.Integer.MIN_VALUE;
 }

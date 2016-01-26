@@ -18,3 +18,5 @@ private void paintBackgroundFocused(Graphics2D g){
   g.setPaint(decodeGradient4(path));
   g.fill(path);
 }
+-->
+83.0 / 358 = 0.23184357541899442

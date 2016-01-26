@@ -1,28 +1,24 @@
-/** 
- * @return the prefix of the current event, or null if the event doesnot have a prefix. For START_ELEMENT and END_ELEMENT, return XMLConstants.DEFAULT_NS_PREFIX when no prefix is available.
- */
-public String getPrefix(){
-  if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    String prefix=fScanner.getElementQName().prefix;
-    return prefix == null ? XMLConstants.DEFAULT_NS_PREFIX : prefix;
+private boolean specialCardinalityCheck(){
+  if ((fBase.fValidationDV == XSSimpleTypeDecl.DV_DATE) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEARMONTH) || (fBase.fValidationDV == XSSimpleTypeDecl.DV_GYEAR)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTHDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GDAY)|| (fBase.fValidationDV == XSSimpleTypeDecl.DV_GMONTH)) {
+    return true;
   }
-  return null;
+  return false;
 }
 /** 
- * @return
+ * Checks if a type is derived from another by list. See: http://www.w3.org/TR/2004/REC-DOM-Level-3-Core-20040407/core.html#TypeInfo-isDerivedFrom
+ * @param ancestorNS The namspace of the ancestor type declaration
+ * @param ancestorName The name of the ancestor type declaration
+ * @param type The reference type definition
+ * @return boolean True if the type is derived by list for the reference type
  */
-public String getValue(){
-  if (fEventType == XMLEvent.PROCESSING_INSTRUCTION) {
-    return fScanner.getPIData().toString();
+private boolean isDerivedByList(String ancestorNS,String ancestorName,XSTypeDefinition type){
+  if (type != null && ((XSSimpleTypeDefinition)type).getVariety() == VARIETY_LIST) {
+    XSTypeDefinition itemType=((XSSimpleTypeDefinition)type).getItemType();
+    if (itemType != null) {
+      if (isDerivedByRestriction(ancestorNS,ancestorName,itemType)) {
+        return true;
+      }
+    }
   }
- else   if (fEventType == XMLEvent.COMMENT) {
-    return fScanner.getComment();
-  }
- else   if (fEventType == XMLEvent.START_ELEMENT || fEventType == XMLEvent.END_ELEMENT) {
-    return fScanner.getElementQName().localpart;
-  }
- else   if (fEventType == XMLEvent.CHARACTERS) {
-    return fScanner.getCharacterData().toString();
-  }
-  return null;
+  return false;
 }

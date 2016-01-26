@@ -1,19 +1,17 @@
 /** 
- * Unimplemented. See org.w3c.dom.NodeList
- * @param index index of a child of this node in its list of children
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node item(int index){
+public Node getNextSibling(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param data Data for CDATA section
+ * Unimplemented. See org.w3c.dom.Element
+ * @param name Attribute node name
  * @return null
- * @throws DOMException
  */
-public CDATASection createCDATASection(String data) throws DOMException {
+public Attr getAttributeNode(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

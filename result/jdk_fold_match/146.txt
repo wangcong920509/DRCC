@@ -89,3 +89,5 @@ private void setRGBs(int size,byte r[],byte g[],byte b[],byte a[]){
   this.allgrayopaque=allgray;
   setTransparency(transparency);
 }
+-->
+385.0 / 2217 = 0.17365809652683806

@@ -1,23 +1,17 @@
 /** 
- * Sets the requested data array element in the first (default) bank to the given <code>double</code>.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElemDouble(int)
- * @see #getElemDouble(int,int)
+ * Get the length of the cached nodes. <p>Note: for the moment at least, this only returns the size of the nodes that have been fetched to date, it doesn't attempt to run to the end to make sure we have found everything.  This should be reviewed.</p>
+ * @return The size of the current cache list.
  */
-public void setElemDouble(int i,double val){
-  data[i + offset]=val;
-  theTrackable.markDirty();
+public int size(){
+  assertion(false,"size() not supported by this iterator!");
+  return 0;
 }
 /** 
- * Sets the requested data array element in the specified bank to the given <code>double</code>.
- * @param bank The bank number.
- * @param i The desired data array element.
- * @param val The value to be set.
- * @see #getElemDouble(int)
- * @see #getElemDouble(int,int)
+ * Returns the <code>index</code> th item in the collection. If <code>index</code> is greater than or equal to the number of nodes in the list, this returns <code>null</code> .
+ * @param index  Index into the collection.
+ * @return  The node at the <code>index</code> th position in the<code>NodeList</code> , or <code>null</code> if that is not a valid index.
  */
-public void setElemDouble(int bank,int i,double val){
-  bankdata[bank][i + offsets[bank]]=val;
-  theTrackable.markDirty();
+public int item(int index){
+  assertion(false,"item(int index) not supported by this iterator!");
+  return 0;
 }

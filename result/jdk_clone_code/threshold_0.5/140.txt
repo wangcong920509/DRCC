@@ -1,22 +1,18 @@
 /** 
- * Look for ConstantInterfaceMethodref in ConstantPool.
- * @param class_name Where to find method
- * @param method_name Guess what
- * @param signature return and argument types
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
  * @return index on success, -1 otherwise
  */
-public int lookupInterfaceMethodref(String class_name,String method_name,String signature){
-  Index index=(Index)cp_table.get(class_name + IMETHODREF_DELIM + method_name+ IMETHODREF_DELIM+ signature);
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
   return (index != null) ? index.index : -1;
 }
 /** 
- * Look for ConstantFieldref in ConstantPool.
- * @param class_name Where to find method
- * @param field_name Guess what
- * @param signature return and argument types
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
  * @return index on success, -1 otherwise
  */
-public int lookupFieldref(String class_name,String field_name,String signature){
-  Index index=(Index)cp_table.get(class_name + FIELDREF_DELIM + field_name+ FIELDREF_DELIM+ signature);
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
   return (index != null) ? index.index : -1;
 }

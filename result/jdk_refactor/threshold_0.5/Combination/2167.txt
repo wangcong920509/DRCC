@@ -1,0 +1,28 @@
+public float getMinimumSpan(int axis){
+  if (isVisible) {
+    return super.getMinimumSpan(axis);
+  }
+  return 0;
+}
+
+public float getPreferredSpan(int axis){
+  if (isVisible) {
+    return super.getPreferredSpan(axis);
+  }
+  return 0;
+}
+
+-->
+void getMinimumSpan_getPreferredSpan(int axis,int axis,int combFlag){
+  if (combFlag == 1) {
+    if (isVisible) {
+      return super.getMinimumSpan(axis);
+    }
+  }
+ else {
+    if (isVisible) {
+      return super.getPreferredSpan(axis);
+    }
+  }
+  return 0;
+}

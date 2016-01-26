@@ -1,32 +1,22 @@
 /** 
- * Return a MixerProvider of a given class from the list of MixerProviders. This method never requires the returned Mixer to do mixing.
- * @param providerClassName The class name of the provider to be returned.
- * @param providers The list of MixerProviders that is searched.
- * @return A MixerProvider of the requested class, or null if none isfound.
+ * If in xmode peek past whitespace and comments.
  */
-private static MixerProvider getNamedProvider(String providerClassName,List providers){
-  for (int i=0; i < providers.size(); i++) {
-    MixerProvider provider=(MixerProvider)providers.get(i);
-    if (provider.getClass().getName().equals(providerClassName)) {
-      return provider;
+private int peekPastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[++cursor];
+    if (ch == '#') {
+      ch=peekPastLine();
     }
   }
-  return null;
+  return ch;
 }
 /** 
- * From a List of MixerProviders, return a Mixer with a given name. This method never requires the returned Mixer to do mixing.
- * @param mixerName The name of the Mixer to be returned.
- * @param providers The List of MixerProviders to check for Mixers.
- * @param info The type of line the returned Mixer is required tosupport.
- * @return A Mixer matching the requirements, or null if none is found.
+ * If in xmode parse past whitespace and comments.
  */
-private static Mixer getNamedMixer(String mixerName,List providers,Line.Info info){
-  for (int i=0; i < providers.size(); i++) {
-    MixerProvider provider=(MixerProvider)providers.get(i);
-    Mixer mixer=getNamedMixer(mixerName,provider,info);
-    if (mixer != null) {
-      return mixer;
-    }
+private int parsePastWhitespace(int ch){
+  while (ASCII.isSpace(ch) || ch == '#') {
+    while (ASCII.isSpace(ch))     ch=temp[cursor++];
+    if (ch == '#')     ch=parsePastLine();
   }
-  return null;
+  return ch;
 }

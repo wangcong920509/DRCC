@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @see SerializationHandler#reset()
  */
-public String getEncoding(){
+public boolean reset(){
   aMethodIsCalled();
-  return null;
+  return false;
 }
 /** 
- * @see XSLOutputAttributes#getMediaType()
+ * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
  */
-public String getMediaType(){
-  aMethodIsCalled();
-  return null;
+public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }

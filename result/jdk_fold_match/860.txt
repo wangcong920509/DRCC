@@ -27,3 +27,5 @@ private void paintBackgroundMouseOverAndFocused(Graphics2D g){
   g.setPaint(color18);
   g.fill(rect);
 }
+-->
+128.0 / 832 = 0.15384615384615385

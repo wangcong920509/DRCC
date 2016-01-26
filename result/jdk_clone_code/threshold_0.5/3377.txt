@@ -1,23 +1,34 @@
 /** 
- * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
- * @return a class which implements the ValueHandler interface.
+ * Adds a unicode locale attribute, if not already present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static ValueHandler createValueHandler(){
-  if (utilDelegate != null) {
-    return utilDelegate.createValueHandler();
+public Builder addUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.addUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
- * @param obj the objects to copy or connect.
- * @param orb the ORB.
- * @return the copied or connected objects.
- * @exception RemoteException if any object could not be copied or connected.
+ * Removes a unicode locale attribute, if present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Attribute comparision for removal is case-insensitive.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObjects(obj,orb);
+public Builder removeUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.removeUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

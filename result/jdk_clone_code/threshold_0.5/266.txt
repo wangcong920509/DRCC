@@ -1,12 +1,16 @@
-public void addGlobalElementDecl(XSElementDecl decl,String location){
-  fGlobalElemDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+private static boolean contains(int[] map,int codePoint){
+  for (int i=0; i < map.length; i+=2) {
+    if (map[i] == codePoint) {
+      return true;
+    }
   }
+  return false;
 }
-public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
-  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
-  if (decl.getNamespaceItem() == null) {
-    decl.setNamespaceItem(this);
+private static boolean contains(int[] map,int codePoint,int matchType){
+  for (int i=0; i < map.length; i+=2) {
+    if (map[i] == codePoint && map[i + 1] == matchType) {
+      return true;
+    }
   }
+  return false;
 }

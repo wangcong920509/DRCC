@@ -1,51 +1,28 @@
 /** 
- * Obsolete as of Java 2 platform v1.1.  Please use the <code>add</code> method instead. <p> Adds an item to this <code>Choice</code> menu.
- * @param item the item to be added
- * @exception NullPointerException if the item's value is equal to<code>null</code>
+ * Unimplemented. See org.w3c.dom.Node
+ * @return null
  */
-public void addItem(String item){
-synchronized (this) {
-    insertNoInvalidate(item,pItems.size());
-  }
-  invalidateIfValid();
+public String getLocalName(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 /** 
- * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
- * @param item  the item to remove from this <code>Choice</code> menu
- * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
- * @since      JDK1.1
+ * <p>EXPERIMENTAL! Based on the <a href='http://www.w3.org/TR/2001/WD-DOM-Level-3-Core-20010605'>Document Object Model (DOM) Level 3 Core Working Draft of 5 June 2001.</a>. <p> An attribute specifying, as part of the XML declaration, the version number of this document. This is <code>null</code> when unspecified.
+ * @since DOM Level 3NEEDSDOC ($objectName$) @return
  */
-public void remove(String item){
-synchronized (this) {
-    int index=pItems.indexOf(item);
-    if (index < 0) {
-      throw new IllegalArgumentException("item " + item + " not found in choice");
-    }
- else {
-      removeNoInvalidate(index);
-    }
-  }
-  invalidateIfValid();
+public String getVersion(){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 
 -->
-void addItem_remove(String item,String item,int combFlag){
+void getLocalName_getVersion(int combFlag){
   if (combFlag == 1) {
-synchronized (this) {
-      insertNoInvalidate(item,pItems.size());
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
  else {
-synchronized (this) {
-      int index=pItems.indexOf(item);
-      if (index < 0) {
-        throw new IllegalArgumentException("item " + item + " not found in choice");
-      }
- else {
-        removeNoInvalidate(index);
-      }
-    }
+    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   }
-  invalidateIfValid();
+  return null;
 }

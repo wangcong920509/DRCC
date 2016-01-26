@@ -1,8 +1,14 @@
-public StringBuilder append(boolean b){
-  super.append(b);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public synchronized StringBuffer insert(int offset,char[] str){
+  super.insert(offset,str);
   return this;
 }
-public StringBuilder append(long lng){
-  super.append(lng);
+/** 
+ * @since   JDK1.0.2
+ */
+public synchronized StringBuffer reverse(){
+  super.reverse();
   return this;
 }

@@ -1,29 +1,18 @@
-/** 
- * Look up the index of an attribute by XML 1.0 qualified name.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
- */
-public int getIndex(String qName){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname != null && attribute.name.rawname.equals(qName)) {
-      return i;
-    }
-  }
-  return -1;
+public DurationDayTimeImpl(boolean isPositive,BigInteger days,BigInteger hours,BigInteger minutes,BigDecimal seconds){
+  super(isPositive,null,null,days,hours,minutes,seconds);
+  convertToCanonicalDayTime();
 }
 /** 
- * Look up the index of an attribute by Namespace name.
- * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
- * @param localName The attribute's local name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * <p>Construct a <code>Duration</code> of type <code>xdt:dayTimeDuration</code> by parsing its <code>String</code> representation, "<em>PnDTnHnMnS</em>", <a href="http://www.w3.org/TR/xpath-datamodel#dayTimeDuration"> XQuery 1.0 and XPath 2.0 Data Model, xdt:dayTimeDuration</a>.</p> <p>The datatype <code>xdt:dayTimeDuration</code> is a subtype of <code>xs:duration</code> whose lexical representation contains only day, hour, minute, and second components. This datatype resides in the namespace <code>http://www.w3.org/2003/11/xpath-datatypes</code>.</p> <p>All four values are set and availabe from the created  {@link Duration}</p> <p>The XML Schema specification states that values can be of an arbitrary size. Implementations may chose not to or be incapable of supporting arbitrarily large and/or small values. An  {@link UnsupportedOperationException} will be thrown with a message indicating implementation limitsif implementation capacities are exceeded.</p>
+ * @param lexicalRepresentation Lexical representation of a duration.
+ * @throws IllegalArgumentException If <code>lexicalRepresentation</code> is not a valid representation of a <code>Duration</code> expressed only in terms of days and time.
+ * @throws UnsupportedOperationException If implementation cannot support requested values.
+ * @throws NullPointerException If <code>lexicalRepresentation</code> is <code>null</code>.
  */
-public int getIndex(String uri,String localPart){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.localpart != null && attribute.name.localpart.equals(localPart) && ((uri == attribute.name.uri) || (uri != null && attribute.name.uri != null && attribute.name.uri.equals(uri)))) {
-      return i;
-    }
+protected DurationDayTimeImpl(String lexicalRepresentation){
+  super(lexicalRepresentation);
+  if (getYears() > 0 || getMonths() > 0) {
+    throw new IllegalArgumentException("Trying to create an xdt:dayTimeDuration with an invalid" + " lexical representation of \"" + lexicalRepresentation + "\", data model requires a format PnDTnHnMnS.");
   }
-  return -1;
+  convertToCanonicalDayTime();
 }

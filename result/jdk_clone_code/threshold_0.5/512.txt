@@ -1,14 +1,14 @@
 /** 
- * @see SerializationHandler#getTransformer()
+ * @see SerializationHandler#asContentHandler()
  */
-public Transformer getTransformer(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
+ * @see SerializationHandler#getOutputFormat()
  */
-public String getNamespaceURIFromPrefix(String prefix){
+public Properties getOutputFormat(){
   aMethodIsCalled();
   return null;
 }

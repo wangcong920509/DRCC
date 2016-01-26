@@ -1,30 +1,20 @@
 /** 
- * Constructs a parse exception. 
+ * Read an object reference from the input stream and narrow it to the desired type.
+ * @param in the stream to read from.
+ * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
  */
-public XMLParseException(XMLLocator locator,String message){
-  super(message);
-  if (locator != null) {
-    fPublicId=locator.getPublicId();
-    fLiteralSystemId=locator.getLiteralSystemId();
-    fExpandedSystemId=locator.getExpandedSystemId();
-    fBaseSystemId=locator.getBaseSystemId();
-    fLineNumber=locator.getLineNumber();
-    fColumnNumber=locator.getColumnNumber();
-    fCharacterOffset=locator.getCharacterOffset();
-  }
+public static Object readObjectAndNarrow(InputStream in,Class narrowTo) throws ClassCastException {
+  Object result=in.read_Object();
+  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
+ else   return null;
 }
 /** 
- * Constructs a parse exception. 
+ * Read an abstract interface type from the input stream and narrow it to the desired type.
+ * @param in the stream to read from.
+ * @throws ClassCastException if narrowFrom cannot be cast to narrowTo.
  */
-public XMLParseException(XMLLocator locator,String message,Exception exception){
-  super(message,exception);
-  if (locator != null) {
-    fPublicId=locator.getPublicId();
-    fLiteralSystemId=locator.getLiteralSystemId();
-    fExpandedSystemId=locator.getExpandedSystemId();
-    fBaseSystemId=locator.getBaseSystemId();
-    fLineNumber=locator.getLineNumber();
-    fColumnNumber=locator.getColumnNumber();
-    fCharacterOffset=locator.getCharacterOffset();
-  }
+public static Object readAbstractAndNarrow(org.omg.CORBA_2_3.portable.InputStream in,Class narrowTo) throws ClassCastException {
+  Object result=in.read_abstract_interface();
+  if (result != null)   return PortableRemoteObject.narrow(result,narrowTo);
+ else   return null;
 }

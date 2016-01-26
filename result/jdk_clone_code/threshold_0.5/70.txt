@@ -1,8 +1,8 @@
-public ServerNotActive(int _serverId){
-  super(ServerNotActiveHelper.id());
+public ServerAlreadyInstalled(int _serverId){
+  super(ServerAlreadyInstalledHelper.id());
   serverId=_serverId;
 }
-public ServerNotActive(String $reason,int _serverId){
-  super(ServerNotActiveHelper.id() + "  " + $reason);
+public ServerAlreadyInstalled(String $reason,int _serverId){
+  super(ServerAlreadyInstalledHelper.id() + "  " + $reason);
   serverId=_serverId;
 }

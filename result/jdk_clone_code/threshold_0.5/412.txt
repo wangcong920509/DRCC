@@ -1,16 +1,19 @@
 /** 
- * Method add
- * @param mgmtdata
+ * Create a new CatalogException wrapping an existing exception. <p>The existing exception will be embedded in the new one, and its message will become the default message for the CatalogException.</p>
+ * @param e The exception to be wrapped in a CatalogException.
  */
-public void add(MgmtData mgmtdata){
-  this._constructionElement.appendChild(mgmtdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public CatalogException(Exception e){
+  super();
+  this.exceptionType=WRAPPER;
+  this.exception=e;
 }
 /** 
- * Method add
- * @param spkidata
+ * Create a new CatalogException from an existing exception. <p>The existing exception will be embedded in the new one, but the new exception will have its own message.</p>
+ * @param message The detail message.
+ * @param e The exception to be wrapped in a CatalogException.
  */
-public void add(SPKIData spkidata){
-  this._constructionElement.appendChild(spkidata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public CatalogException(String message,Exception e){
+  super(message);
+  this.exceptionType=WRAPPER;
+  this.exception=e;
 }

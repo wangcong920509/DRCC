@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputStream()
+ * Constructor SignatureProperties
+ * @param doc
  */
-public OutputStream getOutputStream(){
-  aMethodIsCalled();
-  return null;
+public SignatureProperties(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * Method addSignatureProperty
+ * @param sp
  */
-public String getDoctypeSystem(){
-  aMethodIsCalled();
-  return null;
+public void addSignatureProperty(SignatureProperty sp){
+  this._constructionElement.appendChild(sp.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

@@ -1,18 +1,26 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param newChild New node to append to the list of this node's children
- * @return null
- * @throws DOMException
+ * Look up the index of an attribute by Namespace name.
+ * @param uri The Namespace URI, or the empty string ifthe name has no Namespace URI.
+ * @param localPart The attribute's local name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
  */
-public Node appendChild(Node newChild) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public int getIndex(String uri,String localPart){
+  for (int i=m_attrs.getLength() - 1; i >= 0; --i) {
+    Node a=m_attrs.item(i);
+    String u=a.getNamespaceURI();
+    if ((u == null ? uri == null : u.equals(uri)) && a.getLocalName().equals(localPart))     return i;
+  }
+  return -1;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
- * @throws DOMException
+ * Look up the index of an attribute by raw XML 1.0 name.
+ * @param qName The qualified (prefixed) name.
+ * @return The index of the attribute, or -1 if it does notappear in the list.
  */
-public Node adoptNode(Node source) throws DOMException {
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public int getIndex(String qName){
+  for (int i=m_attrs.getLength() - 1; i >= 0; --i) {
+    Node a=m_attrs.item(i);
+    if (a.getNodeName().equals(qName))     return i;
+  }
+  return -1;
 }

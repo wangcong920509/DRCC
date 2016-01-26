@@ -1,16 +1,14 @@
 /** 
- * Constructor KeyInfo
- * @param doc
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public KeyInfo(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void removeNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }
 /** 
- * Method addPGPData
- * @param pgpdata
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void add(PGPData pgpdata){
-  this._constructionElement.appendChild(pgpdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public void removeNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener,filter,handback);
 }

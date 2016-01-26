@@ -1,49 +1,27 @@
-/** 
- * Look up the index of an attribute by XML 1.0 qualified name.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
- */
-public int getIndex(String qName){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname != null && attribute.name.rawname.equals(qName)) {
-      return i;
-    }
+public int getColumnNumber(){
+  if (fLocation != null) {
+    return fLocation.getColumnNumber();
   }
   return -1;
 }
 
-/** 
- * Look up the index of an attribute by XML 1.0 qualified name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
- */
-public int getIndexFast(String qName){
-  for (int i=0; i < fLength; ++i) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname == qName) {
-      return i;
-    }
+public int getCharacterOffset(){
+  if (fLocation != null) {
+    return fLocation.getCharacterOffset();
   }
   return -1;
 }
 
 -->
-void getIndex_getIndexFast(String qName,String qName,int combFlag){
+void getColumnNumber_getCharacterOffset(int combFlag){
   if (combFlag == 1) {
-    for (int i=0; i < fLength; i++) {
-      Attribute attribute=fAttributes[i];
-      if (attribute.name.rawname != null && attribute.name.rawname.equals(qName)) {
-        return i;
-      }
+    if (fLocation != null) {
+      return fLocation.getColumnNumber();
     }
   }
  else {
-    for (int i=0; i < fLength; ++i) {
-      Attribute attribute=fAttributes[i];
-      if (attribute.name.rawname == qName) {
-        return i;
-      }
+    if (fLocation != null) {
+      return fLocation.getCharacterOffset();
     }
   }
   return -1;

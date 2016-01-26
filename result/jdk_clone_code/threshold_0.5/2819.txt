@@ -1,34 +1,14 @@
-public FloatBuffer put(int i,float x){
-  unsafe.putFloat(ix(checkIndex(i)),((x)));
+public ByteBuffer putInt(int x){
+  putInt(ix(nextPutIndex((1 << 2))),x);
   return this;
 }
-public FloatBuffer put(FloatBuffer src){
-  if (src instanceof DirectFloatBufferU) {
-    if (src == this)     throw new IllegalArgumentException();
-    DirectFloatBufferU sb=(DirectFloatBufferU)src;
-    int spos=sb.position();
-    int slim=sb.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (srem > rem)     throw new BufferOverflowException();
-    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 2);
-    sb.position(spos + srem);
-    position(pos + srem);
-  }
- else   if (src.hb != null) {
-    int spos=src.position();
-    int slim=src.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    put(src.hb,src.offset + spos,srem);
-    src.position(spos + srem);
+private ByteBuffer putDouble(long a,double x){
+  if (unaligned) {
+    long y=Double.doubleToRawLongBits(x);
+    unsafe.putLong(a,(nativeByteOrder ? y : Bits.swap(y)));
   }
  else {
-    super.put(src);
+    Bits.putDouble(a,x,bigEndian);
   }
   return this;
 }

@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @see SerializationHandler#reset()
  */
-public String getEncoding(){
+public boolean reset(){
   aMethodIsCalled();
-  return null;
+  return false;
 }
 /** 
- * @see XSLOutputAttributes#getStandalone()
+ * @see XSLOutputAttributes#getIndent()
  */
-public String getStandalone(){
+public boolean getIndent(){
   aMethodIsCalled();
-  return null;
+  return false;
 }

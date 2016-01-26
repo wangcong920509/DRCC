@@ -1,16 +1,14 @@
 /** 
- * Flush the internal buffer and flush the Writer
- * @see java.io.Writer#flush()
+ * @see SerializationHandler#getTransformer()
  */
-public void flush() throws java.io.IOException {
-  if (m_writer != null)   m_writer.flush();
-  flushBuffer();
+public Transformer getTransformer(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Flush the internal buffer and close the Writer
- * @see java.io.Writer#close()
+ * @see XSLOutputAttributes#getEncoding()
  */
-public void close() throws java.io.IOException {
-  if (m_writer != null)   m_writer.close();
-  flushBuffer();
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
 }

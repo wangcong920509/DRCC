@@ -1,16 +1,24 @@
 /** 
- * Method add
- * @param spkidata
+ * Constructor for processing encrypted octets
+ * @param data The <code>CipherData</code> object to read the bytes from
+ * @throws XMLEncryptionException {@link XMLEncryptionException}
  */
-public void add(SPKIData spkidata){
-  this._constructionElement.appendChild(spkidata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public XMLCipherInput(CipherData data) throws XMLEncryptionException {
+  _cipherData=data;
+  _mode=XMLCipher.DECRYPT_MODE;
+  if (_cipherData == null) {
+    throw new XMLEncryptionException("CipherData is null");
+  }
 }
 /** 
- * Method addUnknownElement
- * @param element
+ * Constructor for processing encrypted octets
+ * @param input The <code>EncryptedType</code> object to readthe bytes from.
+ * @throws XMLEncryptionException {@link XMLEncryptionException}
  */
-public void addUnknownElement(Element element){
-  this._constructionElement.appendChild(element);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public XMLCipherInput(EncryptedType input) throws XMLEncryptionException {
+  _cipherData=((input == null) ? null : input.getCipherData());
+  _mode=XMLCipher.DECRYPT_MODE;
+  if (_cipherData == null) {
+    throw new XMLEncryptionException("CipherData is null");
+  }
 }

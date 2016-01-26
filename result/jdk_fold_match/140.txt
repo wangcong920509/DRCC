@@ -72,3 +72,5 @@ public float[] fromCIEXYZ(float[] colorvalue){
   }
   return result;
 }
+-->
+435.0 / 3023 = 0.14389679126695334

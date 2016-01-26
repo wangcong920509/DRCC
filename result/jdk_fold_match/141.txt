@@ -71,3 +71,5 @@ public static TextLine createLineFromText(char[] chars,StyledParagraph styledPar
   TextLineComponent[] components=getComponents(styledParagraph,chars,0,chars.length,charsLtoV,levels,factory);
   return new TextLine(factory.getFontRenderContext(),components,baselineOffsets,chars,0,chars.length,charsLtoV,levels,isDirectionLTR);
 }
+-->
+39.0 / 3351 = 0.011638316920322292

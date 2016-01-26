@@ -1,13 +1,8 @@
-private boolean checkSpecialClasses(Object obj) throws IOException {
-  if (obj instanceof ObjectStreamClass) {
-    throw new IOException("Serialization of ObjectStreamClass not supported");
-  }
-  return false;
+public void write_long(int x){
+  super.write_long(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }
-private boolean checkSubstitutableSpecialClasses(Object obj) throws IOException {
-  if (obj instanceof String) {
-    orbStream.write_value((java.io.Serializable)obj);
-    return true;
-  }
-  return false;
+public void write_longlong(long x){
+  super.write_longlong(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }

@@ -1,8 +1,8 @@
-public static ORBUtilSystemException get(ORB orb,String logDomain){
-  ORBUtilSystemException wrapper=(ORBUtilSystemException)orb.getLogWrapper(logDomain,"ORBUTIL",factory);
+public static IORSystemException get(ORB orb,String logDomain){
+  IORSystemException wrapper=(IORSystemException)orb.getLogWrapper(logDomain,"IOR",factory);
   return wrapper;
 }
-public static ORBUtilSystemException get(String logDomain){
-  ORBUtilSystemException wrapper=(ORBUtilSystemException)ORB.staticGetLogWrapper(logDomain,"ORBUTIL",factory);
+public static IORSystemException get(String logDomain){
+  IORSystemException wrapper=(IORSystemException)ORB.staticGetLogWrapper(logDomain,"IOR",factory);
   return wrapper;
 }

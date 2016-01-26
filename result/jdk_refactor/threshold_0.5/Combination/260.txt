@@ -1,32 +1,40 @@
 /** 
- * Creates a composite name whose components consist of a prefix of the components in this composite name. Subsequent changes to this composite name does not affect the name that is returned.
- * @param posn    The 0-based index of the component at which to stop.Must be in the range [0,size()].
- * @return A composite name consisting of the components at indexes inthe range [0,posn).
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Returns <code>true</code> if it is possible to replace the stream metadata already present in the output. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if replacement of stream metadata isallowed.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public Name getPrefix(int posn){
-  Enumeration comps=impl.getPrefix(posn);
-  return (new CompositeName(comps));
+public boolean canReplaceStreamMetadata() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
 }
 
 /** 
- * Creates a composite name whose components consist of a suffix of the components in this composite name. Subsequent changes to this composite name does not affect the name that is returned.
- * @param posn    The 0-based index of the component at which to start.Must be in the range [0,size()].
- * @return A composite name consisting of the components at indexes inthe range [posn,size()).  If posn is equal to size(), an empty composite name is returned.
- * @exception ArrayIndexOutOfBoundsException If posn is outside the specified range.
+ * Returns <code>true</code> if the writer supports the writing of a complete image stream consisting of a single image with undefined pixel values and associated metadata and thumbnails to the output.  The pixel values may be defined by future calls to the <code>replacePixels</code> methods.  If the output is an <code>ImageOutputStream</code>, its existing contents prior to the current seek position are not affected, and need not be readable or writable. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
+ * @return <code>true</code> if the writing of complete imagestream with contents to be defined later is supported.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IOException if an I/O error occurs during thequery.
  */
-public Name getSuffix(int posn){
-  Enumeration comps=impl.getSuffix(posn);
-  return (new CompositeName(comps));
+public boolean canWriteEmpty() throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
+  }
+  return false;
 }
 
 -->
-void getPrefix_getSuffix(int posn,int posn,int combFlag){
+void canReplaceStreamMetadata_canWriteEmpty(int combFlag){
   if (combFlag == 1) {
-    Enumeration comps=impl.getPrefix(posn);
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
+    }
   }
  else {
-    Enumeration comps=impl.getSuffix(posn);
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
+    }
   }
-  return (new CompositeName(comps));
+  return false;
 }

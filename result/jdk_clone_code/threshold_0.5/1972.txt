@@ -1,18 +1,20 @@
 /** 
- * Appends the string representation of the  {@code float}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(float)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
- * @param f   a {@code float}.
- * @return  a reference to this object.
+ * Subtracts the shape of the specified <code>Area</code> from the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include areas that were contained only in this <code>Area</code> and not in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.subtract(a2); a1(before)     -         a2         =     a1(after) ################     ################ ##############         ##############     ## ############             ############     #### ##########                 ##########     ###### ########                     ########     ######## ######                         ######     ###### ####                             ####     #### ##                                 ##     ## </pre>
+ * @param rhs  the <code>Area</code> to be subtracted from thecurrent shape
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public AbstractStringBuilder append(float f){
-  new FloatingDecimal(f).appendTo(this);
-  return this;
+public void subtract(Area rhs){
+  curves=new AreaOp.SubOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }
 /** 
- * Appends the string representation of the  {@code double}argument to this sequence. <p> The overall effect is exactly as if the argument were converted to a string by the method  {@link String#valueOf(double)}, and the characters of that string were then {@link #append(String) appended} to this character sequence.
- * @param d   a {@code double}.
- * @return  a reference to this object.
+ * Sets the shape of this <code>Area</code> to be the combined area of its current shape and the shape of the specified <code>Area</code>, minus their intersection. The resulting shape of this <code>Area</code> will include only areas that were contained in either this <code>Area</code> or in the specified <code>Area</code>, but not in both. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.exclusiveOr(a2); a1(before)    xor        a2         =     a1(after) ################     ################ ##############         ##############     ##            ## ############             ############     ####        #### ##########                 ##########     ######    ###### ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
+ * @param rhs  the <code>Area</code> to be exclusive ORed with this<code>Area</code>.
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public AbstractStringBuilder append(double d){
-  new FloatingDecimal(d).appendTo(this);
-  return this;
+public void exclusiveOr(Area rhs){
+  curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }

@@ -1,32 +1,52 @@
 /** 
- * Adds the shape of the specified <code>Area</code> to the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include the union of both shapes, or all areas that were contained in either this or the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.add(a2); a1(before)     +         a2         =     a1(after) ################     ################     ################ ##############         ##############     ################ ############             ############     ################ ##########                 ##########     ################ ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
- * @param rhs  the <code>Area</code> to be added to thecurrent shape
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
+ * Determines whether this component is showing on screen. This means that the component must be visible, and it must be in a container that is visible and showing. <p> <strong>Note:</strong> sometimes there is no way to detect whether the {@code Component} is actually visible to the user.  This can happen when:<ul> <li>the component has been added to a visible  {@code ScrollPane} butthe  {@code Component} is not currently in the scroll pane's view port.<li>the  {@code Component} is obscured by another {@code Component} or{@code Container}. </ul>
+ * @return <code>true</code> if the component is showing,<code>false</code> otherwise
+ * @see #setVisible
+ * @since JDK1.0
  */
-public void add(Area rhs){
-  curves=new AreaOp.AddOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+public boolean isShowing(){
+  if (visible && (peer != null)) {
+    Container parent=this.parent;
+    return (parent == null) || parent.isShowing();
+  }
+  return false;
 }
 
-/** 
- * Sets the shape of this <code>Area</code> to be the combined area of its current shape and the shape of the specified <code>Area</code>, minus their intersection. The resulting shape of this <code>Area</code> will include only areas that were contained in either this <code>Area</code> or in the specified <code>Area</code>, but not in both. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.exclusiveOr(a2); a1(before)    xor        a2         =     a1(after) ################     ################ ##############         ##############     ##            ## ############             ############     ####        #### ##########                 ##########     ######    ###### ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
- * @param rhs  the <code>Area</code> to be exclusive ORed with this<code>Area</code>.
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
- */
-public void exclusiveOr(Area rhs){
-  curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+boolean checkWindowClosingException(){
+  if (windowClosingException != null) {
+    if (this instanceof Dialog) {
+      ((Dialog)this).interruptBlocking();
+    }
+ else {
+      windowClosingException.fillInStackTrace();
+      windowClosingException.printStackTrace();
+      windowClosingException=null;
+    }
+    return true;
+  }
+  return false;
 }
 
 -->
-void add_exclusiveOr(Area rhs,Area rhs,int combFlag){
+void isShowing_checkWindowClosingException(int combFlag){
   if (combFlag == 1) {
-    curves=new AreaOp.AddOp().calculate(this.curves,rhs.curves);
+    if (visible && (peer != null)) {
+      Container parent=this.parent;
+      return (parent == null) || parent.isShowing();
+    }
   }
  else {
-    curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
+    if (windowClosingException != null) {
+      if (this instanceof Dialog) {
+        ((Dialog)this).interruptBlocking();
+      }
+ else {
+        windowClosingException.fillInStackTrace();
+        windowClosingException.printStackTrace();
+        windowClosingException=null;
+      }
+      return true;
+    }
   }
-  invalidateBounds();
+  return false;
 }

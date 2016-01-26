@@ -75,3 +75,5 @@ private void paintdetailsViewIconEnabled(Graphics2D g){
   g.setPaint(color107);
   g.fill(rect);
 }
+-->
+380.0 / 7342 = 0.05175701443748298

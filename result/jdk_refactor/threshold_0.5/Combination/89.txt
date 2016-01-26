@@ -1,30 +1,68 @@
 /** 
- * Given a node handle, find the owning document node.  This has the exact same semantics as the DOM Document method of the same name, in that if the nodeHandle is a document node, it will return NULL. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
- * @param nodeHandle the id of the node.
- * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
+ * Given a node identity, get the index of the node's first attribute.
+ * @param identity int identity of the node.
+ * @return Identity of first attribute, or DTM.NULL to indicate none exists.
  */
-public int getOwnerDocument(int nodeHandle){
-  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
-  return (nodeHandle & DOCHANDLE_MASK);
+protected int getFirstAttributeIdentity(int identity){
+  int type=_type(identity);
+  if (DTM.ELEMENT_NODE == type) {
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      type=_type(identity);
+      if (type == DTM.ATTRIBUTE_NODE) {
+        return identity;
+      }
+ else       if (DTM.NAMESPACE_NODE != type) {
+        break;
+      }
+    }
+  }
+  return DTM.NULL;
 }
 
 /** 
- * Given a node handle, find the owning document node.  This has the DTM semantics; a Document node is its own owner. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
- * @param nodeHandle the id of the node.
- * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
+ * Given a node identity for an attribute, advance to the next attribute.
+ * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
+ * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
  */
-public int getDocumentRoot(int nodeHandle){
-  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
-  return (nodeHandle & DOCHANDLE_MASK);
+protected int getNextAttributeIdentity(int identity){
+  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+    int type=_type(identity);
+    if (type == DTM.ATTRIBUTE_NODE) {
+      return identity;
+    }
+ else     if (type != DTM.NAMESPACE_NODE) {
+      break;
+    }
+  }
+  return DTM.NULL;
 }
 
 -->
-void getOwnerDocument_getDocumentRoot(int nodeHandle,int nodeHandle,int combFlag){
+void getFirstAttributeIdentity_getNextAttributeIdentity(int identity,int identity,int combFlag){
   if (combFlag == 1) {
-    if ((nodeHandle & NODEHANDLE_MASK) == 0)     return NULL;
+    int type=_type(identity);
+    if (DTM.ELEMENT_NODE == type) {
+      while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+        type=_type(identity);
+        if (type == DTM.ATTRIBUTE_NODE) {
+          return identity;
+        }
+ else         if (DTM.NAMESPACE_NODE != type) {
+          break;
+        }
+      }
+    }
   }
  else {
-    if ((nodeHandle & NODEHANDLE_MASK) == 0)     return NULL;
+    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+      int type=_type(identity);
+      if (type == DTM.ATTRIBUTE_NODE) {
+        return identity;
+      }
+ else       if (type != DTM.NAMESPACE_NODE) {
+        break;
+      }
+    }
   }
-  return (nodeHandle & DOCHANDLE_MASK);
+  return DTM.NULL;
 }

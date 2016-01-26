@@ -1,8 +1,8 @@
-public ORBAlreadyRegistered(String _orbId){
-  super(ORBAlreadyRegisteredHelper.id());
-  orbId=_orbId;
+public ServerHeldDown(String _serverId){
+  super(ServerHeldDownHelper.id());
+  serverId=_serverId;
 }
-public ORBAlreadyRegistered(String $reason,String _orbId){
-  super(ORBAlreadyRegisteredHelper.id() + "  " + $reason);
-  orbId=_orbId;
+public ServerHeldDown(String $reason,String _serverId){
+  super(ServerHeldDownHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

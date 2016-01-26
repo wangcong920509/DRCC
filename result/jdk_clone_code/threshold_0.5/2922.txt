@@ -1,25 +1,34 @@
-public ByteBuffer put(ByteBuffer src){
-  if (src instanceof HeapByteBuffer) {
+public FloatBuffer put(float x){
+  unsafe.putFloat(ix(nextPutIndex()),((x)));
+  return this;
+}
+public FloatBuffer put(FloatBuffer src){
+  if (src instanceof DirectFloatBufferU) {
     if (src == this)     throw new IllegalArgumentException();
-    HeapByteBuffer sb=(HeapByteBuffer)src;
-    int n=sb.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
-    sb.position(sb.position() + n);
-    position(position() + n);
+    DirectFloatBufferU sb=(DirectFloatBufferU)src;
+    int spos=sb.position();
+    int slim=sb.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (srem > rem)     throw new BufferOverflowException();
+    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 2);
+    sb.position(spos + srem);
+    position(pos + srem);
   }
- else   if (src.isDirect()) {
-    int n=src.remaining();
-    if (n > remaining())     throw new BufferOverflowException();
-    src.get(hb,ix(position()),n);
-    position(position() + n);
+ else   if (src.hb != null) {
+    int spos=src.position();
+    int slim=src.limit();
+    assert(spos <= slim);
+    int srem=(spos <= slim ? slim - spos : 0);
+    put(src.hb,src.offset + spos,srem);
+    src.position(spos + srem);
   }
  else {
     super.put(src);
   }
-  return this;
-}
-public ByteBuffer putDouble(int i,double x){
-  Bits.putDouble(this,ix(checkIndex(i,8)),x,bigEndian);
   return this;
 }

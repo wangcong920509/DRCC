@@ -24,3 +24,5 @@ private Path2D decodePath5(){
   path.closePath();
   return path;
 }
+-->
+170.0 / 1164 = 0.14604810996563575

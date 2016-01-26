@@ -2,17 +2,18 @@
  * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node getLastChild(){
+public Node getFirstChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented.
- * @param offset Offset into text to split
- * @return null, unimplemented
+ * Unimplemented. See org.w3c.dom.Node
+ * @param newChild New child node to insert
+ * @param refChild Insert in front of this child
+ * @return null
  * @throws DOMException
  */
-public Text splitText(int offset) throws DOMException {
+public Node insertBefore(Node newChild,Node refChild) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @see SerializationHandler#setEscaping(boolean)
  */
-public String getEncoding(){
-  aMethodIsCalled();
-  return null;
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see ExtendedContentHandler#startPrefixMapping(java.lang.String,java.lang.String,boolean)
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+public boolean startPrefixMapping(String prefix,String uri,boolean shouldFlush) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }

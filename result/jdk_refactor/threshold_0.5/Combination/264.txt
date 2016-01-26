@@ -1,69 +1,44 @@
 /** 
- * Writes a stream of ASCII characters to this <code>SQLOutputImpl</code> object. The driver will do any necessary conversion from ASCII to the database <code>CHAR</code> format.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * Returns <code>true</code> if it is possible to replace the image metadata associated with an existing image with index <code>imageIndex</code>.  If this method returns <code>false</code>, a call to <code>replaceImageMetadata(imageIndex)</code> will throw an <code>UnsupportedOperationException</code>. <p> A writer that does not support any image metadata replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose metadata is tobe replaced.
+ * @return <code>true</code> if the image metadata of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage metadata replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public void writeAsciiStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
+public boolean canReplaceImageMetadata(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+  return false;
 }
 
 /** 
- * Writes a stream of uninterpreted bytes to this <code>SQLOutputImpl</code> object.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public void writeBinaryStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+  return false;
 }
 
 -->
-void writeAsciiStream_writeBinaryStream(java.io.InputStream x,java.io.InputStream x,int combFlag){
+void canReplaceImageMetadata_canReplacePixels(int imageIndex,int imageIndex,int combFlag){
   if (combFlag == 1) {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  }
- else {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  }
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
     }
   }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
+ else {
+    if (getOutput() == null) {
+      throw new IllegalStateException("getOutput() == null!");
+    }
   }
+  return false;
 }

@@ -1,16 +1,19 @@
 /** 
- * Method add
- * @param mgmtdata
+ * Create a new CatalogException.
+ * @param type The exception type
+ * @param message The error or warning message.
  */
-public void add(MgmtData mgmtdata){
-  this._constructionElement.appendChild(mgmtdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public CatalogException(int type,String message){
+  super(message);
+  this.exceptionType=type;
+  this.exception=null;
 }
 /** 
- * Method add
- * @param retrievalmethod
+ * Create a new CatalogException.
+ * @param type The exception type
  */
-public void add(RetrievalMethod retrievalmethod){
-  this._constructionElement.appendChild(retrievalmethod.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public CatalogException(int type){
+  super("Catalog Exception " + type);
+  this.exceptionType=type;
+  this.exception=null;
 }

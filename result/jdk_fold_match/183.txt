@@ -24,3 +24,5 @@ public boolean get(int bitIndex){
   int wordIndex=wordIndex(bitIndex);
   return (wordIndex < wordsInUse) && ((words[wordIndex] & (1L << bitIndex)) != 0);
 }
+-->
+48.0 / 201 = 0.23880597014925373

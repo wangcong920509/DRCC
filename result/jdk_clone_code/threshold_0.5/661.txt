@@ -1,17 +1,27 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * Removes the first occurrence of the argument from this vector. If the object is found in this vector, each component in the vector with an index greater or equal to the object's index is shifted downward to have an index one smaller than the value it had previously.
+ * @param s Object to remove from array
+ * @return True if the object was removed, false if it was not found
  */
-public Node getParentNode(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public final boolean removeElement(Object s){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == s) {
+      if ((i + 1) < m_firstFree)       System.arraycopy(m_map,i + 1,m_map,i - 1,m_firstFree - i);
+ else       m_map[i]=null;
+      m_firstFree--;
+      return true;
+    }
+  }
+  return false;
 }
 /** 
- * Unimplemented. See org.w3c.dom.NodeList
- * @param index index of a child of this node in its list of children
- * @return null
+ * Tell if the table contains the given Object.
+ * @param s object to look for
+ * @return true if the object is in the list
  */
-public Node item(int index){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+public final boolean contains(Object s){
+  for (int i=0; i < m_firstFree; i++) {
+    if (m_map[i] == s)     return true;
+  }
+  return false;
 }

@@ -1,17 +1,14 @@
 /** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with a given <code>Exception</code> base cause of the error.
- * @param e The exception to be encapsulated in aTransformerFactoryConfigurationError.
+ * @see ExtendedContentHandler#getNamespaceURIFromPrefix(java.lang.String)
  */
-public TransformerFactoryConfigurationError(Exception e){
-  super(e.toString());
-  this.exception=e;
+public String getNamespaceURIFromPrefix(String prefix){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Create a new <code>TransformerFactoryConfigurationError</code> with the given <code>Exception</code> base cause and detail message.
- * @param e The exception to be encapsulated in aTransformerFactoryConfigurationError
- * @param msg The detail message.
+ * @see XSLOutputAttributes#getDoctypeSystem()
  */
-public TransformerFactoryConfigurationError(Exception e,String msg){
-  super(msg);
-  this.exception=e;
+public String getDoctypeSystem(){
+  aMethodIsCalled();
+  return null;
 }

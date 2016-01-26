@@ -1,24 +1,38 @@
 /** 
- * Returns a  {@link NavigableSet} view of the keys contained in this map.The set's iterator returns the keys in ascending order. The set is backed by the map, so changes to the map are reflected in the set, and vice-versa.  The set supports element removal, which removes the corresponding mapping from the map, via the  {@code Iterator.remove},  {@code Set.remove}, {@code removeAll},  {@code retainAll}, and  {@code clear}operations.  It does not support the  {@code add} or {@code addAll}operations. <p>The view's  {@code iterator} is a "weakly consistent" iteratorthat will never throw  {@link ConcurrentModificationException}, and guarantees to traverse elements as they existed upon construction of the iterator, and may (but is not guaranteed to) reflect any modifications subsequent to construction. <p>This method is equivalent to method  {@code navigableKeySet}.
- * @return a navigable set view of the keys in this map
+ * Implements CharacterIterator.first() for String.
+ * @see CharacterIterator#first
  */
-public NavigableSet<K> keySet(){
-  KeySet ks=keySet;
-  return (ks != null) ? ks : (keySet=new KeySet(this));
+public char first(){
+  pos=begin;
+  return current();
 }
 
-public NavigableSet<K> navigableKeySet(){
-  KeySet ks=keySet;
-  return (ks != null) ? ks : (keySet=new KeySet(this));
+/** 
+ * Implements CharacterIterator.last() for String.
+ * @see CharacterIterator#last
+ */
+public char last(){
+  if (end != begin) {
+    pos=end - 1;
+  }
+ else {
+    pos=end;
+  }
+  return current();
 }
 
 -->
-void keySet_navigableKeySet(int combFlag){
+void first_last(int combFlag){
   if (combFlag == 1) {
-    KeySet ks=keySet;
+    pos=begin;
   }
  else {
-    KeySet ks=keySet;
+    if (end != begin) {
+      pos=end - 1;
+    }
+ else {
+      pos=end;
+    }
   }
-  return (ks != null) ? ks : (keySet=new KeySet(this));
+  return current();
 }

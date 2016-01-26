@@ -24,3 +24,5 @@ private void paintForegroundDisabled(Graphics2D g){
   g.setPaint(decodeGradient10(rect));
   g.fill(rect);
 }
+-->
+113.0 / 667 = 0.16941529235382308

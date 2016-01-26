@@ -1,34 +1,18 @@
 /** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted message string.
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public static final String createXPATHMessage(String msgKey,Object args[]){
-  if (XPATHBundle == null) {
-    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-  }
-  if (XPATHBundle != null) {
-    return createXPATHMsg(XPATHBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Creates a message from the specified key and replacement arguments, localized to the given locale.
- * @param msgKey The key for the message text.
- * @param args The arguments to be used as replacement text in the messagecreated.
- * @return The formatted warning string.
+ * Look for ConstantUtf8 in ConstantPool.
+ * @param n Utf8 string to look for
+ * @return index on success, -1 otherwise
  */
-public static final String createXPATHWarning(String msgKey,Object args[]){
-  if (XPATHBundle == null) {
-    XPATHBundle=SecuritySupport.getResourceBundle(XPATH_ERROR_RESOURCES);
-  }
-  if (XPATHBundle != null) {
-    return createXPATHMsg(XPATHBundle,msgKey,args);
-  }
- else {
-    return "Could not load any resource bundles.";
-  }
+public int lookupUtf8(String n){
+  Index index=(Index)utf8_table.get(n);
+  return (index != null) ? index.index : -1;
 }

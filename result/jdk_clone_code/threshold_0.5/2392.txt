@@ -1,8 +1,14 @@
-public StringBuilder append(float f){
-  super.append(f);
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder append(CharSequence s,int start,int end){
+  super.append(s,start,end);
   return this;
 }
-public StringBuilder append(double d){
-  super.append(d);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder replace(int start,int end,String str){
+  super.replace(start,end,str);
   return this;
 }

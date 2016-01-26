@@ -1,18 +1,14 @@
 /** 
- * Put an integer with the specified tag.
- * @param v The integer to encode.
- * @param tag The tag to encode.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void putInteger(int v,int tag){
-  putIntegerValue(v);
-  putTag(tag);
+public void addNotificationListener(ObjectName name,NotificationListener listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException {
+  checkRead();
+  getMBeanServer().addNotificationListener(name,listener,filter,handback);
 }
 /** 
- * Put an object identifier with a specified tag.
- * @param s The integer to encode.
- * @param tag The tag to encode.
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public void putOid(long[] s,int tag){
-  putOidValue(s);
-  putTag(tag);
+public void addNotificationListener(ObjectName name,ObjectName listener,NotificationFilter filter,Object handback) throws InstanceNotFoundException {
+  checkRead();
+  getMBeanServer().addNotificationListener(name,listener,filter,handback);
 }

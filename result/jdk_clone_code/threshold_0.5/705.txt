@@ -1,16 +1,21 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param newChild New node to append to the list of this node's children
  * @return null
+ * @throws DOMException
  */
-public NodeList getChildNodes(){
+public Node appendChild(Node newChild) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
+ * Unimplemented. See org.w3c.dom.Document
+ * @param target Target for Processing instruction
+ * @param data Data for Processing instruction
  * @return null
+ * @throws DOMException
  */
-public Node getFirstChild(){
+public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

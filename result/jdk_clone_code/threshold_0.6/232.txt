@@ -1,26 +1,14 @@
 /** 
- * Constructs a search result using the result's name, its bound object, and its attributes, and whether the name is relative. <p> <tt>getClassName()</tt> will return the class name of <tt>obj</tt> (or null if <tt>obj</tt> is null) unless the class name has been explicitly set using <tt>setClassName()</tt>
- * @param name The non-null name of the search item.
- * @param obj  The object bound to name. Can be null.
- * @param attrs The attributes that were requested to be returned withthis search item. Cannot be null.
- * @param isRelative true if <code>name</code> is relativeto the target context of the search (which is named by the first parameter of the <code>search()</code> method); false if <code>name</code> is a URL string.
- * @see javax.naming.NameClassPair#setClassName
- * @see javax.naming.NameClassPair#getClassName
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
  */
-public SearchResult(String name,Object obj,Attributes attrs,boolean isRelative){
-  super(name,obj,isRelative);
-  this.attrs=attrs;
+public XML11Serializer(){
+  super();
+  _format.setVersion("1.1");
 }
 /** 
- * Constructs a search result using the result's name, its class name, its bound object, and its attributes.
- * @param name The non-null name of the search item. It is relativeto the <em>target context</em> of the search (which is named by the first parameter of the <code>search()</code> method)
- * @param className       The possibly null class name of the objectbound to <tt>name</tt>. If null, the class name of <tt>obj</tt> is returned by <tt>getClassName()</tt>. If <tt>obj</tt> is also null, <tt>getClassName()</tt> will return null.
- * @param obj  The object bound to name. Can be null.
- * @param attrs The attributes that were requested to be returned withthis search item. Cannot be null.
- * @see javax.naming.NameClassPair#setClassName
- * @see javax.naming.NameClassPair#getClassName
+ * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
  */
-public SearchResult(String name,String className,Object obj,Attributes attrs){
-  super(name,className,obj);
-  this.attrs=attrs;
+public XML11Serializer(OutputFormat format){
+  super(format);
+  _format.setVersion("1.1");
 }

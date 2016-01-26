@@ -1,8 +1,28 @@
-private RoundRectangle2D decodeRoundRect3(){
-  roundRect.setRoundRect(decodeX(0.42857143f),decodeY(0.42857143f),decodeX(2.5714285f) - decodeX(0.42857143f),decodeY(2.5714285f) - decodeY(0.42857143f),7.0f,7.0f);
-  return roundRect;
+/** 
+ * Sets the designated parameter to the given <code>java.sql.Time</code> value.  The driver converts this to an SQL <code>TIME</code> value when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <P> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class. <P> Calls made to the method <code>getParams</code> after this version of the method <code>setTime</code> has been called will return an array of the parameters that have been set. The parameter to be set for parameter placeholder number <i>parameterIndex</i> will be the <code>Time</code> object that was set as the second parameter to this method. <P> Note that because the numbering of elements in an array starts at zero, the array element that corresponds to placeholder parameter number <i>parameterIndex</i> is <i>parameterIndex</i> -1.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x a <code>java.sql.Time</code> object, which is to be set as the valuefor placeholder parameter <i>parameterIndex</i>
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
+ */
+public void setTime(int parameterIndex,java.sql.Time x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setTime");
+  }
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }
-private RoundRectangle2D decodeRoundRect5(){
-  roundRect.setRoundRect(decodeX(0.2857143f),decodeY(0.42857143f),decodeX(2.7142859f) - decodeX(0.2857143f),decodeY(2.857143f) - decodeY(0.42857143f),9.0f,9.0f);
-  return roundRect;
+/** 
+ * Sets the designated parameter to the given <code>java.sql.Timestamp</code> value. The driver converts this to an SQL <code>TIMESTAMP</code> value when it sends it to the database. <P> The parameter value set by this method is stored internally and will be supplied as the appropriate parameter in this <code>RowSet</code> object's command when the method <code>execute</code> is called. Methods such as <code>execute</code> and <code>populate</code> must be provided in any class that extends this class and implements one or more of the standard JSR-114 <code>RowSet</code> interfaces. <P> NOTE: <code>JdbcRowSet</code> does not require the <code>populate</code> method as it is undefined in this class. <P> Calls made to the method <code>getParams</code> after this version of <code>setTimestamp</code> has been called will return an array with the value for parameter placeholder number <i>parameterIndex</i> being the <code>Timestamp</code> object that was supplied as the second parameter to this method. Note that because the numbering of elements in an array starts at zero, the array element that corresponds to placeholder parameter number <i>parameterIndex</i> is <i>parameterIndex</i> -1.
+ * @param parameterIndex the ordinal number of the placeholder parameterin this <code>RowSet</code> object's command that is to be set. The first parameter is 1, the second is 2, and so on; must be <code>1</code> or greater
+ * @param x a <code>java.sql.Timestamp</code> object
+ * @throws SQLException if an error occurs or theparameter index is out of bounds
+ * @see #getParams
+ */
+public void setTimestamp(int parameterIndex,java.sql.Timestamp x) throws SQLException {
+  checkParamIndex(parameterIndex);
+  if (params == null) {
+    throw new SQLException("Set initParams() before setTimestamp");
+  }
+  params.put(Integer.valueOf(parameterIndex - 1),x);
 }

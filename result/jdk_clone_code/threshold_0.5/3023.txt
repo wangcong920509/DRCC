@@ -1,11 +1,7 @@
-public ShortBuffer put(short x){
-  hb[ix(nextPutIndex())]=x;
-  return this;
-}
-public ShortBuffer put(ShortBuffer src){
-  if (src instanceof HeapShortBuffer) {
+public ByteBuffer put(ByteBuffer src){
+  if (src instanceof HeapByteBuffer) {
     if (src == this)     throw new IllegalArgumentException();
-    HeapShortBuffer sb=(HeapShortBuffer)src;
+    HeapByteBuffer sb=(HeapByteBuffer)src;
     int n=sb.remaining();
     if (n > remaining())     throw new BufferOverflowException();
     System.arraycopy(sb.hb,sb.ix(sb.position()),hb,ix(position()),n);
@@ -21,5 +17,9 @@ public ShortBuffer put(ShortBuffer src){
  else {
     super.put(src);
   }
+  return this;
+}
+public ByteBuffer putLong(int i,long x){
+  Bits.putLong(this,ix(checkIndex(i,8)),x,bigEndian);
   return this;
 }

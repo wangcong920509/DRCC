@@ -1,0 +1,22 @@
+private Style findStyle(AttributeSet a){
+  while (a != null) {
+    if (a instanceof Style) {
+      Object aNum=styleTable.get(a);
+      if (aNum != null)       return (Style)a;
+    }
+    a=a.getResolveParent();
+  }
+  return null;
+}
+private Integer findStyleNumber(AttributeSet a,String domain){
+  while (a != null) {
+    if (a instanceof Style) {
+      Integer aNum=styleTable.get(a);
+      if (aNum != null) {
+        if (domain == null || domain.equals(a.getAttribute(Constants.StyleType)))         return aNum;
+      }
+    }
+    a=a.getResolveParent();
+  }
+  return null;
+}

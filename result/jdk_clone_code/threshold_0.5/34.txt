@@ -1,16 +1,54 @@
 /** 
- * Get a Current pseudo-object. The Current interface is used to manage thread-specific information for use by the transactions, security and other services. This method is deprecated, and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
- * @return          a Current pseudo-object.
- * @deprecated
+ * Bind an object under a name in this NamingContext. If the name contains multiple (n) components, n-1 will be resolved in this NamingContext and the object bound in resulting NamingContext. If a binding under the supplied name already exists it will be unbound first. If the object to be bound is a NamingContext it will not participate in a recursive resolve.
+ * @param n a sequence of NameComponents which is the name under whichthe object will be bound.
+ * @param obj the object reference to be bound.
+ * @exception org.omg.CosNaming.NamingContextPackage.NotFound A name withmultiple components was supplied, but the first component could not be resolved.
+ * @exception org.omg.CosNaming.NamingContextPackage.CannotProceed Could notproceed in resolving the n-1 components of the supplied name.
+ * @exception org.omg.CosNaming.NamingContextPackage.InvalidName Thesupplied name is invalid (i.e., has length less than 1).
+ * @exception org.omg.CORBA.SystemException One of a fixed set of CORBAsystem exceptions.
+ * @see doBind
  */
-public synchronized org.omg.CORBA.Current get_current(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void rebind(NameComponent[] n,org.omg.CORBA.Object obj) throws org.omg.CosNaming.NamingContextPackage.NotFound, org.omg.CosNaming.NamingContextPackage.CannotProceed, org.omg.CosNaming.NamingContextPackage.InvalidName {
+  if (obj == null) {
+    updateLogger.warning(LogKeywords.NAMING_REBIND_FAILURE + " NULL Object cannot be Bound ");
+    throw wrapper.objectIsNull();
+  }
+  try {
+    NamingContextDataStore impl=(NamingContextDataStore)this;
+    doBind(impl,n,obj,true,BindingType.nobject);
+  }
+ catch (  org.omg.CosNaming.NamingContextPackage.AlreadyBound ex) {
+    updateLogger.warning(LogKeywords.NAMING_REBIND_FAILURE + NamingUtils.getDirectoryStructuredName(n) + " is already bound to a Naming Context");
+    throw wrapper.namingCtxRebindAlreadyBound(ex);
+  }
+  if (updateLogger.isLoggable(Level.FINE)) {
+    updateLogger.fine(LogKeywords.NAMING_REBIND_SUCCESS + " Name = " + NamingUtils.getDirectoryStructuredName(n));
+  }
 }
 /** 
- * This method always returns false because the ORB never needs the main thread to do work.
+ * Bind a NamingContext under a name in this NamingContext. If the name contains multiple (n) components, the first n-1 components will be resolved in this NamingContext and the object bound in resulting NamingContext. If a binding under the supplied name already exists it will be unbound first. The NamingContext will participate in recursive resolving.
+ * @param n a sequence of NameComponents which is the name under whichthe object will be bound.
+ * @param obj the object reference to be bound.
+ * @exception org.omg.CosNaming.NamingContextPackage.NotFound A name withmultiple components was supplied, but the first component could not be resolved.
+ * @exception org.omg.CosNaming.NamingContextPackage.CannotProceed Could notproceed in resolving the n-1 components of the supplied name.
+ * @exception org.omg.CosNaming.NamingContextPackage.InvalidName Thesupplied name is invalid (i.e., has length less than 1).
+ * @exception org.omg.CORBA.SystemException One of a fixed set of CORBAsystem exceptions.
+ * @see doBind
  */
-public synchronized boolean work_pending(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void rebind_context(NameComponent[] n,NamingContext nc) throws org.omg.CosNaming.NamingContextPackage.NotFound, org.omg.CosNaming.NamingContextPackage.CannotProceed, org.omg.CosNaming.NamingContextPackage.InvalidName {
+  if (nc == null) {
+    updateLogger.warning(LogKeywords.NAMING_REBIND_FAILURE + " NULL Context cannot be Bound ");
+    throw wrapper.objectIsNull();
+  }
+  try {
+    NamingContextDataStore impl=(NamingContextDataStore)this;
+    doBind(impl,n,nc,true,BindingType.ncontext);
+  }
+ catch (  org.omg.CosNaming.NamingContextPackage.AlreadyBound ex) {
+    updateLogger.warning(LogKeywords.NAMING_REBIND_FAILURE + NamingUtils.getDirectoryStructuredName(n) + " is already bound to a CORBA Object");
+    throw wrapper.namingCtxRebindctxAlreadyBound(ex);
+  }
+  if (updateLogger.isLoggable(Level.FINE)) {
+    updateLogger.fine(LogKeywords.NAMING_REBIND_SUCCESS + " Name = " + NamingUtils.getDirectoryStructuredName(n));
+  }
 }

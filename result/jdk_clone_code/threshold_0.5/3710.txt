@@ -1,8 +1,19 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the Rectangle enclosing the label portion that the last item in path will be drawn into.  Will return null if any component in path is currently valid.
+ */
+public Rectangle getPathBounds(JTree tree,TreePath path){
+  if (tree != null && treeState != null) {
+    return getPathBounds(path,tree.getInsets(),new Rectangle());
+  }
+  return null;
 }
-private Rectangle2D decodeRect37(){
-  rect.setRect(decodeX(0.8f),decodeY(1.3333334f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.5f) - decodeY(1.3333334f));
-  return rect;
+/** 
+ * Returns a path to the last child of <code>parent</code>.
+ */
+protected TreePath getLastChildPath(TreePath parent){
+  if (treeModel != null) {
+    int childCount=treeModel.getChildCount(parent.getLastPathComponent());
+    if (childCount > 0)     return parent.pathByAddingChild(treeModel.getChild(parent.getLastPathComponent(),childCount - 1));
+  }
+  return null;
 }

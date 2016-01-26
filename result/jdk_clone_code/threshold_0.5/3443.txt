@@ -1,32 +1,36 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.sql.Time</code> object. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructor.
+ * @param roleName  name of the role.
+ * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}.
+ * @param read  flag to indicate if the corresponding rolecan be read
+ * @param write  flag to indicate if the corresponding rolecan be set
+ * @param min  minimum degree for role, i.e. minimum number ofMBeans to provide in corresponding role Must be less than or equal to <tt>max</tt>. (ROLE_CARDINALITY_INFINITY for unlimited)
+ * @param max  maximum degree for role, i.e. maximum number ofMBeans to provide in corresponding role Must be greater than or equal to <tt>min</tt> (ROLE_CARDINALITY_INFINITY for unlimited)
+ * @param descr  description of the role (can be null)
+ * @exception IllegalArgumentException  if null parameter
+ * @exception InvalidRoleInfoException  if the minimum degree isgreater than the maximum degree.
+ * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ * @exception NotCompliantMBeanException  if the class mbeanClassNameis not a MBean class.
  */
-public java.sql.Time readTime() throws SQLException {
-  java.sql.Time attrib=(java.sql.Time)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public RoleInfo(String roleName,String mbeanClassName,boolean read,boolean write,int min,int max,String descr) throws IllegalArgumentException, InvalidRoleInfoException, ClassNotFoundException, NotCompliantMBeanException {
+  init(roleName,mbeanClassName,read,write,min,max,descr);
+  return;
 }
 /** 
- * Returns the next attribute in this <code>SQLInputImpl</code> object as a stream of uninterpreted bytes. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return<code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructor.
+ * @param roleName  name of the role
+ * @param mbeanClassName  name of the class of MBean(s) expected tobe referenced in corresponding role.  If an MBean <em>M</em> is in this role, then the MBean server must return true for {@link MBeanServer#isInstanceOf isInstanceOf(M, mbeanClassName)}.
+ * @param read  flag to indicate if the corresponding rolecan be read
+ * @param write  flag to indicate if the corresponding rolecan be set <P>Minimum and maximum degrees defaulted to 1. <P>Description of role defaulted to null.
+ * @exception IllegalArgumentException  if null parameter
+ * @exception ClassNotFoundException As of JMX 1.2, this exceptioncan no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
+ * @exception NotCompliantMBeanException As of JMX 1.2, thisexception can no longer be thrown.  It is retained in the declaration of this class for compatibility with existing code.
  */
-public java.io.InputStream readBinaryStream() throws SQLException {
-  java.io.InputStream attrib=(java.io.InputStream)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public RoleInfo(String roleName,String mbeanClassName,boolean read,boolean write) throws IllegalArgumentException, ClassNotFoundException, NotCompliantMBeanException {
+  try {
+    init(roleName,mbeanClassName,read,write,1,1,null);
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
+ catch (  InvalidRoleInfoException exc) {
   }
+  return;
 }

@@ -1,23 +1,8 @@
-/** 
- * Constructs a <code>SQLClientInfoException</code> object initialized with a given  <code>reason</code>, <code>SQLState</code>  and <code>failedProperties</code>. The <code>cause</code> is not initialized, and may subsequently be initialized by a call to the {@link Throwable#initCause(java.lang.Throwable)} method. The vendor codeis initialized to 0. <p>
- * @param reason                            a description of the exception
- * @param SQLState                          an XOPEN or SQL:2003 code identifying the exception
- * @param failedProperties          A Map containing the property values that could notbe set.  The keys in the Map contain the names of the client info properties that could not be set and the values contain one of the reason codes defined in <code>ClientInfoStatus</code> <p>
- * @since 1.6
- */
-public SQLClientInfoException(String reason,String SQLState,Map<String,ClientInfoStatus> failedProperties){
-  super(reason,SQLState);
-  this.failedProperties=failedProperties;
+public ByteBuffer putShort(short x){
+  Bits.putShort(this,ix(nextPutIndex(2)),x,bigEndian);
+  return this;
 }
-/** 
- * Constructs a <code>SQLClientInfoException</code> object initialized with a given  <code>reason</code>, <code>SQLState</code>, <code>vendorCode</code>  and <code>failedProperties</code>. The <code>cause</code> is not initialized, and may subsequently be initialized by a call to the {@link Throwable#initCause(java.lang.Throwable)} method.<p>
- * @param reason                            a description of the exception
- * @param SQLState                          an XOPEN or SQL:2003 code identifying the exception
- * @param vendorCode                        a database vendor-specific exception code
- * @param failedProperties          A Map containing the property values that could notbe set.  The keys in the Map contain the names of the client info properties that could not be set and the values contain one of the reason codes defined in <code>ClientInfoStatus</code> <p>
- * @since 1.6
- */
-public SQLClientInfoException(String reason,String SQLState,int vendorCode,Map<String,ClientInfoStatus> failedProperties){
-  super(reason,SQLState,vendorCode);
-  this.failedProperties=failedProperties;
+public ByteBuffer putDouble(int i,double x){
+  Bits.putDouble(this,ix(checkIndex(i,8)),x,bigEndian);
+  return this;
 }

@@ -1,14 +1,46 @@
 /** 
- * Translates an object of this type to the external (Java) type denoted by <code>clazz</code>. This method is used to translate parameters when external functions are called.
+ * Returns the start index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
  */
-public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),clazz.getClass().toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public final int getParenStart(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return start0;
+case 1:
+    return start1;
+case 2:
+  return start2;
+default :
+if (startn == null) {
+  allocParens();
+}
+return startn[which];
+}
+}
+return -1;
 }
 /** 
- * Translates an object of this type to its boxed representation.
+ * Returns the end index of a given paren level.
+ * @param which Nesting level of subexpression
+ * @return String index
  */
-public void translateBox(ClassGenerator classGen,MethodGenerator methodGen){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
-  classGen.getParser().reportError(Constants.FATAL,err);
+public final int getParenEnd(int which){
+  if (which < parenCount) {
+switch (which) {
+case 0:
+      return end0;
+case 1:
+    return end1;
+case 2:
+  return end2;
+default :
+if (endn == null) {
+  allocParens();
+}
+return endn[which];
+}
+}
+return -1;
 }

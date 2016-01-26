@@ -10,23 +10,23 @@ protected void reset() throws XNIException {
 }
 
 /** 
- * reset all components before parsing and namespace context
+ * reset all common components before parsing
  */
-protected void resetXML11() throws XNIException {
-  int count=fXML11Components.size();
+protected void resetCommon() throws XNIException {
+  int count=fCommonComponents.size();
   for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fXML11Components.get(i);
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
     c.reset(this);
   }
 }
 
 -->
-void reset_resetXML11(int combFlag){
+void reset_resetCommon(int combFlag){
   if (combFlag == 1) {
     int count=fComponents.size();
   }
  else {
-    int count=fXML11Components.size();
+    int count=fCommonComponents.size();
   }
   for (int i=0; i < count; i++) {
     XMLComponent c=(XMLComponent)fComponents.get(i);

@@ -1,12 +1,14 @@
-public String getPublicId(){
-  if (fLocator != null) {
-    return fLocator.getPublicId();
-  }
-  return null;
+/** 
+ * register one global notation
+ */
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
-public String getEncoding(){
-  if (fLocator2 != null) {
-    return fLocator2.getEncoding();
-  }
-  return null;
+/** 
+ * register one global complex type
+ */
+public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl){
+  fGlobalTypeDecls.put(decl.getName(),decl);
+  decl.setNamespaceItem(this);
 }

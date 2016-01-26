@@ -1,20 +1,14 @@
 /** 
- * reset all XML 1.0 components before parsing and namespace context
+ * register one global attribute group
  */
-protected void reset() throws XNIException {
-  int count=fComponents.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fComponents.get(i);
-    c.reset(this);
-  }
+public void addGlobalAttributeGroupDecl(XSAttributeGroupDecl decl){
+  fGlobalAttrGrpDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }
 /** 
- * reset all common components before parsing
+ * register one global notation
  */
-protected void resetCommon() throws XNIException {
-  int count=fCommonComponents.size();
-  for (int i=0; i < count; i++) {
-    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
-    c.reset(this);
-  }
+public void addGlobalNotationDecl(XSNotationDecl decl){
+  fGlobalNotationDecls.put(decl.fName,decl);
+  decl.setNamespaceItem(this);
 }

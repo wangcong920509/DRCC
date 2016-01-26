@@ -1,51 +1,49 @@
 /** 
- * Writes a formatted string to this output stream using the specified format string and arguments. <p> The locale always used is the one returned by  {@link java.util.Locale#getDefault() Locale.getDefault()}, regardless of any previous invocations of other formatting methods on this object.
- * @param format A format string as described in <a href="../util/Formatter.html#syntax">Format string syntax</a>
- * @param args Arguments referenced by the format specifiers in the format string.  If there are more arguments than format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.  The maximum number of arguments is limited by the maximum dimension of a Java array as defined by <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a <tt>null</tt> argument depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
- * @throws IllegalFormatException If a format string contains an illegal syntax, a format specifier that is incompatible with the given arguments, insufficient arguments given the format string, or other illegal conditions.  For specification of all possible formatting errors, see the <a href="../util/Formatter.html#detail">Details</a> section of the formatter class specification.
- * @throws NullPointerException If the <tt>format</tt> is <tt>null</tt>
- * @return  This output stream
- * @since  1.5
+ * Validates this container and all of its subcomponents. <p> Validating a container means laying out its subcomponents. Layout-related changes, such as setting the bounds of a component, or adding a component to the container, invalidate the container automatically.  Note that the ancestors of the container may be invalidated also (see  {@link Component#invalidate} for details.)Therefore, to restore the validity of the hierarchy, the  {@code validate()} method should be invoked on the top-most invalidcontainer of the hierarchy. <p> Validating the container may be a quite time-consuming operation. For performance reasons a developer may postpone the validation of the hierarchy till a set of layout-related operations completes, e.g. after adding all the children to the container. <p> If this  {@code Container} is not valid, this method invokesthe  {@code validateTree} method and marks this {@code Container}as valid. Otherwise, no action is performed.
+ * @see #add(java.awt.Component)
+ * @see #invalidate
+ * @see Container#isValidateRoot
+ * @see javax.swing.JComponent#revalidate()
+ * @see #validateTree
  */
-public PrintStream format(String format,Object... args){
-  try {
-synchronized (this) {
-      ensureOpen();
-      if ((formatter == null) || (formatter.locale() != Locale.getDefault()))       formatter=new Formatter((Appendable)this);
-      formatter.format(Locale.getDefault(),format,args);
+public void validate(){
+  boolean updateCur=false;
+synchronized (getTreeLock()) {
+    if ((!isValid() || descendUnconditionallyWhenValidating) && peer != null) {
+      ContainerPeer p=null;
+      if (peer instanceof ContainerPeer) {
+        p=(ContainerPeer)peer;
+      }
+      if (p != null) {
+        p.beginValidate();
+      }
+      validateTree();
+      if (p != null) {
+        p.endValidate();
+        if (!descendUnconditionallyWhenValidating) {
+          updateCur=isVisible();
+        }
+      }
     }
   }
- catch (  InterruptedIOException x) {
-    Thread.currentThread().interrupt();
+  if (updateCur) {
+    updateCursorImmediately();
   }
-catch (  IOException x) {
-    trouble=true;
-  }
-  return this;
 }
 /** 
- * Writes a formatted string to this output stream using the specified format string and arguments.
- * @param l The  {@linkplain java.util.Locale locale} to apply duringformatting.  If <tt>l</tt> is <tt>null</tt> then no localization is applied.
- * @param format A format string as described in <a href="../util/Formatter.html#syntax">Format string syntax</a>
- * @param args Arguments referenced by the format specifiers in the format string.  If there are more arguments than format specifiers, the extra arguments are ignored.  The number of arguments is variable and may be zero.  The maximum number of arguments is limited by the maximum dimension of a Java array as defined by <cite>The Java&trade; Virtual Machine Specification</cite>. The behaviour on a <tt>null</tt> argument depends on the <a href="../util/Formatter.html#syntax">conversion</a>.
- * @throws IllegalFormatException If a format string contains an illegal syntax, a format specifier that is incompatible with the given arguments, insufficient arguments given the format string, or other illegal conditions.  For specification of all possible formatting errors, see the <a href="../util/Formatter.html#detail">Details</a> section of the formatter class specification.
- * @throws NullPointerException If the <tt>format</tt> is <tt>null</tt>
- * @return  This output stream
- * @since  1.5
+ * Unconditionally validate the component hierarchy.
  */
-public PrintStream format(Locale l,String format,Object... args){
-  try {
-synchronized (this) {
-      ensureOpen();
-      if ((formatter == null) || (formatter.locale() != l))       formatter=new Formatter(this,l);
-      formatter.format(l,format,args);
+final void validateUnconditionally(){
+  boolean updateCur=false;
+synchronized (getTreeLock()) {
+    descendUnconditionallyWhenValidating=true;
+    validate();
+    if (peer instanceof ContainerPeer) {
+      updateCur=isVisible();
     }
+    descendUnconditionallyWhenValidating=false;
   }
- catch (  InterruptedIOException x) {
-    Thread.currentThread().interrupt();
+  if (updateCur) {
+    updateCursorImmediately();
   }
-catch (  IOException x) {
-    trouble=true;
-  }
-  return this;
 }

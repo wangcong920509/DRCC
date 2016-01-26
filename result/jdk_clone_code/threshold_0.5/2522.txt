@@ -1,26 +1,14 @@
-public ByteBuffer get(byte[] dst,int offset,int length){
-  if ((length << 0) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,dst.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferUnderflowException();
-    Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 0,length << 0);
-    position(pos + length);
-  }
- else {
-    super.get(dst,offset,length);
-  }
+/** 
+ * @since 1.5
+ */
+public StringBuilder appendCodePoint(int codePoint){
+  super.appendCodePoint(codePoint);
   return this;
 }
-private ByteBuffer putLong(long a,long x){
-  if (unaligned) {
-    long y=(x);
-    unsafe.putLong(a,(nativeByteOrder ? y : Bits.swap(y)));
-  }
- else {
-    Bits.putLong(a,x,bigEndian);
-  }
+/** 
+ * @throws IndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder insert(int dstOffset,CharSequence s,int start,int end){
+  super.insert(dstOffset,s,start,end);
   return this;
 }

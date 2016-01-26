@@ -1,8 +1,14 @@
-public void write(ObjectId objectId,OutputStream os){
-  super.write(objectId,os);
-  getORBVersion().write(os);
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_char(){
+  checkExtractBadOperation(TCKind._tk_char);
+  return (char)value;
 }
-public void write(OutputStream os){
-  super.write(os);
-  getORBVersion().write(os);
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_wchar(){
+  checkExtractBadOperation(TCKind._tk_wchar);
+  return (char)value;
 }

@@ -1,15 +1,8 @@
-/** 
- * Get the default Context object
- * @result          the default Context object
- */
-public synchronized org.omg.CORBA.Context get_default_context(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_short(short x){
+  super.write_short(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }
-/** 
- * This method always returns false because the ORB never needs the main thread to do work.
- */
-public synchronized boolean work_pending(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void write_long(int x){
+  super.write_long(x);
+  checkPrimitiveAcrossFragmentedChunk();
 }

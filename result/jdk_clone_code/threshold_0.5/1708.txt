@@ -1,16 +1,16 @@
 /** 
- * Unimplemented. See org.w3c.dom.Document
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Element getDocumentElement(){
+public String getLocalName(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Document
+ * @return null
  */
-public Node adoptNode(Node source) throws DOMException {
+public DocumentFragment createDocumentFragment(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

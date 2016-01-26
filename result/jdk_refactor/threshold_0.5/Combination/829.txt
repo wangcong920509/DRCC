@@ -3,18 +3,18 @@ private Rectangle2D decodeRect11(){
   return rect;
 }
 
-private Rectangle2D decodeRect35(){
-  rect.setRect(decodeX(1.3333334f),decodeY(1.0f),decodeX(2.0f) - decodeX(1.3333334f),decodeY(1.1666666f) - decodeY(1.0f));
+private Rectangle2D decodeRect19(){
+  rect.setRect(decodeX(1.6666667f),decodeY(1.6666667f),decodeX(2.2f) - decodeX(1.6666667f),decodeY(2.2f) - decodeY(1.6666667f));
   return rect;
 }
 
 -->
-void decodeRect11_decodeRect35(int combFlag){
+void decodeRect11_decodeRect19(int combFlag){
   if (combFlag == 1) {
     rect.setRect(decodeX(0.8f),decodeY(2.2f),decodeX(1.0f) - decodeX(0.8f),decodeY(2.6f) - decodeY(2.2f));
   }
  else {
-    rect.setRect(decodeX(1.3333334f),decodeY(1.0f),decodeX(2.0f) - decodeX(1.3333334f),decodeY(1.1666666f) - decodeY(1.0f));
+    rect.setRect(decodeX(1.6666667f),decodeY(1.6666667f),decodeX(2.2f) - decodeX(1.6666667f),decodeY(2.2f) - decodeY(1.6666667f));
   }
   return rect;
 }

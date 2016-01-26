@@ -1,27 +1,14 @@
 /** 
- * Constructs a <code>SQLException</code> object with a given <code>cause</code>. The <code>SQLState</code> is initialized to <code>null</code> and the vendor code is initialized to 0. The <code>reason</code>  is initialized to <code>null</code> if <code>cause==null</code> or to <code>cause.toString()</code> if <code>cause!=null</code>. <p>
- * @param cause the underlying reason for this <code>SQLException</code>(which is saved for later retrieval by the <code>getCause()</code> method); may be null indicating the cause is non-existent or unknown.
- * @since 1.6
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public SQLException(Throwable cause){
-  super(cause);
-  if (!(this instanceof SQLWarning)) {
-    if (DriverManager.getLogWriter() != null) {
-      printStackTrace(DriverManager.getLogWriter());
-    }
-  }
+public void removeNotificationListener(ObjectName name,NotificationListener listener) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener);
 }
 /** 
- * Constructs a <code>SQLException</code> object with a given <code>reason</code> and  <code>cause</code>. The <code>SQLState</code> is  initialized to <code>null</code> and the vendor code is initialized to 0. <p>
- * @param reason a description of the exception.
- * @param cause the underlying reason for this <code>SQLException</code>(which is saved for later retrieval by the <code>getCause()</code> method); may be null indicating the cause is non-existent or unknown.
- * @since 1.6
+ * Call <code>checkRead()</code>, then forward this method to the wrapped object.
  */
-public SQLException(String reason,Throwable cause){
-  super(reason,cause);
-  if (!(this instanceof SQLWarning)) {
-    if (DriverManager.getLogWriter() != null) {
-      printStackTrace(DriverManager.getLogWriter());
-    }
-  }
+public void removeNotificationListener(ObjectName name,ObjectName listener) throws InstanceNotFoundException, ListenerNotFoundException {
+  checkRead();
+  getMBeanServer().removeNotificationListener(name,listener);
 }

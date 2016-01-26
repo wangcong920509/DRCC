@@ -1,8 +1,16 @@
-public DocumentHandler asDocumentHandler() throws IOException {
-  prepare();
-  return this;
+/** 
+ * Method add
+ * @param xmlX509IssuerSerial
+ */
+public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
+  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
-public DOMSerializer asDOMSerializer() throws IOException {
-  prepare();
-  return this;
+/** 
+ * Method addUnknownElement
+ * @param element
+ */
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

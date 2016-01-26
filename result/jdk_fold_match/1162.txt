@@ -68,3 +68,5 @@ private void updateStyle(JScrollBar c){
   thumbStyle=null;
   super.uninstallDefaults();
 }
+-->
+304.0 / 2310 = 0.1316017316017316

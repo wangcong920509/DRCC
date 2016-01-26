@@ -1,11 +1,28 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Enables event delivery to this menu item for events to be defined by the specified event mask parameter <p> Since event types are automatically enabled when a listener for that type is added to the menu item, this method only needs to be invoked by subclasses of <code>MenuItem</code> which desire to have the specified event types delivered to <code>processEvent</code> regardless of whether a listener is registered.
+ * @param eventsToEnable the event mask defining the event types
+ * @see java.awt.MenuItem#processEvent
+ * @see java.awt.MenuItem#disableEvents
+ * @see java.awt.Component#enableEvents
+ * @since       JDK1.1
+ */
+protected final void enableEvents(long eventsToEnable){
+  eventMask|=eventsToEnable;
+  newEventsOnly=true;
 }
 /** 
- * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ * Adds the specified action listener to receive action events from this menu item. If l is null, no exception is thrown and no action is performed. <p>Refer to <a href="doc-files/AWTThreadIssues.html#ListenersThreads" >AWT Threading Issues</a> for details on AWT's threading model.
+ * @param l the action listener.
+ * @see #removeActionListener
+ * @see #getActionListeners
+ * @see java.awt.event.ActionEvent
+ * @see java.awt.event.ActionListener
+ * @since      JDK1.1
  */
-public synchronized StringBuffer insert(int offset,Object obj){
-  super.insert(offset,String.valueOf(obj));
-  return this;
+public synchronized void addActionListener(ActionListener l){
+  if (l == null) {
+    return;
+  }
+  actionListener=AWTEventMulticaster.add(actionListener,l);
+  newEventsOnly=true;
 }

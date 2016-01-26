@@ -34,3 +34,5 @@ private void writeProxyDesc(ObjectStreamClass desc,boolean unshared) throws IOEx
   bout.writeByte(TC_ENDBLOCKDATA);
   writeClassDesc(desc.getSuperDesc(),false);
 }
+-->
+98.0 / 717 = 0.13668061366806136

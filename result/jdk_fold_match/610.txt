@@ -45,3 +45,5 @@ private void paintBackgroundPressed(Graphics2D g){
   g.setPaint(color65);
   g.fill(path);
 }
+-->
+218.0 / 2491 = 0.08751505419510237

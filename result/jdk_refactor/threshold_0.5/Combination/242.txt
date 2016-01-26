@@ -1,26 +1,44 @@
 /** 
- * Read the next character, and advance the cursor by one, ignoring the COMMENTS setting
+ * Releases in exclusive mode.  Implemented by unblocking one or more threads if  {@link #tryRelease} returns true.This method can be used to implement method  {@link Lock#unlock}.
+ * @param arg the release argument.  This value is conveyed to{@link #tryRelease} but is otherwise uninterpreted andcan represent anything you like.
+ * @return the value returned from {@link #tryRelease}
  */
-private int readEscaped(){
-  int ch=temp[cursor++];
-  return ch;
+public final boolean release(long arg){
+  if (tryRelease(arg)) {
+    Node h=head;
+    if (h != null && h.waitStatus != 0)     unparkSuccessor(h);
+    return true;
+  }
+  return false;
 }
 
 /** 
- * Advance the cursor by one, and peek the next character, ignoring the COMMENTS setting
+ * Releases in shared mode.  Implemented by unblocking one or more threads if  {@link #tryReleaseShared} returns true.
+ * @param arg the release argument.  This value is conveyed to{@link #tryReleaseShared} but is otherwise uninterpretedand can represent anything you like.
+ * @return the value returned from {@link #tryReleaseShared}
  */
-private int nextEscaped(){
-  int ch=temp[++cursor];
-  return ch;
+public final boolean releaseShared(long arg){
+  if (tryReleaseShared(arg)) {
+    doReleaseShared();
+    return true;
+  }
+  return false;
 }
 
 -->
-void readEscaped_nextEscaped(int combFlag){
+void release_releaseShared(long arg,long arg,int combFlag){
   if (combFlag == 1) {
-    int ch=temp[cursor++];
+    if (tryRelease(arg)) {
+      Node h=head;
+      if (h != null && h.waitStatus != 0)       unparkSuccessor(h);
+      return true;
+    }
   }
  else {
-    int ch=temp[++cursor];
+    if (tryReleaseShared(arg)) {
+      doReleaseShared();
+      return true;
+    }
   }
-  return ch;
+  return false;
 }

@@ -1,8 +1,32 @@
-public void unbind(Name name) throws NamingException {
-  Context ctx=getTargetContext();
-  ctx.unbind(name);
+/** 
+ * Sets the language.  If <code>language</code> is the empty string or null, the language in this <code>Builder</code> is removed.  Otherwise, the language must be <a href="./Locale.html#def_language">well-formed</a> or an exception is thrown. <p>The typical language value is a two or three-letter language code as defined in ISO639.
+ * @param language the language
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>language</code> is ill-formed
+ */
+public Builder setLanguage(String language){
+  try {
+    localeBuilder.setLanguage(language);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
-public void unbind(String name) throws NamingException {
-  Context ctx=getTargetContext();
-  ctx.unbind(name);
+/** 
+ * Removes a unicode locale attribute, if present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Attribute comparision for removal is case-insensitive.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
+ */
+public Builder removeUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.removeUnicodeLocaleAttribute(attribute);
+  }
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

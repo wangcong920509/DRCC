@@ -50,3 +50,5 @@ private Enum readEnum(boolean unshared) throws IOException {
   passHandle=enumHandle;
   return en;
 }
+-->
+111.0 / 1312 = 0.08460365853658537

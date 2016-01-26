@@ -114,3 +114,5 @@ static final int getTabbedTextWidth(View view,Segment s,FontMetrics metrics,int 
   nextX+=metrics.charsWidth(txt,n - charCount,charCount);
   return nextX - x;
 }
+-->
+282.0 / 3143 = 0.08972319440025453

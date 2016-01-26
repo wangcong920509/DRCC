@@ -1,18 +1,18 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param deep Flag indicating whether to clone deep (clone member variables)
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
  * @return null
  */
-public Node cloneNode(boolean deep){
+public String getAttributeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param data Data for text node
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Text createTextNode(String data){
+public String getNamespaceURI(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,14 +1,11 @@
-/** 
- * Translates an object of this type to an object of type <code>type</code>. Expects an object of the former type and pushes an object of the latter.
- */
-public void translateTo(ClassGenerator classGen,MethodGenerator methodGen,Type type){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),type.toString());
-  classGen.getParser().reportError(Constants.FATAL,err);
+public JSR_W(InstructionHandle target){
+  super(com.sun.org.apache.bcel.internal.Constants.JSR_W,target);
+  length=5;
 }
 /** 
- * Translates an object of this type to its boxed representation.
+ * Read needed data (e.g. index) from file.
  */
-public void translateBox(ClassGenerator classGen,MethodGenerator methodGen){
-  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,toString(),"[" + toString() + "]");
-  classGen.getParser().reportError(Constants.FATAL,err);
+protected void initFromFile(ByteSequence bytes,boolean wide) throws IOException {
+  index=bytes.readInt();
+  length=5;
 }

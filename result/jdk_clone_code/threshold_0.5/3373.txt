@@ -1,23 +1,35 @@
 /** 
- * Returns the tie (if any) for a given target object.
- * @return the tie or null if no tie is registered for the given target.
+ * Sets the Unicode locale keyword type for the given key.  If the type is null, the Unicode keyword is removed.  Otherwise, the key must be non-null and both key and type must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown. <p>Keys and types are converted to lower case. <p><b>Note</b>:Setting the 'u' extension via  {@link #setExtension}replaces all Unicode locale keywords with those defined in the extension.
+ * @param key the Unicode locale key
+ * @param type the Unicode locale type
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>key</code> or <code>type</code>is ill-formed
+ * @throws NullPointerException if <code>key</code> is null
+ * @see #setExtension(char,String)
  */
-public static Tie getTie(Remote target){
-  if (utilDelegate != null) {
-    return utilDelegate.getTie(target);
+public Builder setUnicodeLocaleKeyword(String key,String type){
+  try {
+    localeBuilder.setUnicodeLocaleKeyword(key,type);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Copies or connects an object. Used by local stubs to copy an actual parameter, result object, or exception.
- * @param obj the object to copy.
- * @param orb the ORB.
- * @return the copy or connected object.
- * @exception RemoteException if the object could not be copied or connected.
+ * Adds a unicode locale attribute, if not already present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static Object copyObject(Object obj,ORB orb) throws RemoteException {
-  if (utilDelegate != null) {
-    return utilDelegate.copyObject(obj,orb);
+public Builder addUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.addUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

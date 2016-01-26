@@ -1,12 +1,22 @@
-public synchronized StringBuffer append(String str){
-  super.append(str);
-  return this;
+/** 
+ * Sets the requested data array element in the first (default) bank to the given <code>float</code>.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElemFloat(int)
+ * @see #getElemFloat(int,int)
+ */
+public void setElemFloat(int i,float val){
+  data[i + offset]=val;
+  theTrackable.markDirty();
 }
 /** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- * @since      1.5
+ * Sets the requested data array element in the first (default) bank to the given <code>double</code>.
+ * @param i The desired data array element.
+ * @param val The value to be set.
+ * @see #getElemDouble(int)
+ * @see #getElemDouble(int,int)
  */
-public synchronized StringBuffer append(CharSequence s,int start,int end){
-  super.append(s,start,end);
-  return this;
+public void setElemDouble(int i,double val){
+  data[i + offset]=(float)val;
+  theTrackable.markDirty();
 }

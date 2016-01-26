@@ -1,38 +1,35 @@
-public E peekLast(){
-  for (Node<E> p=last(); p != null; p=pred(p)) {
-    E item=p.item;
-    if (item != null)     return item;
-  }
-  return null;
+/** 
+ * Returns a  {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the left.  If{@code n} is non-negative, the call merely adds {@code n} tothe scale.  If  {@code n} is negative, the call is equivalentto  {@code movePointRight(-n)}.  The  {@code BigDecimal}returned by this call has value <tt>(this &times; 10<sup>-n</sup>)</tt> and scale  {@code max(this.scale()+n,0)}.
+ * @param n number of places to move the decimal point to the left.
+ * @return a {@code BigDecimal} which is equivalent to this one with thedecimal point moved  {@code n} places to the left.
+ * @throws ArithmeticException if scale overflows.
+ */
+public BigDecimal movePointLeft(int n){
+  int newScale=checkScale((long)scale + n);
+  BigDecimal num=new BigDecimal(intVal,intCompact,newScale,0);
+  return num.scale < 0 ? num.setScale(0,ROUND_UNNECESSARY) : num;
 }
 
-public E pollLast(){
-  for (Node<E> p=last(); p != null; p=pred(p)) {
-    E item=p.item;
-    if (item != null && p.casItem(item,null)) {
-      unlink(p);
-      return item;
-    }
-  }
-  return null;
+/** 
+ * Returns a  {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the right.If  {@code n} is non-negative, the call merely subtracts{@code n} from the scale.  If {@code n} is negative, the callis equivalent to  {@code movePointLeft(-n)}.  The {@code BigDecimal} returned by this call has value <tt>(this&times; 10<sup>n</sup>)</tt> and scale  {@code max(this.scale()-n,0)}.
+ * @param n number of places to move the decimal point to the right.
+ * @return a {@code BigDecimal} which is equivalent to this onewith the decimal point moved  {@code n} places to the right.
+ * @throws ArithmeticException if scale overflows.
+ */
+public BigDecimal movePointRight(int n){
+  int newScale=checkScale((long)scale - n);
+  BigDecimal num=new BigDecimal(intVal,intCompact,newScale,0);
+  return num.scale < 0 ? num.setScale(0,ROUND_UNNECESSARY) : num;
 }
 
 -->
-void peekLast_pollLast(int combFlag){
+void movePointLeft_movePointRight(int n,int n,int combFlag){
   if (combFlag == 1) {
-    for (Node<E> p=last(); p != null; p=pred(p)) {
-      E item=p.item;
-      if (item != null)       return item;
-    }
+    int newScale=checkScale((long)scale + n);
   }
  else {
-    for (Node<E> p=last(); p != null; p=pred(p)) {
-      E item=p.item;
-      if (item != null && p.casItem(item,null)) {
-        unlink(p);
-        return item;
-      }
-    }
+    int newScale=checkScale((long)scale - n);
   }
-  return null;
+  BigDecimal num=new BigDecimal(intVal,intCompact,newScale,0);
+  return num.scale < 0 ? num.setScale(0,ROUND_UNNECESSARY) : num;
 }

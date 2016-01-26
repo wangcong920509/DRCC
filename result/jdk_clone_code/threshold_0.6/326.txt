@@ -1,20 +1,14 @@
 /** 
- * Prints this <code>TransformException</code>, its backtrace and the cause's backtrace to the specified print stream.
- * @param s <code>PrintStream</code> to use for output
+ * @see ExtendedContentHandler#getPrefix(java.lang.String)
  */
-public void printStackTrace(PrintStream s){
-  super.printStackTrace(s);
-  if (cause != null) {
-    cause.printStackTrace(s);
-  }
+public String getPrefix(String uri){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Prints this <code>TransformException</code>, its backtrace and the cause's backtrace to the specified print writer.
- * @param s <code>PrintWriter</code> to use for output
+ * @see XSLOutputAttributes#getEncoding()
  */
-public void printStackTrace(PrintWriter s){
-  super.printStackTrace(s);
-  if (cause != null) {
-    cause.printStackTrace(s);
-  }
+public String getEncoding(){
+  aMethodIsCalled();
+  return null;
 }

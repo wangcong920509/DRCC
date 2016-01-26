@@ -39,3 +39,5 @@ public int compareTo(SnmpIndex index){
   }
   return 0;
 }
+-->
+47.0 / 466 = 0.10085836909871244

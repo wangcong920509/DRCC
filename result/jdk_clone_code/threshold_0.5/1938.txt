@@ -1,18 +1,34 @@
 /** 
- * Adds an image to end of the list of sources.  The image is stored as an object in order to allow new node types in the future.
- * @param source an image object to be stored in the source list.
- * @return a new <code>ParameterBlock</code> containing the specified<code>source</code>.
+ * Inserts the item into this choice at the specified position. Existing items at an index greater than or equal to <code>index</code> are shifted up by one to accommodate the new item.  If <code>index</code> is greater than or equal to the number of items in this choice, <code>item</code> is added to the end of this choice. <p> If the item is the first one being added to the choice, then the item becomes selected.  Otherwise, if the selected item was one of the items shifted, the first item in the choice becomes the selected item.  If the selected item was no among those shifted, it remains the selected item.
+ * @param item the non-<code>null</code> item to be inserted
+ * @param index the position at which the item should be inserted
+ * @exception IllegalArgumentException if index is less than 0
  */
-public ParameterBlock addSource(Object source){
-  sources.addElement(source);
-  return this;
+public void insert(String item,int index){
+synchronized (this) {
+    if (index < 0) {
+      throw new IllegalArgumentException("index less than zero.");
+    }
+    index=Math.min(index,pItems.size());
+    insertNoInvalidate(item,index);
+  }
+  invalidateIfValid();
 }
 /** 
- * Adds an object to the list of parameters.
- * @param obj the <code>Object</code> to add to the<code>parameters</code> <code>Vector</code>
- * @return a new <code>ParameterBlock</code> containingthe specified parameter.
+ * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param item  the item to remove from this <code>Choice</code> menu
+ * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
+ * @since      JDK1.1
  */
-public ParameterBlock add(Object obj){
-  parameters.addElement(obj);
-  return this;
+public void remove(String item){
+synchronized (this) {
+    int index=pItems.indexOf(item);
+    if (index < 0) {
+      throw new IllegalArgumentException("item " + item + " not found in choice");
+    }
+ else {
+      removeNoInvalidate(index);
+    }
+  }
+  invalidateIfValid();
 }

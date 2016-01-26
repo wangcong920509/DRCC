@@ -1,15 +1,14 @@
 /** 
- * Constructor ObjectPool
- * @param type Type of objects for this pool
+ * @see ExtendedContentHandler#getNamespaceMappings()
  */
-public ObjectPool(Class type){
-  objectType=type;
-  freeStack=new ArrayList();
+public NamespaceMappings getNamespaceMappings(){
+  aMethodIsCalled();
+  return null;
 }
 /** 
- * Constructor ObjectPool
+ * @see XSLOutputAttributes#getMediaType()
  */
-public ObjectPool(){
-  objectType=null;
-  freeStack=new ArrayList();
+public String getMediaType(){
+  aMethodIsCalled();
+  return null;
 }

@@ -56,3 +56,5 @@ private final void shortFilter(ShortLookupTable lookup,Raster src,WritableRaster
     }
   }
 }
+-->
+88.0 / 1099 = 0.08007279344858963

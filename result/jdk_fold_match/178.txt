@@ -46,3 +46,5 @@ public void setText(CharacterIterator source){
     text.setText(source);
   }
 }
+-->
+98.0 / 434 = 0.22580645161290322

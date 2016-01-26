@@ -31,3 +31,5 @@ public static void drawLoweredBezel(Graphics g,int x,int y,int w,int h,Color sha
   g.drawLine(1,h - 2,w - 2,h - 2);
   g.drawLine(w - 2,h - 2,w - 2,1);
 }
+-->
+232.0 / 1827 = 0.12698412698412698

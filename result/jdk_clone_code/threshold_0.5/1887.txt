@@ -1,38 +1,20 @@
 /** 
- * Prints a listing of this container to the specified output stream. The listing starts at the specified indentation. <p> The immediate children of the container are printed with an indentation of <code>indent+1</code>.  The children of those children are printed at <code>indent+2</code> and so on.
- * @param out      a print stream
- * @param indent   the number of spaces to indent
- * @throws NullPointerException if {@code out} is {@code null}
- * @see Component#list(java.io.PrintStream,int)
- * @since    JDK1.0
+ * Unimplemented. See org.w3c.dom.Document
+ * @param namespaceURI Namespace URI for the element
+ * @param qualifiedName Qualified name of the element
+ * @return null
+ * @throws DOMException
  */
-public void list(PrintStream out,int indent){
-  super.list(out,indent);
-synchronized (getTreeLock()) {
-    for (int i=0; i < component.size(); i++) {
-      Component comp=component.get(i);
-      if (comp != null) {
-        comp.list(out,indent + 1);
-      }
-    }
-  }
+public Element createElementNS(String namespaceURI,String qualifiedName) throws DOMException {
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }
 /** 
- * Prints out a list, starting at the specified indentation, to the specified print writer. <p> The immediate children of the container are printed with an indentation of <code>indent+1</code>.  The children of those children are printed at <code>indent+2</code> and so on.
- * @param out      a print writer
- * @param indent   the number of spaces to indent
- * @throws NullPointerException if {@code out} is {@code null}
- * @see Component#list(java.io.PrintWriter,int)
- * @since    JDK1.1
+ * Unimplemented. See org.w3c.dom.Document
+ * @param elementId ID of the element to get
+ * @return null
  */
-public void list(PrintWriter out,int indent){
-  super.list(out,indent);
-synchronized (getTreeLock()) {
-    for (int i=0; i < component.size(); i++) {
-      Component comp=component.get(i);
-      if (comp != null) {
-        comp.list(out,indent + 1);
-      }
-    }
-  }
+public Element getElementById(String elementId){
+  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+  return null;
 }

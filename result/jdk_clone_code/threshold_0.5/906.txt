@@ -1,19 +1,18 @@
 /** 
- * Unimplemented. See org.w3c.dom.NodeList
- * @param index index of a child of this node in its list of children
+ * Unimplemented. See org.w3c.dom.Node
  * @return null
  */
-public Node item(int index){
+public Node getLastChild(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @param oldChild Child to be removed
- * @return null
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
  * @throws DOMException
  */
-public Node removeChild(Node oldChild) throws DOMException {
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

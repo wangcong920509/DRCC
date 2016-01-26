@@ -1,28 +1,28 @@
 /** 
- * Unimplemented. See org.w3c.dom.Node
- * @return false
+ * Flush the internal buffer and flush the Writer
+ * @see java.io.Writer#flush()
  */
-public boolean hasChildNodes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public void flush() throws java.io.IOException {
+  if (m_writer != null)   m_writer.flush();
+  flushBuffer();
 }
 
 /** 
- * Unimplemented. Introduced in DOM Level 2.
- * @return false
+ * Flush the internal buffer and close the Writer
+ * @see java.io.Writer#close()
  */
-public boolean hasAttributes(){
-  error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return false;
+public void close() throws java.io.IOException {
+  if (m_writer != null)   m_writer.close();
+  flushBuffer();
 }
 
 -->
-void hasChildNodes_hasAttributes(int combFlag){
+void flush_close(int combFlag){
   if (combFlag == 1) {
-    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+    if (m_writer != null)     m_writer.flush();
   }
  else {
-    error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
+    if (m_writer != null)     m_writer.close();
   }
-  return false;
+  flushBuffer();
 }

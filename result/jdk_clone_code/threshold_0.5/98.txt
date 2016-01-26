@@ -1,14 +1,18 @@
 /** 
- * V3 enabled Adaptor. Each Oid is added using updateRequest method.
+ * Put an octet string with a specified tag.
+ * @param s The bytes to encode
+ * @param tag The tag to encode.
  */
-protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req){
-  this(agent,req);
-  init(engine,incRequest);
+public void putOctetString(byte[] s,int tag){
+  putStringValue(s);
+  putTag(tag);
 }
 /** 
- * V3 enabled Adaptor.
+ * Put an object identifier with a specified tag.
+ * @param s The integer to encode.
+ * @param tag The tag to encode.
  */
-protected SnmpSubRequestHandler(SnmpEngine engine,SnmpIncomingRequest incRequest,SnmpMibAgent agent,SnmpPdu req,boolean nouse){
-  this(agent,req,nouse);
-  init(engine,incRequest);
+public void putOid(long[] s,int tag){
+  putOidValue(s);
+  putTag(tag);
 }

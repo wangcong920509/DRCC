@@ -1,11 +1,8 @@
-/** 
- * @throws IndexOutOfBoundsException {@inheritDoc}
- */
-public synchronized StringBuffer append(char[] str,int offset,int len){
-  super.append(str,offset,len);
+public synchronized StringBuffer append(Object obj){
+  super.append(String.valueOf(obj));
   return this;
 }
-public synchronized StringBuffer append(double d){
-  super.append(d);
+public synchronized StringBuffer append(boolean b){
+  super.append(b);
   return this;
 }

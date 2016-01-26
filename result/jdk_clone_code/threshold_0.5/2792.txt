@@ -1,21 +1,14 @@
-public DoubleBuffer get(double[] dst,int offset,int length){
-  if ((length << 3) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,dst.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferUnderflowException();
-    if (order() != ByteOrder.nativeOrder())     Bits.copyToLongArray(ix(pos),dst,offset << 3,length << 3);
- else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 3,length << 3);
-    position(pos + length);
-  }
- else {
-    super.get(dst,offset,length);
-  }
+public ByteBuffer putShort(int i,short x){
+  putShort(ix(checkIndex(i,(1 << 1))),x);
   return this;
 }
-public DoubleBuffer put(double x){
-  unsafe.putDouble(ix(nextPutIndex()),((x)));
+private ByteBuffer putLong(long a,long x){
+  if (unaligned) {
+    long y=(x);
+    unsafe.putLong(a,(nativeByteOrder ? y : Bits.swap(y)));
+  }
+ else {
+    Bits.putLong(a,x,bigEndian);
+  }
   return this;
 }

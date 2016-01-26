@@ -1,8 +1,8 @@
-HeapFloatBufferR(float[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+public ByteBuffer put(int i,byte x){
+  hb[ix(checkIndex(i))]=x;
+  return this;
 }
-protected HeapFloatBufferR(float[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+public ByteBuffer putInt(int i,int x){
+  Bits.putInt(this,ix(checkIndex(i,4)),x,bigEndian);
+  return this;
 }

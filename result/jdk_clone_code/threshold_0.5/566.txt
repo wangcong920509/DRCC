@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getDoctypeSystem()
+ * @see SerializationHandler#reset()
  */
-public String getDoctypeSystem(){
+public boolean reset(){
   aMethodIsCalled();
-  return null;
+  return false;
 }
 /** 
- * @see Serializer#asDOMSerializer()
+ * @see SerializationHandler#setEscaping(boolean)
  */
-public DOMSerializer asDOMSerializer() throws IOException {
-  couldThrowIOException();
-  return null;
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }

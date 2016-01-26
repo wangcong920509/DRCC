@@ -1,20 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of the element
- * @param localName Local part of qualified name of the element
+ * @param name Name of attribute to get
  * @return null
  */
-public NodeList getElementsByTagNameNS(String namespaceURI,String localName){
+public String getAttribute(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented.
- * @param offset Offset into text to split
- * @return null, unimplemented
+ * Unimplemented. See org.w3c.dom.Element
+ * @param newAttr Attribute to set
+ * @return null
  * @throws DOMException
  */
-public Text splitText(int offset) throws DOMException {
+public Attr setAttributeNodeNS(Attr newAttr) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

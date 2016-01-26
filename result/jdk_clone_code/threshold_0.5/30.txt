@@ -1,8 +1,8 @@
-public static UtilSystemException get(ORB orb,String logDomain){
-  UtilSystemException wrapper=(UtilSystemException)orb.getLogWrapper(logDomain,"UTIL",factory);
+public static OMGSystemException get(ORB orb,String logDomain){
+  OMGSystemException wrapper=(OMGSystemException)orb.getLogWrapper(logDomain,"OMG",factory);
   return wrapper;
 }
-public static UtilSystemException get(String logDomain){
-  UtilSystemException wrapper=(UtilSystemException)ORB.staticGetLogWrapper(logDomain,"UTIL",factory);
+public static OMGSystemException get(String logDomain){
+  OMGSystemException wrapper=(OMGSystemException)ORB.staticGetLogWrapper(logDomain,"OMG",factory);
   return wrapper;
 }

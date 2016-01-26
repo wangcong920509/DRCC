@@ -1,22 +1,23 @@
 /** 
- * Maps a SystemException to a RemoteException.
- * @param ex the SystemException to map.
- * @return the mapped exception.
+ * Sets the script. If <code>script</code> is null or the empty string, the script in this <code>Builder</code> is removed. Otherwise, the script must be <a href="./Locale.html#def_script">well-formed</a> or an exception is thrown. <p>The typical script value is a four-letter script code as defined by ISO 15924.
+ * @param script the script
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>script</code> is ill-formed
  */
-public static RemoteException mapSystemException(SystemException ex){
-  if (utilDelegate != null) {
-    return utilDelegate.mapSystemException(ex);
+public Builder setScript(String script){
+  try {
+    localeBuilder.setScript(script);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Reads a java.lang.Object as a CORBA any.
- * @param in the stream from which to read the any.
- * @return the object read from the stream.
+ * Resets the builder to its initial, empty state.
+ * @return This builder.
  */
-public static Object readAny(InputStream in){
-  if (utilDelegate != null) {
-    return utilDelegate.readAny(in);
-  }
-  return null;
+public Builder clear(){
+  localeBuilder.clear();
+  return this;
 }

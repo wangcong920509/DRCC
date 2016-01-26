@@ -1,8 +1,27 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the first tab index with a given <code>title</code>,  or -1 if no tab has this title.
+ * @param title the title for the tab
+ * @return the first tab index which matches <code>title</code>, or-1 if no tab has this title
+ */
+public int indexOfTab(String title){
+  for (int i=0; i < getTabCount(); i++) {
+    if (getTitleAt(i).equals(title == null ? "" : title)) {
+      return i;
+    }
+  }
+  return -1;
 }
-private Rectangle2D decodeRect8(){
-  rect.setRect(decodeX(0.4f),decodeY(0.2f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.2f) - decodeY(0.2f));
-  return rect;
+/** 
+ * Returns the index of the tab for the specified component. Returns -1 if there is no tab for this component.
+ * @param component the component for the tab
+ * @return the first tab which matches this component, or -1if there is no tab for this component
+ */
+public int indexOfComponent(Component component){
+  for (int i=0; i < getTabCount(); i++) {
+    Component c=getComponentAt(i);
+    if ((c != null && c.equals(component)) || (c == null && c == component)) {
+      return i;
+    }
+  }
+  return -1;
 }

@@ -1,8 +1,8 @@
-public ByteBuffer putChar(int i,char x){
-  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
+public IntBuffer put(int x){
+  unsafe.putInt(ix(nextPutIndex()),((x)));
   return this;
 }
-public ByteBuffer putFloat(int i,float x){
-  Bits.putFloat(this,ix(checkIndex(i,4)),x,bigEndian);
+public IntBuffer put(int i,int x){
+  unsafe.putInt(ix(checkIndex(i)),((x)));
   return this;
 }

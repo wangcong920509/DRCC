@@ -1,8 +1,8 @@
-public CharBuffer put(char x){
-  unsafe.putChar(ix(nextPutIndex()),((x)));
+public ByteBuffer putShort(short x){
+  putShort(ix(nextPutIndex((1 << 1))),x);
   return this;
 }
-public CharBuffer put(int i,char x){
-  unsafe.putChar(ix(checkIndex(i)),((x)));
+public ByteBuffer putShort(int i,short x){
+  putShort(ix(checkIndex(i,(1 << 1))),x);
   return this;
 }

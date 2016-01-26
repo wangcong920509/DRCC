@@ -1,41 +1,12 @@
-/** 
- * Given a node handle, advance to the next attribute. If an attr, we advance to the next attr on the same node.  If not an attribute, we return NULL.
- * @param nodeHandle int Handle of the node.
- * @return int DTM node-number of the resolved attr,or DTM.NULL to indicate none exists.
- */
-public int getNextAttribute(int nodeHandle){
-  int nodeID=makeNodeIdentity(nodeHandle);
-  if (_type(nodeID) == DTM.ATTRIBUTE_NODE) {
-    return makeNodeHandle(getNextAttributeIdentity(nodeID));
+public int getLineNumber(){
+  if (fLocator != null) {
+    return fLocator.getLineNumber();
   }
-  return DTM.NULL;
+  return -1;
 }
-/** 
- * Given a namespace handle, advance to the next namespace.
- * @param baseHandle handle to original node from where the first namespacewas relative to (needed to return nodes in document order).
- * @param nodeHandle A namespace handle for which we will find the next node.
- * @param inScope true if all namespaces that are in scope should be processed,otherwise just process the nodes in the given element handle.
- * @return handle of next namespace, or DTM.NULL to indicate none exists.
- */
-public int getNextNamespaceNode(int baseHandle,int nodeHandle,boolean inScope){
-  if (inScope) {
-    SuballocatedIntVector nsContext=findNamespaceContext(makeNodeIdentity(baseHandle));
-    if (nsContext == null)     return NULL;
-    int i=1 + nsContext.indexOf(nodeHandle);
-    if (i <= 0 || i == nsContext.size())     return NULL;
-    return nsContext.elementAt(i);
+public int getColumnNumber(){
+  if (fLocator != null) {
+    return fLocator.getColumnNumber();
   }
- else {
-    int identity=makeNodeIdentity(nodeHandle);
-    while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
-      int type=_type(identity);
-      if (type == DTM.NAMESPACE_NODE) {
-        return makeNodeHandle(identity);
-      }
- else       if (type != DTM.ATTRIBUTE_NODE) {
-        break;
-      }
-    }
-  }
-  return DTM.NULL;
+  return -1;
 }

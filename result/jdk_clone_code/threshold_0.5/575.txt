@@ -1,14 +1,14 @@
 /** 
- * @see XSLOutputAttributes#getStandalone()
+ * @see SerializationHandler#getTransformer()
  */
-public String getStandalone(){
+public Transformer getTransformer(){
   aMethodIsCalled();
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getVersion()
+ * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
  */
-public String getVersion(){
+public String getNamespaceURI(String name,boolean isElement){
   aMethodIsCalled();
   return null;
 }

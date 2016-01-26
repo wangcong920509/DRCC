@@ -1,20 +1,27 @@
-private RoundRectangle2D decodeRoundRect2(){
-  roundRect.setRoundRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.6f),3.764706f,3.764706f);
-  return roundRect;
+/** 
+ * Returns the minimum size for this component.  Which will be the min preferred size or 0, 0.
+ */
+public Dimension getMinimumSize(JComponent c){
+  if (this.getPreferredMinSize() != null)   return this.getPreferredMinSize();
+  return new Dimension(0,0);
 }
 
-private RoundRectangle2D decodeRoundRect4(){
-  roundRect.setRoundRect(decodeX(0.120000005f),decodeY(0.120000005f),decodeX(2.8799999f) - decodeX(0.120000005f),decodeY(2.8799999f) - decodeY(0.120000005f),8.0f,8.0f);
-  return roundRect;
+/** 
+ * Returns the maximum size for this component, which will be the preferred size if the instance is currently in a JTree, or 0, 0.
+ */
+public Dimension getMaximumSize(JComponent c){
+  if (tree != null)   return getPreferredSize(tree);
+  if (this.getPreferredMinSize() != null)   return this.getPreferredMinSize();
+  return new Dimension(0,0);
 }
 
 -->
-void decodeRoundRect2_decodeRoundRect4(int combFlag){
+void getMinimumSize_getMaximumSize(JComponent c,JComponent c,int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.6f),3.764706f,3.764706f);
   }
  else {
-    roundRect.setRoundRect(decodeX(0.120000005f),decodeY(0.120000005f),decodeX(2.8799999f) - decodeX(0.120000005f),decodeY(2.8799999f) - decodeY(0.120000005f),8.0f,8.0f);
+    if (tree != null)     return getPreferredSize(tree);
   }
-  return roundRect;
+  if (this.getPreferredMinSize() != null)   return this.getPreferredMinSize();
+  return new Dimension(0,0);
 }

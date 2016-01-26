@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param keyvalue
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(KeyValue keyvalue){
+  this._constructionElement.appendChild(keyvalue.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see SerializationHandler#getWriter()
+ * Method add
+ * @param retrievalmethod
  */
-public Writer getWriter(){
-  aMethodIsCalled();
-  return null;
+public void add(RetrievalMethod retrievalmethod){
+  this._constructionElement.appendChild(retrievalmethod.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

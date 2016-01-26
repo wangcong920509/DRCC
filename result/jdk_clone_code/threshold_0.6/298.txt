@@ -1,18 +1,14 @@
 /** 
- * Overrides <code>Graphics.setClip</code>.
+ * @see SerializationHandler#setEscaping(boolean)
  */
-public void setClip(int x,int y,int width,int height){
-  graphics.setClip(x,y,width,height);
-  if (debugLog()) {
-    info().log(toShortString() + " Setting new clipRect: " + graphics.getClip());
-  }
+public boolean setEscaping(boolean escape) throws SAXException {
+  couldThrowSAXException();
+  return false;
 }
 /** 
- * Overrides <code>Graphics.setClip</code>.
+ * @see XSLOutputAttributes#getOmitXMLDeclaration()
  */
-public void setClip(Shape clip){
-  graphics.setClip(clip);
-  if (debugLog()) {
-    info().log(toShortString() + " Setting new clipRect: " + graphics.getClip());
-  }
+public boolean getOmitXMLDeclaration(){
+  aMethodIsCalled();
+  return false;
 }

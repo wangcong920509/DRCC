@@ -1,8 +1,64 @@
-public synchronized StringBuffer append(char[] str){
-  super.append(str);
-  return this;
+private void emitIconstInsn(int i){
+  int opcode;
+switch (i) {
+case 0:
+    opcode=Opcodes.ICONST_0;
+  break;
+case 1:
+opcode=Opcodes.ICONST_1;
+break;
+case 2:
+opcode=Opcodes.ICONST_2;
+break;
+case 3:
+opcode=Opcodes.ICONST_3;
+break;
+case 4:
+opcode=Opcodes.ICONST_4;
+break;
+case 5:
+opcode=Opcodes.ICONST_5;
+break;
+default :
+if (i == (byte)i) {
+mv.visitIntInsn(Opcodes.BIPUSH,i & 0xFF);
 }
-public synchronized StringBuffer append(char c){
-  super.append(c);
-  return this;
+ else if (i == (short)i) {
+mv.visitIntInsn(Opcodes.SIPUSH,(char)i);
+}
+ else {
+mv.visitLdcInsn(i);
+}
+return;
+}
+mv.visitInsn(opcode);
+}
+/** 
+ * Emits an actual return instruction conforming to the given return type.
+ */
+private void emitReturnInsn(Class<?> type){
+  int opcode;
+switch (Wrapper.basicTypeChar(type)) {
+case 'I':
+    opcode=Opcodes.IRETURN;
+  break;
+case 'J':
+opcode=Opcodes.LRETURN;
+break;
+case 'F':
+opcode=Opcodes.FRETURN;
+break;
+case 'D':
+opcode=Opcodes.DRETURN;
+break;
+case 'L':
+opcode=Opcodes.ARETURN;
+break;
+case 'V':
+opcode=Opcodes.RETURN;
+break;
+default :
+throw new InternalError("unknown return type: " + type);
+}
+mv.visitInsn(opcode);
 }

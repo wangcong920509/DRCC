@@ -1,20 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Document
- * @param data Data for comment
  * @return null
  */
-public Comment createComment(String data){
+public DOMImplementation getImplementation(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Document
- * @param target Target for Processing instruction
- * @param data Data for Processing instruction
- * @return null
+ * Unimplemented.
+ * @param offset Offset into text to split
+ * @return null, unimplemented
  * @throws DOMException
  */
-public ProcessingInstruction createProcessingInstruction(String target,String data) throws DOMException {
+public Text splitText(int offset) throws DOMException {
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

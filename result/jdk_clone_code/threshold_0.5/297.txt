@@ -1,26 +1,12 @@
-/** 
- * Checks whether a binding or unbinding for the given prefix exists in the context.
- * @param prefix The prefix to look up.
- * @return true if the given prefix exists in the context
- */
-public boolean containsPrefix(String prefix){
-  for (int i=fNamespaceSize; i > 0; i-=2) {
-    if (fNamespace[i - 2] == prefix) {
-      return true;
-    }
+public void addGlobalGroupDecl(XSGroupDecl decl,String location){
+  fGlobalGroupDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return false;
 }
-/** 
- * Checks whether a binding or unbinding for the given prefix exists in the current context.
- * @param prefix The prefix to look up.
- * @return true if the given prefix exists in the current context
- */
-public boolean containsPrefixInCurrentContext(String prefix){
-  for (int i=fContext[fCurrentContext]; i < fNamespaceSize; i+=2) {
-    if (fNamespace[i] == prefix) {
-      return true;
-    }
+public void addGlobalNotationDecl(XSNotationDecl decl,String location){
+  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return false;
 }

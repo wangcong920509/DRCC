@@ -1,22 +1,8 @@
-/** 
- * <p>Print stack trace to specified <code>PrintStream</code>.</p>
- * @param s Print stack trace to this <code>PrintStream</code>.
- */
-public void printStackTrace(java.io.PrintStream s){
-  if (getCause() != null) {
-    getCause().printStackTrace(s);
-    s.println("--------------- linked to ------------------");
-  }
-  super.printStackTrace(s);
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(2.3333333f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * <p>Print stack trace to specified <code>PrintWriter</code>.</p>
- * @param s Print stack trace to this <code>PrintWriter</code>.
- */
-public void printStackTrace(PrintWriter s){
-  if (getCause() != null) {
-    getCause().printStackTrace(s);
-    s.println("--------------- linked to ------------------");
-  }
-  super.printStackTrace(s);
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(1.0f) - decodeY(0.4f));
+  return rect;
 }

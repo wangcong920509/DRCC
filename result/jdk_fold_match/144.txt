@@ -495,3 +495,5 @@ public int[] getComponents(Object pixel,int[] components,int offset){
   System.arraycopy(intpixel,0,components,offset,numComponents);
   return components;
 }
+-->
+1460.0 / 12083 = 0.12083091947364065

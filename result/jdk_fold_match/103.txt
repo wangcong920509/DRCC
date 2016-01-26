@@ -67,3 +67,5 @@ Token processIndependent() throws ParseException {
   this.next();
   return tok;
 }
+-->
+379.0 / 2704 = 0.14016272189349113

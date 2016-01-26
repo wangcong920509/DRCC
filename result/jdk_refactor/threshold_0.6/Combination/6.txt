@@ -1,26 +1,30 @@
 /** 
- * @see org.w3c.dom.Node
+ * Look for ConstantString in ConstantPool containing String `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-@Override public final Node getFirstChild(){
-  int newnode=dtm.getFirstChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public int lookupString(String str){
+  Index index=(Index)string_table.get(str);
+  return (index != null) ? index.index : -1;
 }
 
 /** 
- * @see org.w3c.dom.Node
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 
 -->
-void getFirstChild_getLastChild(int combFlag){
+void lookupString_lookupClass(String str,String str,int combFlag){
   if (combFlag == 1) {
-    int newnode=dtm.getFirstChild(node);
+    Index index=(Index)string_table.get(str);
   }
  else {
-    int newnode=dtm.getLastChild(node);
+    Index index=(Index)class_table.get(str.replace('.','/'));
   }
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+  return (index != null) ? index.index : -1;
 }

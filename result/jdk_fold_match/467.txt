@@ -57,3 +57,5 @@ private void painthomeFolderIconEnabled(Graphics2D g){
   g.setPaint(decodeGradient25(path));
   g.fill(path);
 }
+-->
+294.0 / 4137 = 0.07106598984771574

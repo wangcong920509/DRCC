@@ -90,3 +90,5 @@ protected void updateUndoPositions(Vector positions,int offset,int length){
     marks.replaceRange(startIndex,endIndex,sorted);
   }
 }
+-->
+40.0 / 1013 = 0.039486673247778874

@@ -1,0 +1,5 @@
+{
+  MessageDigest delegate=new Delegate((MessageDigestSpi)objs[0],algorithm);
+  delegate.provider=(Provider)objs[1];
+  return delegate;
+}

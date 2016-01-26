@@ -1,8 +1,14 @@
-HeapDoubleBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+/** 
+ * Translates an external (Java) type denoted by <code>clazz</code> to an object of this type. This method is used to translate return values when external functions are called.
+ */
+public void translateFrom(ClassGenerator classGen,MethodGenerator methodGen,Class clazz){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,clazz.getClass().toString(),toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }
-HeapDoubleBufferR(double[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+/** 
+ * Translates an object of this type to its unboxed representation.
+ */
+public void translateUnBox(ClassGenerator classGen,MethodGenerator methodGen){
+  ErrorMsg err=new ErrorMsg(ErrorMsg.DATA_CONVERSION_ERR,"[" + toString() + "]",toString());
+  classGen.getParser().reportError(Constants.FATAL,err);
 }

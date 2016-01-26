@@ -1,22 +1,8 @@
-/** 
- * Get an attribute by name.
- */
-public AttributeList getAttribute(String name){
-  for (AttributeList a=atts; a != null; a=a.next) {
-    if (a.name.equals(name)) {
-      return a;
-    }
-  }
-  return null;
+private Rectangle2D decodeRect5(){
+  rect.setRect(decodeX(0.6666667f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * Get an attribute by value.
- */
-public AttributeList getAttributeByValue(String name){
-  for (AttributeList a=atts; a != null; a=a.next) {
-    if ((a.values != null) && a.values.contains(name)) {
-      return a;
-    }
-  }
-  return null;
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(0.6666667f),decodeY(2.3333333f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(2.3333333f));
+  return rect;
 }

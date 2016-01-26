@@ -18,3 +18,5 @@ private void paintBackgroundFocusedAndMouseOverAndArrowShape(Graphics2D g){
   g.setPaint(decodeGradient14(path));
   g.fill(path);
 }
+-->
+83.0 / 358 = 0.23184357541899442

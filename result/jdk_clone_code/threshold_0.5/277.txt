@@ -1,16 +1,12 @@
-private boolean containsObject(Object value){
-  for (int i=fLength - 1; i >= 0; --i) {
-    if (value.equals(fArray[i])) {
-      return true;
-    }
+public void addGlobalAttributeDecl(XSAttributeDecl decl,String location){
+  fGlobalAttrDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return false;
 }
-private boolean containsNull(){
-  for (int i=fLength - 1; i >= 0; --i) {
-    if (fArray[i] == null) {
-      return true;
-    }
+public void addGlobalElementDecl(XSElementDecl decl,String location){
+  fGlobalElemDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return false;
 }

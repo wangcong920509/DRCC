@@ -1,14 +1,16 @@
 /** 
- * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
+ * Method add
+ * @param xmlX509SKI
  */
-public XML11Serializer(){
-  super();
-  _format.setVersion("1.1");
+public void add(XMLX509SKI xmlX509SKI){
+  this._constructionElement.appendChild(xmlX509SKI.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Constructs a new serializer. The serializer cannot be used without calling  {@link #setOutputCharStream} or {@link #setOutputByteStream}first.
+ * Method add
+ * @param xmlX509CRL
  */
-public XML11Serializer(OutputFormat format){
-  super(format);
-  _format.setVersion("1.1");
+public void add(XMLX509CRL xmlX509CRL){
+  this._constructionElement.appendChild(xmlX509CRL.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

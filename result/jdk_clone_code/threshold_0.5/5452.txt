@@ -1,30 +1,8 @@
-/** 
- * Returns true if the value identified by row is currently expanded.
- */
-public boolean isExpanded(TreePath path){
-  if (path != null) {
-    FHTreeStateNode lastNode=getNodeForPath(path,true,false);
-    return (lastNode != null && lastNode.isExpanded());
-  }
-  return false;
+private Rectangle2D decodeRect7(){
+  rect.setRect(decodeX(2.0f),decodeY(1.0f),decodeX(2.3333333f) - decodeX(2.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
-/** 
- * Ensures that all the path components in path are expanded, accept for the last component which will only be expanded if expandLast is true. Returns true if succesful in finding the path.
- */
-private boolean ensurePathIsExpanded(TreePath aPath,boolean expandLast){
-  if (aPath != null) {
-    if (treeModel.isLeaf(aPath.getLastPathComponent())) {
-      aPath=aPath.getParentPath();
-      expandLast=true;
-    }
-    if (aPath != null) {
-      FHTreeStateNode lastNode=getNodeForPath(aPath,false,true);
-      if (lastNode != null) {
-        lastNode.makeVisible();
-        if (expandLast)         lastNode.expand();
-        return true;
-      }
-    }
-  }
-  return false;
+private Rectangle2D decodeRect10(){
+  rect.setRect(decodeX(0.4f),decodeY(1.0f),decodeX(0.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(1.0f));
+  return rect;
 }

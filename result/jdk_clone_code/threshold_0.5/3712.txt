@@ -1,8 +1,20 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Returns the path to the node that is closest to x,y.  If there is nothing currently visible this will return null, otherwise it'll always return a valid path.  If you need to test if the returned object is exactly at x, y you should get the bounds for the returned path and test x, y against that.
+ */
+public TreePath getClosestPathForLocation(JTree tree,int x,int y){
+  if (tree != null && treeState != null) {
+    y-=tree.getInsets().top;
+    return treeState.getPathClosestTo(x,y);
+  }
+  return null;
 }
-private Rectangle2D decodeRect39(){
-  rect.setRect(decodeX(0.8f),decodeY(1.6666667f),decodeX(1.1666666f) - decodeX(0.8f),decodeY(1.8333333f) - decodeY(1.6666667f));
-  return rect;
+/** 
+ * Returns a path to the last child of <code>parent</code>.
+ */
+protected TreePath getLastChildPath(TreePath parent){
+  if (treeModel != null) {
+    int childCount=treeModel.getChildCount(parent.getLastPathComponent());
+    if (childCount > 0)     return parent.pathByAddingChild(treeModel.getChild(parent.getLastPathComponent(),childCount - 1));
+  }
+  return null;
 }

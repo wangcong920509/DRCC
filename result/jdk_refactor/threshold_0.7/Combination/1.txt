@@ -1,69 +1,26 @@
 /** 
- * Writes a stream of ASCII characters to this <code>SQLOutputImpl</code> object. The driver will do any necessary conversion from ASCII to the database <code>CHAR</code> format.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * @see org.w3c.dom.Node
  */
-public void writeAsciiStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+public final Node getOwnerNode(){
+  int newnode=dtm.getParent(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 /** 
- * Writes a stream of uninterpreted bytes to this <code>SQLOutputImpl</code> object.
- * @param x the value to pass to the database
- * @throws SQLException if the <code>SQLOutputImpl</code> object is inuse by a <code>SQLData</code> object attempting to write the attribute values of a UDT to the database.
+ * @see org.w3c.dom.Node
  */
-public void writeBinaryStream(java.io.InputStream x) throws SQLException {
-  BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+@Override public final Node getFirstChild(){
+  int newnode=dtm.getFirstChild(node);
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }
 
 -->
-void writeAsciiStream_writeBinaryStream(java.io.InputStream x,java.io.InputStream x,int combFlag){
+void getOwnerNode_getFirstChild(int combFlag){
   if (combFlag == 1) {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+    int newnode=dtm.getParent(node);
   }
  else {
-    BufferedReader bufReader=new BufferedReader(new InputStreamReader(x));
+    int newnode=dtm.getFirstChild(node);
   }
-  try {
-    int i;
-    while ((i=bufReader.read()) != -1) {
-      char ch=(char)i;
-      StringBuffer strBuf=new StringBuffer();
-      strBuf.append(ch);
-      String str=new String(strBuf);
-      String strLine=bufReader.readLine();
-      writeString(str.concat(strLine));
-    }
-  }
- catch (  IOException ioe) {
-    throw new SQLException(ioe.getMessage());
-  }
+  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
 }

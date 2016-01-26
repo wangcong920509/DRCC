@@ -1,30 +1,19 @@
 /** 
- * Returns an input stream for reading the specified resource. <p> The search order is described in the documentation for  {@link #getResource(String)}.  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public InputStream getResourceAsStream(String name){
-  URL url=getResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Open for reading, a resource of the specified name from the search path used to load classes.  This method locates the resource through the system class loader (see  {@link #getSystemClassLoader()}).  </p>
- * @param name The resource name
- * @return  An input stream for reading the resource, or <tt>null</tt>if the resource could not be found
- * @since  1.1
+ * Look for ConstantNameAndType in ConstantPool.
+ * @param name of variable/method
+ * @param signature of variable/method
+ * @return index on success, -1 otherwise
  */
-public static InputStream getSystemResourceAsStream(String name){
-  URL url=getSystemResource(name);
-  try {
-    return url != null ? url.openStream() : null;
-  }
- catch (  IOException e) {
-    return null;
-  }
+public int lookupNameAndType(String name,String signature){
+  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
+  return (index != null) ? index.index : -1;
 }

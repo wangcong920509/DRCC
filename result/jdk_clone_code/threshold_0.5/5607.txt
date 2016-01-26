@@ -1,0 +1,24 @@
+/** 
+ * Returns true if the element is a synthesized element.  Currently we are only testing for the p-implied tag.
+ */
+protected boolean synthesizedElement(Element elem){
+  if (matchNameAttribute(elem.getAttributes(),HTML.Tag.IMPLIED)) {
+    return true;
+  }
+  return false;
+}
+private boolean indentNeedsIncrementing(Element current,Element next){
+  if ((next.getParentElement() == current) && !inPre) {
+    if (indentNext) {
+      indentNext=false;
+      return true;
+    }
+ else     if (synthesizedElement(next)) {
+      indentNext=true;
+    }
+ else     if (!synthesizedElement(current)) {
+      return true;
+    }
+  }
+  return false;
+}

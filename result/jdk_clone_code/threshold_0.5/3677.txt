@@ -1,8 +1,33 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Adds a <code>component</code> with a tab title defaulting to the name of the component which is the result of calling <code>component.getName</code>. Cover method for <code>insertTab</code>.
+ * @param component the component to be displayed when this tab is clicked
+ * @return the component
+ * @see #insertTab
+ * @see #removeTabAt
+ */
+public Component add(Component component){
+  if (!(component instanceof UIResource)) {
+    addTab(component.getName(),component);
+  }
+ else {
+    super.add(component);
+  }
+  return component;
 }
-private Rectangle2D decodeRect4(){
-  rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
-  return rect;
+/** 
+ * Adds a <code>component</code> with the specified tab title. Cover method for <code>insertTab</code>.
+ * @param title the title to be displayed in this tab
+ * @param component the component to be displayed when this tab is clicked
+ * @return the component
+ * @see #insertTab
+ * @see #removeTabAt
+ */
+public Component add(String title,Component component){
+  if (!(component instanceof UIResource)) {
+    addTab(title,component);
+  }
+ else {
+    super.add(title,component);
+  }
+  return component;
 }

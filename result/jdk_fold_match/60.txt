@@ -53,3 +53,5 @@ public void reset(XMLComponentManager componentManager) throws XMLConfigurationE
   setScannerState(SCANNER_STATE_XML_DECL);
   setDriver(fXMLDeclDriver);
 }
+-->
+209.0 / 2058 = 0.10155490767735666

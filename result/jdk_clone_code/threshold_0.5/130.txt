@@ -1,28 +1,18 @@
 /** 
- * Look for ConstantInteger in ConstantPool.
- * @param n integer number to look for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupInteger(int n){
-  for (int i=1; i < index; i++) {
-    if (constants[i] instanceof ConstantInteger) {
-      ConstantInteger c=(ConstantInteger)constants[i];
-      if (c.getBytes() == n)       return i;
-    }
-  }
-  return -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantLong in ConstantPool.
- * @param n Long number to look for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpStringFixed</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified string value. The status is updated to indicate that the value is valid.
+ * @param val The new string value.
+ * @see SnmpStringFixed
  */
-public int lookupLong(long n){
-  for (int i=1; i < index; i++) {
-    if (constants[i] instanceof ConstantLong) {
-      ConstantLong c=(ConstantLong)constants[i];
-      if (c.getBytes() == n)       return i;
-    }
-  }
-  return -1;
+final public void setSnmpStringFixedValue(String val){
+  clearValue();
+  this.value=new SnmpStringFixed(val);
+  setValueValid();
 }

@@ -30,3 +30,5 @@ private void doFileSelectionModeChanged(PropertyChangeEvent e){
     setFileName(null);
   }
 }
+-->
+52.0 / 250 = 0.208

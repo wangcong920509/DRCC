@@ -1,26 +1,23 @@
 /** 
- * @see org.w3c.dom.Node
+ * The following methods are for dealing with Connection cleaning for better scalability of servers in high network load conditions.
  */
-public final Node getOwnerNode(){
-  int newnode=dtm.getParent(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public void sendCloseConnection(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createCloseConnection(giopVersion);
+  sendHelper(giopVersion,msg);
 }
 
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getPreviousSibling(){
-  int newnode=dtm.getPreviousSibling(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public void sendMessageError(GIOPVersion giopVersion) throws IOException {
+  Message msg=MessageBase.createMessageError(giopVersion);
+  sendHelper(giopVersion,msg);
 }
 
 -->
-void getOwnerNode_getPreviousSibling(int combFlag){
+void sendCloseConnection_sendMessageError(GIOPVersion giopVersion,GIOPVersion giopVersion,int combFlag){
   if (combFlag == 1) {
-    int newnode=dtm.getParent(node);
+    Message msg=MessageBase.createCloseConnection(giopVersion);
   }
  else {
-    int newnode=dtm.getPreviousSibling(node);
+    Message msg=MessageBase.createMessageError(giopVersion);
   }
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+  sendHelper(giopVersion,msg);
 }

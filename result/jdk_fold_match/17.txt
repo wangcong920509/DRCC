@@ -42,3 +42,5 @@ protected JScrollPane createDirectoryList(){
   align(scrollpane);
   return scrollpane;
 }
+-->
+223.0 / 2207 = 0.1010421386497508

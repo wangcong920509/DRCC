@@ -1,20 +1,26 @@
-public void setImportingStylesheet(Stylesheet parent){
-  _importedFrom=parent;
-  parent.addIncludedStylesheet(this);
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_char(){
+  checkExtractBadOperation(TCKind._tk_char);
+  return (char)value;
 }
 
-public void setIncludingStylesheet(Stylesheet parent){
-  _includedFrom=parent;
-  parent.addIncludedStylesheet(this);
+/** 
+ * See the description of the <a href="#anyOps">general Any operations.</a>
+ */
+public char extract_wchar(){
+  checkExtractBadOperation(TCKind._tk_wchar);
+  return (char)value;
 }
 
 -->
-void setImportingStylesheet_setIncludingStylesheet(Stylesheet parent,Stylesheet parent,int combFlag){
+void extract_char_extract_wchar(int combFlag){
   if (combFlag == 1) {
-    _importedFrom=parent;
+    checkExtractBadOperation(TCKind._tk_char);
   }
  else {
-    _includedFrom=parent;
+    checkExtractBadOperation(TCKind._tk_wchar);
   }
-  parent.addIncludedStylesheet(this);
+  return (char)value;
 }

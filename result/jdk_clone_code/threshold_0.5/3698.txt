@@ -1,8 +1,46 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_IN_FOCUSED_WINDOW) {
+    Object[] bindings=(Object[])DefaultLookup.get(optionPane,this,"OptionPane.windowBindings");
+    if (bindings != null) {
+      return LookAndFeel.makeComponentInputMap(optionPane,bindings);
+    }
+  }
+  return null;
 }
-private Rectangle2D decodeRect25(){
-  rect.setRect(decodeX(1.5f),decodeY(1.3333334f),decodeX(2.4f) - decodeX(1.5f),decodeY(1.5f) - decodeY(1.3333334f));
-  return rect;
+/** 
+ * Returns the buttons to display from the JOptionPane the receiver is providing the look and feel for. If the JOptionPane has options set, they will be provided, otherwise if the optionType is YES_NO_OPTION, yesNoOptions is returned, if the type is YES_NO_CANCEL_OPTION yesNoCancelOptions is returned, otherwise defaultButtons are returned.
+ */
+protected Object[] getButtons(){
+  if (optionPane != null) {
+    Object[] suppliedOptions=optionPane.getOptions();
+    if (suppliedOptions == null) {
+      Object[] defaultOptions;
+      int type=optionPane.getOptionType();
+      Locale l=optionPane.getLocale();
+      int minimumWidth=DefaultLookup.getInt(optionPane,this,"OptionPane.buttonMinimumWidth",-1);
+      if (type == JOptionPane.YES_NO_OPTION) {
+        defaultOptions=new ButtonFactory[2];
+        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.yesButtonText",l),getMnemonic("OptionPane.yesButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.yesIcon"),minimumWidth);
+        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.noButtonText",l),getMnemonic("OptionPane.noButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.noIcon"),minimumWidth);
+      }
+ else       if (type == JOptionPane.YES_NO_CANCEL_OPTION) {
+        defaultOptions=new ButtonFactory[3];
+        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.yesButtonText",l),getMnemonic("OptionPane.yesButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.yesIcon"),minimumWidth);
+        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.noButtonText",l),getMnemonic("OptionPane.noButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.noIcon"),minimumWidth);
+        defaultOptions[2]=new ButtonFactory(UIManager.getString("OptionPane.cancelButtonText",l),getMnemonic("OptionPane.cancelButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.cancelIcon"),minimumWidth);
+      }
+ else       if (type == JOptionPane.OK_CANCEL_OPTION) {
+        defaultOptions=new ButtonFactory[2];
+        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.okButtonText",l),getMnemonic("OptionPane.okButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.okIcon"),minimumWidth);
+        defaultOptions[1]=new ButtonFactory(UIManager.getString("OptionPane.cancelButtonText",l),getMnemonic("OptionPane.cancelButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.cancelIcon"),minimumWidth);
+      }
+ else {
+        defaultOptions=new ButtonFactory[1];
+        defaultOptions[0]=new ButtonFactory(UIManager.getString("OptionPane.okButtonText",l),getMnemonic("OptionPane.okButtonMnemonic",l),(Icon)DefaultLookup.get(optionPane,this,"OptionPane.okIcon"),minimumWidth);
+      }
+      return defaultOptions;
+    }
+    return suppliedOptions;
+  }
+  return null;
 }

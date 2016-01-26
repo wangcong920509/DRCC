@@ -1,24 +1,8 @@
-/** 
- * Creates a new object representing a hypertext link event.
- * @param source the object responsible for the event
- * @param type the event type
- * @param targetURL the affected URL
- * @param desc a description
- * @param targetFrame the Frame to display the document in
- */
-public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,String desc,String targetFrame){
-  super(source,type,targetURL,desc);
-  this.targetFrame=targetFrame;
+private Rectangle2D decodeRect4(){
+  rect.setRect(decodeX(1.0f),decodeY(0.6f),decodeX(2.0f) - decodeX(1.0f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }
-/** 
- * Creates a new object representing a hypertext link event.
- * @param source the object responsible for the event
- * @param type the event type
- * @param targetURL the affected URL
- * @param sourceElement the element that corresponds to the sourceof the event
- * @param targetFrame the Frame to display the document in
- */
-public HTMLFrameHyperlinkEvent(Object source,EventType type,URL targetURL,Element sourceElement,String targetFrame){
-  super(source,type,targetURL,null,sourceElement);
-  this.targetFrame=targetFrame;
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(0.6666667f),decodeY(2.3333333f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(2.3333333f));
+  return rect;
 }

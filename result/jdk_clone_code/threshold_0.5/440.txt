@@ -1,23 +1,16 @@
-public void flushLine(boolean preserveSpace) throws IOException {
-  try {
-    _writer.write(_buffer,0,_pos);
-  }
- catch (  IOException except) {
-    if (_exception == null)     _exception=except;
-  }
-  _pos=0;
+/** 
+ * Method add
+ * @param xmlX509SKI
+ */
+public void add(XMLX509SKI xmlX509SKI){
+  this._constructionElement.appendChild(xmlX509SKI.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * Flush the output stream. Must be called when done printing the document, otherwise some text might be buffered.
+ * Method add
+ * @param xmlX509Certificate
  */
-public void flush() throws IOException {
-  try {
-    _writer.write(_buffer,0,_pos);
-    _writer.flush();
-  }
- catch (  IOException except) {
-    if (_exception == null)     _exception=except;
-    throw except;
-  }
-  _pos=0;
+public void add(XMLX509Certificate xmlX509Certificate){
+  this._constructionElement.appendChild(xmlX509Certificate.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

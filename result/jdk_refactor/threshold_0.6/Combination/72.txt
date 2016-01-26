@@ -1,0 +1,20 @@
+public void writeBegingroup() throws IOException {
+  outputStream.write('{');
+  afterKeyword=false;
+}
+
+public void writeEndgroup() throws IOException {
+  outputStream.write('}');
+  afterKeyword=false;
+}
+
+-->
+void writeBegingroup_writeEndgroup(int combFlag){
+  if (combFlag == 1) {
+    outputStream.write('{');
+  }
+ else {
+    outputStream.write('}');
+  }
+  afterKeyword=false;
+}

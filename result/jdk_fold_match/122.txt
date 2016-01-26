@@ -251,3 +251,5 @@ catch (  Exception e) {
   }
   return true;
 }
+-->
+1361.0 / 4198 = 0.3242020009528347

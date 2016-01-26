@@ -1,32 +1,27 @@
 /** 
- * Retrieves the <code>BLOB</code> value at the head of this <code>SQLInputImpl</code> object as a <code>Blob</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return a <code>Blob</code> object representing the SQL<code>BLOB</code> value at the head of this stream; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructs a new reference for an object with class name 'className', and the class name and location of the object's factory.
+ * @param className The non-null class name of the object to whichthis reference refers.
+ * @param factory  The possibly null class name of the object's factory.
+ * @param factoryLocation The possibly null location from which to load the factory (e.g. URL)
+ * @see javax.naming.spi.ObjectFactory
+ * @see javax.naming.spi.NamingManager#getObjectInstance
  */
-public Blob readBlob() throws SQLException {
-  Blob attrib=(Blob)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public Reference(String className,String factory,String factoryLocation){
+  this(className);
+  classFactory=factory;
+  classFactoryLocation=factoryLocation;
 }
 /** 
- * Reads an SQL <code>ARRAY</code> value from the stream and returns it as an <code>Array</code> object in the Java programming language. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return an <code>Array</code> object representing the SQL<code>ARRAY</code> value at the head of the stream;  if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Constructs a new reference for an object with class name 'className', the class name and location of the object's factory, and the address for the object.
+ * @param className The non-null class name of the object towhich this reference refers.
+ * @param factory  The possibly null class name of the object's factory.
+ * @param factoryLocation  The possibly null location from whichto load the factory (e.g. URL)
+ * @param addr     The non-null address of the object.
+ * @see javax.naming.spi.ObjectFactory
+ * @see javax.naming.spi.NamingManager#getObjectInstance
  */
-public Array readArray() throws SQLException {
-  Array attrib=(Array)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
-  }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+public Reference(String className,RefAddr addr,String factory,String factoryLocation){
+  this(className,addr);
+  classFactory=factory;
+  classFactoryLocation=factoryLocation;
 }

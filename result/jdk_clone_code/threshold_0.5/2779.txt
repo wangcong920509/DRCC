@@ -1,34 +1,8 @@
-public CharBuffer put(int i,char x){
-  unsafe.putChar(ix(checkIndex(i)),((x)));
+public ByteBuffer putShort(short x){
+  putShort(ix(nextPutIndex((1 << 1))),x);
   return this;
 }
-public CharBuffer put(CharBuffer src){
-  if (src instanceof DirectCharBufferU) {
-    if (src == this)     throw new IllegalArgumentException();
-    DirectCharBufferU sb=(DirectCharBufferU)src;
-    int spos=sb.position();
-    int slim=sb.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (srem > rem)     throw new BufferOverflowException();
-    unsafe.copyMemory(sb.ix(spos),ix(pos),srem << 1);
-    sb.position(spos + srem);
-    position(pos + srem);
-  }
- else   if (src.hb != null) {
-    int spos=src.position();
-    int slim=src.limit();
-    assert(spos <= slim);
-    int srem=(spos <= slim ? slim - spos : 0);
-    put(src.hb,src.offset + spos,srem);
-    src.position(spos + srem);
-  }
- else {
-    super.put(src);
-  }
+public ByteBuffer putInt(int i,int x){
+  putInt(ix(checkIndex(i,(1 << 2))),x);
   return this;
 }

@@ -1,22 +1,16 @@
 /** 
- * @inheritDoc 
+ * Constructor X509Data
+ * @param doc
  */
-public void error(SAXParseException ex) throws SAXException {
-  if (IgnoreAllErrorHandler.warnOnExceptions) {
-    log.log(java.util.logging.Level.SEVERE,"",ex);
-  }
-  if (IgnoreAllErrorHandler.throwExceptions) {
-    throw ex;
-  }
+public X509Data(Document doc){
+  super(doc);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @inheritDoc 
+ * Method add
+ * @param xmlX509CRL
  */
-public void fatalError(SAXParseException ex) throws SAXException {
-  if (IgnoreAllErrorHandler.warnOnExceptions) {
-    log.log(java.util.logging.Level.WARNING,"",ex);
-  }
-  if (IgnoreAllErrorHandler.throwExceptions) {
-    throw ex;
-  }
+public void add(XMLX509CRL xmlX509CRL){
+  this._constructionElement.appendChild(xmlX509CRL.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

@@ -1,26 +1,14 @@
 /** 
- * Returns the default state for a feature, or null if this component does not want to report a default value for this feature.
- * @param featureId The feature identifier.
- * @since Xerces 2.2.0
+ * If the user specified a value attribute, use this instead of counting nodes.
  */
-public Boolean getFeatureDefault(String featureId){
-  for (int i=0; i < RECOGNIZED_FEATURES.length; i++) {
-    if (RECOGNIZED_FEATURES[i].equals(featureId)) {
-      return FEATURE_DEFAULTS[i];
-    }
-  }
-  return null;
+public NodeCounter setValue(double value){
+  _value=value;
+  return this;
 }
 /** 
- * Returns the default state for a property, or null if this component does not want to report a default value for this property.
- * @param propertyId The property identifier.
- * @since Xerces 2.2.0
+ * Sets formatting fields to their default values.
  */
-public Object getPropertyDefault(String propertyId){
-  for (int i=0; i < RECOGNIZED_PROPERTIES.length; i++) {
-    if (RECOGNIZED_PROPERTIES[i].equals(propertyId)) {
-      return PROPERTY_DEFAULTS[i];
-    }
-  }
-  return null;
+public NodeCounter setDefaultFormatting(){
+  setFormatting("1","en","alphabetic",null,null);
+  return this;
 }

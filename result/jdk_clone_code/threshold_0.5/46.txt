@@ -1,15 +1,42 @@
-private int findDeclaredException(Class cls){
-  for (int ctr=0; ctr < rws.length; ctr++) {
-    Class next=rws[ctr].getExceptionClass();
-    if (next.isAssignableFrom(cls))     return ctr;
+private Operation makeLegacySocketFactoryOperation(){
+  Operation sfop=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> legacySocketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (com.sun.corba.se.spi.legacy.connection.ORBSocketFactory.class.isAssignableFrom(legacySocketFactoryClass)) {
+          return legacySocketFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalSocketFactoryType(legacySocketFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomSocketFactory(ex,param);
+      }
+    }
   }
-  return -1;
+;
+  return sfop;
 }
-private int findDeclaredException(String repositoryId){
-  for (int ctr=0; ctr < rws.length; ctr++) {
-    if (rws[ctr] == null)     return -1;
-    String rid=rws[ctr].getId();
-    if (repositoryId.equals(rid))     return ctr;
+private Operation makeSocketFactoryOperation(){
+  Operation sfop=new Operation(){
+    public Object operate(    Object value){
+      String param=(String)value;
+      try {
+        Class<?> socketFactoryClass=SharedSecrets.getJavaCorbaAccess().loadClass(param);
+        if (com.sun.corba.se.spi.transport.ORBSocketFactory.class.isAssignableFrom(socketFactoryClass)) {
+          return socketFactoryClass.newInstance();
+        }
+ else {
+          throw wrapper.illegalSocketFactoryType(socketFactoryClass.toString());
+        }
+      }
+ catch (      Exception ex) {
+        throw wrapper.badCustomSocketFactory(ex,param);
+      }
+    }
   }
-  return -1;
+;
+  return sfop;
 }

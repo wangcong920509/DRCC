@@ -47,3 +47,5 @@ private void paintTabArea(SynthContext ss,Graphics g,int tabPlacement,int select
     }
   }
 }
+-->
+180.0 / 1662 = 0.10830324909747292

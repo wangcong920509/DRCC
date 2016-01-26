@@ -21,3 +21,5 @@ private void paintBackgroundFocused(Graphics2D g){
   g.setPaint(decodeGradient4(ellipse));
   g.fill(ellipse);
 }
+-->
+98.0 / 478 = 0.20502092050209206

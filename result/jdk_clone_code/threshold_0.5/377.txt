@@ -1,16 +1,29 @@
 /** 
- * Method add
- * @param xmlX509IssuerSerial
+ * Given a node handle, advance to the next attribute. If an attr, we advance to the next attr on the same node.  If not an attribute, we return NULL.
+ * @param nodeHandle int Handle of the node.
+ * @return int DTM node-number of the resolved attr,or DTM.NULL to indicate none exists.
  */
-public void add(XMLX509IssuerSerial xmlX509IssuerSerial){
-  this._constructionElement.appendChild(xmlX509IssuerSerial.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public int getNextAttribute(int nodeHandle){
+  int nodeID=makeNodeIdentity(nodeHandle);
+  if (_type(nodeID) == DTM.ATTRIBUTE_NODE) {
+    return makeNodeHandle(getNextAttributeIdentity(nodeID));
+  }
+  return DTM.NULL;
 }
 /** 
- * Method add
- * @param xmlX509SKI
+ * Given a node identity for an attribute, advance to the next attribute.
+ * @param identity int identity of the attribute node.  This<strong>must</strong> be an attribute node.
+ * @return int DTM node-identity of the resolved attr,or DTM.NULL to indicate none exists.
  */
-public void add(XMLX509SKI xmlX509SKI){
-  this._constructionElement.appendChild(xmlX509SKI.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+protected int getNextAttributeIdentity(int identity){
+  while (DTM.NULL != (identity=getNextNodeIdentity(identity))) {
+    int type=_type(identity);
+    if (type == DTM.ATTRIBUTE_NODE) {
+      return identity;
+    }
+ else     if (type != DTM.NAMESPACE_NODE) {
+      break;
+    }
+  }
+  return DTM.NULL;
 }

@@ -1,32 +1,51 @@
 /** 
- * Adds the shape of the specified <code>Area</code> to the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include the union of both shapes, or all areas that were contained in either this or the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.add(a2); a1(before)     +         a2         =     a1(after) ################     ################     ################ ##############         ##############     ################ ############             ############     ################ ##########                 ##########     ################ ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
- * @param rhs  the <code>Area</code> to be added to thecurrent shape
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
+ * Obsolete as of Java 2 platform v1.1.  Please use the <code>add</code> method instead. <p> Adds an item to this <code>Choice</code> menu.
+ * @param item the item to be added
+ * @exception NullPointerException if the item's value is equal to<code>null</code>
  */
-public void add(Area rhs){
-  curves=new AreaOp.AddOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+public void addItem(String item){
+synchronized (this) {
+    insertNoInvalidate(item,pItems.size());
+  }
+  invalidateIfValid();
 }
 
 /** 
- * Sets the shape of this <code>Area</code> to the intersection of its current shape and the shape of the specified <code>Area</code>. The resulting shape of this <code>Area</code> will include only areas that were contained in both this <code>Area</code> and also in the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.intersect(a2); a1(before)   intersect     a2         =     a1(after) ################     ################     ################ ##############         ##############       ############ ############             ############         ######## ##########                 ##########           #### ########                     ######## ######                         ###### ####                             #### ##                                 ## </pre>
- * @param rhs  the <code>Area</code> to be intersected with this<code>Area</code>
- * @throws NullPointerException if <code>rhs</code> is null
- * @since 1.2
+ * Removes the first occurrence of <code>item</code> from the <code>Choice</code> menu.  If the item being removed is the currently selected item, then the first item in the choice becomes the selected item.  Otherwise, the currently selected item remains selected (and the selected index is updated accordingly).
+ * @param item  the item to remove from this <code>Choice</code> menu
+ * @exception IllegalArgumentException  if the item doesn'texist in the choice menu
+ * @since      JDK1.1
  */
-public void intersect(Area rhs){
-  curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
-  invalidateBounds();
+public void remove(String item){
+synchronized (this) {
+    int index=pItems.indexOf(item);
+    if (index < 0) {
+      throw new IllegalArgumentException("item " + item + " not found in choice");
+    }
+ else {
+      removeNoInvalidate(index);
+    }
+  }
+  invalidateIfValid();
 }
 
 -->
-void add_intersect(Area rhs,Area rhs,int combFlag){
+void addItem_remove(String item,String item,int combFlag){
   if (combFlag == 1) {
-    curves=new AreaOp.AddOp().calculate(this.curves,rhs.curves);
+synchronized (this) {
+      insertNoInvalidate(item,pItems.size());
+    }
   }
  else {
-    curves=new AreaOp.IntOp().calculate(this.curves,rhs.curves);
+synchronized (this) {
+      int index=pItems.indexOf(item);
+      if (index < 0) {
+        throw new IllegalArgumentException("item " + item + " not found in choice");
+      }
+ else {
+        removeNoInvalidate(index);
+      }
+    }
   }
-  invalidateBounds();
+  invalidateIfValid();
 }

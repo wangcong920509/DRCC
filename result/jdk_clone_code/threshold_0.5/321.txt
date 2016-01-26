@@ -1,18 +1,20 @@
 /** 
- * <p>Constructs an XMLErrorCode with the given domain and key.</p>
- * @param domain The error domain.
- * @param key The key of the error message.
+ * reset all common components before parsing
  */
-public XMLErrorCode(String domain,String key){
-  fDomain=domain;
-  fKey=key;
+protected void resetCommon() throws XNIException {
+  int count=fCommonComponents.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
+    c.reset(this);
+  }
 }
 /** 
- * <p>Convenience method to set the values of an XMLErrorCode.</p>
- * @param domain The error domain.
- * @param key The key of the error message.
+ * reset all components before parsing and namespace context
  */
-public void setValues(String domain,String key){
-  fDomain=domain;
-  fKey=key;
+protected void resetXML11() throws XNIException {
+  int count=fXML11Components.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fXML11Components.get(i);
+    c.reset(this);
+  }
 }

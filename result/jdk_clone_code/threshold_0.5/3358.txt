@@ -1,22 +1,32 @@
 /** 
- * Maps a SystemException to a RemoteException.
- * @param ex the SystemException to map.
- * @return the mapped exception.
+ * Sets the region.  If region is null or the empty string, the region in this <code>Builder</code> is removed.  Otherwise, the region must be <a href="./Locale.html#def_region">well-formed</a> or an exception is thrown. <p>The typical region value is a two-letter ISO 3166 code or a three-digit UN M.49 area code. <p>The country value in the <code>Locale</code> created by the <code>Builder</code> is always normalized to upper case.
+ * @param region the region
+ * @return This builder.
+ * @throws IllformedLocaleException if <code>region</code> is ill-formed
  */
-public static RemoteException mapSystemException(SystemException ex){
-  if (utilDelegate != null) {
-    return utilDelegate.mapSystemException(ex);
+public Builder setRegion(String region){
+  try {
+    localeBuilder.setRegion(region);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }
 /** 
- * Wraps an exception thrown by an implementation method.  It returns the corresponding client-side exception.
- * @param orig the exception to wrap.
- * @return the wrapped exception.
+ * Adds a unicode locale attribute, if not already present, otherwise has no effect.  The attribute must not be null and must be <a href="./Locale.html#def_locale_extension">well-formed</a> or an exception is thrown.
+ * @param attribute the attribute
+ * @return This builder.
+ * @throws NullPointerException if <code>attribute</code> is null
+ * @throws IllformedLocaleException if <code>attribute</code> is ill-formed
+ * @see #setExtension(char,String)
  */
-public static RemoteException wrapException(Throwable orig){
-  if (utilDelegate != null) {
-    return utilDelegate.wrapException(orig);
+public Builder addUnicodeLocaleAttribute(String attribute){
+  try {
+    localeBuilder.addUnicodeLocaleAttribute(attribute);
   }
-  return null;
+ catch (  LocaleSyntaxException e) {
+    throw new IllformedLocaleException(e.getMessage(),e.getErrorIndex());
+  }
+  return this;
 }

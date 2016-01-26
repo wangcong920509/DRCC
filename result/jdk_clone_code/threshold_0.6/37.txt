@@ -1,14 +1,8 @@
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getFirstChild(){
-  int newnode=dtm.getFirstChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ServerNotRegistered(String _serverId){
+  super(ServerNotRegisteredHelper.id());
+  serverId=_serverId;
 }
-/** 
- * @see org.w3c.dom.Node
- */
-@Override public final Node getLastChild(){
-  int newnode=dtm.getLastChild(node);
-  return (newnode == DTM.NULL) ? null : dtm.getNode(newnode);
+public ServerNotRegistered(String $reason,String _serverId){
+  super(ServerNotRegisteredHelper.id() + "  " + $reason);
+  serverId=_serverId;
 }

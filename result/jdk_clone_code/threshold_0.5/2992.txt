@@ -1,8 +1,8 @@
-public CharBuffer put(char x){
+public ByteBuffer put(byte x){
   hb[ix(nextPutIndex())]=x;
   return this;
 }
-public CharBuffer put(int i,char x){
-  hb[ix(checkIndex(i))]=x;
+public ByteBuffer putChar(int i,char x){
+  Bits.putChar(this,ix(checkIndex(i,2)),x,bigEndian);
   return this;
 }

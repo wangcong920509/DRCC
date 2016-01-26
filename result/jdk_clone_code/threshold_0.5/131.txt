@@ -1,19 +1,17 @@
 /** 
- * Look for ConstantUtf8 in ConstantPool.
- * @param n Utf8 string to look for
- * @return index on success, -1 otherwise
+ * Adds an instance part to the OID in the <CODE>SnmpOid</CODE> object. Note that there is no <CODE>getInstance</CODE> method. This method will directly add the instance to the <CODE>SnmpOid</CODE> object.
+ * @param inst The sub-identifier to be appended to the OID.
  */
-public int lookupUtf8(String n){
-  Index index=(Index)utf8_table.get(n);
-  return (index != null) ? index.index : -1;
+final public void addInstance(long inst){
+  oid.append(inst);
+  return;
 }
 /** 
- * Look for ConstantNameAndType in ConstantPool.
- * @param name of variable/method
- * @param signature of variable/method
- * @return index on success, -1 otherwise
+ * Adds an instance part to the OID in the <CODE>SnmpOid</CODE> object. Note that there is no <CODE>getInstance</CODE> method. This method will directly add the instance to the <CODE>SnmpOid</CODE> object.
+ * @param inst The sub-identifier array to be appended to the OID.
+ * @exception SnmpStatusException An error occurred while accessing a MIB node.
  */
-public int lookupNameAndType(String name,String signature){
-  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
-  return (index != null) ? index.index : -1;
+final public void addInstance(long[] inst) throws SnmpStatusException {
+  oid.addToOid(inst);
+  return;
 }

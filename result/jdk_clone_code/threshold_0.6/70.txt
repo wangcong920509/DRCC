@@ -1,16 +1,17 @@
 /** 
- * Cast result object to a number.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * Prepares an empty list with a <CODE>String</CODE> to print while debugging.
+ * @param name The name of the newly created <CODE>SnmpVarBindList</CODE>.
  */
-public double num(){
-  int node=item(0);
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public SnmpVarBindList(String name){
+  super(5,5);
+  identity=name;
 }
 /** 
- * Cast result object to a number, but allow side effects, such as the incrementing of an iterator.
- * @return numeric value of the string conversion from thenext node in the NodeSetDTM, or NAN if no node was found
+ * Creates a new <CODE>SnmpVarBindList</CODE> object from a plain vector of <CODE>SnmpVarBind</CODE> objects. Objects in the specified vector can be <CODE>SnmpVarBind</CODE> objects or derivatives.
+ * @param name The name of the newly created <CODE>SnmpVarBindList</CODE>.
+ * @param list The vector of <CODE>SnmpVarBind</CODE> objects to copy.
  */
-public double numWithSideEffects(){
-  int node=nextNode();
-  return (node != DTM.NULL) ? getNumberFromNode(node) : Double.NaN;
+public SnmpVarBindList(String name,Vector<SnmpVarBind> list){
+  this(list);
+  identity=name;
 }

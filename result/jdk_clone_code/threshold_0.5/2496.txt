@@ -1,11 +1,11 @@
-/** 
- * Checks the given index against the limit, throwing an  {@link IndexOutOfBoundsException} if it is not smaller than the limitor is smaller than zero.
- */
-final int checkIndex(int i){
-  if ((i < 0) || (i >= limit))   throw new IndexOutOfBoundsException();
-  return i;
+public StringBuilder append(float f){
+  super.append(f);
+  return this;
 }
-final int checkIndex(int i,int nb){
-  if ((i < 0) || (nb > limit - i))   throw new IndexOutOfBoundsException();
-  return i;
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public StringBuilder deleteCharAt(int index){
+  super.deleteCharAt(index);
+  return this;
 }

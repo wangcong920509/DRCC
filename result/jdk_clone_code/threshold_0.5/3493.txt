@@ -1,38 +1,25 @@
 /** 
- * Creates a dialog with the specified title, modality and the specified owner  {@code Dialog}. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the owner {@code Dialog} from which the dialog is displayedor  {@code null} if this dialog has no owner
- * @param title  the {@code String} to display in the dialog'stitle bar
- * @param modal specifies whether dialog blocks user input to other top-levelwindows when shown. If  {@code true}, the modality type property is set to {@code DEFAULT_MODALITY_TYPE}, otherwise the dialog is modeless
- * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}returns  {@code true}.
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog.ModalityType#MODELESS
- * @see java.awt.Dialog#DEFAULT_MODALITY_TYPE
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
+ * Maps a SystemException to a RemoteException.
+ * @param ex the SystemException to map.
+ * @return the mapped exception.
  */
-public JDialog(Dialog owner,String title,boolean modal){
-  super(owner,title,modal);
-  dialogInit();
+public static RemoteException mapSystemException(SystemException ex){
+  if (utilDelegate != null) {
+    return utilDelegate.mapSystemException(ex);
+  }
+  return null;
 }
 /** 
- * Creates a dialog with the specified title, owner  {@code Dialog}, modality and  {@code GraphicsConfiguration}. <p> NOTE: Any popup components ( {@code JComboBox}, {@code JPopupMenu},  {@code JMenuBar}) created within a modal dialog will be forced to be lightweight. <p> This constructor sets the component's locale property to the value returned by  {@code JComponent.getDefaultLocale}.
- * @param owner the owner {@code Dialog} from which the dialog is displayedor  {@code null} if this dialog has no owner
- * @param title  the {@code String} to display in the dialog'stitle bar
- * @param modal specifies whether dialog blocks user input to other top-levelwindows when shown. If  {@code true}, the modality type property is set to {@code DEFAULT_MODALITY_TYPE}, otherwise the dialog is modeless
- * @param gc the {@code GraphicsConfiguration} of the target screen device;if  {@code null}, the default system  {@code GraphicsConfiguration}is assumed
- * @throws HeadlessException if {@code GraphicsEnvironment.isHeadless()}returns  {@code true}.
- * @see java.awt.Dialog.ModalityType
- * @see java.awt.Dialog.ModalityType#MODELESS
- * @see java.awt.Dialog#DEFAULT_MODALITY_TYPE
- * @see java.awt.Dialog#setModal
- * @see java.awt.Dialog#setModalityType
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since 1.4
+ * Returns a class instance for the specified class. <P>The spec for this method is the "Java to IDL language mapping", ptc/00-01-06. <P>In Java SE Platform, this method works as follows: <UL><LI>Find the first non-null <tt>ClassLoader</tt> on the call stack and attempt to load the class using this <tt>ClassLoader</tt>. <LI>If the first step fails, and if <tt>remoteCodebase</tt> is non-null and <tt>useCodebaseOnly</tt> is false, then call <tt>java.rmi.server.RMIClassLoader.loadClass(remoteCodebase, className)</tt>. <LI>If <tt>remoteCodebase</tt> is null or <tt>useCodebaseOnly</tt> is true, then call <tt>java.rmi.server.RMIClassLoader.loadClass(className)</tt>. <LI>If a class was not successfully loaded by step 1, 2, or 3, and <tt>loader</tt> is non-null, then call <tt>loader.loadClass(className)</tt>. <LI>If a class was successfully loaded by step 1, 2, 3, or 4, then return the loaded class, else throw <tt>ClassNotFoundException</tt>.
+ * @param className the name of the class.
+ * @param remoteCodebase a space-separated list of URLs at whichthe class might be found. May be null.
+ * @param loader a <tt>ClassLoader</tt> that may be used toload the class if all other methods fail.
+ * @return the <code>Class</code> object representing the loaded class.
+ * @exception ClassNotFoundException if class cannot be loaded.
  */
-public JDialog(Dialog owner,String title,boolean modal,GraphicsConfiguration gc){
-  super(owner,title,modal,gc);
-  dialogInit();
+public static Class loadClass(String className,String remoteCodebase,ClassLoader loader) throws ClassNotFoundException {
+  if (utilDelegate != null) {
+    return utilDelegate.loadClass(className,remoteCodebase,loader);
+  }
+  return null;
 }

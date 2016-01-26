@@ -1,8 +1,11 @@
-public StringBuilder append(String str){
-  super.append(str);
+public synchronized StringBuffer append(int i){
+  super.append(i);
   return this;
 }
-public StringBuilder append(char c){
-  super.append(c);
+/** 
+ * @throws StringIndexOutOfBoundsException {@inheritDoc}
+ */
+public synchronized StringBuffer insert(int offset,String str){
+  super.insert(offset,str);
   return this;
 }

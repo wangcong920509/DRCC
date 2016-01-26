@@ -1,8 +1,27 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+InputMap getInputMap(int condition){
+  if (condition == JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT) {
+    return (InputMap)DefaultLookup.get(tree,this,"Tree.ancestorInputMap");
+  }
+ else   if (condition == JComponent.WHEN_FOCUSED) {
+    InputMap keyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap");
+    InputMap rtlKeyMap;
+    if (tree.getComponentOrientation().isLeftToRight() || ((rtlKeyMap=(InputMap)DefaultLookup.get(tree,this,"Tree.focusInputMap.RightToLeft")) == null)) {
+      return keyMap;
+    }
+ else {
+      rtlKeyMap.setParent(keyMap);
+      return rtlKeyMap;
+    }
+  }
+  return null;
 }
-private Rectangle2D decodeRect41(){
-  rect.setRect(decodeX(1.3333334f),decodeY(2.0f),decodeX(2.2f) - decodeX(1.3333334f),decodeY(2.2f) - decodeY(2.0f));
-  return rect;
+/** 
+ * Returns a path to the last child of <code>parent</code>.
+ */
+protected TreePath getLastChildPath(TreePath parent){
+  if (treeModel != null) {
+    int childCount=treeModel.getChildCount(parent.getLastPathComponent());
+    if (childCount > 0)     return parent.pathByAddingChild(treeModel.getChild(parent.getLastPathComponent(),childCount - 1));
+  }
+  return null;
 }

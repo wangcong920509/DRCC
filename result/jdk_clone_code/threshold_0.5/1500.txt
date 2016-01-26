@@ -1,16 +1,18 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
+ * @param deep Flag indicating whether to clone deep (clone member variables)
  * @return null
  */
-public NamedNodeMap getAttributes(){
+public Node cloneNode(boolean deep){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Node
+ * Unimplemented. See org.w3c.dom.Document
+ * @param elementId ID of the element to get
  * @return null
  */
-public String getPrefix(){
+public Element getElementById(String elementId){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

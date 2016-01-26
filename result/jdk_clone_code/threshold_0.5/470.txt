@@ -1,14 +1,16 @@
 /** 
- * @see SerializationHandler#getOutputFormat()
+ * Method add
+ * @param mgmtdata
  */
-public Properties getOutputFormat(){
-  aMethodIsCalled();
-  return null;
+public void add(MgmtData mgmtdata){
+  this._constructionElement.appendChild(mgmtdata.getElement());
+  XMLUtils.addReturnToElement(this._constructionElement);
 }
 /** 
- * @see XSLOutputAttributes#getDoctypePublic()
+ * Method addUnknownElement
+ * @param element
  */
-public String getDoctypePublic(){
-  aMethodIsCalled();
-  return null;
+public void addUnknownElement(Element element){
+  this._constructionElement.appendChild(element);
+  XMLUtils.addReturnToElement(this._constructionElement);
 }

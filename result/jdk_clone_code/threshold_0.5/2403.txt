@@ -1,8 +1,8 @@
-public StringBuilder append(float f){
-  super.append(f);
+public StringBuilder append(char[] str){
+  super.append(str);
   return this;
 }
-public StringBuilder reverse(){
-  super.reverse();
+public StringBuilder append(int i){
+  super.append(i);
   return this;
 }

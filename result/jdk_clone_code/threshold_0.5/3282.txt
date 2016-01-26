@@ -1,26 +1,18 @@
 /** 
- * Returns <code>true</code> if it is possible to replace the stream metadata already present in the output. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code>.
- * @return <code>true</code> if replacement of stream metadata isallowed.
- * @exception IllegalStateException if the output has notbeen set.
- * @exception IOException if an I/O error occurs during the query.
+ * Inserts the specified element at the front of this deque. As the deque is unbounded, this method will never return  {@code false}.
+ * @return {@code true} (as specified by {@link Deque#offerFirst})
+ * @throws NullPointerException if the specified element is null
  */
-public boolean canReplaceStreamMetadata() throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+public boolean offerFirst(E e){
+  linkFirst(e);
+  return true;
 }
 /** 
- * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
- * @param imageIndex the index of the image whose pixels are to bereplaced.
- * @return <code>true</code> if the pixels of the givenimage can be replaced.
- * @exception IllegalStateException if the output has not beenset.
- * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
- * @exception IOException if an I/O error occurs during the query.
+ * Inserts the specified element at the end of this deque. As the deque is unbounded, this method will never return  {@code false}. <p>This method is equivalent to  {@link #add}.
+ * @return {@code true} (as specified by {@link Deque#offerLast})
+ * @throws NullPointerException if the specified element is null
  */
-public boolean canReplacePixels(int imageIndex) throws IOException {
-  if (getOutput() == null) {
-    throw new IllegalStateException("getOutput() == null!");
-  }
-  return false;
+public boolean offerLast(E e){
+  linkLast(e);
+  return true;
 }

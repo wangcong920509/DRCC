@@ -1,8 +1,8 @@
-public void writeBegingroup() throws IOException {
-  outputStream.write('{');
-  afterKeyword=false;
+private Rectangle2D decodeRect6(){
+  rect.setRect(decodeX(0.6666667f),decodeY(2.3333333f),decodeX(2.3333333f) - decodeX(0.6666667f),decodeY(2.0f) - decodeY(2.3333333f));
+  return rect;
 }
-public void writeEndgroup() throws IOException {
-  outputStream.write('}');
-  afterKeyword=false;
+private Rectangle2D decodeRect9(){
+  rect.setRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(1.0f) - decodeY(0.6f));
+  return rect;
 }

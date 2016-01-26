@@ -1,20 +1,18 @@
 /** 
- * Removes the specified MIB from the SNMP protocol adaptor.
- * @param mib The MIB to be removed.
- * @return <CODE>true</CODE> if the specified <CODE>mib</CODE> was a MIBincluded in the SNMP MIB handler, <CODE>false</CODE> otherwise.
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
  */
-public boolean removeMib(SnmpMibAgent mib){
-  root.unregister(mib);
-  return (mibs.removeElement(mib));
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
 /** 
- * Removes the specified MIB from the SNMP protocol adaptor.
- * @param mib The MIB to be removed.
- * @param oids The oid the MIB was previously registered for.
- * @return <CODE>true</CODE> if the specified <CODE>mib</CODE> wasa MIB included in the SNMP MIB handler, <CODE>false</CODE> otherwise.
- * @since 1.5
+ * Put an octet string with a specified tag.
+ * @param s The bytes to encode
+ * @param tag The tag to encode.
  */
-public boolean removeMib(SnmpMibAgent mib,SnmpOid[] oids){
-  root.unregister(mib,oids);
-  return (mibs.removeElement(mib));
+public void putOctetString(byte[] s,int tag){
+  putStringValue(s);
+  putTag(tag);
 }

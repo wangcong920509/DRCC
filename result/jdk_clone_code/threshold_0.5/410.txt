@@ -1,16 +1,24 @@
 /** 
- * Method add
- * @param mgmtdata
+ * Return the public identifier of the external subset, normalized as described in 4.2.2 External Entities [XML]. If there is no external subset or if it has no public identifier, this property has no value.
+ * @return the public identifier String object, or null if there is none.
  */
-public void add(MgmtData mgmtdata){
-  this._constructionElement.appendChild(mgmtdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public String getDocumentTypeDeclarationPublicIdentifier(){
+  error(XMLMessages.createXMLMessage(XMLErrorResources.ER_METHOD_NOT_SUPPORTED,null));
+  return null;
 }
 /** 
- * Method addPGPData
- * @param pgpdata
+ * Retrieve the SourceLocator associated with a specific node. This is only meaningful if the XalanProperties.SOURCE_LOCATION flag was set True using setProperty; if it was never set, or was set false, we will return null. (We _could_ return a locator with the document's base URI and bogus line/column information. Trying that; see the else clause.)
  */
-public void add(PGPData pgpdata){
-  this._constructionElement.appendChild(pgpdata.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public SourceLocator getSourceLocatorFor(int node){
+  if (m_useSourceLocationProperty) {
+    node=makeNodeIdentity(node);
+    return new NodeLocator(null,m_sourceSystemId.elementAt(node),m_sourceLine.elementAt(node),m_sourceColumn.elementAt(node));
+  }
+ else   if (m_locator != null) {
+    return new NodeLocator(null,m_locator.getSystemId(),-1,-1);
+  }
+ else   if (m_systemId != null) {
+    return new NodeLocator(null,m_systemId,-1,-1);
+  }
+  return null;
 }

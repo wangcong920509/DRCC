@@ -178,3 +178,5 @@ protected RangeToken parseSetOperations() throws ParseException {
   this.next();
   return tok;
 }
+-->
+841.0 / 6321 = 0.1330485682645151

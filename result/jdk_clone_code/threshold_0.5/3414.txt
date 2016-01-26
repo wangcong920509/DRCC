@@ -1,32 +1,28 @@
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a <code>java.math.BigDecimal</code>. <P> This method does not perform type-safe checking to determine if the returned type is the expected type; this responsibility is delegated to the UDT mapping as defined by a <code>SQLData</code> implementation. <P>
- * @return the next attribute in this <code>SQLInputImpl</code> object;if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition or if there are no more values in the stream
+ * Returns <code>true</code> if it is possible to replace the image metadata associated with an existing image with index <code>imageIndex</code>.  If this method returns <code>false</code>, a call to <code>replaceImageMetadata(imageIndex)</code> will throw an <code>UnsupportedOperationException</code>. <p> A writer that does not support any image metadata replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose metadata is tobe replaced.
+ * @return <code>true</code> if the image metadata of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has notbeen set.
+ * @exception IndexOutOfBoundsException if the writer supportsimage metadata replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public java.math.BigDecimal readBigDecimal() throws SQLException {
-  java.math.BigDecimal attrib=(java.math.BigDecimal)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canReplaceImageMetadata(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }
 /** 
- * Retrieves the next attribute in this <code>SQLInputImpl</code> object as a stream of Unicode characters. <P> This method does not perform type-safe checking to determine if the returned type is the expected type as this responsibility is delegated to the UDT mapping as implemented by a <code>SQLData</code> implementation.
- * @return the attribute; if the value is <code>SQL NULL</code>, return <code>null</code>
- * @throws SQLException if the read position is located at an invalidposition; or if there are no further values in the stream.
+ * Returns <code>true</code> if the writer allows pixels of the given image to be replaced using the <code>replacePixels</code> methods. <p> A writer that does not support any pixel replacement may return <code>false</code> without performing bounds checking on the index. <p> The default implementation throws an <code>IllegalStateException</code> if the output is <code>null</code>, and otherwise returns <code>false</code> without checking the value of <code>imageIndex</code>.
+ * @param imageIndex the index of the image whose pixels are to bereplaced.
+ * @return <code>true</code> if the pixels of the givenimage can be replaced.
+ * @exception IllegalStateException if the output has not beenset.
+ * @exception IndexOutOfBoundsException if the writer supportspixel replacement in general, but <code>imageIndex</code> is less than 0 or greater than the largest available index.
+ * @exception IOException if an I/O error occurs during the query.
  */
-public java.io.Reader readCharacterStream() throws SQLException {
-  java.io.Reader attrib=(java.io.Reader)getNextAttribute();
-  if (attrib == null) {
-    lastValueWasNull=true;
-    return null;
+public boolean canReplacePixels(int imageIndex) throws IOException {
+  if (getOutput() == null) {
+    throw new IllegalStateException("getOutput() == null!");
   }
- else {
-    lastValueWasNull=false;
-    return attrib;
-  }
+  return false;
 }

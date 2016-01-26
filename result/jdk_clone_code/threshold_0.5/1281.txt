@@ -1,18 +1,19 @@
 /** 
  * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of the element
- * @param localName Local part of qualified name of the element
+ * @param name Name of attribute to get
  * @return null
  */
-public NodeList getElementsByTagNameNS(String namespaceURI,String localName){
+public String getAttribute(String name){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }
 /** 
- * NEEDSDOC Method adoptNode NEEDSDOC @param source NEEDSDOC (adoptNode) @return
- * @throws DOMException
+ * Unimplemented. See org.w3c.dom.Element
+ * @param namespaceURI Namespace URI of attribute node to get
+ * @param localName Local part of qualified name of attribute node to get
+ * @return null
  */
-public Node adoptNode(Node source) throws DOMException {
+public Attr getAttributeNodeNS(String namespaceURI,String localName){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
   return null;
 }

@@ -1,16 +1,8 @@
-/** 
- * Get a Current pseudo-object. The Current interface is used to manage thread-specific information for use by the transactions, security and other services. This method is deprecated, and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
- * @return          a Current pseudo-object.
- * @deprecated
- */
-public synchronized org.omg.CORBA.Current get_current(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void set_members(org.omg.DynamicAny.NameValuePair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
+  super.set_members(value);
+  isNull=false;
 }
-/** 
- * This method does nothing. It is not required by the spec to do anything!
- */
-public synchronized void perform_work(){
-  checkShutdownState();
-  throw wrapper.genericNoImpl();
+public void set_members_as_dyn_any(org.omg.DynamicAny.NameDynAnyPair[] value) throws org.omg.DynamicAny.DynAnyPackage.TypeMismatch, org.omg.DynamicAny.DynAnyPackage.InvalidValue {
+  super.set_members_as_dyn_any(value);
+  isNull=false;
 }

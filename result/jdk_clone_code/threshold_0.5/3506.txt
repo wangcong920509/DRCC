@@ -1,26 +1,24 @@
 /** 
- * Creates a new, initially invisible <code>Frame</code> with the specified title. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @param title the title for the frame
- * @exception HeadlessException if GraphicsEnvironment.isHeadless()returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see Component#setSize
- * @see Component#setVisible
- * @see JComponent#getDefaultLocale
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
  */
-public JFrame(String title) throws HeadlessException {
-  super(title);
-  frameInit();
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
+  }
+  return null;
 }
 /** 
- * Creates a <code>JFrame</code> with the specified title and the specified <code>GraphicsConfiguration</code> of a screen device. <p> This constructor sets the component's locale property to the value returned by <code>JComponent.getDefaultLocale</code>.
- * @param title the title to be displayed in theframe's border. A <code>null</code> value is treated as an empty string, "".
- * @param gc the <code>GraphicsConfiguration</code> that is usedto construct the new <code>JFrame</code> with; if <code>gc</code> is <code>null</code>, the system default <code>GraphicsConfiguration</code> is assumed
- * @exception IllegalArgumentException if <code>gc</code> is not froma screen device.  This exception is always thrown when GraphicsEnvironment.isHeadless() returns true.
- * @see java.awt.GraphicsEnvironment#isHeadless
- * @see JComponent#getDefaultLocale
- * @since     1.3
+ * Returns a class instance for the specified class. <P>The spec for this method is the "Java to IDL language mapping", ptc/00-01-06. <P>In Java SE Platform, this method works as follows: <UL><LI>Find the first non-null <tt>ClassLoader</tt> on the call stack and attempt to load the class using this <tt>ClassLoader</tt>. <LI>If the first step fails, and if <tt>remoteCodebase</tt> is non-null and <tt>useCodebaseOnly</tt> is false, then call <tt>java.rmi.server.RMIClassLoader.loadClass(remoteCodebase, className)</tt>. <LI>If <tt>remoteCodebase</tt> is null or <tt>useCodebaseOnly</tt> is true, then call <tt>java.rmi.server.RMIClassLoader.loadClass(className)</tt>. <LI>If a class was not successfully loaded by step 1, 2, or 3, and <tt>loader</tt> is non-null, then call <tt>loader.loadClass(className)</tt>. <LI>If a class was successfully loaded by step 1, 2, 3, or 4, then return the loaded class, else throw <tt>ClassNotFoundException</tt>.
+ * @param className the name of the class.
+ * @param remoteCodebase a space-separated list of URLs at whichthe class might be found. May be null.
+ * @param loader a <tt>ClassLoader</tt> that may be used toload the class if all other methods fail.
+ * @return the <code>Class</code> object representing the loaded class.
+ * @exception ClassNotFoundException if class cannot be loaded.
  */
-public JFrame(String title,GraphicsConfiguration gc){
-  super(title,gc);
-  frameInit();
+public static Class loadClass(String className,String remoteCodebase,ClassLoader loader) throws ClassNotFoundException {
+  if (utilDelegate != null) {
+    return utilDelegate.loadClass(className,remoteCodebase,loader);
+  }
+  return null;
 }

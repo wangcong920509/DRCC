@@ -1,23 +1,20 @@
 /** 
- * Appends the specified character sequence to this writer. <p> An invocation of this method of the form <tt>out.append(csq)</tt> behaves in exactly the same way as the invocation <pre> out.write(csq.toString()) </pre> <p> Depending on the specification of <tt>toString</tt> for the character sequence <tt>csq</tt>, the entire sequence may not be appended. For instance, invoking the <tt>toString</tt> method of a character buffer will return a subsequence whose content depends upon the buffer's position and limit.
- * @param csq The character sequence to append.  If <tt>csq</tt> is <tt>null</tt>, then the four characters <tt>"null"</tt> are appended to this writer.
- * @return  This writer
- * @throws IOException If an I/O error occurs
- * @since  1.5
+ * Adds the shape of the specified <code>Area</code> to the shape of this <code>Area</code>. The resulting shape of this <code>Area</code> will include the union of both shapes, or all areas that were contained in either this or the specified <code>Area</code>. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.add(a2); a1(before)     +         a2         =     a1(after) ################     ################     ################ ##############         ##############     ################ ############             ############     ################ ##########                 ##########     ################ ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
+ * @param rhs  the <code>Area</code> to be added to thecurrent shape
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public Writer append(CharSequence csq) throws IOException {
-  if (csq == null)   write("null");
- else   write(csq.toString());
-  return this;
+public void add(Area rhs){
+  curves=new AreaOp.AddOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }
 /** 
- * Appends the specified character to this writer. <p> An invocation of this method of the form <tt>out.append(c)</tt> behaves in exactly the same way as the invocation <pre> out.write(c) </pre>
- * @param c The 16-bit character to append
- * @return  This writer
- * @throws IOException If an I/O error occurs
- * @since 1.5
+ * Sets the shape of this <code>Area</code> to be the combined area of its current shape and the shape of the specified <code>Area</code>, minus their intersection. The resulting shape of this <code>Area</code> will include only areas that were contained in either this <code>Area</code> or in the specified <code>Area</code>, but not in both. <pre> // Example: Area a1 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 0,8]); Area a2 = new Area([triangle 0,0 =&gt; 8,0 =&gt; 8,8]); a1.exclusiveOr(a2); a1(before)    xor        a2         =     a1(after) ################     ################ ##############         ##############     ##            ## ############             ############     ####        #### ##########                 ##########     ######    ###### ########                     ########     ################ ######                         ######     ######    ###### ####                             ####     ####        #### ##                                 ##     ##            ## </pre>
+ * @param rhs  the <code>Area</code> to be exclusive ORed with this<code>Area</code>.
+ * @throws NullPointerException if <code>rhs</code> is null
+ * @since 1.2
  */
-public Writer append(char c) throws IOException {
-  write(c);
-  return this;
+public void exclusiveOr(Area rhs){
+  curves=new AreaOp.XorOp().calculate(this.curves,rhs.curves);
+  invalidateBounds();
 }

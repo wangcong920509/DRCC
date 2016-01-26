@@ -1,38 +1,20 @@
-/** 
- * Returns the literal character at index.
- */
-char getLiteral(int index){
-  if (isValidMask() && string != null && index < string.length()) {
-    return string.charAt(index);
-  }
-  return (char)0;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.0f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.0f),decodeY(2.0f) - decodeY(1.0f));
+  return rect;
 }
 
-/** 
- * Returns the character from the mask that has been buffered at <code>index</code>.
- */
-char getBufferedChar(int index){
-  if (isValidMask()) {
-    if (string != null && index < string.length()) {
-      return string.charAt(index);
-    }
-  }
-  return (char)0;
+private Rectangle2D decodeRect4(){
+  rect.setRect(decodeX(0.0f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(1.0f) - decodeY(0.0f));
+  return rect;
 }
 
 -->
-void getLiteral_getBufferedChar(int index,int index,int combFlag){
+void decodeRect2_decodeRect4(int combFlag){
   if (combFlag == 1) {
-    if (isValidMask() && string != null && index < string.length()) {
-      return string.charAt(index);
-    }
+    rect.setRect(decodeX(0.0f),decodeY(1.0f),decodeX(1.0f) - decodeX(0.0f),decodeY(2.0f) - decodeY(1.0f));
   }
  else {
-    if (isValidMask()) {
-      if (string != null && index < string.length()) {
-        return string.charAt(index);
-      }
-    }
+    rect.setRect(decodeX(0.0f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.0f),decodeY(1.0f) - decodeY(0.0f));
   }
-  return (char)0;
+  return rect;
 }

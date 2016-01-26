@@ -1,28 +1,26 @@
 /** 
- * Returns the objects that are children of the node identified by <code>getPath</code> at the locations specified by <code>getChildIndices</code>. If this is a removal event the returned objects are no longer children of the parent node.
- * @return an array of Object containing the children specified bythe event
- * @see #getPath
- * @see #getChildIndices
+ * Construct a new page ranges attribute with the given members. The members are specified in "array form;" see class  {@link javax.print.attribute.SetOfIntegerSyntax SetOfIntegerSyntax} for anexplanation of array form.
+ * @param members  Set members in array form.
+ * @exception NullPointerException (unchecked exception) Thrown if <CODE>members</CODE> is null or any element of <CODE>members</CODE> is null.
+ * @exception IllegalArgumentException (unchecked exception) Thrown if any element of <CODE>members</CODE> is not a length-one or length-two array. Also thrown if <CODE>members</CODE> is a zero-length array or if any member of the set is less than 1.
  */
-public Object[] getChildren(){
-  if (children != null) {
-    int cCount=children.length;
-    Object[] retChildren=new Object[cCount];
-    System.arraycopy(children,0,retChildren,0,cCount);
-    return retChildren;
+public PageRanges(int[][] members){
+  super(members);
+  if (members == null) {
+    throw new NullPointerException("members is null");
   }
-  return null;
+  myPageRanges();
 }
 /** 
- * Returns the values of the child indexes. If this is a removal event the indexes point to locations in the initial list where items were removed. If it is an insert, the indices point to locations in the final list where the items were added. For node changes, the indices point to the locations of the modified nodes.
- * @return an array of <code>int</code> containing index locations forthe children specified by the event
+ * Construct a new  page ranges attribute with the given members in string form. See class  {@link javax.print.attribute.SetOfIntegerSyntax SetOfIntegerSyntax}for explanation of the syntax.
+ * @param members  Set members in string form.
+ * @exception NullPointerException (unchecked exception) Thrown if <CODE>members</CODE> is null or any element of <CODE>members</CODE> is null.
+ * @exception IllegalArgumentException (Unchecked exception) Thrown if <CODE>members</CODE> does not obey  the proper syntax.  Also thrown if the constructed set-of-integer is a zero-length array or if any member of the set is less than 1.
  */
-public int[] getChildIndices(){
-  if (childIndices != null) {
-    int cCount=childIndices.length;
-    int[] retArray=new int[cCount];
-    System.arraycopy(childIndices,0,retArray,0,cCount);
-    return retArray;
+public PageRanges(String members){
+  super(members);
+  if (members == null) {
+    throw new NullPointerException("members is null");
   }
-  return null;
+  myPageRanges();
 }

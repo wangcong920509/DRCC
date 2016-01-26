@@ -181,3 +181,5 @@ protected void paintLeftTabBorder(int tabIndex,Graphics g,int x,int y,int w,int 
   }
   g.translate(-x,-y);
 }
+-->
+880.0 / 5064 = 0.17377567140600317

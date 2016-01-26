@@ -1,8 +1,15 @@
-HeapFloatBufferR(int cap,int lim){
-  super(cap,lim);
-  this.isReadOnly=true;
+/** 
+ * Create an XSLTC template object from the bytecodes. The bytecodes for the translet and auxiliary classes, plus the name of the main translet class, must be supplied.
+ */
+protected TemplatesImpl(byte[][] bytecodes,String transletName,Properties outputProperties,int indentNumber,TransformerFactoryImpl tfactory){
+  _bytecodes=bytecodes;
+  init(transletName,outputProperties,indentNumber,tfactory);
 }
-protected HeapFloatBufferR(float[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+/** 
+ * Create an XSLTC template object from the translet class definition(s).
+ */
+protected TemplatesImpl(Class[] transletClasses,String transletName,Properties outputProperties,int indentNumber,TransformerFactoryImpl tfactory){
+  _class=transletClasses;
+  _transletIndex=0;
+  init(transletName,outputProperties,indentNumber,tfactory);
 }

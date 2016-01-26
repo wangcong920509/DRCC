@@ -1,8 +1,15 @@
-public static ActivationSystemException get(ORB orb,String logDomain){
-  ActivationSystemException wrapper=(ActivationSystemException)orb.getLogWrapper(logDomain,"ACTIVATION",factory);
-  return wrapper;
+/** 
+ * Stores the various sources of information used for this info object.
+ */
+protected void setDSIException(Any exception){
+  this.dsiException=exception;
+  cachedSendingException=null;
 }
-public static ActivationSystemException get(String logDomain){
-  ActivationSystemException wrapper=(ActivationSystemException)ORB.staticGetLogWrapper(logDomain,"ACTIVATION",factory);
-  return wrapper;
+/** 
+ * Sets the exception to be returned by received_exception and received_exception_id.
+ */
+protected void setException(Exception exception){
+  super.setException(exception);
+  this.dsiException=null;
+  cachedSendingException=null;
 }

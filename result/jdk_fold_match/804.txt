@@ -33,3 +33,5 @@ private void paintBackgroundPressed(Graphics2D g){
   g.setPaint(decodeGradient9(path));
   g.fill(path);
 }
+-->
+166.0 / 1340 = 0.12388059701492538

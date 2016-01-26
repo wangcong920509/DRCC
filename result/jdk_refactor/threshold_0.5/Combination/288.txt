@@ -1,20 +1,48 @@
-private RoundRectangle2D decodeRoundRect1(){
-  roundRect.setRoundRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.4f),3.7058823f,3.7058823f);
-  return roundRect;
+private static MenuElement nextEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i <= toIndex; i++) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
 }
 
-private RoundRectangle2D decodeRoundRect2(){
-  roundRect.setRoundRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.6f),3.764706f,3.764706f);
-  return roundRect;
+private static MenuElement previousEnabledChild(MenuElement e[],int fromIndex,int toIndex){
+  for (int i=fromIndex; i >= toIndex; i--) {
+    if (e[i] != null) {
+      Component comp=e[i].getComponent();
+      if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+        return e[i];
+      }
+    }
+  }
+  return null;
 }
 
 -->
-void decodeRoundRect1_decodeRoundRect2(int combFlag){
+void nextEnabledChild_previousEnabledChild(MenuElement e[],int fromIndex,int toIndex,MenuElement e[],int fromIndex,int toIndex,int combFlag){
   if (combFlag == 1) {
-    roundRect.setRoundRect(decodeX(0.4f),decodeY(0.4f),decodeX(2.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(0.4f),3.7058823f,3.7058823f);
+    for (int i=fromIndex; i <= toIndex; i++) {
+      if (e[i] != null) {
+        Component comp=e[i].getComponent();
+        if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+          return e[i];
+        }
+      }
+    }
   }
  else {
-    roundRect.setRoundRect(decodeX(0.6f),decodeY(0.6f),decodeX(2.4f) - decodeX(0.6f),decodeY(2.4f) - decodeY(0.6f),3.764706f,3.764706f);
+    for (int i=fromIndex; i >= toIndex; i--) {
+      if (e[i] != null) {
+        Component comp=e[i].getComponent();
+        if (comp != null && (comp.isEnabled() || UIManager.getBoolean("MenuItem.disabledAreNavigable")) && comp.isVisible()) {
+          return e[i];
+        }
+      }
+    }
   }
-  return roundRect;
+  return null;
 }

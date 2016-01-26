@@ -21,3 +21,5 @@ public KeyValue(Document doc,Element unknownKeyValue){
   this._constructionElement.appendChild(unknownKeyValue);
   XMLUtils.addReturnToElement(this._constructionElement);
 }
+-->
+48.0 / 104 = 0.46153846153846156

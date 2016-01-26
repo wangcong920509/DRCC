@@ -1,24 +1,18 @@
 /** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
+ * Given a node handle, find the owning document node.  This has the exact same semantics as the DOM Document method of the same name, in that if the nodeHandle is a document node, it will return NULL. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
+ * @param nodeHandle the id of the node.
+ * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
  */
-public static void sort(char[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public int getOwnerDocument(int nodeHandle){
+  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
+  return (nodeHandle & DOCHANDLE_MASK);
 }
 /** 
- * Sorts the specified range of the array into ascending order. The range to be sorted extends from the index  {@code fromIndex}, inclusive, to the index  {@code toIndex}, exclusive. If  {@code fromIndex == toIndex}, the range to be sorted is empty. <p>Implementation note: The sorting algorithm is a Dual-Pivot Quicksort by Vladimir Yaroslavskiy, Jon Bentley, and Joshua Bloch. This algorithm offers O(n log(n)) performance on many data sets that cause other quicksorts to degrade to quadratic performance, and is typically faster than traditional (one-pivot) Quicksort implementations.
- * @param a the array to be sorted
- * @param fromIndex the index of the first element, inclusive, to be sorted
- * @param toIndex the index of the last element, exclusive, to be sorted
- * @throws IllegalArgumentException if {@code fromIndex > toIndex}
- * @throws ArrayIndexOutOfBoundsException if  {@code fromIndex < 0} or {@code toIndex > a.length}
+ * Given a node handle, find the owning document node.  This has the DTM semantics; a Document node is its own owner. <p>%REVIEW% Since this is DOM-specific, it may belong at the DOM binding layer. Included here as a convenience function and to aid porting of DOM code to DTM.</p>
+ * @param nodeHandle the id of the node.
+ * @return int Node handle of owning document, or NULL if the nodeHandle isa document.
  */
-public static void sort(byte[] a,int fromIndex,int toIndex){
-  rangeCheck(a.length,fromIndex,toIndex);
-  DualPivotQuicksort.sort(a,fromIndex,toIndex - 1);
+public int getDocumentRoot(int nodeHandle){
+  if ((nodeHandle & NODEHANDLE_MASK) == 0)   return NULL;
+  return (nodeHandle & DOCHANDLE_MASK);
 }

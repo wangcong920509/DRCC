@@ -125,3 +125,5 @@ public final WritableRaster filter(Raster src,WritableRaster dst){
   }
   return dst;
 }
+-->
+136.0 / 3136 = 0.04336734693877551

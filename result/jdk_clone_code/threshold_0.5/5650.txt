@@ -1,0 +1,18 @@
+/** 
+ * Create a new TransformerException.
+ * @param message The error or warning message.
+ */
+public TransformerException(String message){
+  super(message);
+  this.containedException=null;
+  this.locator=null;
+}
+/** 
+ * Create a new TransformerException wrapping an existing exception.
+ * @param e The exception to be wrapped.
+ */
+public TransformerException(Throwable e){
+  super(e.toString());
+  this.containedException=e;
+  this.locator=null;
+}

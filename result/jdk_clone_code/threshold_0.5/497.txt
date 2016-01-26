@@ -1,14 +1,36 @@
 /** 
- * @see SerializationHandler#getWriter()
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
  */
-public Writer getWriter(){
-  aMethodIsCalled();
+public static Element selectDsNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (Constants.SignatureSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
   return null;
 }
 /** 
- * @see XSLOutputAttributes#getEncoding()
+ * @param sibling
+ * @param nodeName
+ * @param number
+ * @return nodes with the constrain
  */
-public String getEncoding(){
-  aMethodIsCalled();
+public static Element selectXencNode(Node sibling,String nodeName,int number){
+  while (sibling != null) {
+    if (EncryptionConstants.EncryptionSpecNS.equals(sibling.getNamespaceURI()) && sibling.getLocalName().equals(nodeName)) {
+      if (number == 0) {
+        return (Element)sibling;
+      }
+      number--;
+    }
+    sibling=sibling.getNextSibling();
+  }
   return null;
 }

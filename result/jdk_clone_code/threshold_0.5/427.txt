@@ -1,16 +1,19 @@
 /** 
- * Constructor SignatureProperties
- * @param doc
+ * Constructor XMLSecurityRuntimeException
+ * @param _originalException
  */
-public SignatureProperties(Document doc){
-  super(doc);
-  XMLUtils.addReturnToElement(this._constructionElement);
+public XMLSecurityRuntimeException(Exception _originalException){
+  super("Missing message ID to locate message string in resource bundle \"" + Constants.exceptionMessagesResourceBundleBase + "\". Original Exception was a "+ _originalException.getClass().getName()+ " and message "+ _originalException.getMessage());
+  this.originalException=_originalException;
 }
 /** 
- * Method addSignatureProperty
- * @param sp
+ * Constructor XMLSecurityRuntimeException
+ * @param _msgID
+ * @param exArgs
+ * @param _originalException
  */
-public void addSignatureProperty(SignatureProperty sp){
-  this._constructionElement.appendChild(sp.getElement());
-  XMLUtils.addReturnToElement(this._constructionElement);
+public XMLSecurityRuntimeException(String _msgID,Object exArgs[],Exception _originalException){
+  super(MessageFormat.format(I18n.getExceptionMessage(_msgID),exArgs));
+  this.msgID=_msgID;
+  this.originalException=_originalException;
 }

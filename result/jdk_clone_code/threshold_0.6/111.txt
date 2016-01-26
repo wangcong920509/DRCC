@@ -1,8 +1,14 @@
-HeapDoubleBufferR(double[] buf,int off,int len){
-  super(buf,off,len);
-  this.isReadOnly=true;
+/** 
+ * SAX2: Receive notification of a processing instruction.
+ */
+public void processingInstruction(String target,String data) throws SAXException {
+  super.processingInstruction(target,data);
+  handleTextEscaping();
 }
-protected HeapDoubleBufferR(double[] buf,int mark,int pos,int lim,int cap,int off){
-  super(buf,mark,pos,lim,cap,off);
-  this.isReadOnly=true;
+/** 
+ * SAX2: Report an XML comment anywhere in the document.
+ */
+public void comment(char[] ch,int start,int length) throws SAXException {
+  super.comment(ch,start,length);
+  handleTextEscaping();
 }

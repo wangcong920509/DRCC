@@ -1,22 +1,17 @@
 /** 
- * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
- * @see TraceDestination#send(int,int,String,String,String)
+ * Constructs a new <CODE>SnmpOid</CODE> from the specified component array.
+ * @param oidComponents The initialization component array.
  */
-public boolean send(int level,int type,String className,String methodName,String info){
-  if (isSelected(level,type)) {
-    getLogger(type).logp(getLevel(level),className,methodName,info);
-    return true;
-  }
-  return false;
+public SnmpOid(long[] oidComponents){
+  components=oidComponents.clone();
+  componentCount=components.length;
 }
 /** 
- * Note that the provided log type and log level have to be part of the enumerated values defined in class  {@link TraceTags}. Otherwise, nothing is logged.
- * @see TraceDestination#send(int,int,String,String,Throwable)
+ * Constructs a new <CODE>SnmpOid</CODE> containing one component with the specified value.
+ * @param id The initialization component value.
  */
-public boolean send(int level,int type,String className,String methodName,Throwable exception){
-  if (isSelected(level,type)) {
-    getLogger(type).log(getLevel(level),className + ": Exception occurred in " + methodName,exception);
-    return true;
-  }
-  return false;
+public SnmpOid(long id){
+  components=new long[1];
+  components[0]=id;
+  componentCount=components.length;
 }

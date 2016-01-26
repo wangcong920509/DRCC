@@ -24,3 +24,5 @@ private void painticonDisabledAndSelected(Graphics2D g){
   g.setPaint(decodeGradient19(ellipse));
   g.fill(ellipse);
 }
+-->
+117.0 / 675 = 0.17333333333333334

@@ -1,18 +1,16 @@
 /** 
  * Unimplemented. See org.w3c.dom.Node
- * @return null
+ * @return false
  */
-public NodeList getChildNodes(){
+public boolean hasChildNodes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }
 /** 
- * Unimplemented. See org.w3c.dom.Element
- * @param namespaceURI Namespace URI of attribute node to get
- * @param localName Local part of qualified name of attribute node to get
- * @return null
+ * Unimplemented. Introduced in DOM Level 2.
+ * @return false
  */
-public Attr getAttributeNodeNS(String namespaceURI,String localName){
+public boolean hasAttributes(){
   error(XMLErrorResources.ER_FUNCTION_NOT_SUPPORTED);
-  return null;
+  return false;
 }

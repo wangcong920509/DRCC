@@ -1,32 +1,36 @@
-/** 
- * Inserts the specified element at the front of this deque.
- * @param e the element to add
- * @return <tt>true</tt> (as specified by {@link Deque#offerFirst})
- * @throws NullPointerException if the specified element is null
- */
-public boolean offerFirst(E e){
-  addFirst(e);
-  return true;
+public static boolean isFilterableICM(ColorModel cm){
+  if (cm instanceof IndexColorModel) {
+    IndexColorModel icm=(IndexColorModel)cm;
+    if (icm.getMapSize() <= 256) {
+      return true;
+    }
+  }
+  return false;
 }
 
-/** 
- * Inserts the specified element at the end of this deque. <p>This method is equivalent to  {@link #addLast}.
- * @param e the element to add
- * @return <tt>true</tt> (as specified by {@link Collection#add})
- * @throws NullPointerException if the specified element is null
- */
-public boolean add(E e){
-  addLast(e);
-  return true;
+public static boolean isFilterableDCM(ColorModel cm){
+  if (cm instanceof DirectColorModel) {
+    DirectColorModel dcm=(DirectColorModel)cm;
+    return (isMaskOK(dcm.getAlphaMask(),true) && isMaskOK(dcm.getRedMask(),false) && isMaskOK(dcm.getGreenMask(),false)&& isMaskOK(dcm.getBlueMask(),false));
+  }
+  return false;
 }
 
 -->
-void offerFirst_add(E e,E e,int combFlag){
+void isFilterableICM_isFilterableDCM(ColorModel cm,ColorModel cm,int combFlag){
   if (combFlag == 1) {
-    addFirst(e);
+    if (cm instanceof IndexColorModel) {
+      IndexColorModel icm=(IndexColorModel)cm;
+      if (icm.getMapSize() <= 256) {
+        return true;
+      }
+    }
   }
  else {
-    addLast(e);
+    if (cm instanceof DirectColorModel) {
+      DirectColorModel dcm=(DirectColorModel)cm;
+      return (isMaskOK(dcm.getAlphaMask(),true) && isMaskOK(dcm.getRedMask(),false) && isMaskOK(dcm.getGreenMask(),false)&& isMaskOK(dcm.getBlueMask(),false));
+    }
   }
-  return true;
+  return false;
 }

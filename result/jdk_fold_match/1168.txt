@@ -70,3 +70,5 @@ private Image _getOffscreenBuffer(Component c,int proposedWidth,int proposedHeig
   }
   return result;
 }
+-->
+140.0 / 2658 = 0.0526711813393529

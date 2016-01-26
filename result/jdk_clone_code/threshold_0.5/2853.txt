@@ -1,21 +1,14 @@
-public LongBuffer get(long[] dst,int offset,int length){
-  if ((length << 3) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
-    checkBounds(offset,length,dst.length);
-    int pos=position();
-    int lim=limit();
-    assert(pos <= lim);
-    int rem=(pos <= lim ? lim - pos : 0);
-    if (length > rem)     throw new BufferUnderflowException();
-    if (order() != ByteOrder.nativeOrder())     Bits.copyToLongArray(ix(pos),dst,offset << 3,length << 3);
- else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 3,length << 3);
-    position(pos + length);
+private ByteBuffer putFloat(long a,float x){
+  if (unaligned) {
+    int y=Float.floatToRawIntBits(x);
+    unsafe.putInt(a,(nativeByteOrder ? y : Bits.swap(y)));
   }
  else {
-    super.get(dst,offset,length);
+    Bits.putFloat(a,x,bigEndian);
   }
   return this;
 }
-public LongBuffer put(int i,long x){
-  unsafe.putLong(ix(checkIndex(i)),((x)));
+public ByteBuffer putFloat(int i,float x){
+  putFloat(ix(checkIndex(i,(1 << 2))),x);
   return this;
 }

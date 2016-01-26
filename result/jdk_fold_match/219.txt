@@ -30,3 +30,5 @@ public static void drawGroove(Graphics g,int x,int y,int w,int h,Color shadow,Co
   g.translate(-x,-y);
   g.setColor(oldColor);
 }
+-->
+240.0 / 1702 = 0.1410105757931845

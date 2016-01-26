@@ -123,3 +123,5 @@ private void writeEND(long off,long len) throws IOException {
     writeShort(0);
   }
 }
+-->
+410.0 / 6682 = 0.06135887458844657

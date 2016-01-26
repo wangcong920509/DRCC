@@ -1,29 +1,21 @@
 /** 
- * Look up the index of an attribute by XML 1.0 qualified name.
- * @param qName The qualified (prefixed) name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * The end of the DTD external subset.
+ * @param augs Additional information that may include infosetaugmentations.
+ * @throws XNIException Thrown by handler to signal an error.
  */
-public int getIndex(String qName){
-  for (int i=0; i < fLength; i++) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.rawname != null && attribute.name.rawname.equals(qName)) {
-      return i;
-    }
-  }
-  return -1;
+public void endExternalSubset(Augmentations augs) throws XNIException {
+  fInDTDExternalSubset=false;
+  fBaseURIStack.pop();
 }
 /** 
- * Look up the index of an attribute by Namespace name. <p> <strong>Note:</strong> This method uses reference comparison, and thus should only be used internally. We cannot use this method in any code exposed to users as they may not pass in unique strings.
- * @param uri The Namespace URI, or null ifthe name has no Namespace URI.
- * @param localName The attribute's local name.
- * @return The index of the attribute, or -1 if it does notappear in the list.
+ * This method notifies the end of a parameter entity. Parameter entity names begin with a '%' character.
+ * @param name The name of the parameter entity.
+ * @param augs Additional information that may include infosetaugmentations.
+ * @throws XNIException Thrown by handler to signal an error.
  */
-public int getIndexFast(String uri,String localPart){
-  for (int i=0; i < fLength; ++i) {
-    Attribute attribute=fAttributes[i];
-    if (attribute.name.localpart == localPart && attribute.name.uri == uri) {
-      return i;
-    }
+public void endParameterEntity(String name,Augmentations augs) throws XNIException {
+  if (DEBUG_EVENTS) {
+    System.out.println("==>endParameterEntity: " + name);
   }
-  return -1;
+  fBaseURIStack.pop();
 }

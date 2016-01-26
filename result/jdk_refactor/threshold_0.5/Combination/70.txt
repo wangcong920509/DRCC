@@ -1,28 +1,35 @@
-public static String getAnnotation(Node node){
-  if (node instanceof ElementImpl) {
-    return ((ElementImpl)node).getAnnotation();
+/** 
+ * reset all common components before parsing
+ */
+protected void resetCommon() throws XNIException {
+  int count=fCommonComponents.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
+    c.reset(this);
   }
-  return null;
 }
 
-public static String getSyntheticAnnotation(Node node){
-  if (node instanceof ElementImpl) {
-    return ((ElementImpl)node).getSyntheticAnnotation();
+/** 
+ * reset all components before parsing and namespace context
+ */
+protected void resetXML11() throws XNIException {
+  int count=fXML11Components.size();
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fXML11Components.get(i);
+    c.reset(this);
   }
-  return null;
 }
 
 -->
-void getAnnotation_getSyntheticAnnotation(Node node,Node node,int combFlag){
+void resetCommon_resetXML11(int combFlag){
   if (combFlag == 1) {
-    if (node instanceof ElementImpl) {
-      return ((ElementImpl)node).getAnnotation();
-    }
+    int count=fCommonComponents.size();
   }
  else {
-    if (node instanceof ElementImpl) {
-      return ((ElementImpl)node).getSyntheticAnnotation();
-    }
+    int count=fXML11Components.size();
   }
-  return null;
+  for (int i=0; i < count; i++) {
+    XMLComponent c=(XMLComponent)fCommonComponents.get(i);
+    c.reset(this);
+  }
 }

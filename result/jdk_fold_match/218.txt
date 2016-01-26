@@ -31,3 +31,5 @@ public void setVisibleRowCount(int newCount){
     ((AccessibleJTree)accessibleContext).fireVisibleDataPropertyChange();
   }
 }
+-->
+70.0 / 238 = 0.29411764705882354

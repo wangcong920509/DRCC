@@ -1,98 +1,20 @@
-private static String getSystemProperty(final String name){
-  String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
-    public java.lang.Object run(){
-      return System.getProperty(name);
-    }
-  }
-);
-  return propValue;
+private Rectangle2D decodeRect2(){
+  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
+  return rect;
 }
 
-private static String getPropertyFromFile(final String name){
-  String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
-    private Properties getFileProperties(    String fileName){
-      try {
-        File propFile=new File(fileName);
-        if (!propFile.exists())         return null;
-        Properties props=new Properties();
-        FileInputStream fis=new FileInputStream(propFile);
-        try {
-          props.load(fis);
-        }
-  finally {
-          fis.close();
-        }
-        return props;
-      }
- catch (      Exception exc) {
-        return null;
-      }
-    }
-    public java.lang.Object run(){
-      String userHome=System.getProperty("user.home");
-      String fileName=userHome + File.separator + "orb.properties";
-      Properties props=getFileProperties(fileName);
-      if (props != null) {
-        String value=props.getProperty(name);
-        if (value != null)         return value;
-      }
-      String javaHome=System.getProperty("java.home");
-      fileName=javaHome + File.separator + "lib"+ File.separator+ "orb.properties";
-      props=getFileProperties(fileName);
-      if (props == null)       return null;
- else       return props.getProperty(name);
-    }
-  }
-);
-  return propValue;
+private Rectangle2D decodeRect3(){
+  rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
+  return rect;
 }
 
 -->
-void getSystemProperty_getPropertyFromFile(final String name,final String name,int combFlag){
+void decodeRect2_decodeRect3(int combFlag){
   if (combFlag == 1) {
-    String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
-      public java.lang.Object run(){
-        return System.getProperty(name);
-      }
-    }
-);
+    rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
   }
  else {
-    String propValue=(String)AccessController.doPrivileged(new PrivilegedAction(){
-      private Properties getFileProperties(      String fileName){
-        try {
-          File propFile=new File(fileName);
-          if (!propFile.exists())           return null;
-          Properties props=new Properties();
-          FileInputStream fis=new FileInputStream(propFile);
-          try {
-            props.load(fis);
-          }
-  finally {
-            fis.close();
-          }
-          return props;
-        }
- catch (        Exception exc) {
-          return null;
-        }
-      }
-      public java.lang.Object run(){
-        String userHome=System.getProperty("user.home");
-        String fileName=userHome + File.separator + "orb.properties";
-        Properties props=getFileProperties(fileName);
-        if (props != null) {
-          String value=props.getProperty(name);
-          if (value != null)           return value;
-        }
-        String javaHome=System.getProperty("java.home");
-        fileName=javaHome + File.separator + "lib"+ File.separator+ "orb.properties";
-        props=getFileProperties(fileName);
-        if (props == null)         return null;
- else         return props.getProperty(name);
-      }
-    }
-);
+    rect.setRect(decodeX(0.6f),decodeY(0.2f),decodeX(1.3333334f) - decodeX(0.6f),decodeY(0.4f) - decodeY(0.2f));
   }
-  return propValue;
+  return rect;
 }

@@ -63,3 +63,5 @@ private int paintSquares(Graphics g,int offsetX){
   g.translate(-((squareSize + squareGap) * 2),-(squareSize + squareGap));
   return (squareSize * 3 + squareGap * 2);
 }
+-->
+545.0 / 9757 = 0.05585733319667931

@@ -106,3 +106,5 @@ public static void translateDefaultDFS(ClassGenerator classGen,MethodGenerator m
   final int put=cpg.addMethodref(TRANSLET_CLASS,"addDecimalFormat","(" + STRING_SIG + DFS_SIG+ ")V");
   il.append(new INVOKEVIRTUAL(put));
 }
+-->
+665.0 / 4333 = 0.15347334410339256

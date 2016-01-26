@@ -1,14 +1,14 @@
 /** 
- * @see ExtendedContentHandler#getNamespaceMappings()
+ * @see SerializationHandler#asContentHandler()
  */
-public NamespaceMappings getNamespaceMappings(){
-  aMethodIsCalled();
+public ContentHandler asContentHandler() throws IOException {
+  couldThrowIOException();
   return null;
 }
 /** 
- * @see ExtendedContentHandler#getNamespaceURI(java.lang.String,boolean)
+ * @see XSLOutputAttributes#getMediaType()
  */
-public String getNamespaceURI(String name,boolean isElement){
+public String getMediaType(){
   aMethodIsCalled();
   return null;
 }

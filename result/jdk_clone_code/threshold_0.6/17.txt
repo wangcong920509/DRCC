@@ -1,21 +1,16 @@
 /** 
- * <p>Create a new MBeanServerAccessController that forwards all the MBeanServer requests to <code>mbs</code> after doing access checks based on read and write permissions.</p> <p>This instance is initialized from the specified properties file.</p>
- * @param accessFileName name of the file which denotes a propertiesfile on disk containing the username/access level entries.
- * @param mbs the MBeanServer object to which requests will be forwarded.
- * @exception IOException if the file does not exist, is adirectory rather than a regular file, or for some other reason cannot be opened for reading.
- * @exception IllegalArgumentException if any of the supplied accesslevel values differs from "readonly" or "readwrite".
+ * Get a Current pseudo-object. The Current interface is used to manage thread-specific information for use by the transactions, security and other services. This method is deprecated, and replaced by ORB.resolve_initial_references("NameOfCurrentObject");
+ * @return          a Current pseudo-object.
+ * @deprecated
  */
-public MBeanServerFileAccessController(String accessFileName,MBeanServer mbs) throws IOException {
-  this(accessFileName);
-  setMBeanServer(mbs);
+public synchronized org.omg.CORBA.Current get_current(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }
 /** 
- * <p>Create a new MBeanServerAccessController that forwards all the MBeanServer requests to the MBeanServer set by invoking the  {@link #setMBeanServer} method after doing access checks based on read andwrite permissions.</p> <p>This instance is initialized from the specified properties instance.  This constructor makes a copy of the properties instance and it is the copy that is consulted to check the username and access level of an incoming connection. The original properties object can be modified without affecting the copy. If the  {@link #refresh} method is then called, the<code>MBeanServerFileAccessController</code> will make a new copy of the properties object at that time.</p>
- * @param accessFileProps properties list containing the username/accesslevel entries.
- * @param mbs the MBeanServer object to which requests will be forwarded.
- * @exception IllegalArgumentException if <code>accessFileProps</code> is<code>null</code> or if any of the supplied access level values differs from "readonly" or "readwrite".
+ * This method does nothing. It is not required by the spec to do anything!
  */
-public MBeanServerFileAccessController(Properties accessFileProps,MBeanServer mbs) throws IOException {
-  this(accessFileProps);
-  setMBeanServer(mbs);
+public synchronized void perform_work(){
+  checkShutdownState();
+  throw wrapper.genericNoImpl();
 }

@@ -41,3 +41,5 @@ private int getInsertAt(long val){
   }
   return curr;
 }
+-->
+91.0 / 699 = 0.1301859799713877

@@ -24,3 +24,5 @@ void writeStyleStartTag() throws IOException {
   incrIndent();
   writeLineSeparator();
 }
+-->
+46.0 / 195 = 0.2358974358974359

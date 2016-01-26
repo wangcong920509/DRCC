@@ -49,3 +49,5 @@ void leftShift(int n){
   if (nBits <= (32 - bitsInHighWord))   primitiveLeftShift(nBits);
  else   primitiveRightShift(32 - nBits);
 }
+-->
+215.0 / 1153 = 0.18647007805724197

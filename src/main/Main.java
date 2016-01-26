@@ -39,6 +39,10 @@ public class Main {
 			mVisit.DEFI.setSrcName(tempFile);
 			result.accept(mVisit);			
 		}
+		System.out.println(mVisit.DEFI.mCount);
+		System.out.println(mVisit.DEFI.number);
+		System.out.println(mVisit.DEFI.mCount / mVisit.DEFI.number / 2);
+		
 		
 //		WARNING: THE FOLLOWING PART IS ONLY FOR DEBUGGING!
 		

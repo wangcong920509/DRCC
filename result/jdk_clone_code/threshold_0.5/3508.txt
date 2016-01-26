@@ -1,33 +1,23 @@
 /** 
- * Adds a <code>component</code> with a tab title defaulting to the name of the component which is the result of calling <code>component.getName</code>. Cover method for <code>insertTab</code>.
- * @param component the component to be displayed when this tab is clicked
- * @return the component
- * @see #insertTab
- * @see #removeTabAt
+ * Returns the tie (if any) for a given target object.
+ * @return the tie or null if no tie is registered for the given target.
  */
-public Component add(Component component){
-  if (!(component instanceof UIResource)) {
-    addTab(component.getName(),component);
+public static Tie getTie(Remote target){
+  if (utilDelegate != null) {
+    return utilDelegate.getTie(target);
   }
- else {
-    super.add(component);
-  }
-  return component;
+  return null;
 }
 /** 
- * Adds a <code>component</code> with the specified tab title. Cover method for <code>insertTab</code>.
- * @param title the title to be displayed in this tab
- * @param component the component to be displayed when this tab is clicked
- * @return the component
- * @see #insertTab
- * @see #removeTabAt
+ * Copies or connects an array of objects. Used by local stubs to copy any number of actual parameters, preserving sharing across parameters as necessary to support RMI semantics.
+ * @param obj the objects to copy or connect.
+ * @param orb the ORB.
+ * @return the copied or connected objects.
+ * @exception RemoteException if any object could not be copied or connected.
  */
-public Component add(String title,Component component){
-  if (!(component instanceof UIResource)) {
-    addTab(title,component);
+public static Object[] copyObjects(Object[] obj,ORB orb) throws RemoteException {
+  if (utilDelegate != null) {
+    return utilDelegate.copyObjects(obj,orb);
   }
- else {
-    super.add(title,component);
-  }
-  return component;
+  return null;
 }

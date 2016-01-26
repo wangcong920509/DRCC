@@ -1,17 +1,20 @@
 /** 
- * Constructs a InvocationTargetException with a target exception.
- * @param target the target exception
+ * Look for ConstantClass in ConstantPool named `str'.
+ * @param str String to search for
+ * @return index on success, -1 otherwise
  */
-public InvocationTargetException(Throwable target){
-  super((Throwable)null);
-  this.target=target;
+public int lookupClass(String str){
+  Index index=(Index)class_table.get(str.replace('.','/'));
+  return (index != null) ? index.index : -1;
 }
 /** 
- * Constructs a InvocationTargetException with a target exception and a detail message.
- * @param target the target exception
- * @param s      the detail message
+ * Look for ConstantFieldref in ConstantPool.
+ * @param class_name Where to find method
+ * @param field_name Guess what
+ * @param signature return and argument types
+ * @return index on success, -1 otherwise
  */
-public InvocationTargetException(Throwable target,String s){
-  super(s,null);
-  this.target=target;
+public int lookupFieldref(String class_name,String field_name,String signature){
+  Index index=(Index)cp_table.get(class_name + FIELDREF_DELIM + field_name+ FIELDREF_DELIM+ signature);
+  return (index != null) ? index.index : -1;
 }

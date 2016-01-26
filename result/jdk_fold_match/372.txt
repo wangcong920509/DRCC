@@ -21,3 +21,5 @@ private void painticonDisabledAndSelected(Graphics2D g){
   g.setPaint(color45);
   g.fill(path);
 }
+-->
+83.0 / 490 = 0.16938775510204082

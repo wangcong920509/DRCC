@@ -1,11 +1,24 @@
-public ShortBuffer put(int i,short x){
-  unsafe.putShort(ix(checkIndex(i)),((x)));
+public CharBuffer get(char[] dst,int offset,int length){
+  if ((length << 1) > Bits.JNI_COPY_TO_ARRAY_THRESHOLD) {
+    checkBounds(offset,length,dst.length);
+    int pos=position();
+    int lim=limit();
+    assert(pos <= lim);
+    int rem=(pos <= lim ? lim - pos : 0);
+    if (length > rem)     throw new BufferUnderflowException();
+    if (order() != ByteOrder.nativeOrder())     Bits.copyToCharArray(ix(pos),dst,offset << 1,length << 1);
+ else     Bits.copyToArray(ix(pos),dst,arrayBaseOffset,offset << 1,length << 1);
+    position(pos + length);
+  }
+ else {
+    super.get(dst,offset,length);
+  }
   return this;
 }
-public ShortBuffer put(ShortBuffer src){
-  if (src instanceof DirectShortBufferU) {
+public CharBuffer put(CharBuffer src){
+  if (src instanceof DirectCharBufferU) {
     if (src == this)     throw new IllegalArgumentException();
-    DirectShortBufferU sb=(DirectShortBufferU)src;
+    DirectCharBufferU sb=(DirectCharBufferU)src;
     int spos=sb.position();
     int slim=sb.limit();
     assert(spos <= slim);

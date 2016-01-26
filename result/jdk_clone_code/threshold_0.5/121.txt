@@ -1,19 +1,19 @@
 /** 
- * Look for ConstantString in ConstantPool containing String `str'.
- * @param str String to search for
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpValue</CODE> part associated with this <CODE>SnmpVarBind</CODE> with the specified value. The status is updated to indicate that the value is valid.
+ * @param val The new value.
  */
-public int lookupString(String str){
-  Index index=(Index)string_table.get(str);
-  return (index != null) ? index.index : -1;
+final public void setSnmpValue(SnmpValue val){
+  this.value=val;
+  setValueValid();
 }
 /** 
- * Look for ConstantNameAndType in ConstantPool.
- * @param name of variable/method
- * @param signature of variable/method
- * @return index on success, -1 otherwise
+ * Sets the <CODE>SnmpCounter64</CODE> value part associated with this <CODE>SnmpVarBind</CODE> with the specified counter 64 value. The status is updated to indicate that the value is valid.
+ * @param val The new counter 64 value.
+ * @exception IllegalArgumentException The specified value is negative or larger than <CODE>Long.MAX_VALUE</CODE>.
+ * @see SnmpCounter64
  */
-public int lookupNameAndType(String name,String signature){
-  Index index=(Index)n_a_t_table.get(name + NAT_DELIM + signature);
-  return (index != null) ? index.index : -1;
+final public void setSnmpCounter64Value(long val) throws IllegalArgumentException {
+  clearValue();
+  this.value=new SnmpCounter64(val);
+  setValueValid();
 }

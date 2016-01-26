@@ -21,3 +21,5 @@ private void paintBackgroundDisabledAndSelected(Graphics2D g){
   g.setPaint(decodeGradient14(roundRect));
   g.fill(roundRect);
 }
+-->
+98.0 / 478 = 0.20502092050209206

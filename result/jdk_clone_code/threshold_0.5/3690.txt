@@ -1,8 +1,23 @@
-private Rectangle2D decodeRect3(){
-  rect.setRect(decodeX(0.2f),decodeY(0.6f),decodeX(0.4f) - decodeX(0.2f),decodeY(0.8f) - decodeY(0.6f));
-  return rect;
+/** 
+ * Sets whether the table draws grid lines around cells. If <code>showGrid</code> is true it does; if it is false it doesn't. There is no <code>getShowGrid</code> method as this state is held in two variables -- <code>showHorizontalLines</code> and <code>showVerticalLines</code> -- each of which can be queried independently.
+ * @param showGrid                 true if table view should draw grid lines
+ * @see #setShowVerticalLines
+ * @see #setShowHorizontalLines
+ * @beaninfo description: The color used to draw the grid lines.
+ */
+public void setShowGrid(boolean showGrid){
+  setShowHorizontalLines(showGrid);
+  setShowVerticalLines(showGrid);
+  repaint();
 }
-private Rectangle2D decodeRect17(){
-  rect.setRect(decodeX(0.4f),decodeY(2.4f),decodeX(0.6f) - decodeX(0.4f),decodeY(2.6f) - decodeY(2.4f));
-  return rect;
+/** 
+ * Invoked when a column is repositioned. If a cell is being edited, then editing is stopped and the cell is redrawn. <p> Application code will not use these methods explicitly, they are used internally by JTable.
+ * @param e   the event received
+ * @see TableColumnModelListener
+ */
+public void columnMoved(TableColumnModelEvent e){
+  if (isEditing() && !getCellEditor().stopCellEditing()) {
+    getCellEditor().cancelCellEditing();
+  }
+  repaint();
 }

@@ -23,3 +23,5 @@ public void start_value(String rep_id){
   chunkedValueNestingLevel--;
   start_block();
 }
+-->
+86.0 / 640 = 0.134375

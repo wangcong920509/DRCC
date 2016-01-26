@@ -1,8 +1,15 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Sets the filter that determines which rows, if any, should be hidden from the view.  The filter is applied before sorting.  A value of <code>null</code> indicates all values from the model should be included. <p> <code>RowFilter</code>'s <code>include</code> method is passed an <code>Entry</code> that wraps the underlying model.  The number of columns in the <code>Entry</code> corresponds to the number of columns in the <code>ModelWrapper</code>.  The identifier comes from the <code>ModelWrapper</code> as well. <p> This method triggers a sort.
+ * @param filter the filter used to determine what entries should beincluded
+ */
+public void setRowFilter(RowFilter<? super M,? super I> filter){
+  this.filter=filter;
+  sort();
 }
-private Rectangle2D decodeRect22(){
-  rect.setRect(decodeX(0.2f),decodeY(0.0f),decodeX(3.0f) - decodeX(0.2f),decodeY(2.8f) - decodeY(0.0f));
-  return rect;
+/** 
+ * {@inheritDoc}
+ */
+public void allRowsChanged(){
+  modelRowCount=getModelWrapper().getRowCount();
+  sort();
 }

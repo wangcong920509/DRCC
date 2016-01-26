@@ -5,15 +5,15 @@ public int getLineNumber(){
   return -1;
 }
 
-public int getCharacterOffset(){
+public int getColumnNumber(){
   if (fLocation != null) {
-    return fLocation.getCharacterOffset();
+    return fLocation.getColumnNumber();
   }
   return -1;
 }
 
 -->
-void getLineNumber_getCharacterOffset(int combFlag){
+void getLineNumber_getColumnNumber(int combFlag){
   if (combFlag == 1) {
     if (fLocation != null) {
       return fLocation.getLineNumber();
@@ -21,7 +21,7 @@ void getLineNumber_getCharacterOffset(int combFlag){
   }
  else {
     if (fLocation != null) {
-      return fLocation.getCharacterOffset();
+      return fLocation.getColumnNumber();
     }
   }
   return -1;

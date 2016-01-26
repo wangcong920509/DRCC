@@ -1,22 +1,18 @@
 /** 
- * Constructor MissingResourceFailureException
- * @param _msgID
- * @param exArgs
- * @param reference
- * @see #getReference
+ * Put an integer expressed as a long with the specified tag.
+ * @param v The long to encode
+ * @param tag The tag to encode.
  */
-public MissingResourceFailureException(String _msgID,Object exArgs[],Reference reference){
-  super(_msgID,exArgs);
-  this.uninitializedReference=reference;
+public void putInteger(long v,int tag){
+  putIntegerValue(v);
+  putTag(tag);
 }
 /** 
- * Constructor MissingResourceFailureException
- * @param _msgID
- * @param _originalException
- * @param reference
- * @see #getReference
+ * Put an object identifier with a specified tag.
+ * @param s The integer to encode.
+ * @param tag The tag to encode.
  */
-public MissingResourceFailureException(String _msgID,Exception _originalException,Reference reference){
-  super(_msgID,_originalException);
-  this.uninitializedReference=reference;
+public void putOid(long[] s,int tag){
+  putOidValue(s);
+  putTag(tag);
 }

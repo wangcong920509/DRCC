@@ -1,34 +1,21 @@
 /** 
- * Adds a <code>component</code> with the specified tab title. Cover method for <code>insertTab</code>.
- * @param title the title to be displayed in this tab
- * @param component the component to be displayed when this tab is clicked
- * @return the component
- * @see #insertTab
- * @see #removeTabAt
+ * Returns a singleton instance of a class that implements the {@link ValueHandler} interface.
+ * @return a class which implements the ValueHandler interface.
  */
-public Component add(String title,Component component){
-  if (!(component instanceof UIResource)) {
-    addTab(title,component);
+public static ValueHandler createValueHandler(){
+  if (utilDelegate != null) {
+    return utilDelegate.createValueHandler();
   }
- else {
-    super.add(title,component);
-  }
-  return component;
+  return null;
 }
 /** 
- * Adds a <code>component</code> at the specified tab index with a tab title defaulting to the name of the component. Cover method for <code>insertTab</code>.
- * @param component the component to be displayed when this tab is clicked
- * @param index the position to insert this new tab
- * @return the component
- * @see #insertTab
- * @see #removeTabAt
+ * Returns the codebase, if any, for the given class.
+ * @param clz the class to get a codebase for.
+ * @return a space-separated list of URLs, or null.
  */
-public Component add(Component component,int index){
-  if (!(component instanceof UIResource)) {
-    insertTab(component.getName(),null,component,null,index == -1 ? getTabCount() : index);
+public static String getCodebase(java.lang.Class clz){
+  if (utilDelegate != null) {
+    return utilDelegate.getCodebase(clz);
   }
- else {
-    super.add(component,index);
-  }
-  return component;
+  return null;
 }

@@ -39,3 +39,5 @@ public void sendSAXcharacters(org.xml.sax.ContentHandler ch,int start,int length
     ch.characters(m_array[stopChunk],startColumn,stopColumn - startColumn);
   }
 }
+-->
+21.0 / 531 = 0.03954802259887006

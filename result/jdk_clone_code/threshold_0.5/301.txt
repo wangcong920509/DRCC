@@ -1,12 +1,8 @@
-public String getLiteralSystemId(){
-  if (fLocator != null) {
-    return fLocator.getSystemId();
-  }
-  return null;
+private Element getElementFromMap(Map<String,Element> registry,String declKey){
+  if (registry == null)   return null;
+  return registry.get(declKey);
 }
-public String getEncoding(){
-  if (fLocator2 != null) {
-    return fLocator2.getEncoding();
-  }
-  return null;
+private XSDocumentInfo getDocInfoFromMap(Map<String,XSDocumentInfo> registry,String declKey){
+  if (registry == null)   return null;
+  return registry.get(declKey);
 }

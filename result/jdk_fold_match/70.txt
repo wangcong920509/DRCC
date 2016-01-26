@@ -13,3 +13,5 @@ Token processNegativelookahead() throws ParseException {
   this.next();
   return tok;
 }
+-->
+78.0 / 262 = 0.29770992366412213

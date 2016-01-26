@@ -48,3 +48,5 @@ protected void QName() throws javax.xml.transform.TransformerException {
   m_ops.setOp(OpMap.MAPINDEX_LENGTH,m_ops.getOp(OpMap.MAPINDEX_LENGTH) + 1);
   nextToken();
 }
+-->
+224.0 / 1083 = 0.20683287165281625

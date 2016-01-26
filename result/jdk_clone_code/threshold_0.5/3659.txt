@@ -1,8 +1,56 @@
-private Rectangle2D decodeRect2(){
-  rect.setRect(decodeX(0.4f),decodeY(2.8f),decodeX(2.6f) - decodeX(0.4f),decodeY(3.0f) - decodeY(2.8f));
-  return rect;
+/** 
+ * Returns the <code>InputMap</code> to use for condition <code>condition</code>.  If the <code>InputMap</code> hasn't been created, and <code>create</code> is true, it will be created.
+ * @param condition one of the following values:<ul> <li>JComponent.FOCUS_INPUTMAP_CREATED <li>JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT <li>JComponent.WHEN_IN_FOCUSED_WINDOW </ul>
+ * @param create if true, create the <code>InputMap</code> if itis not already created
+ * @return the <code>InputMap</code> for the given <code>condition</code>;if <code>create</code> is false and the <code>InputMap</code> hasn't been created, returns <code>null</code>
+ * @exception IllegalArgumentException if <code>condition</code>is not one of the legal values listed above
+ */
+final InputMap getInputMap(int condition,boolean create){
+switch (condition) {
+case WHEN_FOCUSED:
+    if (getFlag(FOCUS_INPUTMAP_CREATED)) {
+      return focusInputMap;
+    }
+  if (create) {
+    InputMap km=new InputMap();
+    setInputMap(condition,km);
+    return km;
+  }
+break;
+case WHEN_ANCESTOR_OF_FOCUSED_COMPONENT:
+if (getFlag(ANCESTOR_INPUTMAP_CREATED)) {
+return ancestorInputMap;
 }
-private Rectangle2D decodeRect35(){
-  rect.setRect(decodeX(1.3333334f),decodeY(1.0f),decodeX(2.0f) - decodeX(1.3333334f),decodeY(1.1666666f) - decodeY(1.0f));
-  return rect;
+if (create) {
+InputMap km=new InputMap();
+setInputMap(condition,km);
+return km;
+}
+break;
+case WHEN_IN_FOCUSED_WINDOW:
+if (getFlag(WIF_INPUTMAP_CREATED)) {
+return windowInputMap;
+}
+if (create) {
+ComponentInputMap km=new ComponentInputMap(this);
+setInputMap(condition,km);
+return km;
+}
+break;
+default :
+throw new IllegalArgumentException("condition must be one of JComponent.WHEN_IN_FOCUSED_WINDOW, JComponent.WHEN_FOCUSED or JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT");
+}
+return null;
+}
+/** 
+ * Returns the top-level ancestor of this component (either the containing <code>Window</code> or <code>Applet</code>), or <code>null</code> if this component has not been added to any container.
+ * @return the top-level <code>Container</code> that this component is in,or <code>null</code> if not in any container
+ */
+public Container getTopLevelAncestor(){
+  for (Container p=this; p != null; p=p.getParent()) {
+    if (p instanceof Window || p instanceof Applet) {
+      return p;
+    }
+  }
+  return null;
 }

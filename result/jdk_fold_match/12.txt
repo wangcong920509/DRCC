@@ -95,3 +95,5 @@ private void write(boolean writeHeader,boolean writeTrailer,IIOMetadata sm,IIOIm
     writeTrailer();
   }
 }
+-->
+52.0 / 2017 = 0.025780862667327716

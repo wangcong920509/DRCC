@@ -1,12 +1,12 @@
-public String getPublicId(){
-  if (fLocator != null) {
-    return fLocator.getPublicId();
+public void addGlobalNotationDecl(XSNotationDecl decl,String location){
+  fGlobalNotationDeclsExt.put(((location != null) ? location : "") + "," + decl.fName,decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return null;
 }
-public String getXMLVersion(){
-  if (fLocator2 != null) {
-    return fLocator2.getXMLVersion();
+public void addGlobalComplexTypeDecl(XSComplexTypeDecl decl,String location){
+  fGlobalTypeDeclsExt.put(((location != null) ? location : "") + "," + decl.getName(),decl);
+  if (decl.getNamespaceItem() == null) {
+    decl.setNamespaceItem(this);
   }
-  return null;
 }
